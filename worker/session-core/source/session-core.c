@@ -16,7 +16,6 @@
 #include <session-core-type.h>
 #include <session-core-qos.h>
 
-#include <error-code.h>
 #include <module-code.h>
 #include <opcode.h>
 #include <logging.h>
@@ -367,12 +366,6 @@ session_core_finalize(SessionCore* self,
 
 
 
-void
-report_session_core_error(SessionCore* self,
-						  gchar* code)
-{
-	worker_log_output(code);
-}
 
 
 

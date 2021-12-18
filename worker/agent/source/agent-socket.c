@@ -14,7 +14,6 @@
 #include <agent-device.h>
 #include <agent-server.h>
 
-#include <error-code.h>
 #include <logging.h>
 #include <message-form.h>
 #include <global-var.h>

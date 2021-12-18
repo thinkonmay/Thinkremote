@@ -28,7 +28,6 @@
 #endif
 
 #include <logging.h>
-#include <error-code.h>
 #include <message-form.h>
 #include <global-var.h>
 #include <token-validate.h>

@@ -106,7 +106,7 @@ struct _HidInput
 
     gint wheel_dY;
 
-    HidOpcode opcode;
+    Win32Opcode opcode;
     gboolean relative;
 
     JsonObject* json;

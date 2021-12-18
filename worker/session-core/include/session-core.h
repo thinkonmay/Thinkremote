@@ -11,7 +11,6 @@
 #define __SESSION_CORE_H__
 
 #include <session-core-type.h>
-#include <error-code.h>
 #include <message-form.h>
 #include <human-interface-opcode.h>
 
@@ -77,16 +76,6 @@ StreamConfig*			session_core_get_qoe					(SessionCore* self);
  * @return SignallingHub* 
  */
 SignallingHub*	session_core_get_signalling_hub			(SessionCore* self);
-
-/**
- * @brief 
- * report session core error, 
- * this function will simply send the error message to cluster manager
- * @param self 
- * @param code 
- */
-void			report_session_core_error				(SessionCore* self,
-														 gchar* code);
 
 
 /**

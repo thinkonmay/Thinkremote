@@ -8,7 +8,7 @@ pkg_check_modules(LIBSOUP REQUIRED libsoup-2.4)
 
 
 file(GLOB SOURCE 
-${CMAKE_SOURCE_DIR}/agent/source/*.c 
+${CMAKE_SOURCE_DIR}/worker/agent/source/*.c 
 ${CMAKE_SOURCE_DIR}/shared-items/source/*.c)
 
 
@@ -22,11 +22,8 @@ set_target_properties(agent PROPERTIES
 
 target_include_directories(agent 
 PUBLIC
-    ${CMAKE_SOURCE_DIR}/agent/include
-	
-
-    
-    ${CMAKE_SOURCE_DIR}/shared-items/include
+    ${CMAKE_SOURCE_DIR}/worker/agent/include
+    ${SHARED_HEADER}
     ${LIBSOUP_INCLUDE_DIRS}
     ${GLIB_INCLUDE_DIRS} 
     ${GIO_INCLUDE_DIRS} 

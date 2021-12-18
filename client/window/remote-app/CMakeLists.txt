@@ -15,7 +15,7 @@ pkg_check_modules(VIDEO REQUIRED gstreamer-video-1.0)
 
 
 file(GLOB SOURCE_LIST 
-${CMAKE_SOURCE_DIR}/window/remote-app/source/*.c
+${CMAKE_SOURCE_DIR}/client/window/remote-app/source/*.c
 ${CMAKE_SOURCE_DIR}/shared-items/source/*.c
 )
 
@@ -27,8 +27,8 @@ add_executable(remote-app ${SOURCE_LIST})
 
 target_include_directories(remote-app 
 PUBLIC
-    ${CMAKE_SOURCE_DIR}/window/remote-app/include
-    ${CMAKE_SOURCE_DIR}/shared-items/include
+    ${CMAKE_SOURCE_DIR}/client/window/remote-app/include
+    ${SHARED_HEADER}
     ${LIBSOUP_INCLUDE_DIRS}
     ${GLIB_INCLUDE_DIRS} 
     ${GIO_INCLUDE_DIRS} 

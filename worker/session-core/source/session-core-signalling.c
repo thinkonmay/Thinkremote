@@ -15,7 +15,6 @@
 #include <session-core-type.h>
 
 #include <logging.h>
-#include <error-code.h>
 #include <signalling-message.h>
 #include <global-var.h>
 #include <development.h>
@@ -483,7 +482,7 @@ on_sdp_exchange(gchar* data,
 
     if (!json_object_has_member(child, "type"))
     {
-        report_session_core_error(core, SIGNALLING_ERROR);
+        worker_log_output("signalling error");
         return;
     }
 
@@ -538,7 +537,7 @@ on_server_message(SoupWebsocketConnection* conn,
     {
         case SOUP_WEBSOCKET_DATA_BINARY:
         {
-            report_session_core_error(core, UNKNOWN_MESSAGE);
+            worker_log_output("Unknown message");
             return;
         } 
         case SOUP_WEBSOCKET_DATA_TEXT: 
@@ -551,7 +550,7 @@ on_server_message(SoupWebsocketConnection* conn,
             break;
         }
         default:
-            report_session_core_error(core, UNKNOWN_MESSAGE);
+            worker_log_output("Unknown message");
     }
 
 

@@ -18,7 +18,6 @@
 #include <remote-app-input.h>
 
 #include <qoe.h>
-#include <platform-selection.h>
 
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>
@@ -193,7 +192,7 @@ handle_video_stream (GstPad * pad,
     Pipeline* pipeline = remote_app_get_pipeline(core);
 
     pipeline->video_element[VIDEO_CONVERT] = gst_element_factory_make ("videoconvert", NULL);
-    pipeline->video_element[VIDEO_SINK] = gst_element_factory_make (DEFAULT_VIDEO_SINK, NULL);
+    pipeline->video_element[VIDEO_SINK] = gst_element_factory_make ("d3d11videosink", NULL);
 
     gst_bin_add_many (GST_BIN (pipeline->pipeline),
         pipeline->video_element[VIDEO_CONVERT], 

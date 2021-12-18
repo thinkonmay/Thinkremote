@@ -16,7 +16,6 @@
 
 #include <logging.h>
 #include <message-form.h>
-#include <error-code.h>
 #include <agent-server.h>
 
 

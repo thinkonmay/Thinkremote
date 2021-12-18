@@ -13,7 +13,6 @@
 #include <agent-type.h>
 #include <agent-child-process.h>
 
-#include <error-code.h>
 #include <message-form.h>
 #include <general-constant.h>
 #include <global-var.h>
