@@ -1,0 +1,41 @@
+version: "3.3"
+    
+services:
+  # workermanager:
+  #   container_name: cluster_manager
+  #   image: pigeatgarlic/workermanager:2021-11-24
+  #   restart: unless-stopped
+  #   ports:
+  #     - "80:80"
+    
+  postgres:
+    container_name: cluster_database
+    image: postgres
+    environment:
+      POSTGRES_USER: cluster_manager
+      POSTGRES_PASSWORD: cluster_manager_password
+      PGDATA: /data/postgres
+    volumes:
+       - /home/clusterdb:/data/postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+  
+  pgadmin:
+    container_name: cluster_database_manager 
+    image: dpage/pgadmin4
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: huyhoangdo@thinkmay.net
+      PGADMIN_DEFAULT_PASSWORD: cluster_thinkmaypassword
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+  cache:
+    container_name: redis_cache
+    image: redis:latest
+    volumes:
+       - /home/cache:/data
+
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
