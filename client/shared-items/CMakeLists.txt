@@ -32,7 +32,7 @@ PUBLIC
 
 
 set_target_properties(shared-items PROPERTIES 
- RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
+ RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
 target_compile_options(shared-items PUBLIC ${GLIB_CFLAGS})
 target_compile_options(shared-items PUBLIC ${LIBSOUP_CFLAGS})

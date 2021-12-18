@@ -378,3 +378,9 @@ FodyWeavers.xsd
 bin/
 *.vcxproj
 .vscode/launch.json
+
+
+
+*.ps1
+*.txt
+remote-token
