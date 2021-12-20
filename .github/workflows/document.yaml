@@ -1,11 +1,11 @@
-name: CLIENT_PRODUCTION
+name: Documentation
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
-  build-service:
+  build:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
@@ -21,7 +21,7 @@ jobs:
       id: date
       run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
-    - name: ServicePage 
+    - name: Document
       uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
       with:
         context: .
