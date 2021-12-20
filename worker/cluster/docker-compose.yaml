@@ -3,7 +3,7 @@ version: "3.3"
 services:
   workermanager:
     container_name: cluster_manager
-    image: pigeatgarlic/workermanager:2021-12-09
+    image: pigeatgarlic/workermanager:2021-12-18
     environment:
       POSTGRES_USER: cluster_manager
       POSTGRES_PASSWORD: cluster_manager_password
@@ -14,7 +14,7 @@ services:
       - "5000:80"
 
   cluster-ui:
-    container_name: cluster_manager
+    container_name: cluster_ui
     image: pigeatgarlic/cluster-ui:2021-12-09
     restart: unless-stopped
     ports:
