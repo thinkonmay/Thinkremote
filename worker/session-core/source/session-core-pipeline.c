@@ -44,19 +44,14 @@ enum
     /*video encoder*/
 
     NVIDIA_H264_ENCODER,
-    NVIDIA_H265_ENCODER,
-    H264_MEDIA_FOUNDATION,
-    H265_MEDIA_FOUNDATION,
+    MEDIA_FOUNDATION_ENCODER,
 
     VP9_ENCODER,
     VP8_ENCODER,
 
 
     /*payload packetize*/
-    RTP_H264_PAYLOAD,
-    RTP_H265_PAYLOAD,
-    RTP_VP9_PAYLOAD,
-    RTP_VP8_PAYLOAD,
+    RTP_PAYLOAD,
 
     VIDEO_ELEMENT_LAST
 };
@@ -75,7 +70,6 @@ enum
 
     /*rtp packetize and queue*/
     RTP_OPUS_PAYLOAD,
-    RTP_RTX_QUEUE,
 
     AUDIO_ELEMENT_LAST
 };
@@ -195,9 +189,9 @@ setup_element_factory(SessionCore* core,
 
             pipe->audio_element[SOUND_SOURCE] = 
                 gst_bin_get_by_name(GST_BIN(pipe->pipeline), "audiocapsrc");
-            pipe->video_element[H264_MEDIA_FOUNDATION] = 
+            pipe->video_element[MEDIA_FOUNDATION_ENCODER] = 
                 gst_bin_get_by_name(GST_BIN(pipe->pipeline), "videoencoder");
-            pipe->video_element[RTP_H264_PAYLOAD] = 
+            pipe->video_element[RTP_PAYLOAD] = 
                 gst_bin_get_by_name(GST_BIN(pipe->pipeline), "rtp");
             pipe->video_element[DIRECTX_SCREEN_CAPTURE_SOURCE] = 
                 gst_bin_get_by_name(GST_BIN(pipe->pipeline), "screencap");
@@ -236,9 +230,9 @@ setup_element_factory(SessionCore* core,
 
             pipe->audio_element[SOUND_SOURCE] = 
                 gst_bin_get_by_name(GST_BIN(pipe->pipeline), "audiocapsrc");
-            pipe->video_element[H265_MEDIA_FOUNDATION] = 
+            pipe->video_element[MEDIA_FOUNDATION_ENCODER] = 
                 gst_bin_get_by_name(GST_BIN(pipe->pipeline), "videoencoder");
-            pipe->video_element[RTP_H265_PAYLOAD] = 
+            pipe->video_element[RTP_PAYLOAD] = 
                 gst_bin_get_by_name(GST_BIN(pipe->pipeline), "rtp");
             pipe->video_element[DIRECTX_SCREEN_CAPTURE_SOURCE] = 
                 gst_bin_get_by_name(GST_BIN(pipe->pipeline), "screencap");
@@ -277,7 +271,7 @@ setup_element_factory(SessionCore* core,
                 gst_bin_get_by_name(GST_BIN(pipe->pipeline), "audiocapsrc");
             pipe->video_element[VP9_ENCODER] = 
                 gst_bin_get_by_name(GST_BIN(pipe->pipeline), "videoencoder");
-            pipe->video_element[RTP_VP9_PAYLOAD] = 
+            pipe->video_element[RTP_PAYLOAD] = 
                 gst_bin_get_by_name(GST_BIN(pipe->pipeline), "rtp");
             pipe->video_element[DIRECTX_SCREEN_CAPTURE_SOURCE] = 
                 gst_bin_get_by_name(GST_BIN(pipe->pipeline), "screencap");
@@ -313,7 +307,7 @@ setup_element_factory(SessionCore* core,
                 gst_bin_get_by_name(GST_BIN(pipe->pipeline), "audiocapsrc");
             pipe->video_element[VP8_ENCODER] = 
                 gst_bin_get_by_name(GST_BIN(pipe->pipeline), "videoencoder");
-            pipe->video_element[RTP_VP8_PAYLOAD] =
+            pipe->video_element[RTP_PAYLOAD] =
                 gst_bin_get_by_name(GST_BIN(pipe->pipeline), "rtp");
             pipe->video_element[DIRECTX_SCREEN_CAPTURE_SOURCE] = 
                 gst_bin_get_by_name(GST_BIN(pipe->pipeline), "screencap");
@@ -351,9 +345,9 @@ setup_element_factory(SessionCore* core,
 
         pipe->audio_element[SOUND_SOURCE] = 
             gst_bin_get_by_name(GST_BIN(pipe->pipeline), "audiocapsrc");
-        pipe->video_element[H264_MEDIA_FOUNDATION] = 
+        pipe->video_element[MEDIA_FOUNDATION_ENCODER] = 
             gst_bin_get_by_name(GST_BIN(pipe->pipeline), "videoencoder");
-        pipe->video_element[RTP_H264_PAYLOAD] = 
+        pipe->video_element[RTP_PAYLOAD] = 
             gst_bin_get_by_name(GST_BIN(pipe->pipeline), "rtp");
         pipe->video_element[DIRECTX_SCREEN_CAPTURE_SOURCE] = 
             gst_bin_get_by_name(GST_BIN(pipe->pipeline), "screencap");
@@ -471,44 +465,25 @@ setup_element_property(SessionCore* core)
     if (pipe->video_element[NVIDIA_H264_ENCODER]) { g_object_set(pipe->video_element[NVIDIA_H264_ENCODER], "preset", "low-latency", NULL);}
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if (pipe->video_element[H264_MEDIA_FOUNDATION]) { g_object_set(pipe->video_element[H264_MEDIA_FOUNDATION], "rc-mode", 0, NULL);}
+    if (pipe->video_element[MEDIA_FOUNDATION_ENCODER]) { g_object_set(pipe->video_element[MEDIA_FOUNDATION_ENCODER], "rc-mode", 0, NULL); }
 
-    if (pipe->video_element[H264_MEDIA_FOUNDATION]) { g_object_set(pipe->video_element[H264_MEDIA_FOUNDATION], "quality-vs-speed", 100, NULL);}
-    
-    if (pipe->video_element[H264_MEDIA_FOUNDATION]) { g_object_set(pipe->video_element[H264_MEDIA_FOUNDATION], "low-latency", TRUE, NULL);}
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
-    
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if (pipe->video_element[H265_MEDIA_FOUNDATION]) { g_object_set(pipe->video_element[H265_MEDIA_FOUNDATION], "rc-mode", 0, NULL); }
+    if (pipe->video_element[MEDIA_FOUNDATION_ENCODER]) { g_object_set(pipe->video_element[MEDIA_FOUNDATION_ENCODER], "quality-vs-speed", 100, NULL); }
 
-    if (pipe->video_element[H265_MEDIA_FOUNDATION]) { g_object_set(pipe->video_element[H265_MEDIA_FOUNDATION], "quality-vs-speed", 100, NULL); }
+    if (pipe->video_element[MEDIA_FOUNDATION_ENCODER]) { g_object_set(pipe->video_element[MEDIA_FOUNDATION_ENCODER], "bitrate", 8000, NULL); }
 
-    if (pipe->video_element[H265_MEDIA_FOUNDATION]) { g_object_set(pipe->video_element[H265_MEDIA_FOUNDATION], "bitrate", 5000, NULL); }
-
-    if (pipe->video_element[H265_MEDIA_FOUNDATION]) { g_object_set(pipe->video_element[H265_MEDIA_FOUNDATION], "low-latency", TRUE, NULL); }
+    if (pipe->video_element[MEDIA_FOUNDATION_ENCODER]) { g_object_set(pipe->video_element[MEDIA_FOUNDATION_ENCODER], "low-latency", TRUE, NULL); }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if (pipe->video_element[RTP_H264_PAYLOAD]) { g_object_set(pipe->video_element[RTP_H264_PAYLOAD], "aggregate-mode", 1, NULL);}
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if (pipe->video_element[RTP_H265_PAYLOAD]) { g_object_set(pipe->video_element[RTP_H265_PAYLOAD], "aggregate-mode", 1, NULL); }
+    if (pipe->video_element[RTP_PAYLOAD]) { g_object_set(pipe->video_element[RTP_PAYLOAD], "aggregate-mode", 1, NULL);}
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if (pipe->audio_element[SOUND_SOURCE]) { g_object_set(pipe->audio_element[SOUND_SOURCE], "low-latency", TRUE, NULL);}
 
     if (pipe->audio_element[SOUND_SOURCE]) { g_object_set(pipe->audio_element[SOUND_SOURCE], "device", sound_capture_device_id, NULL);}
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if (pipe->audio_element[RTP_RTX_QUEUE]) { g_object_set(pipe->audio_element[RTP_RTX_QUEUE], "max-size-time", 16000000, NULL);}
-
-    if (pipe->audio_element[RTP_RTX_QUEUE]) { g_object_set(pipe->audio_element[RTP_RTX_QUEUE], "max-size-packet", 0, NULL);}
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     g_object_set(pipe->webrtcbin,"latency",0,NULL);
 }
@@ -546,7 +521,13 @@ setup_pipeline(SessionCore* core)
     setup_element_property(core);
 
 
-    gst_element_change_state(pipe->pipeline, GST_STATE_READY);
+    GstStateChangeReturn result = gst_element_change_state(pipe->pipeline, GST_STATE_READY);
+    if (result == GST_STATE_CHANGE_FAILURE)
+    {
+        GError error;
+        error.message = "Fail to start pipeline, this may due to pipeline setup failure";
+        session_core_finalize(core, &error);
+    }
     connect_data_channel_signals(core);
     start_pipeline(core);
 }
