@@ -99,14 +99,14 @@ qoe_setup(StreamConfig* qoe,
 		  Codec video_codec,
 		  QoEMode mode)
 {
+	display_setting_get_and_set(&qoe->screen_width,&qoe->screen_height);
 	
 	qoe->screen_width =  screen_width;
 	qoe->screen_height =  screen_height;
 
-	display_setting_get_and_set(&qoe->screen_width,&qoe->screen_height);
-
 	qoe->codec_audio = audio_codec;
 	qoe->codec_video = video_codec;
+
 	qoe->mode = mode;
 }
 
@@ -114,6 +114,27 @@ qoe_setup(StreamConfig* qoe,
 
 
 
+gint 
+qoe_get_video_bitrate(StreamConfig* qoe)
+{
+	switch (qoe->mode)
+	{
+	case ULTRA_LOW_CONST:
+		return 2000;
+	case LOW_CONST:
+		return 3000;
+	case MEDIUM_CONST:
+		return 4000;
+	case HIGH_CONST:
+		return 5000;
+	case VERY_HIGH_CONST:
+		return 6000;
+	case ULTRA_HIGH_CONST:
+		return 7000;
+	default:
+		return 5000;
+	}
+}
 
 
 

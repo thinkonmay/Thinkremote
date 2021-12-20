@@ -5,10 +5,11 @@
     <ROW Property="AI_CURRENT_YEAR" Value="2021" ValueLocId="-"/>
     <ROW Property="ALLUSERS" Value="1"/>
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
+    <ROW Property="ARPPRODUCTICON" Value="logo.exe" Type="8"/>
     <ROW Property="Manufacturer" Value="Thinkmay"/>
     <ROW Property="ProductCode" Value="1033:{31453BEB-5F7F-42CA-9E9A-85CF75AC2BC0} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
-    <ROW Property="ProductName" Value="ThinkmayServer"/>
+    <ROW Property="ProductName" Value="Personal-cloud-computing"/>
     <ROW Property="ProductVersion" Value="1.0.0" Type="32"/>
     <ROW Property="REBOOT" MultiBuildValue="x64_Release:ReallySuppress"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
@@ -31,17 +32,327 @@
     <ROW Directory="SHORTCUTDIR" Directory_Parent="TARGETDIR" DefaultDir="SHORTC~1|SHORTCUTDIR" IsPseudoRoot="1"/>
     <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
     <ROW Directory="Temp_Dir" Directory_Parent="APPDIR" DefaultDir="Temp"/>
+    <ROW Directory="__Dir" Directory_Parent="symlinked_Dir" DefaultDir="_"/>
+    <ROW Directory="aaa_1_Dir" Directory_Parent="ymodules_Dir" DefaultDir="aaa"/>
+    <ROW Directory="aaa_2_Dir" Directory_Parent="x_Dir" DefaultDir="aaa"/>
+    <ROW Directory="aaa_3_Dir" Directory_Parent="precedence_Dir" DefaultDir="aaa"/>
+    <ROW Directory="aaa_Dir" Directory_Parent="xmodules_Dir" DefaultDir="aaa"/>
+    <ROW Directory="abc_Dir" Directory_Parent="dotdot_Dir" DefaultDir="abc"/>
+    <ROW Directory="address_Dir" Directory_Parent="sideway_Dir" DefaultDir="address"/>
     <ROW Directory="agent_log_Dir" Directory_Parent="APPDIR" DefaultDir="AGENT_~1|agent_log"/>
+    <ROW Directory="ansistyles_Dir" Directory_Parent="node_modules_2_Dir" DefaultDir="ANSI-S~1|ansi-styles"/>
+    <ROW Directory="app_Dir" Directory_Parent="resources_Dir" DefaultDir="app"/>
+    <ROW Directory="assets_Dir" Directory_Parent="app_Dir" DefaultDir="assets"/>
+    <ROW Directory="async_Dir" Directory_Parent="node_modules_Dir" DefaultDir="async"/>
+    <ROW Directory="balancedmatch_Dir" Directory_Parent="node_modules_Dir" DefaultDir="BALANC~1|balanced-match"/>
+    <ROW Directory="base64js_Dir" Directory_Parent="node_modules_Dir" DefaultDir="BASE64~1|base64-js"/>
+    <ROW Directory="baz_Dir" Directory_Parent="resolver_Dir" DefaultDir="baz"/>
+    <ROW Directory="bbb_1_Dir" Directory_Parent="y_Dir" DefaultDir="bbb"/>
+    <ROW Directory="bbb_2_Dir" Directory_Parent="precedence_Dir" DefaultDir="bbb"/>
+    <ROW Directory="bbb_Dir" Directory_Parent="zmodules_Dir" DefaultDir="bbb"/>
+    <ROW Directory="bin_1_Dir" Directory_Parent="ejs_Dir" DefaultDir="bin"/>
+    <ROW Directory="bin_2_Dir" Directory_Parent="jake_Dir" DefaultDir="bin"/>
+    <ROW Directory="bin_3_Dir" Directory_Parent="shelljs_Dir" DefaultDir="bin"/>
     <ROW Directory="bin_Dir" Directory_Parent="APPDIR" DefaultDir="bin"/>
+    <ROW Directory="braceexpansion_Dir" Directory_Parent="node_modules_Dir" DefaultDir="BRACE-~1|brace-expansion"/>
+    <ROW Directory="browser_Dir" Directory_Parent="examples_Dir" DefaultDir="browser"/>
+    <ROW Directory="browser_field_Dir" Directory_Parent="resolver_Dir" DefaultDir="BROWSE~1|browser_field"/>
+    <ROW Directory="ccc_1_Dir" Directory_Parent="y_Dir" DefaultDir="ccc"/>
+    <ROW Directory="ccc_Dir" Directory_Parent="x_Dir" DefaultDir="ccc"/>
+    <ROW Directory="chalk_Dir" Directory_Parent="node_modules_2_Dir" DefaultDir="chalk"/>
+    <ROW Directory="colorconvert_Dir" Directory_Parent="node_modules_2_Dir" DefaultDir="COLOR-~1|color-convert"/>
+    <ROW Directory="colorname_Dir" Directory_Parent="node_modules_2_Dir" DefaultDir="COLOR-~2|color-name"/>
+    <ROW Directory="concatmap_Dir" Directory_Parent="node_modules_Dir" DefaultDir="CONCAT~1|concat-map"/>
+    <ROW Directory="config_Dir" Directory_Parent="src_2_Dir" DefaultDir="config"/>
+    <ROW Directory="debug_Dir" Directory_Parent="node_modules_1_Dir" DefaultDir="debug"/>
+    <ROW Directory="deep_ref_Dir" Directory_Parent="pathfilter_Dir" DefaultDir="deep_ref"/>
+    <ROW Directory="dist_1_Dir" Directory_Parent="plist_Dir" DefaultDir="dist"/>
+    <ROW Directory="dist_Dir" Directory_Parent="joi_Dir" DefaultDir="dist"/>
+    <ROW Directory="dot_main_Dir" Directory_Parent="resolver_Dir" DefaultDir="dot_main"/>
+    <ROW Directory="dot_slash_main_Dir" Directory_Parent="resolver_Dir" DefaultDir="DOT_SL~1|dot_slash_main"/>
+    <ROW Directory="dotdot_Dir" Directory_Parent="test_6_Dir" DefaultDir="dotdot"/>
+    <ROW Directory="ejs_Dir" Directory_Parent="node_modules_Dir" DefaultDir="ejs"/>
+    <ROW Directory="electronsquirrelstartup_Dir" Directory_Parent="node_modules_Dir" DefaultDir="ELECTR~1|electron-squirrel-startup"/>
+    <ROW Directory="escapestringregexp_Dir" Directory_Parent="node_modules_2_Dir" DefaultDir="ESCAPE~1|escape-string-regexp"/>
+    <ROW Directory="example_1_Dir" Directory_Parent="resolve_Dir" DefaultDir="example"/>
+    <ROW Directory="example_Dir" Directory_Parent="concatmap_Dir" DefaultDir="example"/>
+    <ROW Directory="examples_Dir" Directory_Parent="plist_Dir" DefaultDir="examples"/>
+    <ROW Directory="filelist_Dir" Directory_Parent="node_modules_Dir" DefaultDir="filelist"/>
+    <ROW Directory="foo_1_Dir" Directory_Parent="same_names_Dir" DefaultDir="foo"/>
+    <ROW Directory="foo_Dir" Directory_Parent="quux_Dir" DefaultDir="foo"/>
+    <ROW Directory="formula_Dir" Directory_Parent="sideway_Dir" DefaultDir="formula"/>
+    <ROW Directory="fs.realpath_Dir" Directory_Parent="node_modules_Dir" DefaultDir="FS~1.REA|fs.realpath"/>
+    <ROW Directory="functionbind_Dir" Directory_Parent="node_modules_Dir" DefaultDir="FUNCTI~1|function-bind"/>
+    <ROW Directory="github_Dir" Directory_Parent="balancedmatch_Dir" DefaultDir="GITHUB~1|.github"/>
+    <ROW Directory="glob_Dir" Directory_Parent="node_modules_Dir" DefaultDir="glob"/>
+    <ROW Directory="hapi_Dir" Directory_Parent="node_modules_Dir" DefaultDir="@hapi"/>
+    <ROW Directory="has_Dir" Directory_Parent="node_modules_Dir" DefaultDir="has"/>
+    <ROW Directory="hasflag_Dir" Directory_Parent="node_modules_2_Dir" DefaultDir="has-flag"/>
+    <ROW Directory="hoek_Dir" Directory_Parent="hapi_Dir" DefaultDir="hoek"/>
+    <ROW Directory="incorrect_main_Dir" Directory_Parent="resolver_Dir" DefaultDir="INCORR~1|incorrect_main"/>
+    <ROW Directory="inflight_Dir" Directory_Parent="node_modules_Dir" DefaultDir="inflight"/>
+    <ROW Directory="inherits_Dir" Directory_Parent="node_modules_Dir" DefaultDir="inherits"/>
+    <ROW Directory="integration_Dir" Directory_Parent="test_5_Dir" DefaultDir="INTEGR~1|integration"/>
+    <ROW Directory="interpret_Dir" Directory_Parent="node_modules_Dir" DefaultDir="INTERP~1|interpret"/>
+    <ROW Directory="invalid_main_Dir" Directory_Parent="resolver_Dir" DefaultDir="INVALI~1|invalid_main"/>
+    <ROW Directory="iscoremodule_Dir" Directory_Parent="node_modules_Dir" DefaultDir="IS-COR~1|is-core-module"/>
+    <ROW Directory="isdocker_Dir" Directory_Parent="node_modules_Dir" DefaultDir="IS-DOC~1|is-docker"/>
+    <ROW Directory="iswsl_Dir" Directory_Parent="node_modules_Dir" DefaultDir="is-wsl"/>
+    <ROW Directory="jake_Dir" Directory_Parent="node_modules_Dir" DefaultDir="jake"/>
+    <ROW Directory="jakelib_Dir" Directory_Parent="integration_Dir" DefaultDir="jakelib"/>
+    <ROW Directory="joi_Dir" Directory_Parent="node_modules_Dir" DefaultDir="joi"/>
+    <ROW Directory="lib_10_Dir" Directory_Parent="rechoir_Dir" DefaultDir="lib"/>
+    <ROW Directory="lib_11_Dir" Directory_Parent="resolve_Dir" DefaultDir="lib"/>
+    <ROW Directory="lib_12_Dir" Directory_Parent="other_path_Dir" DefaultDir="lib"/>
+    <ROW Directory="lib_13_Dir" Directory_Parent="winreg_Dir" DefaultDir="lib"/>
+    <ROW Directory="lib_14_Dir" Directory_Parent="xmlbuilder_Dir" DefaultDir="lib"/>
+    <ROW Directory="lib_1_Dir" Directory_Parent="topo_Dir" DefaultDir="lib"/>
+    <ROW Directory="lib_2_Dir" Directory_Parent="address_Dir" DefaultDir="lib"/>
+    <ROW Directory="lib_3_Dir" Directory_Parent="formula_Dir" DefaultDir="lib"/>
+    <ROW Directory="lib_4_Dir" Directory_Parent="pinpoint_Dir" DefaultDir="lib"/>
+    <ROW Directory="lib_5_Dir" Directory_Parent="async_Dir" DefaultDir="lib"/>
+    <ROW Directory="lib_6_Dir" Directory_Parent="ejs_Dir" DefaultDir="lib"/>
+    <ROW Directory="lib_7_Dir" Directory_Parent="jake_Dir" DefaultDir="lib"/>
+    <ROW Directory="lib_8_Dir" Directory_Parent="joi_Dir" DefaultDir="lib"/>
+    <ROW Directory="lib_9_Dir" Directory_Parent="plist_Dir" DefaultDir="lib"/>
+    <ROW Directory="lib_Dir" Directory_Parent="hoek_Dir" DefaultDir="lib"/>
+    <ROW Directory="linux_Dir" Directory_Parent="src_2_Dir" DefaultDir="linux"/>
+    <ROW Directory="locales_Dir" Directory_Parent="bin_Dir" DefaultDir="locales"/>
+    <ROW Directory="macos_Dir" Directory_Parent="src_2_Dir" DefaultDir="macos"/>
+    <ROW Directory="minimatch_Dir" Directory_Parent="node_modules_Dir" DefaultDir="MINIMA~1|minimatch"/>
+    <ROW Directory="module_dir_Dir" Directory_Parent="test_6_Dir" DefaultDir="MODULE~1|module_dir"/>
+    <ROW Directory="ms_Dir" Directory_Parent="node_modules_1_Dir" DefaultDir="ms"/>
+    <ROW Directory="multirepo_Dir" Directory_Parent="resolver_Dir" DefaultDir="MULTIR~1|multirepo"/>
+    <ROW Directory="mylib_Dir" Directory_Parent="nested_symlinks_Dir" DefaultDir="mylib"/>
+    <ROW Directory="nested_symlinks_Dir" Directory_Parent="resolver_Dir" DefaultDir="NESTED~1|nested_symlinks"/>
+    <ROW Directory="node_modules_1_Dir" Directory_Parent="electronsquirrelstartup_Dir" DefaultDir="NODE_M~1|node_modules"/>
+    <ROW Directory="node_modules_2_Dir" Directory_Parent="jake_Dir" DefaultDir="NODE_M~1|node_modules"/>
+    <ROW Directory="node_modules_3_Dir" Directory_Parent="__Dir" DefaultDir="NODE_M~1|node_modules"/>
+    <ROW Directory="node_modules_4_Dir" Directory_Parent="shadowed_core_Dir" DefaultDir="NODE_M~1|node_modules"/>
+    <ROW Directory="node_modules_Dir" Directory_Parent="app_Dir" DefaultDir="NODE_M~1|node_modules"/>
+    <ROW Directory="node_path_Dir" Directory_Parent="test_6_Dir" DefaultDir="NODE_P~1|node_path"/>
+    <ROW Directory="once_Dir" Directory_Parent="node_modules_Dir" DefaultDir="once"/>
+    <ROW Directory="other_path_Dir" Directory_Parent="resolver_Dir" DefaultDir="OTHER_~1|other_path"/>
+    <ROW Directory="package_Dir" Directory_Parent="symlinked_Dir" DefaultDir="package"/>
+    <ROW Directory="packagea_Dir" Directory_Parent="packages_Dir" DefaultDir="PACKAG~1|package-a"/>
+    <ROW Directory="packageb_Dir" Directory_Parent="packages_Dir" DefaultDir="PACKAG~2|package-b"/>
+    <ROW Directory="packages_Dir" Directory_Parent="multirepo_Dir" DefaultDir="packages"/>
+    <ROW Directory="pathfilter_Dir" Directory_Parent="test_6_Dir" DefaultDir="PATHFI~1|pathfilter"/>
+    <ROW Directory="pathisabsolute_Dir" Directory_Parent="node_modules_Dir" DefaultDir="PATH-I~1|path-is-absolute"/>
+    <ROW Directory="pathparse_Dir" Directory_Parent="node_modules_Dir" DefaultDir="PATH-P~1|path-parse"/>
+    <ROW Directory="pinpoint_Dir" Directory_Parent="sideway_Dir" DefaultDir="pinpoint"/>
+    <ROW Directory="plist_Dir" Directory_Parent="node_modules_Dir" DefaultDir="plist"/>
+    <ROW Directory="precedence_Dir" Directory_Parent="test_6_Dir" DefaultDir="PRECED~1|precedence"/>
+    <ROW Directory="protocolregistry_Dir" Directory_Parent="node_modules_Dir" DefaultDir="PROTOC~1|protocol-registry"/>
+    <ROW Directory="quux_Dir" Directory_Parent="resolver_Dir" DefaultDir="quux"/>
+    <ROW Directory="rechoir_Dir" Directory_Parent="node_modules_Dir" DefaultDir="rechoir"/>
+    <ROW Directory="resolve_Dir" Directory_Parent="node_modules_Dir" DefaultDir="resolve"/>
+    <ROW Directory="resolver_Dir" Directory_Parent="test_6_Dir" DefaultDir="resolver"/>
+    <ROW Directory="resources_Dir" Directory_Parent="bin_Dir" DefaultDir="RESOUR~1|resources"/>
+    <ROW Directory="same_names_Dir" Directory_Parent="resolver_Dir" DefaultDir="SAME_N~1|same_names"/>
+    <ROW Directory="shadowed_core_Dir" Directory_Parent="test_6_Dir" DefaultDir="SHADOW~1|shadowed_core"/>
+    <ROW Directory="shelljs_Dir" Directory_Parent="node_modules_Dir" DefaultDir="shelljs"/>
+    <ROW Directory="sideway_Dir" Directory_Parent="node_modules_Dir" DefaultDir="@sideway"/>
+    <ROW Directory="src_1_Dir" Directory_Parent="has_Dir" DefaultDir="src"/>
+    <ROW Directory="src_2_Dir" Directory_Parent="protocolregistry_Dir" DefaultDir="src"/>
+    <ROW Directory="src_3_Dir" Directory_Parent="shelljs_Dir" DefaultDir="src"/>
+    <ROW Directory="src_4_Dir" Directory_Parent="test_7_Dir" DefaultDir="src"/>
+    <ROW Directory="src_Dir" Directory_Parent="debug_Dir" DefaultDir="src"/>
+    <ROW Directory="support_Dir" Directory_Parent="async_Dir" DefaultDir="support"/>
+    <ROW Directory="supportscolor_Dir" Directory_Parent="node_modules_2_Dir" DefaultDir="SUPPOR~1|supports-color"/>
+    <ROW Directory="swiftshader_Dir" Directory_Parent="bin_Dir" DefaultDir="SWIFTS~1|swiftshader"/>
+    <ROW Directory="symlink_target_Dir" Directory_Parent="__Dir" DefaultDir="SYMLIN~1|symlink_target"/>
+    <ROW Directory="symlinked_Dir" Directory_Parent="resolver_Dir" DefaultDir="SYMLIN~1|symlinked"/>
+    <ROW Directory="task_Dir" Directory_Parent="lib_7_Dir" DefaultDir="task"/>
+    <ROW Directory="temp_Dir" Directory_Parent="protocolregistry_Dir" DefaultDir="temp"/>
+    <ROW Directory="templates_1_Dir" Directory_Parent="macos_Dir" DefaultDir="TEMPLA~1|templates"/>
+    <ROW Directory="templates_Dir" Directory_Parent="linux_Dir" DefaultDir="TEMPLA~1|templates"/>
+    <ROW Directory="test_1_Dir" Directory_Parent="electronsquirrelstartup_Dir" DefaultDir="test"/>
+    <ROW Directory="test_2_Dir" Directory_Parent="functionbind_Dir" DefaultDir="test"/>
+    <ROW Directory="test_3_Dir" Directory_Parent="has_Dir" DefaultDir="test"/>
+    <ROW Directory="test_4_Dir" Directory_Parent="iscoremodule_Dir" DefaultDir="test"/>
+    <ROW Directory="test_5_Dir" Directory_Parent="jake_Dir" DefaultDir="test"/>
+    <ROW Directory="test_6_Dir" Directory_Parent="resolve_Dir" DefaultDir="test"/>
+    <ROW Directory="test_7_Dir" Directory_Parent="winreg_Dir" DefaultDir="test"/>
+    <ROW Directory="test_Dir" Directory_Parent="concatmap_Dir" DefaultDir="test"/>
+    <ROW Directory="topo_Dir" Directory_Parent="hapi_Dir" DefaultDir="topo"/>
+    <ROW Directory="types_1_Dir" Directory_Parent="lib_8_Dir" DefaultDir="types"/>
+    <ROW Directory="types_Dir" Directory_Parent="chalk_Dir" DefaultDir="types"/>
+    <ROW Directory="unit_Dir" Directory_Parent="test_5_Dir" DefaultDir="unit"/>
+    <ROW Directory="util_Dir" Directory_Parent="node_modules_4_Dir" DefaultDir="util"/>
+    <ROW Directory="utils_1_Dir" Directory_Parent="src_2_Dir" DefaultDir="utils"/>
+    <ROW Directory="utils_Dir" Directory_Parent="lib_7_Dir" DefaultDir="utils"/>
+    <ROW Directory="validation_Dir" Directory_Parent="src_2_Dir" DefaultDir="VALIDA~1|validation"/>
+    <ROW Directory="windows_Dir" Directory_Parent="src_2_Dir" DefaultDir="windows"/>
+    <ROW Directory="winreg_Dir" Directory_Parent="node_modules_Dir" DefaultDir="winreg"/>
+    <ROW Directory="without_basedir_Dir" Directory_Parent="resolver_Dir" DefaultDir="WITHOU~1|without_basedir"/>
+    <ROW Directory="wrappy_Dir" Directory_Parent="node_modules_Dir" DefaultDir="wrappy"/>
+    <ROW Directory="x_Dir" Directory_Parent="node_path_Dir" DefaultDir="x"/>
+    <ROW Directory="xmlbuilder_Dir" Directory_Parent="node_modules_Dir" DefaultDir="XMLBUI~1|xmlbuilder"/>
+    <ROW Directory="xmldom_Dir" Directory_Parent="lib_9_Dir" DefaultDir="xmldom"/>
+    <ROW Directory="xmodules_Dir" Directory_Parent="module_dir_Dir" DefaultDir="xmodules"/>
+    <ROW Directory="y_Dir" Directory_Parent="node_path_Dir" DefaultDir="y"/>
+    <ROW Directory="ymodules_Dir" Directory_Parent="module_dir_Dir" DefaultDir="ymodules"/>
+    <ROW Directory="zmodules_Dir" Directory_Parent="module_dir_Dir" DefaultDir="zmodules"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
     <ROW Component="APPDIR" ComponentId="{6FC2F270-A62B-430B-A1E9-A34BAF05C8EE}" Directory_="APPDIR" Attributes="0"/>
+    <ROW Component="CHANGELOG" ComponentId="{AD5127DF-E928-40EB-8AF7-EB71FDA89433}" Directory_="interpret_Dir" Attributes="0" KeyPath="CHANGELOG" Type="0"/>
+    <ROW Component="CHANGELOG.md" ComponentId="{6BE735C8-6FA8-4D65-B488-4B0720A48395}" Directory_="colorconvert_Dir" Attributes="0" KeyPath="CHANGELOG.md_2" Type="0"/>
+    <ROW Component="CHANGELOG.md_1" ComponentId="{65CBA289-035F-41D5-AABF-D0853E633D86}" Directory_="shelljs_Dir" Attributes="0" KeyPath="CHANGELOG.md_3" Type="0"/>
+    <ROW Component="FUNDING.yml" ComponentId="{A132CCBD-C986-4BE1-A78A-44C6CFB69E6F}" Directory_="github_Dir" Attributes="0" KeyPath="FUNDING.yml" Type="0"/>
+    <ROW Component="LICENSE" ComponentId="{DFE4185F-27F4-4983-9BBA-AA5AA81163ED}" Directory_="minimatch_Dir" Attributes="0" KeyPath="LICENSE_24" Type="0"/>
+    <ROW Component="LICENSE.md" ComponentId="{40DFBC1A-CF85-4DEB-AC4F-7F64E33105E5}" Directory_="hoek_Dir" Attributes="0" KeyPath="LICENSE.md" Type="0"/>
+    <ROW Component="LICENSE.md_1" ComponentId="{FAD618CC-240C-487B-8855-325A261AAB24}" Directory_="topo_Dir" Attributes="0" KeyPath="LICENSE.md_1" Type="0"/>
+    <ROW Component="LICENSE.md_2" ComponentId="{54869F91-71C6-43D3-92EB-39C538A88134}" Directory_="address_Dir" Attributes="0" KeyPath="LICENSE.md_2" Type="0"/>
+    <ROW Component="LICENSE.md_3" ComponentId="{0C9ABC85-66D8-4870-AF57-9F1B2AC04845}" Directory_="formula_Dir" Attributes="0" KeyPath="LICENSE.md_3" Type="0"/>
+    <ROW Component="LICENSE.md_4" ComponentId="{556E45F1-156D-457E-9823-61C49E3DD839}" Directory_="pinpoint_Dir" Attributes="0" KeyPath="LICENSE.md_4" Type="0"/>
+    <ROW Component="LICENSE.md_5" ComponentId="{7801A61B-1DD0-4F07-8A1C-CBCF1FAB4104}" Directory_="joi_Dir" Attributes="0" KeyPath="LICENSE.md_7" Type="0"/>
+    <ROW Component="LICENSEMIT" ComponentId="{0E15F8D4-206E-4D23-8048-1E97E8A1CDF8}" Directory_="has_Dir" Attributes="0" KeyPath="LICENSEMIT" Type="0"/>
+    <ROW Component="LICENSE_1" ComponentId="{E5E52AB6-33B6-4F6A-9744-B87F93371D1F}" Directory_="once_Dir" Attributes="0" KeyPath="LICENSE_25" Type="0"/>
+    <ROW Component="LICENSE_2" ComponentId="{BFCAD0EE-CC98-4BEB-89EB-3534B874AF4A}" Directory_="wrappy_Dir" Attributes="0" KeyPath="LICENSE_33" Type="0"/>
     <ROW Component="ProductInformation" ComponentId="{B600F11C-0514-4B41-9CED-96BFE9C58AEE}" Directory_="APPDIR" Attributes="260" KeyPath="Version"/>
     <ROW Component="SHORTCUTDIR" ComponentId="{AF5F2DD7-0F2C-4AA4-8A70-D5545B7B9102}" Directory_="SHORTCUTDIR" Attributes="0"/>
+    <ROW Component="Squirrel.exe" ComponentId="{1477EEDF-3C22-4FA2-B750-73453E94C364}" Directory_="bin_Dir" Attributes="0" KeyPath="Squirrel.exe"/>
     <ROW Component="Temp" ComponentId="{20BED998-817B-4CD3-94AC-CEAB63A42E1E}" Directory_="Temp_Dir" Attributes="0"/>
+    <ROW Component="ThinkMay.exe" ComponentId="{F2E051BD-752C-4130-B048-6B0E756788D1}" Directory_="bin_Dir" Attributes="256" KeyPath="ThinkMay.exe"/>
+    <ROW Component="a.js" ComponentId="{1053E7EA-9197-4BF6-B159-14A35BD7000F}" Directory_="browser_field_Dir" Attributes="0" KeyPath="a.js" Type="0"/>
+    <ROW Component="aaa.js" ComponentId="{AB3B87E0-A416-4046-BA2D-F244BBB624C8}" Directory_="precedence_Dir" Attributes="0" KeyPath="aaa.js" Type="0"/>
     <ROW Component="agent.exe" ComponentId="{305D7BD1-F59D-4E81-B041-8A3E9033360B}" Directory_="bin_Dir" Attributes="256" KeyPath="agent.exe"/>
     <ROW Component="agent_log" ComponentId="{04CC02FE-CB0D-4AF4-9290-44A13E2F6294}" Directory_="agent_log_Dir" Attributes="0"/>
+    <ROW Component="alternatives.js" ComponentId="{8193F262-89C3-42D2-B817-F3D8F2607488}" Directory_="types_1_Dir" Attributes="0" KeyPath="alternatives.js" Type="0"/>
+    <ROW Component="am.pak" ComponentId="{DEFB52CC-61EE-4091-93AD-E23C50793C30}" Directory_="locales_Dir" Attributes="0" KeyPath="am.pak" Type="0"/>
+    <ROW Component="annotate.js" ComponentId="{DE46119D-C337-4F4F-81C4-33CF724BFCF1}" Directory_="lib_8_Dir" Attributes="0" KeyPath="annotate.js" Type="0"/>
+    <ROW Component="api.js" ComponentId="{0539F53B-EA07-482F-BB78-405E688A8E6B}" Directory_="lib_7_Dir" Attributes="0" KeyPath="api.js" Type="0"/>
+    <ROW Component="app.ejs" ComponentId="{70A4FB2E-1CB2-40D0-A057-CF199148A568}" Directory_="templates_1_Dir" Attributes="0" KeyPath="app.ejs" Type="0"/>
+    <ROW Component="applyToDefaults.js" ComponentId="{AE833EA3-3B39-472E-9168-253BD50560CF}" Directory_="lib_Dir" Attributes="0" KeyPath="applyToDefaults.js" Type="0"/>
+    <ROW Component="async.js" ComponentId="{DB5541C0-BB1D-42EB-B1A8-892251A9D769}" Directory_="lib_5_Dir" Attributes="0" KeyPath="async.js" Type="0"/>
+    <ROW Component="async.js_1" ComponentId="{4647395E-50BB-4CB5-BAAE-B53697474A21}" Directory_="example_1_Dir" Attributes="0" KeyPath="async.js_1" Type="0"/>
+    <ROW Component="async.js_2" ComponentId="{19A5F718-63E9-4EC4-9300-99554EA52EA7}" Directory_="lib_11_Dir" Attributes="0" KeyPath="async.js_2" Type="0"/>
+    <ROW Component="async.js_3" ComponentId="{9FD5F1E4-0C82-4439-8BE4-B59BED904144}" Directory_="mylib_Dir" Attributes="0" KeyPath="async.js_3" Type="0"/>
+    <ROW Component="bar.js" ComponentId="{223613A1-F9AA-433B-8666-D0BDD49A0FB2}" Directory_="package_Dir" Attributes="0" KeyPath="bar.js" Type="0"/>
+    <ROW Component="base64js.min.js" ComponentId="{C96532C0-5A5E-43AD-A031-9F67426413B3}" Directory_="base64js_Dir" Attributes="0" KeyPath="base64js.min.js" Type="0"/>
+    <ROW Component="bash_completion.sh" ComponentId="{8E11BAAD-7BF5-49A8-A634-95168BABB8CA}" Directory_="bin_2_Dir" Attributes="0" KeyPath="bash_completion.sh" Type="0"/>
+    <ROW Component="browser.js" ComponentId="{AB8BACD0-0D26-4741-88D9-BB6730F8E53E}" Directory_="src_Dir" Attributes="0" KeyPath="browser.js" Type="0"/>
+    <ROW Component="browser.js_1" ComponentId="{78435DD1-5A9B-400E-97AE-C0996A826C14}" Directory_="supportscolor_Dir" Attributes="0" KeyPath="browser.js_1" Type="0"/>
+    <ROW Component="build.js" ComponentId="{BB48204F-2BDF-4B82-8262-EDE61CB80CDC}" Directory_="lib_9_Dir" Attributes="0" KeyPath="build.js" Type="0"/>
+    <ROW Component="cat.js" ComponentId="{F50B5F57-A74D-4C6F-8188-68C23E5B5B92}" Directory_="src_3_Dir" Attributes="0" KeyPath="cat.js" Type="0"/>
+    <ROW Component="chrome_100_percent.pak" ComponentId="{BD9FFFEA-45D0-4D3F-9DFC-1138727FF858}" Directory_="bin_Dir" Attributes="0" KeyPath="chrome_100_percent.pak" Type="0"/>
+    <ROW Component="cli.js" ComponentId="{75A57F40-9AEF-44C7-BD69-632F56A89D1D}" Directory_="bin_1_Dir" Attributes="0" KeyPath="cli.js" Type="0"/>
+    <ROW Component="cli.js_1" ComponentId="{A08BFAF9-D835-4FCA-94C7-91118F932774}" Directory_="isdocker_Dir" Attributes="0" KeyPath="cli.js_1" Type="0"/>
+    <ROW Component="common.js" ComponentId="{307F029B-34A1-48FB-A3E7-A4D6A00D7009}" Directory_="glob_Dir" Attributes="0" KeyPath="common.js" Type="0"/>
+    <ROW Component="common.js_1" ComponentId="{CF8B58AF-7977-4CA6-B865-5B7898622B5A}" Directory_="validation_Dir" Attributes="0" KeyPath="common.js_2" Type="0"/>
+    <ROW Component="concurrent.jake.js" ComponentId="{A6445F58-5F5E-4089-B592-9F1CC501FB21}" Directory_="jakelib_Dir" Attributes="0" KeyPath="concurrent.jake.js" Type="0"/>
+    <ROW Component="concurrent.js" ComponentId="{7D0142ED-1B57-41AA-AB60-ECD7FD4FBD18}" Directory_="integration_Dir" Attributes="0" KeyPath="concurrent.js" Type="0"/>
+    <ROW Component="constants.js" ComponentId="{80D4A01E-DF5D-4AD2-A8AC-6B8753469402}" Directory_="config_Dir" Attributes="0" KeyPath="constants.js" Type="0"/>
+    <ROW Component="coveralls.yml" ComponentId="{3681EDB6-7187-40B7-8CE5-418D92711347}" Directory_="debug_Dir" Attributes="0" KeyPath="coveralls.yml" Type="0"/>
+    <ROW Component="cup.coffee" ComponentId="{AC2B0C1B-1F5A-41E0-A39B-3DB39D58C58E}" Directory_="resolver_Dir" Attributes="0" KeyPath="cup.coffee" Type="0"/>
+    <ROW Component="d3dcompiler_47.dll" ComponentId="{91D29E63-3DDE-4EB2-BDA5-5F8F35019B76}" Directory_="bin_Dir" Attributes="256" KeyPath="d3dcompiler_47.dll"/>
+    <ROW Component="decode.js" ComponentId="{52681563-673F-4A23-9C8A-B380AA86C63B}" Directory_="lib_2_Dir" Attributes="0" KeyPath="decode.js" Type="0"/>
+    <ROW Component="defaultAppExist.sh" ComponentId="{0DC5A631-4DCA-4B1A-B814-DEA93D145BC8}" Directory_="macos_Dir" Attributes="0" KeyPath="defaultAppExist.sh" Type="0"/>
+    <ROW Component="desktop.ejs" ComponentId="{435DA255-4636-4AB0-BEE5-1B95D0E86110}" Directory_="templates_Dir" Attributes="0" KeyPath="desktop.ejs" Type="0"/>
+    <ROW Component="directory_task.js" ComponentId="{11C957E2-668F-4FAB-A5D0-DB9448C2FC2F}" Directory_="task_Dir" Attributes="0" KeyPath="directory_task.js" Type="0"/>
+    <ROW Component="domparser.js" ComponentId="{647C0593-9064-4AB5-865F-A3BE765B66E5}" Directory_="xmldom_Dir" Attributes="0" KeyPath="domparser.js" Type="0"/>
+    <ROW Component="doom.js" ComponentId="{1DB840CF-01AD-4EE5-8130-DE9F2E93F69D}" Directory_="baz_Dir" Attributes="0" KeyPath="doom.js" Type="0"/>
+    <ROW Component="editorconfig" ComponentId="{47B1AA7E-47C0-45C2-B823-30F6F55022A6}" Directory_="functionbind_Dir" Attributes="0" KeyPath="editorconfig" Type="0"/>
+    <ROW Component="editorconfig_1" ComponentId="{1BBBE02B-3066-44A2-873F-78A00A41B2F8}" Directory_="resolve_Dir" Attributes="0" KeyPath="editorconfig_1" Type="0"/>
+    <ROW Component="ejs.js" ComponentId="{90C7F384-8B1E-4AB5-BB29-448A9090A7FC}" Directory_="ejs_Dir" Attributes="0" KeyPath="ejs.js" Type="0"/>
+    <ROW Component="ejs.js_1" ComponentId="{20E52D5B-9946-43AF-A757-B67DBCD65729}" Directory_="lib_6_Dir" Attributes="0" KeyPath="ejs.js_1" Type="0"/>
+    <ROW Component="eslintignore" ComponentId="{64429E23-2746-4530-B55E-8ABEC383E3FA}" Directory_="iscoremodule_Dir" Attributes="0" KeyPath="eslintignore" Type="0"/>
+    <ROW Component="eslintrc" ComponentId="{A0FC0C53-D62A-4ABC-A74D-4FC55ED163F7}" Directory_="electronsquirrelstartup_Dir" Attributes="0" KeyPath="eslintrc" Type="0"/>
+    <ROW Component="eslintrc.json" ComponentId="{E3F425F6-077F-42F0-9022-28DD3F9C551B}" Directory_="colorname_Dir" Attributes="0" KeyPath="eslintrc.json" Type="0"/>
+    <ROW Component="eslintrc_1" ComponentId="{3FF7FB4E-F2B3-4091-8B6B-AB4D367D3FB3}" Directory_="test_2_Dir" Attributes="0" KeyPath="eslintrc_3" Type="0"/>
+    <ROW Component="eslintrc_2" ComponentId="{66BA4C26-738E-4813-99BD-2CD7422F52CC}" Directory_="test_6_Dir" Attributes="0" KeyPath="eslintrc_6" Type="0"/>
+    <ROW Component="extension.js" ComponentId="{06D57383-8594-4828-A469-FC3BCAA1501A}" Directory_="lib_10_Dir" Attributes="0" KeyPath="extension.js" Type="0"/>
+    <ROW Component="ffmpeg.dll" ComponentId="{FE0FF6E5-E28B-431C-927C-67B568669D75}" Directory_="bin_Dir" Attributes="256" KeyPath="ffmpeg.dll"/>
+    <ROW Component="file.js" ComponentId="{C6A116DF-A442-43CC-8C3C-66E98DDA1F88}" Directory_="utils_Dir" Attributes="0" KeyPath="file.js" Type="0"/>
+    <ROW Component="foo.js" ComponentId="{7334628C-B2F1-41D1-B024-1939830B07DC}" Directory_="same_names_Dir" Attributes="0" KeyPath="foo.js_1" Type="0"/>
+    <ROW Component="foo.js_1" ComponentId="{A7D6E7C9-E45D-48DC-8043-339FDF7A0653}" Directory_="node_modules_3_Dir" Attributes="0" KeyPath="foo.js_2" Type="0"/>
+    <ROW Component="gitattributes" ComponentId="{0C6A0F1F-1C77-4E4D-908E-3AF3223F3A78}" Directory_="protocolregistry_Dir" Attributes="0" KeyPath="gitattributes" Type="0"/>
+    <ROW Component="gitkeep" ComponentId="{A8BC36F7-9B31-4B91-8165-0CB439580819}" Directory_="temp_Dir" Attributes="0" KeyPath="gitkeep" Type="0"/>
+    <ROW Component="gitkeep_1" ComponentId="{17BA467E-BD83-4E32-BD9C-1E8F6BC84352}" Directory_="symlink_target_Dir" Attributes="0" KeyPath="gitkeep_1" Type="0"/>
+    <ROW Component="index.d.ts" ComponentId="{41C47B68-6616-42EA-B0A3-ACDDCB2FD4DA}" Directory_="lib_1_Dir" Attributes="0" KeyPath="index.d.ts_1" Type="0"/>
+    <ROW Component="index.d.ts_1" ComponentId="{CD351FEE-71C3-4D8D-A668-0ED2926FC33D}" Directory_="lib_3_Dir" Attributes="0" KeyPath="index.d.ts_3" Type="0"/>
+    <ROW Component="index.d.ts_2" ComponentId="{24F83FE6-A9B6-473A-BE2F-2381C28EE51B}" Directory_="lib_4_Dir" Attributes="0" KeyPath="index.d.ts_4" Type="0"/>
+    <ROW Component="index.d.ts_3" ComponentId="{D2820B0D-B045-4680-8F72-AC02811C5CDD}" Directory_="filelist_Dir" Attributes="0" KeyPath="index.d.ts_6" Type="0"/>
+    <ROW Component="index.d.ts_4" ComponentId="{F4D4182C-1B77-416F-BA30-2A26E7272EE8}" Directory_="iswsl_Dir" Attributes="0" KeyPath="index.d.ts_8" Type="0"/>
+    <ROW Component="index.d.ts_5" ComponentId="{8FB7DDE5-2044-449D-99CC-16478417E3C0}" Directory_="types_Dir" Attributes="0" KeyPath="index.d.ts_9" Type="0"/>
+    <ROW Component="index.d.ts_6" ComponentId="{E36EBBF0-DE04-4080-A4BF-C9C66D31011C}" Directory_="src_2_Dir" Attributes="0" KeyPath="index.d.ts_11" Type="0"/>
+    <ROW Component="index.html" ComponentId="{72C36FB7-F58D-4D1A-8F7F-042B12191C22}" Directory_="browser_Dir" Attributes="0" KeyPath="index.html" Type="0"/>
+    <ROW Component="index.js" ComponentId="{75C7FE3B-0994-43EC-8B6B-552371D49A86}" Directory_="balancedmatch_Dir" Attributes="0" KeyPath="index.js_5" Type="0"/>
+    <ROW Component="index.js_1" ComponentId="{FB4FA350-FADC-4402-BE48-3B35BD0178E7}" Directory_="braceexpansion_Dir" Attributes="0" KeyPath="index.js_7" Type="0"/>
+    <ROW Component="index.js_10" ComponentId="{0A615962-407B-4F34-9692-0F42CCA04067}" Directory_="hasflag_Dir" Attributes="0" KeyPath="index.js_30" Type="0"/>
+    <ROW Component="index.js_11" ComponentId="{0BD2424C-68AE-430E-9E74-4B9DD3014863}" Directory_="pathisabsolute_Dir" Attributes="0" KeyPath="index.js_33" Type="0"/>
+    <ROW Component="index.js_12" ComponentId="{9005D512-0F87-4F24-838F-104B13580ED7}" Directory_="pathparse_Dir" Attributes="0" KeyPath="index.js_34" Type="0"/>
+    <ROW Component="index.js_13" ComponentId="{F53C68DE-3515-44B5-91A3-94468A9C3240}" Directory_="linux_Dir" Attributes="0" KeyPath="index.js_37" Type="0"/>
+    <ROW Component="index.js_14" ComponentId="{E6BCCB1F-3FE6-40E3-AF86-7A2B79677F9F}" Directory_="windows_Dir" Attributes="0" KeyPath="index.js_39" Type="0"/>
+    <ROW Component="index.js_15" ComponentId="{B9525AF4-FFAF-4906-8A01-95ABDD765148}" Directory_="abc_Dir" Attributes="0" KeyPath="index.js_42" Type="0"/>
+    <ROW Component="index.js_16" ComponentId="{D9FA18AD-5275-470C-B6B8-3B82188B825B}" Directory_="dotdot_Dir" Attributes="0" KeyPath="index.js_43" Type="0"/>
+    <ROW Component="index.js_17" ComponentId="{3CEAE41D-C859-42FB-8404-DD1B116777DA}" Directory_="aaa_Dir" Attributes="0" KeyPath="index.js_44" Type="0"/>
+    <ROW Component="index.js_18" ComponentId="{5B6F695B-513D-4726-952A-6BC8FACCBC5B}" Directory_="aaa_1_Dir" Attributes="0" KeyPath="index.js_45" Type="0"/>
+    <ROW Component="index.js_19" ComponentId="{730BBAA6-A354-4807-BE9E-4CB7684E1D82}" Directory_="aaa_2_Dir" Attributes="0" KeyPath="index.js_46" Type="0"/>
+    <ROW Component="index.js_2" ComponentId="{AECB1E9D-7386-4F64-AD01-308B4B3E0104}" Directory_="ms_Dir" Attributes="0" KeyPath="index.js_11" Type="0"/>
+    <ROW Component="index.js_20" ComponentId="{3D58DA76-2A92-4CC9-B011-2F7C0EAD4F12}" Directory_="ccc_Dir" Attributes="0" KeyPath="index.js_47" Type="0"/>
+    <ROW Component="index.js_21" ComponentId="{13E89D3B-BC50-4744-908D-2BB02D2E84CD}" Directory_="bbb_1_Dir" Attributes="0" KeyPath="index.js_48" Type="0"/>
+    <ROW Component="index.js_22" ComponentId="{D2FBA3CA-27AD-4CAF-8EA8-1A4F25BFAF4B}" Directory_="ccc_1_Dir" Attributes="0" KeyPath="index.js_49" Type="0"/>
+    <ROW Component="index.js_23" ComponentId="{C8C0AB91-6586-4CCB-AA89-53A4947CF86E}" Directory_="aaa_3_Dir" Attributes="0" KeyPath="index.js_50" Type="0"/>
+    <ROW Component="index.js_24" ComponentId="{113EF90F-30B5-4B02-B700-1D9085C324A8}" Directory_="dot_main_Dir" Attributes="0" KeyPath="index.js_51" Type="0"/>
+    <ROW Component="index.js_25" ComponentId="{0B980C0D-6227-482D-BD58-508CDF520FA6}" Directory_="dot_slash_main_Dir" Attributes="0" KeyPath="index.js_52" Type="0"/>
+    <ROW Component="index.js_26" ComponentId="{4502A8B9-CF4B-4D77-BA89-38E711D9783C}" Directory_="incorrect_main_Dir" Attributes="0" KeyPath="index.js_53" Type="0"/>
+    <ROW Component="index.js_27" ComponentId="{CB1FA948-8165-4E92-B62B-9B9D3CA23BB1}" Directory_="packagea_Dir" Attributes="0" KeyPath="index.js_54" Type="0"/>
+    <ROW Component="index.js_28" ComponentId="{5A09427B-FDE8-4170-ADE8-ACF0769D0B89}" Directory_="packageb_Dir" Attributes="0" KeyPath="index.js_55" Type="0"/>
+    <ROW Component="index.js_29" ComponentId="{712317CF-3EF4-4AF4-A1D0-D43CE3E1CE2B}" Directory_="foo_Dir" Attributes="0" KeyPath="index.js_56" Type="0"/>
+    <ROW Component="index.js_3" ComponentId="{91D31917-69FF-407D-8896-363DF597DA28}" Directory_="fs.realpath_Dir" Attributes="0" KeyPath="index.js_13" Type="0"/>
+    <ROW Component="index.js_30" ComponentId="{0A08A695-CD1C-4C8C-9BAB-550D01F7C244}" Directory_="foo_1_Dir" Attributes="0" KeyPath="index.js_57" Type="0"/>
+    <ROW Component="index.js_31" ComponentId="{9ABE8B75-BEBE-4BEC-9DC8-0FF833C6F37F}" Directory_="util_Dir" Attributes="0" KeyPath="index.js_58" Type="0"/>
+    <ROW Component="index.js_32" ComponentId="{DB0A5B5E-62DB-4B34-8FA2-3D0630431114}" Directory_="src_4_Dir" Attributes="0" KeyPath="index.js_59" Type="0"/>
+    <ROW Component="index.js_33" ComponentId="{6B73EBC1-5B47-47D5-A331-A32136312B37}" Directory_="lib_14_Dir" Attributes="0" KeyPath="index.js_60" Type="0"/>
+    <ROW Component="index.js_4" ComponentId="{EE620ED5-E5C8-4BC9-AE26-7022D3BC1497}" Directory_="src_1_Dir" Attributes="0" KeyPath="index.js_16" Type="0"/>
+    <ROW Component="index.js_5" ComponentId="{DC2417AC-B9DC-4E2E-91B2-1AC8A7806ED9}" Directory_="test_3_Dir" Attributes="0" KeyPath="index.js_17" Type="0"/>
+    <ROW Component="index.js_6" ComponentId="{9AC1566F-9C77-4416-920F-F0A6AC3F7C2D}" Directory_="test_4_Dir" Attributes="0" KeyPath="index.js_20" Type="0"/>
+    <ROW Component="index.js_7" ComponentId="{5A6337BF-2CA5-45EF-AF25-217665AFB478}" Directory_="ansistyles_Dir" Attributes="0" KeyPath="index.js_25" Type="0"/>
+    <ROW Component="index.js_8" ComponentId="{7CAC86BB-DF3D-4F18-9478-E0B11FBC6EEE}" Directory_="chalk_Dir" Attributes="0" KeyPath="index.js_26" Type="0"/>
+    <ROW Component="index.js_9" ComponentId="{D713EB21-02B8-4A6B-9FB8-9E1017CF95D5}" Directory_="escapestringregexp_Dir" Attributes="0" KeyPath="index.js_29" Type="0"/>
+    <ROW Component="index.test.js" ComponentId="{434501B8-597D-4312-A664-9B21322695BA}" Directory_="test_1_Dir" Attributes="0" KeyPath="index.test.js" Type="0"/>
+    <ROW Component="inflight.js" ComponentId="{3E921832-1CB4-423B-8FD9-2AA0CE117CCE}" Directory_="inflight_Dir" Attributes="0" KeyPath="inflight.js" Type="0"/>
+    <ROW Component="inherits.js" ComponentId="{7CFE78AF-89A9-4952-A2D7-D761ECCBA45C}" Directory_="inherits_Dir" Attributes="0" KeyPath="inherits.js" Type="0"/>
+    <ROW Component="jakefile.js" ComponentId="{4DDF0280-A05E-46EB-827C-BF5F1602A7E2}" Directory_="jake_Dir" Attributes="0" KeyPath="jakefile.js_2" Type="0"/>
+    <ROW Component="jakefile.js_1" ComponentId="{49ED4494-19FD-44F9-9BD4-24FFAC84472C}" Directory_="unit_Dir" Attributes="0" KeyPath="jakefile.js_4" Type="0"/>
+    <ROW Component="joibrowser.min.js" ComponentId="{3BDC9BFA-B392-4D97-A515-883CC41DF021}" Directory_="dist_Dir" Attributes="0" KeyPath="joibrowser.min.js" Type="0"/>
+    <ROW Component="jshintrc" ComponentId="{1F14F115-F5F4-47AA-A6D3-3466C6164DC8}" Directory_="plist_Dir" Attributes="0" KeyPath="jshintrc" Type="0"/>
+    <ROW Component="lerna.json" ComponentId="{7F09640A-E632-46DB-A7D6-1F1C53A794A0}" Directory_="multirepo_Dir" Attributes="0" KeyPath="lerna.json" Type="0"/>
+    <ROW Component="libEGL.dll" ComponentId="{48F097EF-F89D-4CFE-B0E7-A67A49558BE9}" Directory_="bin_Dir" Attributes="256" KeyPath="libEGL.dll"/>
+    <ROW Component="libEGL.dll_1" ComponentId="{CEEE569A-3A40-4EF9-A6A8-7C478F1413E2}" Directory_="swiftshader_Dir" Attributes="256" KeyPath="libEGL.dll_1"/>
+    <ROW Component="libGLESv2.dll" ComponentId="{AE4CC043-1114-4423-97BA-92DBAD9C5E07}" Directory_="bin_Dir" Attributes="256" KeyPath="libGLESv2.dll"/>
+    <ROW Component="libGLESv2.dll_1" ComponentId="{FCFC60BE-2262-4753-88CD-C0C5A4D1126E}" Directory_="swiftshader_Dir" Attributes="256" KeyPath="libGLESv2.dll_1"/>
+    <ROW Component="logo.ico" ComponentId="{47BDA91F-3228-4433-A320-9F9F0B337BBA}" Directory_="assets_Dir" Attributes="0" KeyPath="logo.ico" Type="0"/>
+    <ROW Component="main.js" ComponentId="{FB56606C-E19A-4852-99E4-B4D75A338270}" Directory_="app_Dir" Attributes="0" KeyPath="main.js" Type="0"/>
+    <ROW Component="main.js_1" ComponentId="{CDA90ECE-99FD-402E-9B22-974A1F3CE5DE}" Directory_="bbb_Dir" Attributes="0" KeyPath="main.js_1" Type="0"/>
+    <ROW Component="main.js_2" ComponentId="{9A2D7E04-ED1A-4262-8B33-431BB96F1E1B}" Directory_="deep_ref_Dir" Attributes="0" KeyPath="main.js_2" Type="0"/>
+    <ROW Component="main.js_3" ComponentId="{48D4D6F9-98A1-49D3-AE75-18098F00AE7A}" Directory_="bbb_2_Dir" Attributes="0" KeyPath="main.js_4" Type="0"/>
+    <ROW Component="main.js_4" ComponentId="{7195E3C6-0FF3-49AE-8370-EA01DB18327C}" Directory_="without_basedir_Dir" Attributes="0" KeyPath="main.js_5" Type="0"/>
+    <ROW Component="map.js" ComponentId="{5FFCA4B3-B2F9-4C8F-8D14-36F7C4497658}" Directory_="example_Dir" Attributes="0" KeyPath="map.js" Type="0"/>
+    <ROW Component="map.js_1" ComponentId="{28C40DC9-D585-4207-98B1-C36D030164EF}" Directory_="test_Dir" Attributes="0" KeyPath="map.js_1" Type="0"/>
+    <ROW Component="mocha.opts" ComponentId="{332FA654-BE3E-4B0D-89F6-9E3BE14FF83B}" Directory_="test_7_Dir" Attributes="0" KeyPath="mocha.opts_1" Type="0"/>
+    <ROW Component="npmignore" ComponentId="{273D45BA-33B6-4D84-92B4-02084FD5B070}" Directory_="rechoir_Dir" Attributes="0" KeyPath="npmignore_4" Type="0"/>
+    <ROW Component="npmignore_1" ComponentId="{F9B67787-0484-4425-857F-DC05CF274C92}" Directory_="winreg_Dir" Attributes="0" KeyPath="npmignore_5" Type="0"/>
+    <ROW Component="npmignore_2" ComponentId="{C78D765F-5555-4225-8563-C0296EE99D61}" Directory_="xmlbuilder_Dir" Attributes="0" KeyPath="npmignore_6" Type="0"/>
+    <ROW Component="otherlib.js" ComponentId="{086ACB0F-E73D-4AA1-8246-8E78FBD5F061}" Directory_="lib_12_Dir" Attributes="0" KeyPath="otherlib.js" Type="0"/>
+    <ROW Component="package.json" ComponentId="{DD88183D-B1BE-4011-AD93-E97DBAD10452}" Directory_="invalid_main_Dir" Attributes="0" KeyPath="package.json_48" Type="0"/>
+    <ROW Component="packagelock.json" ComponentId="{145B9022-FD15-4AAD-8AFA-DE87F550C4D1}" Directory_="node_modules_Dir" Attributes="0" KeyPath="packagelock.json" Type="0"/>
+    <ROW Component="plistbuild.js" ComponentId="{1C728BA2-099F-446D-8257-59F315C10908}" Directory_="dist_1_Dir" Attributes="0" KeyPath="plistbuild.js" Type="0"/>
+    <ROW Component="processCommand.js" ComponentId="{0C9AC819-8BE4-4E0C-8AF2-25848784E6B2}" Directory_="utils_1_Dir" Attributes="0" KeyPath="processCommand.js" Type="0"/>
+    <ROW Component="registry.js" ComponentId="{B9AF4566-3C9C-47B6-B3A6-690E28B457C8}" Directory_="lib_13_Dir" Attributes="0" KeyPath="registry.js" Type="0"/>
+    <ROW Component="remoteapp.exe" ComponentId="{92D0893C-8EA4-42A6-AC36-EB6894779BC1}" Directory_="bin_Dir" Attributes="256" KeyPath="remoteapp.exe"/>
+    <ROW Component="root.js" ComponentId="{6B2A6B4A-FB68-4FF8-94E7-D7C2AB1D2FD3}" Directory_="other_path_Dir" Attributes="0" KeyPath="root.js" Type="0"/>
     <ROW Component="sessioncore.exe" ComponentId="{0E4FE15D-E784-4801-B1B8-761827B7A136}" Directory_="bin_Dir" Attributes="256" KeyPath="sessioncore.exe"/>
+    <ROW Component="shjs" ComponentId="{55D746D1-618D-4E1A-ACC1-FE093C2B7F37}" Directory_="bin_3_Dir" Attributes="0" KeyPath="shjs" Type="0"/>
+    <ROW Component="syncpackagemanagers.js" ComponentId="{A1D6116F-0DC2-4A95-A07B-5E7AFF862F0F}" Directory_="support_Dir" Attributes="0" KeyPath="syncpackagemanagers.js" Type="0"/>
+    <ROW Component="travis.yml" ComponentId="{6408503D-BA34-47F9-A01E-1D56A9195D87}" Directory_="async_Dir" Attributes="0" KeyPath="travis.yml" Type="0"/>
+    <ROW Component="travis.yml_1" ComponentId="{C303CB90-7D70-4CFE-AE32-35BCDD03253D}" Directory_="concatmap_Dir" Attributes="0" KeyPath="travis.yml_1" Type="0"/>
+    <ROW Component="videotesting.exe" ComponentId="{CAFF0FF8-1C98-4C61-B04E-50EE1FFB79C0}" Directory_="bin_Dir" Attributes="256" KeyPath="videotesting.exe"/>
+    <ROW Component="vk_swiftshader.dll" ComponentId="{40DA9325-A6E5-4B0F-8267-916B1EC688E0}" Directory_="bin_Dir" Attributes="256" KeyPath="vk_swiftshader.dll"/>
+    <ROW Component="vulkan1.dll" ComponentId="{A50B92FE-805E-4708-837F-EF14F1F8DD07}" Directory_="bin_Dir" Attributes="256" KeyPath="vulkan1.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
     <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0"/>
@@ -52,6 +363,642 @@
     <ROW File="agent.pdb" Component_="agent.exe" FileName="agent.pdb" Attributes="0" SourcePath="..\bin\agent.pdb" SelfReg="false"/>
     <ROW File="sessioncore.exe" Component_="sessioncore.exe" FileName="SESSIO~1.EXE|session-core.exe" Attributes="0" SourcePath="..\bin\session-core.exe" SelfReg="false" DigSign="true"/>
     <ROW File="sessioncore.pdb" Component_="sessioncore.exe" FileName="SESSIO~1.PDB|session-core.pdb" Attributes="0" SourcePath="..\bin\session-core.pdb" SelfReg="false"/>
+    <ROW File="chrome_100_percent.pak" Component_="chrome_100_percent.pak" FileName="CHROME~1.PAK|chrome_100_percent.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\chrome_100_percent.pak" SelfReg="false"/>
+    <ROW File="chrome_200_percent.pak" Component_="chrome_100_percent.pak" FileName="CHROME~2.PAK|chrome_200_percent.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\chrome_200_percent.pak" SelfReg="false"/>
+    <ROW File="d3dcompiler_47.dll" Component_="d3dcompiler_47.dll" FileName="D3DCOM~1.DLL|d3dcompiler_47.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\d3dcompiler_47.dll" SelfReg="false"/>
+    <ROW File="ffmpeg.dll" Component_="ffmpeg.dll" FileName="ffmpeg.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\ffmpeg.dll" SelfReg="false"/>
+    <ROW File="icudtl.dat" Component_="chrome_100_percent.pak" FileName="icudtl.dat" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\icudtl.dat" SelfReg="false"/>
+    <ROW File="libEGL.dll" Component_="libEGL.dll" FileName="libEGL.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\libEGL.dll" SelfReg="false"/>
+    <ROW File="libGLESv2.dll" Component_="libGLESv2.dll" FileName="LIBGLE~1.DLL|libGLESv2.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\libGLESv2.dll" SelfReg="false"/>
+    <ROW File="LICENSE" Component_="chrome_100_percent.pak" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\LICENSE" SelfReg="false"/>
+    <ROW File="LICENSES.chromium.html" Component_="chrome_100_percent.pak" FileName="LICENS~1.HTM|LICENSES.chromium.html" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\LICENSES.chromium.html" SelfReg="false"/>
+    <ROW File="resources.pak" Component_="chrome_100_percent.pak" FileName="RESOUR~1.PAK|resources.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources.pak" SelfReg="false"/>
+    <ROW File="snapshot_blob.bin" Component_="chrome_100_percent.pak" FileName="SNAPSH~1.BIN|snapshot_blob.bin" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\snapshot_blob.bin" SelfReg="false"/>
+    <ROW File="Squirrel.exe" Component_="Squirrel.exe" FileName="Squirrel.exe" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\Squirrel.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="ThinkMay.exe" Component_="ThinkMay.exe" FileName="ThinkMay.exe" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\ThinkMay.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="v8_context_snapshot.bin" Component_="chrome_100_percent.pak" FileName="V8_CON~1.BIN|v8_context_snapshot.bin" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\v8_context_snapshot.bin" SelfReg="false"/>
+    <ROW File="version" Component_="chrome_100_percent.pak" FileName="version" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\version" SelfReg="false"/>
+    <ROW File="vk_swiftshader.dll" Component_="vk_swiftshader.dll" FileName="VK_SWI~1.DLL|vk_swiftshader.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\vk_swiftshader.dll" SelfReg="false"/>
+    <ROW File="vk_swiftshader_icd.json" Component_="chrome_100_percent.pak" FileName="VK_SWI~1.JSO|vk_swiftshader_icd.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\vk_swiftshader_icd.json" SelfReg="false"/>
+    <ROW File="vulkan1.dll" Component_="vulkan1.dll" FileName="vulkan-1.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\vulkan-1.dll" SelfReg="false"/>
+    <ROW File="am.pak" Component_="am.pak" FileName="am.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\am.pak" SelfReg="false"/>
+    <ROW File="ar.pak" Component_="am.pak" FileName="ar.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\ar.pak" SelfReg="false"/>
+    <ROW File="bg.pak" Component_="am.pak" FileName="bg.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\bg.pak" SelfReg="false"/>
+    <ROW File="bn.pak" Component_="am.pak" FileName="bn.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\bn.pak" SelfReg="false"/>
+    <ROW File="ca.pak" Component_="am.pak" FileName="ca.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\ca.pak" SelfReg="false"/>
+    <ROW File="cs.pak" Component_="am.pak" FileName="cs.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\cs.pak" SelfReg="false"/>
+    <ROW File="da.pak" Component_="am.pak" FileName="da.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\da.pak" SelfReg="false"/>
+    <ROW File="de.pak" Component_="am.pak" FileName="de.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\de.pak" SelfReg="false"/>
+    <ROW File="el.pak" Component_="am.pak" FileName="el.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\el.pak" SelfReg="false"/>
+    <ROW File="enGB.pak" Component_="am.pak" FileName="en-GB.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\en-GB.pak" SelfReg="false"/>
+    <ROW File="enUS.pak" Component_="am.pak" FileName="en-US.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\en-US.pak" SelfReg="false"/>
+    <ROW File="es419.pak" Component_="am.pak" FileName="es-419.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\es-419.pak" SelfReg="false"/>
+    <ROW File="es.pak" Component_="am.pak" FileName="es.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\es.pak" SelfReg="false"/>
+    <ROW File="et.pak" Component_="am.pak" FileName="et.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\et.pak" SelfReg="false"/>
+    <ROW File="fa.pak" Component_="am.pak" FileName="fa.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\fa.pak" SelfReg="false"/>
+    <ROW File="fi.pak" Component_="am.pak" FileName="fi.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\fi.pak" SelfReg="false"/>
+    <ROW File="fil.pak" Component_="am.pak" FileName="fil.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\fil.pak" SelfReg="false"/>
+    <ROW File="fr.pak" Component_="am.pak" FileName="fr.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\fr.pak" SelfReg="false"/>
+    <ROW File="gu.pak" Component_="am.pak" FileName="gu.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\gu.pak" SelfReg="false"/>
+    <ROW File="he.pak" Component_="am.pak" FileName="he.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\he.pak" SelfReg="false"/>
+    <ROW File="hi.pak" Component_="am.pak" FileName="hi.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\hi.pak" SelfReg="false"/>
+    <ROW File="hr.pak" Component_="am.pak" FileName="hr.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\hr.pak" SelfReg="false"/>
+    <ROW File="hu.pak" Component_="am.pak" FileName="hu.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\hu.pak" SelfReg="false"/>
+    <ROW File="id.pak" Component_="am.pak" FileName="id.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\id.pak" SelfReg="false"/>
+    <ROW File="it.pak" Component_="am.pak" FileName="it.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\it.pak" SelfReg="false"/>
+    <ROW File="ja.pak" Component_="am.pak" FileName="ja.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\ja.pak" SelfReg="false"/>
+    <ROW File="kn.pak" Component_="am.pak" FileName="kn.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\kn.pak" SelfReg="false"/>
+    <ROW File="ko.pak" Component_="am.pak" FileName="ko.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\ko.pak" SelfReg="false"/>
+    <ROW File="lt.pak" Component_="am.pak" FileName="lt.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\lt.pak" SelfReg="false"/>
+    <ROW File="lv.pak" Component_="am.pak" FileName="lv.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\lv.pak" SelfReg="false"/>
+    <ROW File="ml.pak" Component_="am.pak" FileName="ml.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\ml.pak" SelfReg="false"/>
+    <ROW File="mr.pak" Component_="am.pak" FileName="mr.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\mr.pak" SelfReg="false"/>
+    <ROW File="ms.pak" Component_="am.pak" FileName="ms.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\ms.pak" SelfReg="false"/>
+    <ROW File="nb.pak" Component_="am.pak" FileName="nb.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\nb.pak" SelfReg="false"/>
+    <ROW File="nl.pak" Component_="am.pak" FileName="nl.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\nl.pak" SelfReg="false"/>
+    <ROW File="pl.pak" Component_="am.pak" FileName="pl.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\pl.pak" SelfReg="false"/>
+    <ROW File="ptBR.pak" Component_="am.pak" FileName="pt-BR.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\pt-BR.pak" SelfReg="false"/>
+    <ROW File="ptPT.pak" Component_="am.pak" FileName="pt-PT.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\pt-PT.pak" SelfReg="false"/>
+    <ROW File="ro.pak" Component_="am.pak" FileName="ro.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\ro.pak" SelfReg="false"/>
+    <ROW File="ru.pak" Component_="am.pak" FileName="ru.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\ru.pak" SelfReg="false"/>
+    <ROW File="sk.pak" Component_="am.pak" FileName="sk.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\sk.pak" SelfReg="false"/>
+    <ROW File="sl.pak" Component_="am.pak" FileName="sl.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\sl.pak" SelfReg="false"/>
+    <ROW File="sr.pak" Component_="am.pak" FileName="sr.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\sr.pak" SelfReg="false"/>
+    <ROW File="sv.pak" Component_="am.pak" FileName="sv.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\sv.pak" SelfReg="false"/>
+    <ROW File="sw.pak" Component_="am.pak" FileName="sw.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\sw.pak" SelfReg="false"/>
+    <ROW File="ta.pak" Component_="am.pak" FileName="ta.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\ta.pak" SelfReg="false"/>
+    <ROW File="te.pak" Component_="am.pak" FileName="te.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\te.pak" SelfReg="false"/>
+    <ROW File="th.pak" Component_="am.pak" FileName="th.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\th.pak" SelfReg="false"/>
+    <ROW File="tr.pak" Component_="am.pak" FileName="tr.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\tr.pak" SelfReg="false"/>
+    <ROW File="uk.pak" Component_="am.pak" FileName="uk.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\uk.pak" SelfReg="false"/>
+    <ROW File="vi.pak" Component_="am.pak" FileName="vi.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\vi.pak" SelfReg="false"/>
+    <ROW File="zhCN.pak" Component_="am.pak" FileName="zh-CN.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\zh-CN.pak" SelfReg="false"/>
+    <ROW File="zhTW.pak" Component_="am.pak" FileName="zh-TW.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\zh-TW.pak" SelfReg="false"/>
+    <ROW File="logo.ico" Component_="logo.ico" FileName="logo.ico" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\assets\logo.ico" SelfReg="false"/>
+    <ROW File="logo.png" Component_="logo.ico" FileName="logo.png" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\assets\logo.png" SelfReg="false"/>
+    <ROW File="logo_thinkmay.png" Component_="logo.ico" FileName="LOGO_T~1.PNG|logo_thinkmay.png" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\assets\logo_thinkmay.png" SelfReg="false"/>
+    <ROW File="main.js" Component_="main.js" FileName="main.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\main.js" SelfReg="false"/>
+    <ROW File="packagelock.json" Component_="packagelock.json" FileName="PACKAG~1.JSO|.package-lock.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\.package-lock.json" SelfReg="false"/>
+    <ROW File="applyToDefaults.js" Component_="applyToDefaults.js" FileName="APPLYT~1.JS|applyToDefaults.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\applyToDefaults.js" SelfReg="false"/>
+    <ROW File="assert.js" Component_="applyToDefaults.js" FileName="assert.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\assert.js" SelfReg="false"/>
+    <ROW File="bench.js" Component_="applyToDefaults.js" FileName="bench.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\bench.js" SelfReg="false"/>
+    <ROW File="block.js" Component_="applyToDefaults.js" FileName="block.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\block.js" SelfReg="false"/>
+    <ROW File="clone.js" Component_="applyToDefaults.js" FileName="clone.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\clone.js" SelfReg="false"/>
+    <ROW File="contain.js" Component_="applyToDefaults.js" FileName="contain.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\contain.js" SelfReg="false"/>
+    <ROW File="deepEqual.js" Component_="applyToDefaults.js" FileName="DEEPEQ~1.JS|deepEqual.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\deepEqual.js" SelfReg="false"/>
+    <ROW File="error.js" Component_="applyToDefaults.js" FileName="error.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\error.js" SelfReg="false"/>
+    <ROW File="escapeHeaderAttribute.js" Component_="applyToDefaults.js" FileName="ESCAPE~1.JS|escapeHeaderAttribute.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\escapeHeaderAttribute.js" SelfReg="false"/>
+    <ROW File="escapeHtml.js" Component_="applyToDefaults.js" FileName="ESCAPE~2.JS|escapeHtml.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\escapeHtml.js" SelfReg="false"/>
+    <ROW File="escapeJson.js" Component_="applyToDefaults.js" FileName="ESCAPE~3.JS|escapeJson.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\escapeJson.js" SelfReg="false"/>
+    <ROW File="escapeRegex.js" Component_="applyToDefaults.js" FileName="ESCAPE~4.JS|escapeRegex.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\escapeRegex.js" SelfReg="false"/>
+    <ROW File="flatten.js" Component_="applyToDefaults.js" FileName="flatten.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\flatten.js" SelfReg="false"/>
+    <ROW File="ignore.js" Component_="applyToDefaults.js" FileName="ignore.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\ignore.js" SelfReg="false"/>
+    <ROW File="index.d.ts" Component_="applyToDefaults.js" FileName="INDEXD~1.TS|index.d.ts" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\index.d.ts" SelfReg="false"/>
+    <ROW File="index.js" Component_="applyToDefaults.js" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\index.js" SelfReg="false"/>
+    <ROW File="intersect.js" Component_="applyToDefaults.js" FileName="INTERS~1.JS|intersect.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\intersect.js" SelfReg="false"/>
+    <ROW File="isPromise.js" Component_="applyToDefaults.js" FileName="ISPROM~1.JS|isPromise.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\isPromise.js" SelfReg="false"/>
+    <ROW File="merge.js" Component_="applyToDefaults.js" FileName="merge.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\merge.js" SelfReg="false"/>
+    <ROW File="once.js" Component_="applyToDefaults.js" FileName="once.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\once.js" SelfReg="false"/>
+    <ROW File="reach.js" Component_="applyToDefaults.js" FileName="reach.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\reach.js" SelfReg="false"/>
+    <ROW File="reachTemplate.js" Component_="applyToDefaults.js" FileName="REACHT~1.JS|reachTemplate.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\reachTemplate.js" SelfReg="false"/>
+    <ROW File="stringify.js" Component_="applyToDefaults.js" FileName="STRING~1.JS|stringify.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\stringify.js" SelfReg="false"/>
+    <ROW File="types.js" Component_="applyToDefaults.js" FileName="types.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\types.js" SelfReg="false"/>
+    <ROW File="utils.js" Component_="applyToDefaults.js" FileName="utils.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\utils.js" SelfReg="false"/>
+    <ROW File="wait.js" Component_="applyToDefaults.js" FileName="wait.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\lib\wait.js" SelfReg="false"/>
+    <ROW File="LICENSE.md" Component_="LICENSE.md" FileName="LICENSE.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\LICENSE.md" SelfReg="false"/>
+    <ROW File="package.json" Component_="LICENSE.md" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\package.json" SelfReg="false"/>
+    <ROW File="README.md" Component_="LICENSE.md" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\hoek\README.md" SelfReg="false"/>
+    <ROW File="index.d.ts_1" Component_="index.d.ts" FileName="INDEXD~1.TS|index.d.ts" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\topo\lib\index.d.ts" SelfReg="false"/>
+    <ROW File="index.js_1" Component_="index.d.ts" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\topo\lib\index.js" SelfReg="false"/>
+    <ROW File="LICENSE.md_1" Component_="LICENSE.md_1" FileName="LICENSE.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\topo\LICENSE.md" SelfReg="false"/>
+    <ROW File="package.json_1" Component_="LICENSE.md_1" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\topo\package.json" SelfReg="false"/>
+    <ROW File="README.md_1" Component_="LICENSE.md_1" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@hapi\topo\README.md" SelfReg="false"/>
+    <ROW File="decode.js" Component_="decode.js" FileName="decode.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@sideway\address\lib\decode.js" SelfReg="false"/>
+    <ROW File="domain.js" Component_="decode.js" FileName="domain.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@sideway\address\lib\domain.js" SelfReg="false"/>
+    <ROW File="email.js" Component_="decode.js" FileName="email.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@sideway\address\lib\email.js" SelfReg="false"/>
+    <ROW File="errors.js" Component_="decode.js" FileName="errors.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@sideway\address\lib\errors.js" SelfReg="false"/>
+    <ROW File="index.d.ts_2" Component_="decode.js" FileName="INDEXD~1.TS|index.d.ts" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@sideway\address\lib\index.d.ts" SelfReg="false"/>
+    <ROW File="index.js_2" Component_="decode.js" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@sideway\address\lib\index.js" SelfReg="false"/>
+    <ROW File="ip.js" Component_="decode.js" FileName="ip.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@sideway\address\lib\ip.js" SelfReg="false"/>
+    <ROW File="tlds.js" Component_="decode.js" FileName="tlds.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@sideway\address\lib\tlds.js" SelfReg="false"/>
+    <ROW File="uri.js" Component_="decode.js" FileName="uri.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@sideway\address\lib\uri.js" SelfReg="false"/>
+    <ROW File="LICENSE.md_2" Component_="LICENSE.md_2" FileName="LICENSE.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@sideway\address\LICENSE.md" SelfReg="false"/>
+    <ROW File="package.json_2" Component_="LICENSE.md_2" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@sideway\address\package.json" SelfReg="false"/>
+    <ROW File="README.md_2" Component_="LICENSE.md_2" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@sideway\address\README.md" SelfReg="false"/>
+    <ROW File="index.d.ts_3" Component_="index.d.ts_1" FileName="INDEXD~1.TS|index.d.ts" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@sideway\formula\lib\index.d.ts" SelfReg="false"/>
+    <ROW File="index.js_3" Component_="index.d.ts_1" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@sideway\formula\lib\index.js" SelfReg="false"/>
+    <ROW File="LICENSE.md_3" Component_="LICENSE.md_3" FileName="LICENSE.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@sideway\formula\LICENSE.md" SelfReg="false"/>
+    <ROW File="package.json_3" Component_="LICENSE.md_3" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@sideway\formula\package.json" SelfReg="false"/>
+    <ROW File="README.md_3" Component_="LICENSE.md_3" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@sideway\formula\README.md" SelfReg="false"/>
+    <ROW File="index.d.ts_4" Component_="index.d.ts_2" FileName="INDEXD~1.TS|index.d.ts" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@sideway\pinpoint\lib\index.d.ts" SelfReg="false"/>
+    <ROW File="index.js_4" Component_="index.d.ts_2" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@sideway\pinpoint\lib\index.js" SelfReg="false"/>
+    <ROW File="LICENSE.md_4" Component_="LICENSE.md_4" FileName="LICENSE.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@sideway\pinpoint\LICENSE.md" SelfReg="false"/>
+    <ROW File="package.json_4" Component_="LICENSE.md_4" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@sideway\pinpoint\package.json" SelfReg="false"/>
+    <ROW File="README.md_4" Component_="LICENSE.md_4" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\@sideway\pinpoint\README.md" SelfReg="false"/>
+    <ROW File="travis.yml" Component_="travis.yml" FileName="TRAVIS~1.YML|.travis.yml" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\async\.travis.yml" SelfReg="false"/>
+    <ROW File="bower.json" Component_="travis.yml" FileName="BOWER~1.JSO|bower.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\async\bower.json" SelfReg="false"/>
+    <ROW File="component.json" Component_="travis.yml" FileName="COMPON~1.JSO|component.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\async\component.json" SelfReg="false"/>
+    <ROW File="async.js" Component_="async.js" FileName="async.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\async\lib\async.js" SelfReg="false"/>
+    <ROW File="LICENSE_1" Component_="travis.yml" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\async\LICENSE" SelfReg="false"/>
+    <ROW File="package.json_5" Component_="travis.yml" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\async\package.json" SelfReg="false"/>
+    <ROW File="README.md_5" Component_="travis.yml" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\async\README.md" SelfReg="false"/>
+    <ROW File="syncpackagemanagers.js" Component_="syncpackagemanagers.js" FileName="SYNC-P~1.JS|sync-package-managers.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\async\support\sync-package-managers.js" SelfReg="false"/>
+    <ROW File="FUNDING.yml" Component_="FUNDING.yml" FileName="FUNDING.yml" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\balanced-match\.github\FUNDING.yml" SelfReg="false"/>
+    <ROW File="index.js_5" Component_="index.js" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\balanced-match\index.js" SelfReg="false"/>
+    <ROW File="LICENSE.md_5" Component_="index.js" FileName="LICENSE.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\balanced-match\LICENSE.md" SelfReg="false"/>
+    <ROW File="package.json_6" Component_="index.js" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\balanced-match\package.json" SelfReg="false"/>
+    <ROW File="README.md_6" Component_="index.js" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\balanced-match\README.md" SelfReg="false"/>
+    <ROW File="base64js.min.js" Component_="base64js.min.js" FileName="BASE64~1.JS|base64js.min.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\base64-js\base64js.min.js" SelfReg="false"/>
+    <ROW File="index.d.ts_5" Component_="base64js.min.js" FileName="INDEXD~1.TS|index.d.ts" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\base64-js\index.d.ts" SelfReg="false"/>
+    <ROW File="index.js_6" Component_="base64js.min.js" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\base64-js\index.js" SelfReg="false"/>
+    <ROW File="LICENSE_2" Component_="base64js.min.js" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\base64-js\LICENSE" SelfReg="false"/>
+    <ROW File="package.json_7" Component_="base64js.min.js" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\base64-js\package.json" SelfReg="false"/>
+    <ROW File="README.md_7" Component_="base64js.min.js" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\base64-js\README.md" SelfReg="false"/>
+    <ROW File="index.js_7" Component_="index.js_1" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\brace-expansion\index.js" SelfReg="false"/>
+    <ROW File="LICENSE_3" Component_="index.js_1" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\brace-expansion\LICENSE" SelfReg="false"/>
+    <ROW File="package.json_8" Component_="index.js_1" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\brace-expansion\package.json" SelfReg="false"/>
+    <ROW File="README.md_8" Component_="index.js_1" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\brace-expansion\README.md" SelfReg="false"/>
+    <ROW File="travis.yml_1" Component_="travis.yml_1" FileName="TRAVIS~1.YML|.travis.yml" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\concat-map\.travis.yml" SelfReg="false"/>
+    <ROW File="map.js" Component_="map.js" FileName="map.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\concat-map\example\map.js" SelfReg="false"/>
+    <ROW File="index.js_8" Component_="travis.yml_1" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\concat-map\index.js" SelfReg="false"/>
+    <ROW File="LICENSE_4" Component_="travis.yml_1" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\concat-map\LICENSE" SelfReg="false"/>
+    <ROW File="package.json_9" Component_="travis.yml_1" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\concat-map\package.json" SelfReg="false"/>
+    <ROW File="README.markdown" Component_="travis.yml_1" FileName="README~1.MAR|README.markdown" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\concat-map\README.markdown" SelfReg="false"/>
+    <ROW File="map.js_1" Component_="map.js_1" FileName="map.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\concat-map\test\map.js" SelfReg="false"/>
+    <ROW File="cli.js" Component_="cli.js" FileName="cli.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\ejs\bin\cli.js" SelfReg="false"/>
+    <ROW File="ejs.js" Component_="ejs.js" FileName="ejs.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\ejs\ejs.js" SelfReg="false"/>
+    <ROW File="ejs.min.js" Component_="ejs.js" FileName="EJSMIN~1.JS|ejs.min.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\ejs\ejs.min.js" SelfReg="false"/>
+    <ROW File="jakefile.js" Component_="ejs.js" FileName="jakefile.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\ejs\jakefile.js" SelfReg="false"/>
+    <ROW File="ejs.js_1" Component_="ejs.js_1" FileName="ejs.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\ejs\lib\ejs.js" SelfReg="false"/>
+    <ROW File="utils.js_1" Component_="ejs.js_1" FileName="utils.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\ejs\lib\utils.js" SelfReg="false"/>
+    <ROW File="LICENSE_5" Component_="ejs.js" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\ejs\LICENSE" SelfReg="false"/>
+    <ROW File="package.json_10" Component_="ejs.js" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\ejs\package.json" SelfReg="false"/>
+    <ROW File="README.md_9" Component_="ejs.js" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\ejs\README.md" SelfReg="false"/>
+    <ROW File="usage.txt" Component_="ejs.js" FileName="usage.txt" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\ejs\usage.txt" SelfReg="false"/>
+    <ROW File="eslintrc" Component_="eslintrc" FileName="ESLINT~1|.eslintrc" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\.eslintrc" SelfReg="false"/>
+    <ROW File="jsfmtrc" Component_="eslintrc" FileName="JSFMTR~1|.jsfmtrc" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\.jsfmtrc" SelfReg="false"/>
+    <ROW File="npmignore" Component_="eslintrc" FileName="NPMIGN~1|.npmignore" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\.npmignore" SelfReg="false"/>
+    <ROW File="travis.yml_2" Component_="eslintrc" FileName="TRAVIS~1.YML|.travis.yml" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\.travis.yml" SelfReg="false"/>
+    <ROW File="appveyor.yml" Component_="eslintrc" FileName="appveyor.yml" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\appveyor.yml" SelfReg="false"/>
+    <ROW File="index.js_9" Component_="eslintrc" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\index.js" SelfReg="false"/>
+    <ROW File="LICENSE_6" Component_="eslintrc" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\LICENSE" SelfReg="false"/>
+    <ROW File="coveralls.yml" Component_="coveralls.yml" FileName="COVERA~1.YML|.coveralls.yml" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\node_modules\debug\.coveralls.yml" SelfReg="false"/>
+    <ROW File="eslintrc_1" Component_="coveralls.yml" FileName="ESLINT~1|.eslintrc" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\node_modules\debug\.eslintrc" SelfReg="false"/>
+    <ROW File="npmignore_1" Component_="coveralls.yml" FileName="NPMIGN~1|.npmignore" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\node_modules\debug\.npmignore" SelfReg="false"/>
+    <ROW File="travis.yml_3" Component_="coveralls.yml" FileName="TRAVIS~1.YML|.travis.yml" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\node_modules\debug\.travis.yml" SelfReg="false"/>
+    <ROW File="CHANGELOG.md" Component_="coveralls.yml" FileName="CHANGE~1.MD|CHANGELOG.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\node_modules\debug\CHANGELOG.md" SelfReg="false"/>
+    <ROW File="component.json_1" Component_="coveralls.yml" FileName="COMPON~1.JSO|component.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\node_modules\debug\component.json" SelfReg="false"/>
+    <ROW File="karma.conf.js" Component_="coveralls.yml" FileName="KARMAC~1.JS|karma.conf.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\node_modules\debug\karma.conf.js" SelfReg="false"/>
+    <ROW File="LICENSE_7" Component_="coveralls.yml" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\node_modules\debug\LICENSE" SelfReg="false"/>
+    <ROW File="Makefile" Component_="coveralls.yml" FileName="Makefile" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\node_modules\debug\Makefile" SelfReg="false"/>
+    <ROW File="node.js" Component_="coveralls.yml" FileName="node.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\node_modules\debug\node.js" SelfReg="false"/>
+    <ROW File="package.json_11" Component_="coveralls.yml" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\node_modules\debug\package.json" SelfReg="false"/>
+    <ROW File="README.md_10" Component_="coveralls.yml" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\node_modules\debug\README.md" SelfReg="false"/>
+    <ROW File="browser.js" Component_="browser.js" FileName="browser.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\node_modules\debug\src\browser.js" SelfReg="false"/>
+    <ROW File="debug.js" Component_="browser.js" FileName="debug.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\node_modules\debug\src\debug.js" SelfReg="false"/>
+    <ROW File="index.js_10" Component_="browser.js" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\node_modules\debug\src\index.js" SelfReg="false"/>
+    <ROW File="inspectorlog.js" Component_="browser.js" FileName="INSPEC~1.JS|inspector-log.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\node_modules\debug\src\inspector-log.js" SelfReg="false"/>
+    <ROW File="node.js_1" Component_="browser.js" FileName="node.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\node_modules\debug\src\node.js" SelfReg="false"/>
+    <ROW File="index.js_11" Component_="index.js_2" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\node_modules\ms\index.js" SelfReg="false"/>
+    <ROW File="license.md_6" Component_="index.js_2" FileName="license.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\node_modules\ms\license.md" SelfReg="false"/>
+    <ROW File="package.json_12" Component_="index.js_2" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\node_modules\ms\package.json" SelfReg="false"/>
+    <ROW File="readme.md_11" Component_="index.js_2" FileName="readme.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\node_modules\ms\readme.md" SelfReg="false"/>
+    <ROW File="package.json_13" Component_="eslintrc" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\package.json" SelfReg="false"/>
+    <ROW File="README.md_12" Component_="eslintrc" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\README.md" SelfReg="false"/>
+    <ROW File="index.test.js" Component_="index.test.js" FileName="INDEXT~1.JS|index.test.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\test\index.test.js" SelfReg="false"/>
+    <ROW File="mocha.opts" Component_="index.test.js" FileName="MOCHA~1.OPT|mocha.opts" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\electron-squirrel-startup\test\mocha.opts" SelfReg="false"/>
+    <ROW File="index.d.ts_6" Component_="index.d.ts_3" FileName="INDEXD~1.TS|index.d.ts" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\filelist\index.d.ts" SelfReg="false"/>
+    <ROW File="index.js_12" Component_="index.d.ts_3" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\filelist\index.js" SelfReg="false"/>
+    <ROW File="jakefile.js_1" Component_="index.d.ts_3" FileName="jakefile.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\filelist\jakefile.js" SelfReg="false"/>
+    <ROW File="package.json_14" Component_="index.d.ts_3" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\filelist\package.json" SelfReg="false"/>
+    <ROW File="README.md_13" Component_="index.d.ts_3" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\filelist\README.md" SelfReg="false"/>
+    <ROW File="index.js_13" Component_="index.js_3" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\fs.realpath\index.js" SelfReg="false"/>
+    <ROW File="LICENSE_8" Component_="index.js_3" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\fs.realpath\LICENSE" SelfReg="false"/>
+    <ROW File="old.js" Component_="index.js_3" FileName="old.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\fs.realpath\old.js" SelfReg="false"/>
+    <ROW File="package.json_15" Component_="index.js_3" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\fs.realpath\package.json" SelfReg="false"/>
+    <ROW File="README.md_14" Component_="index.js_3" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\fs.realpath\README.md" SelfReg="false"/>
+    <ROW File="editorconfig" Component_="editorconfig" FileName="EDITOR~1|.editorconfig" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\function-bind\.editorconfig" SelfReg="false"/>
+    <ROW File="eslintrc_2" Component_="editorconfig" FileName="ESLINT~1|.eslintrc" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\function-bind\.eslintrc" SelfReg="false"/>
+    <ROW File="jscs.json" Component_="editorconfig" FileName="JSCS~1.JSO|.jscs.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\function-bind\.jscs.json" SelfReg="false"/>
+    <ROW File="npmignore_2" Component_="editorconfig" FileName="NPMIGN~1|.npmignore" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\function-bind\.npmignore" SelfReg="false"/>
+    <ROW File="travis.yml_4" Component_="editorconfig" FileName="TRAVIS~1.YML|.travis.yml" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\function-bind\.travis.yml" SelfReg="false"/>
+    <ROW File="implementation.js" Component_="editorconfig" FileName="IMPLEM~1.JS|implementation.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\function-bind\implementation.js" SelfReg="false"/>
+    <ROW File="index.js_14" Component_="editorconfig" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\function-bind\index.js" SelfReg="false"/>
+    <ROW File="LICENSE_9" Component_="editorconfig" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\function-bind\LICENSE" SelfReg="false"/>
+    <ROW File="package.json_16" Component_="editorconfig" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\function-bind\package.json" SelfReg="false"/>
+    <ROW File="README.md_15" Component_="editorconfig" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\function-bind\README.md" SelfReg="false"/>
+    <ROW File="eslintrc_3" Component_="eslintrc_1" FileName="ESLINT~1|.eslintrc" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\function-bind\test\.eslintrc" SelfReg="false"/>
+    <ROW File="index.js_15" Component_="eslintrc_1" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\function-bind\test\index.js" SelfReg="false"/>
+    <ROW File="common.js" Component_="common.js" FileName="common.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\glob\common.js" SelfReg="false"/>
+    <ROW File="glob.js" Component_="common.js" FileName="glob.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\glob\glob.js" SelfReg="false"/>
+    <ROW File="LICENSE_10" Component_="common.js" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\glob\LICENSE" SelfReg="false"/>
+    <ROW File="package.json_17" Component_="common.js" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\glob\package.json" SelfReg="false"/>
+    <ROW File="README.md_16" Component_="common.js" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\glob\README.md" SelfReg="false"/>
+    <ROW File="sync.js" Component_="common.js" FileName="sync.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\glob\sync.js" SelfReg="false"/>
+    <ROW File="LICENSEMIT" Component_="LICENSEMIT" FileName="LICENS~1|LICENSE-MIT" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\has\LICENSE-MIT" SelfReg="false"/>
+    <ROW File="package.json_18" Component_="LICENSEMIT" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\has\package.json" SelfReg="false"/>
+    <ROW File="README.md_17" Component_="LICENSEMIT" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\has\README.md" SelfReg="false"/>
+    <ROW File="index.js_16" Component_="index.js_4" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\has\src\index.js" SelfReg="false"/>
+    <ROW File="index.js_17" Component_="index.js_5" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\has\test\index.js" SelfReg="false"/>
+    <ROW File="inflight.js" Component_="inflight.js" FileName="inflight.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\inflight\inflight.js" SelfReg="false"/>
+    <ROW File="LICENSE_11" Component_="inflight.js" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\inflight\LICENSE" SelfReg="false"/>
+    <ROW File="package.json_19" Component_="inflight.js" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\inflight\package.json" SelfReg="false"/>
+    <ROW File="README.md_18" Component_="inflight.js" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\inflight\README.md" SelfReg="false"/>
+    <ROW File="inherits.js" Component_="inherits.js" FileName="inherits.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\inherits\inherits.js" SelfReg="false"/>
+    <ROW File="inherits_browser.js" Component_="inherits.js" FileName="INHERI~1.JS|inherits_browser.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\inherits\inherits_browser.js" SelfReg="false"/>
+    <ROW File="LICENSE_12" Component_="inherits.js" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\inherits\LICENSE" SelfReg="false"/>
+    <ROW File="package.json_20" Component_="inherits.js" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\inherits\package.json" SelfReg="false"/>
+    <ROW File="README.md_19" Component_="inherits.js" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\inherits\README.md" SelfReg="false"/>
+    <ROW File="CHANGELOG" Component_="CHANGELOG" FileName="CHANGE~1|CHANGELOG" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\interpret\CHANGELOG" SelfReg="false"/>
+    <ROW File="index.js_18" Component_="CHANGELOG" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\interpret\index.js" SelfReg="false"/>
+    <ROW File="LICENSE_13" Component_="CHANGELOG" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\interpret\LICENSE" SelfReg="false"/>
+    <ROW File="mjsstub.js" Component_="CHANGELOG" FileName="mjs-stub.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\interpret\mjs-stub.js" SelfReg="false"/>
+    <ROW File="package.json_21" Component_="CHANGELOG" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\interpret\package.json" SelfReg="false"/>
+    <ROW File="README.md_20" Component_="CHANGELOG" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\interpret\README.md" SelfReg="false"/>
+    <ROW File="eslintignore" Component_="eslintignore" FileName="ESLINT~1|.eslintignore" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\is-core-module\.eslintignore" SelfReg="false"/>
+    <ROW File="eslintrc_4" Component_="eslintignore" FileName="ESLINT~2|.eslintrc" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\is-core-module\.eslintrc" SelfReg="false"/>
+    <ROW File="nycrc" Component_="eslintignore" FileName="NYCRC~1|.nycrc" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\is-core-module\.nycrc" SelfReg="false"/>
+    <ROW File="CHANGELOG.md_1" Component_="eslintignore" FileName="CHANGE~1.MD|CHANGELOG.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\is-core-module\CHANGELOG.md" SelfReg="false"/>
+    <ROW File="core.json" Component_="eslintignore" FileName="CORE~1.JSO|core.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\is-core-module\core.json" SelfReg="false"/>
+    <ROW File="index.js_19" Component_="eslintignore" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\is-core-module\index.js" SelfReg="false"/>
+    <ROW File="LICENSE_14" Component_="eslintignore" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\is-core-module\LICENSE" SelfReg="false"/>
+    <ROW File="package.json_22" Component_="eslintignore" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\is-core-module\package.json" SelfReg="false"/>
+    <ROW File="README.md_21" Component_="eslintignore" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\is-core-module\README.md" SelfReg="false"/>
+    <ROW File="index.js_20" Component_="index.js_6" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\is-core-module\test\index.js" SelfReg="false"/>
+    <ROW File="cli.js_1" Component_="cli.js_1" FileName="cli.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\is-docker\cli.js" SelfReg="false"/>
+    <ROW File="index.d.ts_7" Component_="cli.js_1" FileName="INDEXD~1.TS|index.d.ts" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\is-docker\index.d.ts" SelfReg="false"/>
+    <ROW File="index.js_21" Component_="cli.js_1" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\is-docker\index.js" SelfReg="false"/>
+    <ROW File="license_15" Component_="cli.js_1" FileName="license" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\is-docker\license" SelfReg="false"/>
+    <ROW File="package.json_23" Component_="cli.js_1" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\is-docker\package.json" SelfReg="false"/>
+    <ROW File="readme.md_22" Component_="cli.js_1" FileName="readme.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\is-docker\readme.md" SelfReg="false"/>
+    <ROW File="index.d.ts_8" Component_="index.d.ts_4" FileName="INDEXD~1.TS|index.d.ts" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\is-wsl\index.d.ts" SelfReg="false"/>
+    <ROW File="index.js_22" Component_="index.d.ts_4" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\is-wsl\index.js" SelfReg="false"/>
+    <ROW File="license_16" Component_="index.d.ts_4" FileName="license" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\is-wsl\license" SelfReg="false"/>
+    <ROW File="package.json_24" Component_="index.d.ts_4" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\is-wsl\package.json" SelfReg="false"/>
+    <ROW File="readme.md_23" Component_="index.d.ts_4" FileName="readme.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\is-wsl\readme.md" SelfReg="false"/>
+    <ROW File="bash_completion.sh" Component_="bash_completion.sh" FileName="BASH_C~1.SH|bash_completion.sh" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\bin\bash_completion.sh" SelfReg="false"/>
+    <ROW File="cli.js_2" Component_="bash_completion.sh" FileName="cli.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\bin\cli.js" SelfReg="false"/>
+    <ROW File="jakefile.js_2" Component_="jakefile.js" FileName="jakefile.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\jakefile.js" SelfReg="false"/>
+    <ROW File="api.js" Component_="api.js" FileName="api.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\lib\api.js" SelfReg="false"/>
+    <ROW File="jake.js" Component_="api.js" FileName="jake.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\lib\jake.js" SelfReg="false"/>
+    <ROW File="loader.js" Component_="api.js" FileName="loader.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\lib\loader.js" SelfReg="false"/>
+    <ROW File="namespace.js" Component_="api.js" FileName="NAMESP~1.JS|namespace.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\lib\namespace.js" SelfReg="false"/>
+    <ROW File="package_task.js" Component_="api.js" FileName="PACKAG~1.JS|package_task.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\lib\package_task.js" SelfReg="false"/>
+    <ROW File="parseargs.js" Component_="api.js" FileName="PARSEA~1.JS|parseargs.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\lib\parseargs.js" SelfReg="false"/>
+    <ROW File="program.js" Component_="api.js" FileName="program.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\lib\program.js" SelfReg="false"/>
+    <ROW File="publish_task.js" Component_="api.js" FileName="PUBLIS~1.JS|publish_task.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\lib\publish_task.js" SelfReg="false"/>
+    <ROW File="rule.js" Component_="api.js" FileName="rule.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\lib\rule.js" SelfReg="false"/>
+    <ROW File="directory_task.js" Component_="directory_task.js" FileName="DIRECT~1.JS|directory_task.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\lib\task\directory_task.js" SelfReg="false"/>
+    <ROW File="file_task.js" Component_="directory_task.js" FileName="FILE_T~1.JS|file_task.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\lib\task\file_task.js" SelfReg="false"/>
+    <ROW File="index.js_23" Component_="directory_task.js" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\lib\task\index.js" SelfReg="false"/>
+    <ROW File="task.js" Component_="directory_task.js" FileName="task.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\lib\task\task.js" SelfReg="false"/>
+    <ROW File="test_task.js" Component_="api.js" FileName="TEST_T~1.JS|test_task.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\lib\test_task.js" SelfReg="false"/>
+    <ROW File="file.js" Component_="file.js" FileName="file.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\lib\utils\file.js" SelfReg="false"/>
+    <ROW File="index.js_24" Component_="file.js" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\lib\utils\index.js" SelfReg="false"/>
+    <ROW File="logger.js" Component_="file.js" FileName="logger.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\lib\utils\logger.js" SelfReg="false"/>
+    <ROW File="Makefile_1" Component_="jakefile.js" FileName="Makefile" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\Makefile" SelfReg="false"/>
+    <ROW File="index.js_25" Component_="index.js_7" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\ansi-styles\index.js" SelfReg="false"/>
+    <ROW File="license_17" Component_="index.js_7" FileName="license" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\ansi-styles\license" SelfReg="false"/>
+    <ROW File="package.json_25" Component_="index.js_7" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\ansi-styles\package.json" SelfReg="false"/>
+    <ROW File="readme.md_24" Component_="index.js_7" FileName="readme.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\ansi-styles\readme.md" SelfReg="false"/>
+    <ROW File="index.js_26" Component_="index.js_8" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\chalk\index.js" SelfReg="false"/>
+    <ROW File="index.js.flow" Component_="index.js_8" FileName="INDEXJ~1.FLO|index.js.flow" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\chalk\index.js.flow" SelfReg="false"/>
+    <ROW File="license_18" Component_="index.js_8" FileName="license" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\chalk\license" SelfReg="false"/>
+    <ROW File="package.json_26" Component_="index.js_8" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\chalk\package.json" SelfReg="false"/>
+    <ROW File="readme.md_25" Component_="index.js_8" FileName="readme.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\chalk\readme.md" SelfReg="false"/>
+    <ROW File="templates.js" Component_="index.js_8" FileName="TEMPLA~1.JS|templates.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\chalk\templates.js" SelfReg="false"/>
+    <ROW File="index.d.ts_9" Component_="index.d.ts_5" FileName="INDEXD~1.TS|index.d.ts" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\chalk\types\index.d.ts" SelfReg="false"/>
+    <ROW File="CHANGELOG.md_2" Component_="CHANGELOG.md" FileName="CHANGE~1.MD|CHANGELOG.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\color-convert\CHANGELOG.md" SelfReg="false"/>
+    <ROW File="conversions.js" Component_="CHANGELOG.md" FileName="CONVER~1.JS|conversions.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\color-convert\conversions.js" SelfReg="false"/>
+    <ROW File="index.js_27" Component_="CHANGELOG.md" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\color-convert\index.js" SelfReg="false"/>
+    <ROW File="LICENSE_19" Component_="CHANGELOG.md" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\color-convert\LICENSE" SelfReg="false"/>
+    <ROW File="package.json_27" Component_="CHANGELOG.md" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\color-convert\package.json" SelfReg="false"/>
+    <ROW File="README.md_26" Component_="CHANGELOG.md" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\color-convert\README.md" SelfReg="false"/>
+    <ROW File="route.js" Component_="CHANGELOG.md" FileName="route.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\color-convert\route.js" SelfReg="false"/>
+    <ROW File="eslintrc.json" Component_="eslintrc.json" FileName="ESLINT~1.JSO|.eslintrc.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\color-name\.eslintrc.json" SelfReg="false"/>
+    <ROW File="npmignore_3" Component_="eslintrc.json" FileName="NPMIGN~1|.npmignore" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\color-name\.npmignore" SelfReg="false"/>
+    <ROW File="index.js_28" Component_="eslintrc.json" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\color-name\index.js" SelfReg="false"/>
+    <ROW File="LICENSE_20" Component_="eslintrc.json" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\color-name\LICENSE" SelfReg="false"/>
+    <ROW File="package.json_28" Component_="eslintrc.json" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\color-name\package.json" SelfReg="false"/>
+    <ROW File="README.md_27" Component_="eslintrc.json" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\color-name\README.md" SelfReg="false"/>
+    <ROW File="test.js" Component_="eslintrc.json" FileName="test.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\color-name\test.js" SelfReg="false"/>
+    <ROW File="index.js_29" Component_="index.js_9" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\escape-string-regexp\index.js" SelfReg="false"/>
+    <ROW File="license_21" Component_="index.js_9" FileName="license" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\escape-string-regexp\license" SelfReg="false"/>
+    <ROW File="package.json_29" Component_="index.js_9" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\escape-string-regexp\package.json" SelfReg="false"/>
+    <ROW File="readme.md_28" Component_="index.js_9" FileName="readme.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\escape-string-regexp\readme.md" SelfReg="false"/>
+    <ROW File="index.js_30" Component_="index.js_10" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\has-flag\index.js" SelfReg="false"/>
+    <ROW File="license_22" Component_="index.js_10" FileName="license" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\has-flag\license" SelfReg="false"/>
+    <ROW File="package.json_30" Component_="index.js_10" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\has-flag\package.json" SelfReg="false"/>
+    <ROW File="readme.md_29" Component_="index.js_10" FileName="readme.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\has-flag\readme.md" SelfReg="false"/>
+    <ROW File="browser.js_1" Component_="browser.js_1" FileName="browser.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\supports-color\browser.js" SelfReg="false"/>
+    <ROW File="index.js_31" Component_="browser.js_1" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\supports-color\index.js" SelfReg="false"/>
+    <ROW File="license_23" Component_="browser.js_1" FileName="license" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\supports-color\license" SelfReg="false"/>
+    <ROW File="package.json_31" Component_="browser.js_1" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\supports-color\package.json" SelfReg="false"/>
+    <ROW File="readme.md_30" Component_="browser.js_1" FileName="readme.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\node_modules\supports-color\readme.md" SelfReg="false"/>
+    <ROW File="package.json_32" Component_="jakefile.js" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\package.json" SelfReg="false"/>
+    <ROW File="README.md_31" Component_="jakefile.js" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\README.md" SelfReg="false"/>
+    <ROW File="concurrent.js" Component_="concurrent.js" FileName="CONCUR~1.JS|concurrent.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\test\integration\concurrent.js" SelfReg="false"/>
+    <ROW File="file.js_1" Component_="concurrent.js" FileName="file.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\test\integration\file.js" SelfReg="false"/>
+    <ROW File="file_task.js_1" Component_="concurrent.js" FileName="FILE_T~1.JS|file_task.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\test\integration\file_task.js" SelfReg="false"/>
+    <ROW File="helpers.js" Component_="concurrent.js" FileName="helpers.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\test\integration\helpers.js" SelfReg="false"/>
+    <ROW File="jakefile.js_3" Component_="concurrent.js" FileName="jakefile.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\test\integration\jakefile.js" SelfReg="false"/>
+    <ROW File="concurrent.jake.js" Component_="concurrent.jake.js" FileName="CONCUR~1.JS|concurrent.jake.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\test\integration\jakelib\concurrent.jake.js" SelfReg="false"/>
+    <ROW File="publish.jake.js" Component_="concurrent.jake.js" FileName="PUBLIS~1.JS|publish.jake.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\test\integration\jakelib\publish.jake.js" SelfReg="false"/>
+    <ROW File="required_module.jake.js" Component_="concurrent.jake.js" FileName="REQUIR~1.JS|required_module.jake.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\test\integration\jakelib\required_module.jake.js" SelfReg="false"/>
+    <ROW File="rule.jake.js" Component_="concurrent.jake.js" FileName="RULEJA~1.JS|rule.jake.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\test\integration\jakelib\rule.jake.js" SelfReg="false"/>
+    <ROW File="publish_task.js_1" Component_="concurrent.js" FileName="PUBLIS~1.JS|publish_task.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\test\integration\publish_task.js" SelfReg="false"/>
+    <ROW File="rule.js_1" Component_="concurrent.js" FileName="rule.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\test\integration\rule.js" SelfReg="false"/>
+    <ROW File="selfdep.js" Component_="concurrent.js" FileName="selfdep.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\test\integration\selfdep.js" SelfReg="false"/>
+    <ROW File="task_base.js" Component_="concurrent.js" FileName="TASK_B~1.JS|task_base.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\test\integration\task_base.js" SelfReg="false"/>
+    <ROW File="jakefile.js_4" Component_="jakefile.js_1" FileName="jakefile.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\test\unit\jakefile.js" SelfReg="false"/>
+    <ROW File="namespace.js_1" Component_="jakefile.js_1" FileName="NAMESP~1.JS|namespace.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\test\unit\namespace.js" SelfReg="false"/>
+    <ROW File="parseargs.js_1" Component_="jakefile.js_1" FileName="PARSEA~1.JS|parseargs.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\test\unit\parseargs.js" SelfReg="false"/>
+    <ROW File="usage.txt_1" Component_="jakefile.js" FileName="usage.txt" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\jake\usage.txt" SelfReg="false"/>
+    <ROW File="joibrowser.min.js" Component_="joibrowser.min.js" FileName="JOI-BR~1.JS|joi-browser.min.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\dist\joi-browser.min.js" SelfReg="false"/>
+    <ROW File="annotate.js" Component_="annotate.js" FileName="annotate.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\annotate.js" SelfReg="false"/>
+    <ROW File="base.js" Component_="annotate.js" FileName="base.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\base.js" SelfReg="false"/>
+    <ROW File="cache.js" Component_="annotate.js" FileName="cache.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\cache.js" SelfReg="false"/>
+    <ROW File="common.js_1" Component_="annotate.js" FileName="common.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\common.js" SelfReg="false"/>
+    <ROW File="compile.js" Component_="annotate.js" FileName="compile.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\compile.js" SelfReg="false"/>
+    <ROW File="errors.js_1" Component_="annotate.js" FileName="errors.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\errors.js" SelfReg="false"/>
+    <ROW File="extend.js" Component_="annotate.js" FileName="extend.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\extend.js" SelfReg="false"/>
+    <ROW File="index.d.ts_10" Component_="annotate.js" FileName="INDEXD~1.TS|index.d.ts" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\index.d.ts" SelfReg="false"/>
+    <ROW File="index.js_32" Component_="annotate.js" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\index.js" SelfReg="false"/>
+    <ROW File="manifest.js" Component_="annotate.js" FileName="manifest.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\manifest.js" SelfReg="false"/>
+    <ROW File="messages.js" Component_="annotate.js" FileName="messages.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\messages.js" SelfReg="false"/>
+    <ROW File="modify.js" Component_="annotate.js" FileName="modify.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\modify.js" SelfReg="false"/>
+    <ROW File="ref.js" Component_="annotate.js" FileName="ref.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\ref.js" SelfReg="false"/>
+    <ROW File="schemas.js" Component_="annotate.js" FileName="schemas.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\schemas.js" SelfReg="false"/>
+    <ROW File="state.js" Component_="annotate.js" FileName="state.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\state.js" SelfReg="false"/>
+    <ROW File="template.js" Component_="annotate.js" FileName="template.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\template.js" SelfReg="false"/>
+    <ROW File="trace.js" Component_="annotate.js" FileName="trace.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\trace.js" SelfReg="false"/>
+    <ROW File="alternatives.js" Component_="alternatives.js" FileName="ALTERN~1.JS|alternatives.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\types\alternatives.js" SelfReg="false"/>
+    <ROW File="any.js" Component_="alternatives.js" FileName="any.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\types\any.js" SelfReg="false"/>
+    <ROW File="array.js" Component_="alternatives.js" FileName="array.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\types\array.js" SelfReg="false"/>
+    <ROW File="binary.js" Component_="alternatives.js" FileName="binary.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\types\binary.js" SelfReg="false"/>
+    <ROW File="boolean.js" Component_="alternatives.js" FileName="boolean.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\types\boolean.js" SelfReg="false"/>
+    <ROW File="date.js" Component_="alternatives.js" FileName="date.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\types\date.js" SelfReg="false"/>
+    <ROW File="function.js" Component_="alternatives.js" FileName="function.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\types\function.js" SelfReg="false"/>
+    <ROW File="keys.js" Component_="alternatives.js" FileName="keys.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\types\keys.js" SelfReg="false"/>
+    <ROW File="link.js" Component_="alternatives.js" FileName="link.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\types\link.js" SelfReg="false"/>
+    <ROW File="number.js" Component_="alternatives.js" FileName="number.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\types\number.js" SelfReg="false"/>
+    <ROW File="object.js" Component_="alternatives.js" FileName="object.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\types\object.js" SelfReg="false"/>
+    <ROW File="string.js" Component_="alternatives.js" FileName="string.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\types\string.js" SelfReg="false"/>
+    <ROW File="symbol.js" Component_="alternatives.js" FileName="symbol.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\types\symbol.js" SelfReg="false"/>
+    <ROW File="validator.js" Component_="annotate.js" FileName="VALIDA~1.JS|validator.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\validator.js" SelfReg="false"/>
+    <ROW File="values.js" Component_="annotate.js" FileName="values.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\lib\values.js" SelfReg="false"/>
+    <ROW File="LICENSE.md_7" Component_="LICENSE.md_5" FileName="LICENSE.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\LICENSE.md" SelfReg="false"/>
+    <ROW File="package.json_33" Component_="LICENSE.md_5" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\package.json" SelfReg="false"/>
+    <ROW File="README.md_32" Component_="LICENSE.md_5" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\joi\README.md" SelfReg="false"/>
+    <ROW File="LICENSE_24" Component_="LICENSE" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\minimatch\LICENSE" SelfReg="false"/>
+    <ROW File="minimatch.js" Component_="LICENSE" FileName="MINIMA~1.JS|minimatch.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\minimatch\minimatch.js" SelfReg="false"/>
+    <ROW File="package.json_34" Component_="LICENSE" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\minimatch\package.json" SelfReg="false"/>
+    <ROW File="README.md_33" Component_="LICENSE" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\minimatch\README.md" SelfReg="false"/>
+    <ROW File="LICENSE_25" Component_="LICENSE_1" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\once\LICENSE" SelfReg="false"/>
+    <ROW File="once.js_1" Component_="LICENSE_1" FileName="once.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\once\once.js" SelfReg="false"/>
+    <ROW File="package.json_35" Component_="LICENSE_1" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\once\package.json" SelfReg="false"/>
+    <ROW File="README.md_34" Component_="LICENSE_1" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\once\README.md" SelfReg="false"/>
+    <ROW File="index.js_33" Component_="index.js_11" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\path-is-absolute\index.js" SelfReg="false"/>
+    <ROW File="license_26" Component_="index.js_11" FileName="license" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\path-is-absolute\license" SelfReg="false"/>
+    <ROW File="package.json_36" Component_="index.js_11" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\path-is-absolute\package.json" SelfReg="false"/>
+    <ROW File="readme.md_35" Component_="index.js_11" FileName="readme.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\path-is-absolute\readme.md" SelfReg="false"/>
+    <ROW File="index.js_34" Component_="index.js_12" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\path-parse\index.js" SelfReg="false"/>
+    <ROW File="LICENSE_27" Component_="index.js_12" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\path-parse\LICENSE" SelfReg="false"/>
+    <ROW File="package.json_37" Component_="index.js_12" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\path-parse\package.json" SelfReg="false"/>
+    <ROW File="README.md_36" Component_="index.js_12" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\path-parse\README.md" SelfReg="false"/>
+    <ROW File="jshintrc" Component_="jshintrc" FileName="JSHINT~1|.jshintrc" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\plist\.jshintrc" SelfReg="false"/>
+    <ROW File="travis.yml_5" Component_="jshintrc" FileName="TRAVIS~1.YML|.travis.yml" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\plist\.travis.yml" SelfReg="false"/>
+    <ROW File="plistbuild.js" Component_="plistbuild.js" FileName="PLIST-~1.JS|plist-build.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\plist\dist\plist-build.js" SelfReg="false"/>
+    <ROW File="plistparse.js" Component_="plistbuild.js" FileName="PLIST-~2.JS|plist-parse.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\plist\dist\plist-parse.js" SelfReg="false"/>
+    <ROW File="plist.js" Component_="plistbuild.js" FileName="plist.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\plist\dist\plist.js" SelfReg="false"/>
+    <ROW File="index.html" Component_="index.html" FileName="INDEX~1.HTM|index.html" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\plist\examples\browser\index.html" SelfReg="false"/>
+    <ROW File="History.md" Component_="jshintrc" FileName="History.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\plist\History.md" SelfReg="false"/>
+    <ROW File="index.js_35" Component_="jshintrc" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\plist\index.js" SelfReg="false"/>
+    <ROW File="build.js" Component_="build.js" FileName="build.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\plist\lib\build.js" SelfReg="false"/>
+    <ROW File="parse.js" Component_="build.js" FileName="parse.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\plist\lib\parse.js" SelfReg="false"/>
+    <ROW File="domparser.js" Component_="domparser.js" FileName="DOM-PA~1.JS|dom-parser.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\plist\lib\xmldom\dom-parser.js" SelfReg="false"/>
+    <ROW File="dom.js" Component_="domparser.js" FileName="dom.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\plist\lib\xmldom\dom.js" SelfReg="false"/>
+    <ROW File="entities.js" Component_="domparser.js" FileName="entities.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\plist\lib\xmldom\entities.js" SelfReg="false"/>
+    <ROW File="sax.js" Component_="domparser.js" FileName="sax.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\plist\lib\xmldom\sax.js" SelfReg="false"/>
+    <ROW File="LICENSE_28" Component_="jshintrc" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\plist\LICENSE" SelfReg="false"/>
+    <ROW File="Makefile_2" Component_="jshintrc" FileName="Makefile" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\plist\Makefile" SelfReg="false"/>
+    <ROW File="package.json_38" Component_="jshintrc" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\plist\package.json" SelfReg="false"/>
+    <ROW File="README.md_37" Component_="jshintrc" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\plist\README.md" SelfReg="false"/>
+    <ROW File="gitattributes" Component_="gitattributes" FileName="GITATT~1|.gitattributes" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\.gitattributes" SelfReg="false"/>
+    <ROW File="LICENSE_29" Component_="gitattributes" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\LICENSE" SelfReg="false"/>
+    <ROW File="package.json_39" Component_="gitattributes" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\package.json" SelfReg="false"/>
+    <ROW File="README.md_38" Component_="gitattributes" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\README.md" SelfReg="false"/>
+    <ROW File="SECURITY.md" Component_="gitattributes" FileName="SECURITY.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\SECURITY.md" SelfReg="false"/>
+    <ROW File="constants.js" Component_="constants.js" FileName="CONSTA~1.JS|constants.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\src\config\constants.js" SelfReg="false"/>
+    <ROW File="index.d.ts_11" Component_="index.d.ts_6" FileName="INDEXD~1.TS|index.d.ts" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\src\index.d.ts" SelfReg="false"/>
+    <ROW File="index.js_36" Component_="index.d.ts_6" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\src\index.js" SelfReg="false"/>
+    <ROW File="index.js_37" Component_="index.js_13" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\src\linux\index.js" SelfReg="false"/>
+    <ROW File="postinstall.js" Component_="index.js_13" FileName="POSTIN~1.JS|postinstall.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\src\linux\postinstall.js" SelfReg="false"/>
+    <ROW File="desktop.ejs" Component_="desktop.ejs" FileName="desktop.ejs" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\src\linux\templates\desktop.ejs" SelfReg="false"/>
+    <ROW File="script.ejs" Component_="desktop.ejs" FileName="script.ejs" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\src\linux\templates\script.ejs" SelfReg="false"/>
+    <ROW File="defaultAppExist.sh" Component_="defaultAppExist.sh" FileName="DEFAUL~1.SH|defaultAppExist.sh" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\src\macos\defaultAppExist.sh" SelfReg="false"/>
+    <ROW File="index.js_38" Component_="defaultAppExist.sh" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\src\macos\index.js" SelfReg="false"/>
+    <ROW File="plistMutator.js" Component_="defaultAppExist.sh" FileName="PLISTM~1.JS|plistMutator.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\src\macos\plistMutator.js" SelfReg="false"/>
+    <ROW File="app.ejs" Component_="app.ejs" FileName="app.ejs" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\src\macos\templates\app.ejs" SelfReg="false"/>
+    <ROW File="script.ejs_1" Component_="app.ejs" FileName="script.ejs" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\src\macos\templates\script.ejs" SelfReg="false"/>
+    <ROW File="urlapp.ejs" Component_="app.ejs" FileName="url-app.ejs" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\src\macos\templates\url-app.ejs" SelfReg="false"/>
+    <ROW File="postinstall.js_1" Component_="index.d.ts_6" FileName="POSTIN~1.JS|postinstall.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\src\postinstall.js" SelfReg="false"/>
+    <ROW File="processCommand.js" Component_="processCommand.js" FileName="PROCES~1.JS|processCommand.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\src\utils\processCommand.js" SelfReg="false"/>
+    <ROW File="validator.js_1" Component_="processCommand.js" FileName="VALIDA~1.JS|validator.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\src\utils\validator.js" SelfReg="false"/>
+    <ROW File="wrapperScript.ejs" Component_="processCommand.js" FileName="WRAPPE~1.EJS|wrapperScript.ejs" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\src\utils\wrapperScript.ejs" SelfReg="false"/>
+    <ROW File="wrapperScript.js" Component_="processCommand.js" FileName="WRAPPE~1.JS|wrapperScript.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\src\utils\wrapperScript.js" SelfReg="false"/>
+    <ROW File="common.js_2" Component_="common.js_1" FileName="common.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\src\validation\common.js" SelfReg="false"/>
+    <ROW File="index.js_39" Component_="index.js_14" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\src\windows\index.js" SelfReg="false"/>
+    <ROW File="gitkeep" Component_="gitkeep" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\protocol-registry\temp\.gitkeep" SelfReg="false"/>
+    <ROW File="npmignore_4" Component_="npmignore" FileName="NPMIGN~1|.npmignore" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\rechoir\.npmignore" SelfReg="false"/>
+    <ROW File="travis.yml_6" Component_="npmignore" FileName="TRAVIS~1.YML|.travis.yml" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\rechoir\.travis.yml" SelfReg="false"/>
+    <ROW File="CHANGELOG_1" Component_="npmignore" FileName="CHANGE~1|CHANGELOG" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\rechoir\CHANGELOG" SelfReg="false"/>
+    <ROW File="index.js_40" Component_="npmignore" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\rechoir\index.js" SelfReg="false"/>
+    <ROW File="extension.js" Component_="extension.js" FileName="EXTENS~1.JS|extension.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\rechoir\lib\extension.js" SelfReg="false"/>
+    <ROW File="normalize.js" Component_="extension.js" FileName="NORMAL~1.JS|normalize.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\rechoir\lib\normalize.js" SelfReg="false"/>
+    <ROW File="register.js" Component_="extension.js" FileName="register.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\rechoir\lib\register.js" SelfReg="false"/>
+    <ROW File="LICENSE_30" Component_="npmignore" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\rechoir\LICENSE" SelfReg="false"/>
+    <ROW File="package.json_40" Component_="npmignore" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\rechoir\package.json" SelfReg="false"/>
+    <ROW File="README.md_39" Component_="npmignore" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\rechoir\README.md" SelfReg="false"/>
+    <ROW File="editorconfig_1" Component_="editorconfig_1" FileName="EDITOR~1|.editorconfig" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\.editorconfig" SelfReg="false"/>
+    <ROW File="eslintignore_1" Component_="editorconfig_1" FileName="ESLINT~1|.eslintignore" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\.eslintignore" SelfReg="false"/>
+    <ROW File="eslintrc_5" Component_="editorconfig_1" FileName="ESLINT~2|.eslintrc" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\.eslintrc" SelfReg="false"/>
+    <ROW File="appveyor.yml_1" Component_="editorconfig_1" FileName="appveyor.yml" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\appveyor.yml" SelfReg="false"/>
+    <ROW File="async.js_1" Component_="async.js_1" FileName="async.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\example\async.js" SelfReg="false"/>
+    <ROW File="sync.js_1" Component_="async.js_1" FileName="sync.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\example\sync.js" SelfReg="false"/>
+    <ROW File="index.js_41" Component_="editorconfig_1" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\index.js" SelfReg="false"/>
+    <ROW File="async.js_2" Component_="async.js_2" FileName="async.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\lib\async.js" SelfReg="false"/>
+    <ROW File="caller.js" Component_="async.js_2" FileName="caller.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\lib\caller.js" SelfReg="false"/>
+    <ROW File="core.js" Component_="async.js_2" FileName="core.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\lib\core.js" SelfReg="false"/>
+    <ROW File="core.json_1" Component_="async.js_2" FileName="CORE~1.JSO|core.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\lib\core.json" SelfReg="false"/>
+    <ROW File="iscore.js" Component_="async.js_2" FileName="is-core.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\lib\is-core.js" SelfReg="false"/>
+    <ROW File="nodemodulespaths.js" Component_="async.js_2" FileName="NODE-M~1.JS|node-modules-paths.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\lib\node-modules-paths.js" SelfReg="false"/>
+    <ROW File="normalizeoptions.js" Component_="async.js_2" FileName="NORMAL~1.JS|normalize-options.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\lib\normalize-options.js" SelfReg="false"/>
+    <ROW File="sync.js_2" Component_="async.js_2" FileName="sync.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\lib\sync.js" SelfReg="false"/>
+    <ROW File="LICENSE_31" Component_="editorconfig_1" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\LICENSE" SelfReg="false"/>
+    <ROW File="package.json_41" Component_="editorconfig_1" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\package.json" SelfReg="false"/>
+    <ROW File="readme.markdown_1" Component_="editorconfig_1" FileName="README~1.MAR|readme.markdown" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\readme.markdown" SelfReg="false"/>
+    <ROW File="SECURITY.md_1" Component_="editorconfig_1" FileName="SECURITY.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\SECURITY.md" SelfReg="false"/>
+    <ROW File="eslintrc_6" Component_="eslintrc_2" FileName="ESLINT~1|.eslintrc" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\.eslintrc" SelfReg="false"/>
+    <ROW File="core.js_1" Component_="eslintrc_2" FileName="core.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\core.js" SelfReg="false"/>
+    <ROW File="index.js_42" Component_="index.js_15" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\dotdot\abc\index.js" SelfReg="false"/>
+    <ROW File="index.js_43" Component_="index.js_16" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\dotdot\index.js" SelfReg="false"/>
+    <ROW File="dotdot.js" Component_="eslintrc_2" FileName="dotdot.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\dotdot.js" SelfReg="false"/>
+    <ROW File="faulty_basedir.js" Component_="eslintrc_2" FileName="FAULTY~1.JS|faulty_basedir.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\faulty_basedir.js" SelfReg="false"/>
+    <ROW File="filter.js" Component_="eslintrc_2" FileName="filter.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\filter.js" SelfReg="false"/>
+    <ROW File="filter_sync.js" Component_="eslintrc_2" FileName="FILTER~1.JS|filter_sync.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\filter_sync.js" SelfReg="false"/>
+    <ROW File="mock.js" Component_="eslintrc_2" FileName="mock.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\mock.js" SelfReg="false"/>
+    <ROW File="mock_sync.js" Component_="eslintrc_2" FileName="MOCK_S~1.JS|mock_sync.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\mock_sync.js" SelfReg="false"/>
+    <ROW File="index.js_44" Component_="index.js_17" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\module_dir\xmodules\aaa\index.js" SelfReg="false"/>
+    <ROW File="index.js_45" Component_="index.js_18" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\module_dir\ymodules\aaa\index.js" SelfReg="false"/>
+    <ROW File="main.js_1" Component_="main.js_1" FileName="main.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\module_dir\zmodules\bbb\main.js" SelfReg="false"/>
+    <ROW File="package.json_42" Component_="main.js_1" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\module_dir\zmodules\bbb\package.json" SelfReg="false"/>
+    <ROW File="module_dir.js" Component_="eslintrc_2" FileName="MODULE~1.JS|module_dir.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\module_dir.js" SelfReg="false"/>
+    <ROW File="nodemodulespaths.js_1" Component_="eslintrc_2" FileName="NODE-M~1.JS|node-modules-paths.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\node-modules-paths.js" SelfReg="false"/>
+    <ROW File="index.js_46" Component_="index.js_19" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\node_path\x\aaa\index.js" SelfReg="false"/>
+    <ROW File="index.js_47" Component_="index.js_20" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\node_path\x\ccc\index.js" SelfReg="false"/>
+    <ROW File="index.js_48" Component_="index.js_21" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\node_path\y\bbb\index.js" SelfReg="false"/>
+    <ROW File="index.js_49" Component_="index.js_22" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\node_path\y\ccc\index.js" SelfReg="false"/>
+    <ROW File="node_path.js" Component_="eslintrc_2" FileName="NODE_P~1.JS|node_path.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\node_path.js" SelfReg="false"/>
+    <ROW File="nonstring.js" Component_="eslintrc_2" FileName="NONSTR~1.JS|nonstring.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\nonstring.js" SelfReg="false"/>
+    <ROW File="main.js_2" Component_="main.js_2" FileName="main.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\pathfilter\deep_ref\main.js" SelfReg="false"/>
+    <ROW File="pathfilter.js" Component_="eslintrc_2" FileName="PATHFI~1.JS|pathfilter.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\pathfilter.js" SelfReg="false"/>
+    <ROW File="index.js_50" Component_="index.js_23" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\precedence\aaa\index.js" SelfReg="false"/>
+    <ROW File="main.js_3" Component_="index.js_23" FileName="main.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\precedence\aaa\main.js" SelfReg="false"/>
+    <ROW File="aaa.js" Component_="aaa.js" FileName="aaa.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\precedence\aaa.js" SelfReg="false"/>
+    <ROW File="main.js_4" Component_="main.js_3" FileName="main.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\precedence\bbb\main.js" SelfReg="false"/>
+    <ROW File="bbb.js" Component_="aaa.js" FileName="bbb.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\precedence\bbb.js" SelfReg="false"/>
+    <ROW File="precedence.js" Component_="eslintrc_2" FileName="PRECED~1.JS|precedence.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\precedence.js" SelfReg="false"/>
+    <ROW File="doom.js" Component_="doom.js" FileName="doom.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\baz\doom.js" SelfReg="false"/>
+    <ROW File="package.json_43" Component_="doom.js" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\baz\package.json" SelfReg="false"/>
+    <ROW File="quux.js" Component_="doom.js" FileName="quux.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\baz\quux.js" SelfReg="false"/>
+    <ROW File="a.js" Component_="a.js" FileName="a.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\browser_field\a.js" SelfReg="false"/>
+    <ROW File="b.js" Component_="a.js" FileName="b.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\browser_field\b.js" SelfReg="false"/>
+    <ROW File="package.json_44" Component_="a.js" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\browser_field\package.json" SelfReg="false"/>
+    <ROW File="cup.coffee" Component_="cup.coffee" FileName="CUP~1.COF|cup.coffee" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\cup.coffee" SelfReg="false"/>
+    <ROW File="index.js_51" Component_="index.js_24" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\dot_main\index.js" SelfReg="false"/>
+    <ROW File="package.json_45" Component_="index.js_24" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\dot_main\package.json" SelfReg="false"/>
+    <ROW File="index.js_52" Component_="index.js_25" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\dot_slash_main\index.js" SelfReg="false"/>
+    <ROW File="package.json_46" Component_="index.js_25" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\dot_slash_main\package.json" SelfReg="false"/>
+    <ROW File="foo.js" Component_="cup.coffee" FileName="foo.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\foo.js" SelfReg="false"/>
+    <ROW File="index.js_53" Component_="index.js_26" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\incorrect_main\index.js" SelfReg="false"/>
+    <ROW File="package.json_47" Component_="index.js_26" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\incorrect_main\package.json" SelfReg="false"/>
+    <ROW File="package.json_48" Component_="package.json" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\invalid_main\package.json" SelfReg="false"/>
+    <ROW File="mug.coffee" Component_="cup.coffee" FileName="MUG~1.COF|mug.coffee" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\mug.coffee" SelfReg="false"/>
+    <ROW File="mug.js" Component_="cup.coffee" FileName="mug.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\mug.js" SelfReg="false"/>
+    <ROW File="lerna.json" Component_="lerna.json" FileName="LERNA~1.JSO|lerna.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\multirepo\lerna.json" SelfReg="false"/>
+    <ROW File="package.json_49" Component_="lerna.json" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\multirepo\package.json" SelfReg="false"/>
+    <ROW File="index.js_54" Component_="index.js_27" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\multirepo\packages\package-a\index.js" SelfReg="false"/>
+    <ROW File="package.json_50" Component_="index.js_27" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\multirepo\packages\package-a\package.json" SelfReg="false"/>
+    <ROW File="index.js_55" Component_="index.js_28" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\multirepo\packages\package-b\index.js" SelfReg="false"/>
+    <ROW File="package.json_51" Component_="index.js_28" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\multirepo\packages\package-b\package.json" SelfReg="false"/>
+    <ROW File="async.js_3" Component_="async.js_3" FileName="async.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\nested_symlinks\mylib\async.js" SelfReg="false"/>
+    <ROW File="package.json_52" Component_="async.js_3" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\nested_symlinks\mylib\package.json" SelfReg="false"/>
+    <ROW File="sync.js_3" Component_="async.js_3" FileName="sync.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\nested_symlinks\mylib\sync.js" SelfReg="false"/>
+    <ROW File="otherlib.js" Component_="otherlib.js" FileName="OTHER-~1.JS|other-lib.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\other_path\lib\other-lib.js" SelfReg="false"/>
+    <ROW File="root.js" Component_="root.js" FileName="root.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\other_path\root.js" SelfReg="false"/>
+    <ROW File="index.js_56" Component_="index.js_29" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\quux\foo\index.js" SelfReg="false"/>
+    <ROW File="index.js_57" Component_="index.js_30" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\same_names\foo\index.js" SelfReg="false"/>
+    <ROW File="foo.js_1" Component_="foo.js" FileName="foo.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\same_names\foo.js" SelfReg="false"/>
+    <ROW File="bar.js" Component_="bar.js" FileName="bar.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\symlinked\package\bar.js" SelfReg="false"/>
+    <ROW File="package.json_53" Component_="bar.js" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\symlinked\package\package.json" SelfReg="false"/>
+    <ROW File="foo.js_2" Component_="foo.js_1" FileName="foo.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\symlinked\_\node_modules\foo.js" SelfReg="false"/>
+    <ROW File="gitkeep_1" Component_="gitkeep_1" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\symlinked\_\symlink_target\.gitkeep" SelfReg="false"/>
+    <ROW File="main.js_5" Component_="main.js_4" FileName="main.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver\without_basedir\main.js" SelfReg="false"/>
+    <ROW File="resolver.js" Component_="eslintrc_2" FileName="resolver.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver.js" SelfReg="false"/>
+    <ROW File="resolver_sync.js" Component_="eslintrc_2" FileName="RESOLV~1.JS|resolver_sync.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\resolver_sync.js" SelfReg="false"/>
+    <ROW File="index.js_58" Component_="index.js_31" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\shadowed_core\node_modules\util\index.js" SelfReg="false"/>
+    <ROW File="shadowed_core.js" Component_="eslintrc_2" FileName="SHADOW~1.JS|shadowed_core.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\shadowed_core.js" SelfReg="false"/>
+    <ROW File="subdirs.js" Component_="eslintrc_2" FileName="subdirs.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\subdirs.js" SelfReg="false"/>
+    <ROW File="symlinks.js" Component_="eslintrc_2" FileName="symlinks.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\resolve\test\symlinks.js" SelfReg="false"/>
+    <ROW File="shjs" Component_="shjs" FileName="shjs" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\bin\shjs" SelfReg="false"/>
+    <ROW File="CHANGELOG.md_3" Component_="CHANGELOG.md_1" FileName="CHANGE~1.MD|CHANGELOG.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\CHANGELOG.md" SelfReg="false"/>
+    <ROW File="commands.js" Component_="CHANGELOG.md_1" FileName="commands.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\commands.js" SelfReg="false"/>
+    <ROW File="global.js" Component_="CHANGELOG.md_1" FileName="global.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\global.js" SelfReg="false"/>
+    <ROW File="LICENSE_32" Component_="CHANGELOG.md_1" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\LICENSE" SelfReg="false"/>
+    <ROW File="make.js" Component_="CHANGELOG.md_1" FileName="make.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\make.js" SelfReg="false"/>
+    <ROW File="package.json_54" Component_="CHANGELOG.md_1" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\package.json" SelfReg="false"/>
+    <ROW File="plugin.js" Component_="CHANGELOG.md_1" FileName="plugin.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\plugin.js" SelfReg="false"/>
+    <ROW File="README.md_40" Component_="CHANGELOG.md_1" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\README.md" SelfReg="false"/>
+    <ROW File="shell.js" Component_="CHANGELOG.md_1" FileName="shell.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\shell.js" SelfReg="false"/>
+    <ROW File="cat.js" Component_="cat.js" FileName="cat.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\cat.js" SelfReg="false"/>
+    <ROW File="cd.js" Component_="cat.js" FileName="cd.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\cd.js" SelfReg="false"/>
+    <ROW File="chmod.js" Component_="cat.js" FileName="chmod.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\chmod.js" SelfReg="false"/>
+    <ROW File="common.js_3" Component_="cat.js" FileName="common.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\common.js" SelfReg="false"/>
+    <ROW File="cp.js" Component_="cat.js" FileName="cp.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\cp.js" SelfReg="false"/>
+    <ROW File="dirs.js" Component_="cat.js" FileName="dirs.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\dirs.js" SelfReg="false"/>
+    <ROW File="echo.js" Component_="cat.js" FileName="echo.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\echo.js" SelfReg="false"/>
+    <ROW File="error.js_1" Component_="cat.js" FileName="error.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\error.js" SelfReg="false"/>
+    <ROW File="execchild.js" Component_="cat.js" FileName="EXEC-C~1.JS|exec-child.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\exec-child.js" SelfReg="false"/>
+    <ROW File="exec.js" Component_="cat.js" FileName="exec.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\exec.js" SelfReg="false"/>
+    <ROW File="find.js" Component_="cat.js" FileName="find.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\find.js" SelfReg="false"/>
+    <ROW File="grep.js" Component_="cat.js" FileName="grep.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\grep.js" SelfReg="false"/>
+    <ROW File="head.js" Component_="cat.js" FileName="head.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\head.js" SelfReg="false"/>
+    <ROW File="ln.js" Component_="cat.js" FileName="ln.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\ln.js" SelfReg="false"/>
+    <ROW File="ls.js" Component_="cat.js" FileName="ls.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\ls.js" SelfReg="false"/>
+    <ROW File="mkdir.js" Component_="cat.js" FileName="mkdir.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\mkdir.js" SelfReg="false"/>
+    <ROW File="mv.js" Component_="cat.js" FileName="mv.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\mv.js" SelfReg="false"/>
+    <ROW File="popd.js" Component_="cat.js" FileName="popd.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\popd.js" SelfReg="false"/>
+    <ROW File="pushd.js" Component_="cat.js" FileName="pushd.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\pushd.js" SelfReg="false"/>
+    <ROW File="pwd.js" Component_="cat.js" FileName="pwd.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\pwd.js" SelfReg="false"/>
+    <ROW File="rm.js" Component_="cat.js" FileName="rm.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\rm.js" SelfReg="false"/>
+    <ROW File="sed.js" Component_="cat.js" FileName="sed.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\sed.js" SelfReg="false"/>
+    <ROW File="set.js" Component_="cat.js" FileName="set.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\set.js" SelfReg="false"/>
+    <ROW File="sort.js" Component_="cat.js" FileName="sort.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\sort.js" SelfReg="false"/>
+    <ROW File="tail.js" Component_="cat.js" FileName="tail.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\tail.js" SelfReg="false"/>
+    <ROW File="tempdir.js" Component_="cat.js" FileName="tempdir.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\tempdir.js" SelfReg="false"/>
+    <ROW File="test.js_1" Component_="cat.js" FileName="test.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\test.js" SelfReg="false"/>
+    <ROW File="to.js" Component_="cat.js" FileName="to.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\to.js" SelfReg="false"/>
+    <ROW File="toEnd.js" Component_="cat.js" FileName="toEnd.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\toEnd.js" SelfReg="false"/>
+    <ROW File="touch.js" Component_="cat.js" FileName="touch.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\touch.js" SelfReg="false"/>
+    <ROW File="uniq.js" Component_="cat.js" FileName="uniq.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\uniq.js" SelfReg="false"/>
+    <ROW File="which.js" Component_="cat.js" FileName="which.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\shelljs\src\which.js" SelfReg="false"/>
+    <ROW File="npmignore_5" Component_="npmignore_1" FileName="NPMIGN~1|.npmignore" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\winreg\.npmignore" SelfReg="false"/>
+    <ROW File="jsdoc.conf.json" Component_="npmignore_1" FileName="JSDOCC~1.JSO|jsdoc.conf.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\winreg\jsdoc.conf.json" SelfReg="false"/>
+    <ROW File="registry.js" Component_="registry.js" FileName="registry.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\winreg\lib\registry.js" SelfReg="false"/>
+    <ROW File="package.json_55" Component_="npmignore_1" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\winreg\package.json" SelfReg="false"/>
+    <ROW File="README.md_41" Component_="npmignore_1" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\winreg\README.md" SelfReg="false"/>
+    <ROW File="mocha.opts_1" Component_="mocha.opts" FileName="MOCHA~1.OPT|mocha.opts" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\winreg\test\mocha.opts" SelfReg="false"/>
+    <ROW File="index.js_59" Component_="index.js_32" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\winreg\test\src\index.js" SelfReg="false"/>
+    <ROW File="LICENSE_33" Component_="LICENSE_2" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\wrappy\LICENSE" SelfReg="false"/>
+    <ROW File="package.json_56" Component_="LICENSE_2" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\wrappy\package.json" SelfReg="false"/>
+    <ROW File="README.md_42" Component_="LICENSE_2" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\wrappy\README.md" SelfReg="false"/>
+    <ROW File="wrappy.js" Component_="LICENSE_2" FileName="wrappy.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\wrappy\wrappy.js" SelfReg="false"/>
+    <ROW File="npmignore_6" Component_="npmignore_2" FileName="NPMIGN~1|.npmignore" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\.npmignore" SelfReg="false"/>
+    <ROW File="CHANGELOG.md_4" Component_="npmignore_2" FileName="CHANGE~1.MD|CHANGELOG.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\CHANGELOG.md" SelfReg="false"/>
+    <ROW File="index.js_60" Component_="index.js_33" FileName="index.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\lib\index.js" SelfReg="false"/>
+    <ROW File="Utility.js" Component_="index.js_33" FileName="Utility.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\lib\Utility.js" SelfReg="false"/>
+    <ROW File="XMLAttribute.js" Component_="index.js_33" FileName="XMLATT~1.JS|XMLAttribute.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\lib\XMLAttribute.js" SelfReg="false"/>
+    <ROW File="XMLCData.js" Component_="index.js_33" FileName="XMLCData.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\lib\XMLCData.js" SelfReg="false"/>
+    <ROW File="XMLComment.js" Component_="index.js_33" FileName="XMLCOM~1.JS|XMLComment.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\lib\XMLComment.js" SelfReg="false"/>
+    <ROW File="XMLDeclaration.js" Component_="index.js_33" FileName="XMLDEC~1.JS|XMLDeclaration.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\lib\XMLDeclaration.js" SelfReg="false"/>
+    <ROW File="XMLDocType.js" Component_="index.js_33" FileName="XMLDOC~1.JS|XMLDocType.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\lib\XMLDocType.js" SelfReg="false"/>
+    <ROW File="XMLDocument.js" Component_="index.js_33" FileName="XMLDOC~2.JS|XMLDocument.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\lib\XMLDocument.js" SelfReg="false"/>
+    <ROW File="XMLDocumentCB.js" Component_="index.js_33" FileName="XMLDOC~3.JS|XMLDocumentCB.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\lib\XMLDocumentCB.js" SelfReg="false"/>
+    <ROW File="XMLDTDAttList.js" Component_="index.js_33" FileName="XMLDTD~1.JS|XMLDTDAttList.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\lib\XMLDTDAttList.js" SelfReg="false"/>
+    <ROW File="XMLDTDElement.js" Component_="index.js_33" FileName="XMLDTD~2.JS|XMLDTDElement.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\lib\XMLDTDElement.js" SelfReg="false"/>
+    <ROW File="XMLDTDEntity.js" Component_="index.js_33" FileName="XMLDTD~3.JS|XMLDTDEntity.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\lib\XMLDTDEntity.js" SelfReg="false"/>
+    <ROW File="XMLDTDNotation.js" Component_="index.js_33" FileName="XMLDTD~4.JS|XMLDTDNotation.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\lib\XMLDTDNotation.js" SelfReg="false"/>
+    <ROW File="XMLElement.js" Component_="index.js_33" FileName="XMLELE~1.JS|XMLElement.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\lib\XMLElement.js" SelfReg="false"/>
+    <ROW File="XMLNode.js" Component_="index.js_33" FileName="XMLNode.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\lib\XMLNode.js" SelfReg="false"/>
+    <ROW File="XMLProcessingInstruction.js" Component_="index.js_33" FileName="XMLPRO~1.JS|XMLProcessingInstruction.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\lib\XMLProcessingInstruction.js" SelfReg="false"/>
+    <ROW File="XMLRaw.js" Component_="index.js_33" FileName="XMLRaw.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\lib\XMLRaw.js" SelfReg="false"/>
+    <ROW File="XMLStreamWriter.js" Component_="index.js_33" FileName="XMLSTR~1.JS|XMLStreamWriter.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\lib\XMLStreamWriter.js" SelfReg="false"/>
+    <ROW File="XMLStringifier.js" Component_="index.js_33" FileName="XMLSTR~2.JS|XMLStringifier.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\lib\XMLStringifier.js" SelfReg="false"/>
+    <ROW File="XMLStringWriter.js" Component_="index.js_33" FileName="XMLSTR~3.JS|XMLStringWriter.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\lib\XMLStringWriter.js" SelfReg="false"/>
+    <ROW File="XMLText.js" Component_="index.js_33" FileName="XMLText.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\lib\XMLText.js" SelfReg="false"/>
+    <ROW File="XMLWriterBase.js" Component_="index.js_33" FileName="XMLWRI~1.JS|XMLWriterBase.js" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\lib\XMLWriterBase.js" SelfReg="false"/>
+    <ROW File="LICENSE_34" Component_="npmignore_2" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\LICENSE" SelfReg="false"/>
+    <ROW File="package.json_57" Component_="npmignore_2" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\package.json" SelfReg="false"/>
+    <ROW File="README.md_43" Component_="npmignore_2" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\README.md" SelfReg="false"/>
+    <ROW File="package.json_58" Component_="main.js" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\package.json" SelfReg="false"/>
+    <ROW File="libEGL.dll_1" Component_="libEGL.dll_1" FileName="libEGL.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\swiftshader\libEGL.dll" SelfReg="false"/>
+    <ROW File="libGLESv2.dll_1" Component_="libGLESv2.dll_1" FileName="LIBGLE~1.DLL|libGLESv2.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\swiftshader\libGLESv2.dll" SelfReg="false"/>
+    <ROW File="remoteapp.exe" Component_="remoteapp.exe" FileName="REMOTE~1.EXE|remote-app.exe" Attributes="0" SourcePath="..\bin\remote-app.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="remoteapp.pdb" Component_="remoteapp.exe" FileName="REMOTE~1.PDB|remote-app.pdb" Attributes="0" SourcePath="..\bin\remote-app.pdb" SelfReg="false"/>
+    <ROW File="remotetoken" Component_="chrome_100_percent.pak" FileName="REMOTE~1|remote-token" Attributes="0" SourcePath="..\bin\remote-token" SelfReg="false"/>
+    <ROW File="videotesting.exe" Component_="videotesting.exe" FileName="VIDEOT~1.EXE|videotesting.exe" Attributes="0" SourcePath="..\bin\videotesting.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="videotesting.pdb" Component_="videotesting.exe" FileName="VIDEOT~1.PDB|videotesting.pdb" Attributes="0" SourcePath="..\bin\videotesting.pdb" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
@@ -132,6 +1079,159 @@
     <ROW Feature_="MainFeature" Component_="agent.exe"/>
     <ROW Feature_="MainFeature" Component_="sessioncore.exe"/>
     <ROW Feature_="MainFeature" Component_="SHORTCUTDIR"/>
+    <ROW Feature_="MainFeature" Component_="chrome_100_percent.pak"/>
+    <ROW Feature_="MainFeature" Component_="d3dcompiler_47.dll"/>
+    <ROW Feature_="MainFeature" Component_="ffmpeg.dll"/>
+    <ROW Feature_="MainFeature" Component_="libEGL.dll"/>
+    <ROW Feature_="MainFeature" Component_="libGLESv2.dll"/>
+    <ROW Feature_="MainFeature" Component_="Squirrel.exe"/>
+    <ROW Feature_="MainFeature" Component_="ThinkMay.exe"/>
+    <ROW Feature_="MainFeature" Component_="vk_swiftshader.dll"/>
+    <ROW Feature_="MainFeature" Component_="vulkan1.dll"/>
+    <ROW Feature_="MainFeature" Component_="am.pak"/>
+    <ROW Feature_="MainFeature" Component_="logo.ico"/>
+    <ROW Feature_="MainFeature" Component_="main.js"/>
+    <ROW Feature_="MainFeature" Component_="packagelock.json"/>
+    <ROW Feature_="MainFeature" Component_="applyToDefaults.js"/>
+    <ROW Feature_="MainFeature" Component_="LICENSE.md"/>
+    <ROW Feature_="MainFeature" Component_="index.d.ts"/>
+    <ROW Feature_="MainFeature" Component_="LICENSE.md_1"/>
+    <ROW Feature_="MainFeature" Component_="decode.js"/>
+    <ROW Feature_="MainFeature" Component_="LICENSE.md_2"/>
+    <ROW Feature_="MainFeature" Component_="index.d.ts_1"/>
+    <ROW Feature_="MainFeature" Component_="LICENSE.md_3"/>
+    <ROW Feature_="MainFeature" Component_="index.d.ts_2"/>
+    <ROW Feature_="MainFeature" Component_="LICENSE.md_4"/>
+    <ROW Feature_="MainFeature" Component_="travis.yml"/>
+    <ROW Feature_="MainFeature" Component_="async.js"/>
+    <ROW Feature_="MainFeature" Component_="syncpackagemanagers.js"/>
+    <ROW Feature_="MainFeature" Component_="FUNDING.yml"/>
+    <ROW Feature_="MainFeature" Component_="index.js"/>
+    <ROW Feature_="MainFeature" Component_="base64js.min.js"/>
+    <ROW Feature_="MainFeature" Component_="index.js_1"/>
+    <ROW Feature_="MainFeature" Component_="travis.yml_1"/>
+    <ROW Feature_="MainFeature" Component_="map.js"/>
+    <ROW Feature_="MainFeature" Component_="map.js_1"/>
+    <ROW Feature_="MainFeature" Component_="cli.js"/>
+    <ROW Feature_="MainFeature" Component_="ejs.js"/>
+    <ROW Feature_="MainFeature" Component_="ejs.js_1"/>
+    <ROW Feature_="MainFeature" Component_="eslintrc"/>
+    <ROW Feature_="MainFeature" Component_="coveralls.yml"/>
+    <ROW Feature_="MainFeature" Component_="browser.js"/>
+    <ROW Feature_="MainFeature" Component_="index.js_2"/>
+    <ROW Feature_="MainFeature" Component_="index.test.js"/>
+    <ROW Feature_="MainFeature" Component_="index.d.ts_3"/>
+    <ROW Feature_="MainFeature" Component_="index.js_3"/>
+    <ROW Feature_="MainFeature" Component_="editorconfig"/>
+    <ROW Feature_="MainFeature" Component_="eslintrc_1"/>
+    <ROW Feature_="MainFeature" Component_="common.js"/>
+    <ROW Feature_="MainFeature" Component_="LICENSEMIT"/>
+    <ROW Feature_="MainFeature" Component_="index.js_4"/>
+    <ROW Feature_="MainFeature" Component_="index.js_5"/>
+    <ROW Feature_="MainFeature" Component_="inflight.js"/>
+    <ROW Feature_="MainFeature" Component_="inherits.js"/>
+    <ROW Feature_="MainFeature" Component_="CHANGELOG"/>
+    <ROW Feature_="MainFeature" Component_="eslintignore"/>
+    <ROW Feature_="MainFeature" Component_="index.js_6"/>
+    <ROW Feature_="MainFeature" Component_="cli.js_1"/>
+    <ROW Feature_="MainFeature" Component_="index.d.ts_4"/>
+    <ROW Feature_="MainFeature" Component_="bash_completion.sh"/>
+    <ROW Feature_="MainFeature" Component_="jakefile.js"/>
+    <ROW Feature_="MainFeature" Component_="api.js"/>
+    <ROW Feature_="MainFeature" Component_="directory_task.js"/>
+    <ROW Feature_="MainFeature" Component_="file.js"/>
+    <ROW Feature_="MainFeature" Component_="index.js_7"/>
+    <ROW Feature_="MainFeature" Component_="index.js_8"/>
+    <ROW Feature_="MainFeature" Component_="index.d.ts_5"/>
+    <ROW Feature_="MainFeature" Component_="CHANGELOG.md"/>
+    <ROW Feature_="MainFeature" Component_="eslintrc.json"/>
+    <ROW Feature_="MainFeature" Component_="index.js_9"/>
+    <ROW Feature_="MainFeature" Component_="index.js_10"/>
+    <ROW Feature_="MainFeature" Component_="browser.js_1"/>
+    <ROW Feature_="MainFeature" Component_="concurrent.js"/>
+    <ROW Feature_="MainFeature" Component_="concurrent.jake.js"/>
+    <ROW Feature_="MainFeature" Component_="jakefile.js_1"/>
+    <ROW Feature_="MainFeature" Component_="joibrowser.min.js"/>
+    <ROW Feature_="MainFeature" Component_="annotate.js"/>
+    <ROW Feature_="MainFeature" Component_="alternatives.js"/>
+    <ROW Feature_="MainFeature" Component_="LICENSE.md_5"/>
+    <ROW Feature_="MainFeature" Component_="LICENSE"/>
+    <ROW Feature_="MainFeature" Component_="LICENSE_1"/>
+    <ROW Feature_="MainFeature" Component_="index.js_11"/>
+    <ROW Feature_="MainFeature" Component_="index.js_12"/>
+    <ROW Feature_="MainFeature" Component_="jshintrc"/>
+    <ROW Feature_="MainFeature" Component_="plistbuild.js"/>
+    <ROW Feature_="MainFeature" Component_="index.html"/>
+    <ROW Feature_="MainFeature" Component_="build.js"/>
+    <ROW Feature_="MainFeature" Component_="domparser.js"/>
+    <ROW Feature_="MainFeature" Component_="gitattributes"/>
+    <ROW Feature_="MainFeature" Component_="constants.js"/>
+    <ROW Feature_="MainFeature" Component_="index.d.ts_6"/>
+    <ROW Feature_="MainFeature" Component_="index.js_13"/>
+    <ROW Feature_="MainFeature" Component_="desktop.ejs"/>
+    <ROW Feature_="MainFeature" Component_="defaultAppExist.sh"/>
+    <ROW Feature_="MainFeature" Component_="app.ejs"/>
+    <ROW Feature_="MainFeature" Component_="processCommand.js"/>
+    <ROW Feature_="MainFeature" Component_="common.js_1"/>
+    <ROW Feature_="MainFeature" Component_="index.js_14"/>
+    <ROW Feature_="MainFeature" Component_="gitkeep"/>
+    <ROW Feature_="MainFeature" Component_="npmignore"/>
+    <ROW Feature_="MainFeature" Component_="extension.js"/>
+    <ROW Feature_="MainFeature" Component_="editorconfig_1"/>
+    <ROW Feature_="MainFeature" Component_="async.js_1"/>
+    <ROW Feature_="MainFeature" Component_="async.js_2"/>
+    <ROW Feature_="MainFeature" Component_="eslintrc_2"/>
+    <ROW Feature_="MainFeature" Component_="index.js_15"/>
+    <ROW Feature_="MainFeature" Component_="index.js_16"/>
+    <ROW Feature_="MainFeature" Component_="index.js_17"/>
+    <ROW Feature_="MainFeature" Component_="index.js_18"/>
+    <ROW Feature_="MainFeature" Component_="main.js_1"/>
+    <ROW Feature_="MainFeature" Component_="index.js_19"/>
+    <ROW Feature_="MainFeature" Component_="index.js_20"/>
+    <ROW Feature_="MainFeature" Component_="index.js_21"/>
+    <ROW Feature_="MainFeature" Component_="index.js_22"/>
+    <ROW Feature_="MainFeature" Component_="main.js_2"/>
+    <ROW Feature_="MainFeature" Component_="index.js_23"/>
+    <ROW Feature_="MainFeature" Component_="aaa.js"/>
+    <ROW Feature_="MainFeature" Component_="main.js_3"/>
+    <ROW Feature_="MainFeature" Component_="doom.js"/>
+    <ROW Feature_="MainFeature" Component_="a.js"/>
+    <ROW Feature_="MainFeature" Component_="cup.coffee"/>
+    <ROW Feature_="MainFeature" Component_="index.js_24"/>
+    <ROW Feature_="MainFeature" Component_="index.js_25"/>
+    <ROW Feature_="MainFeature" Component_="index.js_26"/>
+    <ROW Feature_="MainFeature" Component_="package.json"/>
+    <ROW Feature_="MainFeature" Component_="lerna.json"/>
+    <ROW Feature_="MainFeature" Component_="index.js_27"/>
+    <ROW Feature_="MainFeature" Component_="index.js_28"/>
+    <ROW Feature_="MainFeature" Component_="async.js_3"/>
+    <ROW Feature_="MainFeature" Component_="otherlib.js"/>
+    <ROW Feature_="MainFeature" Component_="root.js"/>
+    <ROW Feature_="MainFeature" Component_="index.js_29"/>
+    <ROW Feature_="MainFeature" Component_="index.js_30"/>
+    <ROW Feature_="MainFeature" Component_="foo.js"/>
+    <ROW Feature_="MainFeature" Component_="bar.js"/>
+    <ROW Feature_="MainFeature" Component_="foo.js_1"/>
+    <ROW Feature_="MainFeature" Component_="gitkeep_1"/>
+    <ROW Feature_="MainFeature" Component_="main.js_4"/>
+    <ROW Feature_="MainFeature" Component_="index.js_31"/>
+    <ROW Feature_="MainFeature" Component_="shjs"/>
+    <ROW Feature_="MainFeature" Component_="CHANGELOG.md_1"/>
+    <ROW Feature_="MainFeature" Component_="cat.js"/>
+    <ROW Feature_="MainFeature" Component_="npmignore_1"/>
+    <ROW Feature_="MainFeature" Component_="registry.js"/>
+    <ROW Feature_="MainFeature" Component_="mocha.opts"/>
+    <ROW Feature_="MainFeature" Component_="index.js_32"/>
+    <ROW Feature_="MainFeature" Component_="LICENSE_2"/>
+    <ROW Feature_="MainFeature" Component_="npmignore_2"/>
+    <ROW Feature_="MainFeature" Component_="index.js_33"/>
+    <ROW Feature_="MainFeature" Component_="remoteapp.exe"/>
+    <ROW Feature_="MainFeature" Component_="libEGL.dll_1"/>
+    <ROW Feature_="MainFeature" Component_="libGLESv2.dll_1"/>
+    <ROW Feature_="MainFeature" Component_="videotesting.exe"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
+    <ROW Name="logo.exe" SourcePath="..\client\window\electron\assets\logo.ico" Index="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
     <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>

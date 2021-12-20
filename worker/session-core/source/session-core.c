@@ -182,7 +182,7 @@ session_core_setup_session(SessionCore* self)
 					1080,
 					OPUS_ENC,
 					CODEC_H265,
-					HIGH_CONST);
+					DEVELOPMENT_DEFAULT_BITRATE);
 		
 		self->peer_device = WINDOW_APP;
 	}

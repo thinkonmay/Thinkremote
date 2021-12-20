@@ -7,6 +7,8 @@
 /// 
 /// @copyright Copyright (c) 2021
 /// 
+#ifndef __SESSION_CORE_REMOTE_CONFIG_H__
+#define __SESSION_CORE_REMOTE_CONFIG_H__
 #include "session-core-type.h"
 #include "session-core.h"
 #include <gst/gst.h>
@@ -77,4 +79,12 @@ gint			qoe_get_screen_height				(StreamConfig* qoe);
 gint			qoe_get_screen_width				(StreamConfig* qoe);
 
 
+/**
+ * @brief 
+ * get video bitrate will be used throughout the video stream 
+ * @param qoe 
+ * @return gint video bitrate in kbit/s 
+ */
+gint 			qoe_get_video_bitrate				(StreamConfig* qoe);
 
+#endif

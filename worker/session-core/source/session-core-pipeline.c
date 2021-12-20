@@ -470,7 +470,7 @@ setup_element_property(SessionCore* core)
 
     if (pipe->video_element[MEDIA_FOUNDATION_ENCODER]) { g_object_set(pipe->video_element[MEDIA_FOUNDATION_ENCODER], "quality-vs-speed", 100, NULL); }
 
-    if (pipe->video_element[MEDIA_FOUNDATION_ENCODER]) { g_object_set(pipe->video_element[MEDIA_FOUNDATION_ENCODER], "bitrate", 8000, NULL); }
+    if (pipe->video_element[MEDIA_FOUNDATION_ENCODER]) { g_object_set(pipe->video_element[MEDIA_FOUNDATION_ENCODER], "bitrate", qoe_get_video_bitrate(qoe), NULL); }
 
     if (pipe->video_element[MEDIA_FOUNDATION_ENCODER]) { g_object_set(pipe->video_element[MEDIA_FOUNDATION_ENCODER], "low-latency", TRUE, NULL); }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
