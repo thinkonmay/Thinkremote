@@ -1,13 +1,35 @@
 Personal cloud computing
 ===================================
+Personal cloud computing is the technology stack allow you to access other computer remotely
 
-Personal cloud computing is the technology stack allow you to access other computer remotely which
+**Demo**
 
+https://video-bucket-thinkmay.s3.ap-southeast-1.amazonaws.com/ThinkMay+Execute.mp4
+
+Features
+--------------
 - Based on WebRTC video streaming technology and Gstreamer multimedia framework for video and audio pipeline handling
 - Is capable of H265, H264 video streaming, OPUS audio codec audio streaming 
 - Is capable of hardware accelerated video encoding based on window's d3d11 video encoding core 
 
+Join us
+-----------
+[Website](https://www.thinkmay.net) |
+[Chat](https://join.slack.com/t/thinkmayworkspace/shared_invite/zt-ywglslgj-fQb4Po4JagVaHbZ8wwiqpg) |
+[Architecture](https://miro.com/app/board/o9J_lTKComc=/?invite_link_id=202014558866) |
+[Document](https://thinkonmay.notion.site/5a4909c660374a4ca0286d766bf3b9f1?v=bd0da1b672c14c6fbe2f2ad4d29b99b7)
 
+Requirement to build
+-------------------------
+  - [Gstreamer 1.19.2](https://gstreamer.freedesktop.org/) - A complete, cross-platform solution to record, convert and stream audio and video.
+    1. [Download Gstreamer from https://ffmpeg.org/download.html](https://ffmpeg.org/download.html) 
+    2. Once the installer is downloaded, install gstreamer to C:/ Drive.
+  - [VB Cable](https://vb-audio.com/Cable) - Create a fake audio device for audio capturing.  
+    1. [Download VB Cable driver](https://download.vb-audio.com/Download_MAC/VBCable_MACDriver_Pack108.zip) 
+    2. Restart your computer after install VC Cable driver, your VB Input audio enndpoint should be enabled
+  - [Visual Studio](https://visualstudio.microsoft.com/) - Build tool on window (2022 version is recommended).  
+    1. [Download Visual Studio from Microsoft](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=17#install) 
+    2. If your downloaded version is not preview/2022, please go to build.bat and change the path to vcvarsall.bat.
 
 Client module
 ----------------
@@ -39,26 +61,18 @@ Worker module is a window application written in C and based on Gstreamer multim
 
 Test instruction
 ---------------
-Switch to development environment by set
-- `development.h: DEVELOPMENT_ENVIRONMENT to TRUE`
+* Switch to development environment by set
+  * `development.h: DEVELOPMENT_ENVIRONMENT to TRUE`
 * Run client and worker build by run corresponding automated build bat file
-  * `cd worker`
-  * `./build.bat`
-  * `cd ../client`
   * `./build.bat`
 * Host signalling test server
   * `cd test/Signalling`
   * `dotnet run .`
-* `worker/bin/session-core.exe`
-* `client/bin/remote-app.exe`
+* Run session-core and remote-app binary
+  * `worker/bin/session-core.exe`
+  * `client/bin/remote-app.exe`
 
 
-Join us
------------
-- Website: https://www.thinkmay.net
-- Slack (chat channel): https://join.slack.com/t/thinkmayworkspace/shared_invite/zt-ywglslgj-fQb4Po4JagVaHbZ8wwiqpg
-- Architecture document (miro): https://miro.com/app/board/o9J_lTKComc=/?invite_link_id=202014558866
-- Detailed document (notion) https://thinkonmay.notion.site/5a4909c660374a4ca0286d766bf3b9f1?v=bd0da1b672c14c6fbe2f2ad4d29b99b7
 
 How to use
 -----------
@@ -70,6 +84,6 @@ Licensing
 -----------
 Thinkmay streaming is distributed uner GNU General Public License v3
 
-Contributing:
+Contributing
 -----------
 - If you want to contribute to this repository email us at contact@thinkmay.net
