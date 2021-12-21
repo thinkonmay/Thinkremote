@@ -23,7 +23,8 @@ Join us
 Requirement to build
 -------------------------
   - [Gstreamer 1.19.2](https://gstreamer.freedesktop.org/) - A complete, cross-platform solution to record, convert and stream audio and video.
-    1. [Download Gstreamer from https://ffmpeg.org/download.html](https://ffmpeg.org/download.html) 
+    1. [Download Gstreamer package](https://gstreamer.freedesktop.org/data/pkg/windows/1.19.2/msvc/gstreamer-1.0-devel-msvc-x86_64-1.19.2.msi) 
+    1. [Download Gstreamer development package](https://gstreamer.freedesktop.org/data/pkg/windows/1.19.2/msvc/gstreamer-1.0-msvc-x86_64-1.19.2.msi) 
     2. Once the installer is downloaded, install gstreamer to C:/ Drive.
   - [VB Cable](https://vb-audio.com/Cable) - Create a fake audio device for audio capturing.  
     1. [Download VB Cable driver](https://download.vb-audio.com/Download_MAC/VBCable_MACDriver_Pack108.zip) 
