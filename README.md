@@ -68,7 +68,7 @@ Personal cloud computing github repository is managed by Thinkmay, we also provi
 
 Licensing
 -----------
-Thinkmay streaming is distributed uner HNU General Public License v2 
+Thinkmay streaming is distributed uner GNU General Public License v3
 
 Contributing:
 -----------
