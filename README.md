@@ -27,7 +27,7 @@ Requirement to build
     1. [Download Gstreamer development package](https://gstreamer.freedesktop.org/data/pkg/windows/1.19.2/msvc/gstreamer-1.0-msvc-x86_64-1.19.2.msi) 
     2. Once the installer is downloaded, install gstreamer to C:/ Drive.
   - [VB Cable](https://vb-audio.com/Cable) - Create a fake audio device for audio capturing.  
-    1. [Download VB Cable driver](https://download.vb-audio.com/Download_MAC/VBCable_MACDriver_Pack108.zip) 
+    1. [Download VB Cable driver](https://download.vb-audio.com/Download_CABLE/VBCABLE_Driver_Pack43.zip) 
     2. Restart your computer after install VC Cable driver, your VB Input audio enndpoint should be enabled
   - [Visual Studio](https://visualstudio.microsoft.com/) - Build tool on window (2022 version is recommended).  
     1. [Download Visual Studio from Microsoft](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=17#install) 
