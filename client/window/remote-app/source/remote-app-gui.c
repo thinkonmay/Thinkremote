@@ -418,14 +418,14 @@ handle_user_shortcut()
                 if(_gui.disable_client_cursor)
                 {
                     enable_client_cursor();
-                    toggle_key_capturing(_gui.app,TRUE);
+                    toggle_key_capturing(_gui.app,FALSE);
                     switch_fullscreen_mode(&_gui);
                 }
                 else
                 {
                     disable_client_cursor();
                     switch_fullscreen_mode(&_gui);
-                    toggle_key_capturing(_gui.app,FALSE);
+                    toggle_key_capturing(_gui.app,TRUE);
 
                     /**
                      * @brief 

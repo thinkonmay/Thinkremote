@@ -112,6 +112,8 @@ struct _HidInput
     JsonObject* json;
 };
 
+
+
 static void
 send_mouse_signal(HidInput* input,
                          RemoteApp* core)
@@ -446,6 +448,16 @@ handle_window_mouse_relative(gint mouse_code,
                           gint delta_Y,
                           RemoteApp* app)
 {
+    // reduce mouse move signal by filter unactive mouse
+    if(mouse_code == WM_MOUSEMOVE)
+    {
+        if(!delta_X && !delta_Y)
+        {
+            return;
+        }
+    }
+
+
     HidInput* navigation = malloc(sizeof(HidInput));
     memset(navigation,0,sizeof(HidInput));
     navigation->opcode = MOUSERAW;
