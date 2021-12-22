@@ -11,10 +11,10 @@
     <ROW Property="ARPURLINFOABOUT" Value="https://www.thinkmay.net"/>
     <ROW Property="ARPURLUPDATEINFO" Value="https://www.thinkmay.net"/>
     <ROW Property="Manufacturer" Value="Thinkmay"/>
-    <ROW Property="ProductCode" Value="1033:{31453BEB-5F7F-42CA-9E9A-85CF75AC2BC0} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{63FF3F26-DCF4-458B-A417-335E896D6E04} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Personal-cloud-computing"/>
-    <ROW Property="ProductVersion" Value="1.0.0" Type="32"/>
+    <ROW Property="ProductVersion" Value="1.0.1" Type="32"/>
     <ROW Property="REBOOT" MultiBuildValue="x64_Release:ReallySuppress"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{806C0493-5DCB-40B8-AF39-017AC94022DD}"/>
