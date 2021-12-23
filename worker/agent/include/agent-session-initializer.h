@@ -44,23 +44,6 @@ gboolean			session_initialize   							(AgentServer* object);
  */
 gboolean 			session_terminate   							(AgentServer* object);
 
-/**
- * @brief 
- * disconnect session by force exit session core
- * @param object 
- * @return gboolean 
- */
-gboolean			session_disconnect								(AgentServer* object);
-
-
-/**
- * @brief 
- * reconnect session core by create session core process
- * @param object 
- * @return gboolean 
- */
-gboolean			session_reconnect								(AgentServer* object);
-
 
 /**
  * @brief 

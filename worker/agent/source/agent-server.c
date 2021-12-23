@@ -106,12 +106,6 @@ server_callback (SoupServer        *server,
 
 		msg->status_code = session_initialize(agent)? SOUP_STATUS_OK : SOUP_STATUS_BAD_REQUEST;
 	}
-	else if(!g_strcmp0(uri->path,"/cluster/Disconnect")) {
-		msg->status_code = session_disconnect(agent)? SOUP_STATUS_OK : SOUP_STATUS_BAD_REQUEST;
-	}
-	else if(!g_strcmp0(uri->path,"/cluster/Reconnect")) {
-		msg->status_code = session_reconnect(agent)? SOUP_STATUS_OK : SOUP_STATUS_BAD_REQUEST;
-	}
 	else if(!g_strcmp0(uri->path,"/cluster/Terminate")) {
 		msg->status_code = session_terminate(agent)? SOUP_STATUS_OK : SOUP_STATUS_BAD_REQUEST;
 	}

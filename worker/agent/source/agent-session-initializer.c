@@ -82,53 +82,6 @@ handle_session_core_output(GBytes* buffer,
     gchar* message = g_bytes_get_data(buffer, NULL);
 }
 
-gboolean
-session_reconnect(AgentServer* agent)
-{
-    RemoteSession* session = agent_get_remote_session(agent);
-
-    // return false if session core is already running
-    if(session->process)
-    {
-        session_disconnect(agent);
-        return FALSE;
-    }
-
-    GString* core_script = g_string_new(SESSION_CORE_BINARY);
-    g_string_append(core_script," --token=");
-    g_string_append(core_script,DEVICE_TOKEN);
-    g_string_append(core_script," --clusterip=");
-    g_string_append(core_script,CLUSTER_IP);
-
-
-    session->process =
-    create_new_child_process(g_string_free(core_script,FALSE),
-        (ChildStdErrHandle)handle_session_core_error,
-        (ChildStdOutHandle)handle_session_core_output,
-        (ChildStateHandle)handler_session_core_state_function, agent,NULL);
-
-    // return false if session core is not running after child process initialize
-    if(!session->process)
-        return FALSE;
-    else    
-        return TRUE;
-}
-
-gboolean
-session_disconnect(AgentServer* agent)
-{
-    RemoteSession* session = agent_get_remote_session(agent);
-
-    // return false if child process is not running before disconnect
-    if(!session->process)
-        return FALSE;
-
-    childprocess_force_exit(session->process);
-    clean_childprocess(session->process);
-    session->process = NULL;
-
-    return TRUE;
-}
 
 gboolean
 session_terminate(AgentServer* agent)
