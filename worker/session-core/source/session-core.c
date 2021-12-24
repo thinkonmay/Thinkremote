@@ -144,7 +144,6 @@ session_core_setup_session(SessionCore* self)
 
 		SoupMessage* token_message = soup_message_new(SOUP_METHOD_GET,token_str);
 
-
 		worker_log_output("registering with device token\n");
 		worker_log_output(DEVICE_TOKEN);
 
@@ -288,18 +287,18 @@ server_callback (SoupServer        *server,
 	const char *name, *value;
 	SessionCore* core = (SessionCore*) user_data;
 	SoupURI* uri = soup_message_get_uri(msg);
+	if(!g_strcmp0(uri->path,"/cluster/ping"))
+	{
+		gchar* response = "ping";
+		soup_message_set_response(msg,
+			"application/json",SOUP_MEMORY_COPY,response,strlen(response));
+		msg->status_code = SOUP_STATUS_OK;
+		return;
+	}
 
 	soup_message_headers_iter_init (&iter, msg->request_headers);
 	while (soup_message_headers_iter_next (&iter, &name, &value))
 	{
-		if(!g_strcmp0(uri->path,"/cluster/ping"))
-		{
-			gchar* response = "ping";
-			soup_message_set_response(msg,
-				"application/json",SOUP_MEMORY_COPY,response,strlen(response));
-			msg->status_code = SOUP_STATUS_OK;
-			return;
-		}
 		if(!g_strcmp0(name,"Authorization"))
 		{ 
 			if(!validate_token(value))
@@ -309,6 +308,7 @@ server_callback (SoupServer        *server,
 			}
 		}
 	}
+
 	if(!g_strcmp0(uri->path,"/agent/message"))
 	{
 		msg->status_code = SOUP_STATUS_OK;
@@ -316,6 +316,42 @@ server_callback (SoupServer        *server,
 	}
 }
 
+
+gpointer
+session_core_sync_state_with_cluster(gpointer user_data)
+{
+	Sleep(3000);
+	SessionCore* core = (SessionCore*)user_data;
+	const char* https_aliases[] = { "https", NULL };
+	SoupSession* https_session = soup_session_new_with_options(
+			SOUP_SESSION_SSL_STRICT, FALSE,
+			SOUP_SESSION_SSL_USE_SYSTEM_CA_FILE, TRUE,
+			SOUP_SESSION_HTTPS_ALIASES, https_aliases, NULL);
+	
+	while (TRUE)
+	{
+		GString* infor_url = g_string_new("http://");
+		g_string_append(infor_url,CLUSTER_IP);
+		g_string_append(infor_url,":5000/session/continue");
+		gchar* infor_url_str = g_string_free(infor_url,FALSE);
+
+
+		SoupMessage* infor_message = soup_message_new(SOUP_METHOD_GET,infor_url_str);
+		soup_message_headers_append(infor_message->request_headers,
+			"Authorization",DEVICE_TOKEN);
+
+		soup_session_send_message(https_session,infor_message);
+
+		if(infor_message->status_code == SOUP_STATUS_OK)
+		{
+			Sleep(1000);
+		}
+		else
+		{
+			session_core_finalize(core,NULL);
+		}
+	}
+}
 
 
 SessionCore*
@@ -333,6 +369,10 @@ session_core_initialize()
 
 	session_core_setup_session(core);
 	signalling_connect(core);
+
+	g_thread_new("Sync",(GThreadFunc)
+		session_core_sync_state_with_cluster,core);
+
 	g_main_loop_run(core->loop);
 	return core;	
 }

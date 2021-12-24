@@ -106,9 +106,6 @@ session_initialize(AgentServer* agent)
     RemoteSession* session = agent_get_remote_session(agent);
 
     // return false if session core is running before the initialization
-    if(session->process)
-        return FALSE;
-
     GString* core_script = g_string_new(SESSION_CORE_BINARY);
     g_string_append(core_script," --token=");
     g_string_append(core_script,DEVICE_TOKEN);

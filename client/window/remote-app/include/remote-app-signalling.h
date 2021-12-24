@@ -53,12 +53,11 @@ gboolean                        register_with_server                            
  * @param hub signalling hub
  * @param turn turn connection
  * @param url 
- * @param session_slave_id 
+ * @param stun_array
+ * @param remote_token
  */
 void                            signalling_hub_setup                                    (SignallingHub* hub, 
-                                                                                        gchar* turn_ip,
-                                                                                        gchar* turn_user,
-                                                                                        gchar* turn_password,
+                                                                                        gchar* turn,
                                                                                         gchar* url,
                                                                                         JsonArray* stun_array,
                                                                                         gchar* remote_token);

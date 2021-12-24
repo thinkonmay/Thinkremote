@@ -6,6 +6,7 @@
 
 #include <signalling-message.h>
 #include <development.h>
+#include <string-manipulate.h>
 
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>
@@ -97,36 +98,25 @@ handle_stun_list(JsonArray* stun_array,
 }
 
 
+
+
 void
 signalling_hub_setup(SignallingHub* hub, 
-                     gchar* turn_ip,
-                     gchar* turn_user,
-                     gchar* turn_password,
+                     gchar* turn,
                      gchar* url,
                      JsonArray* stun_array,
                      gchar* remote_token)
 {
-    gchar* turn;
-    if(!turn_ip || !turn_user || !turn_password)
+    if(!turn)
     {
-        if(DEVELOPMENT_ENVIRONMENT)
-        {
+        if(DEVELOPMENT_ENVIRONMENT) {
             g_printerr("Fail to get turn server, setting default value");
         }
         turn = DEFAULT_TURN;
     }
     else
     {
-		g_print("starting remote session with turn server");
-        GString* string = g_string_new("turn://");
-        g_string_append(string,turn_user);
-        g_string_append(string,":");
-        g_string_append(string,turn_password);
-        g_string_append(string,"@turn:");
-        g_string_append(string,turn_ip);
-        g_string_append(string,":3478");
-
-        turn = g_string_free(string,FALSE);
+		g_print("starting remote session with turn server\n");
 		g_print(turn);
     }
     memcpy(hub->remote_token, remote_token,strlen(remote_token));

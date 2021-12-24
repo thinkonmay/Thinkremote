@@ -114,9 +114,7 @@ remote_app_setup_session(RemoteApp* self,
 
 
 			signalling_hub_setup(self->signalling,
-				json_object_get_string_member(json_infor,"turnip"),
-				json_object_get_string_member(json_infor,"turnuser"),
-				json_object_get_string_member(json_infor,"turnpassword"),
+				json_object_get_string_member(json_infor,"turn"),
 				json_object_get_string_member(json_infor,"signallingurl"),
 				json_object_get_array_member(json_infor,"stuns"),
 				remote_token);
@@ -124,8 +122,6 @@ remote_app_setup_session(RemoteApp* self,
 			qoe_setup(self->qoe,
 						json_object_get_int_member(json_infor,"audiocodec"),
 						json_object_get_int_member(json_infor,"videocodec"));
-			
-			
 
 			g_object_unref(parser);
 		}
@@ -141,8 +137,6 @@ remote_app_setup_session(RemoteApp* self,
 	else
 	{
 		signalling_hub_setup(self->signalling,
-			NULL,
-			NULL,
 			NULL,
 			DEVELOPMENT_SIGNALLING_URL,
 			NULL,

@@ -103,7 +103,6 @@ server_callback (SoupServer        *server,
 	}
 
 	if(!g_strcmp0(uri->path,"/cluster/Initialize")) {
-
 		msg->status_code = session_initialize(agent)? SOUP_STATUS_OK : SOUP_STATUS_BAD_REQUEST;
 	}
 	else if(!g_strcmp0(uri->path,"/cluster/Terminate")) {
