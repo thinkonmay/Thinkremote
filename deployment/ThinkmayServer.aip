@@ -202,162 +202,164 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
     <ROW Component="APPDIR" ComponentId="{6FC2F270-A62B-430B-A1E9-A34BAF05C8EE}" Directory_="APPDIR" Attributes="0"/>
-    <ROW Component="CHANGELOG" ComponentId="{AD5127DF-E928-40EB-8AF7-EB71FDA89433}" Directory_="interpret_Dir" Attributes="0" KeyPath="CHANGELOG" Type="0"/>
-    <ROW Component="CHANGELOG.md" ComponentId="{6BE735C8-6FA8-4D65-B488-4B0720A48395}" Directory_="colorconvert_Dir" Attributes="0" KeyPath="CHANGELOG.md_2" Type="0"/>
-    <ROW Component="CHANGELOG.md_1" ComponentId="{65CBA289-035F-41D5-AABF-D0853E633D86}" Directory_="shelljs_Dir" Attributes="0" KeyPath="CHANGELOG.md_3" Type="0"/>
-    <ROW Component="FUNDING.yml" ComponentId="{A132CCBD-C986-4BE1-A78A-44C6CFB69E6F}" Directory_="github_Dir" Attributes="0" KeyPath="FUNDING.yml" Type="0"/>
-    <ROW Component="LICENSE" ComponentId="{DFE4185F-27F4-4983-9BBA-AA5AA81163ED}" Directory_="minimatch_Dir" Attributes="0" KeyPath="LICENSE_24" Type="0"/>
-    <ROW Component="LICENSE.md" ComponentId="{40DFBC1A-CF85-4DEB-AC4F-7F64E33105E5}" Directory_="hoek_Dir" Attributes="0" KeyPath="LICENSE.md" Type="0"/>
-    <ROW Component="LICENSE.md_1" ComponentId="{FAD618CC-240C-487B-8855-325A261AAB24}" Directory_="topo_Dir" Attributes="0" KeyPath="LICENSE.md_1" Type="0"/>
-    <ROW Component="LICENSE.md_2" ComponentId="{54869F91-71C6-43D3-92EB-39C538A88134}" Directory_="address_Dir" Attributes="0" KeyPath="LICENSE.md_2" Type="0"/>
-    <ROW Component="LICENSE.md_3" ComponentId="{0C9ABC85-66D8-4870-AF57-9F1B2AC04845}" Directory_="formula_Dir" Attributes="0" KeyPath="LICENSE.md_3" Type="0"/>
-    <ROW Component="LICENSE.md_4" ComponentId="{556E45F1-156D-457E-9823-61C49E3DD839}" Directory_="pinpoint_Dir" Attributes="0" KeyPath="LICENSE.md_4" Type="0"/>
-    <ROW Component="LICENSE.md_5" ComponentId="{7801A61B-1DD0-4F07-8A1C-CBCF1FAB4104}" Directory_="joi_Dir" Attributes="0" KeyPath="LICENSE.md_7" Type="0"/>
-    <ROW Component="LICENSEMIT" ComponentId="{0E15F8D4-206E-4D23-8048-1E97E8A1CDF8}" Directory_="has_Dir" Attributes="0" KeyPath="LICENSEMIT" Type="0"/>
-    <ROW Component="LICENSE_1" ComponentId="{E5E52AB6-33B6-4F6A-9744-B87F93371D1F}" Directory_="once_Dir" Attributes="0" KeyPath="LICENSE_25" Type="0"/>
-    <ROW Component="LICENSE_2" ComponentId="{BFCAD0EE-CC98-4BEB-89EB-3534B874AF4A}" Directory_="wrappy_Dir" Attributes="0" KeyPath="LICENSE_33" Type="0"/>
+    <ROW Component="CHANGELOG" ComponentId="{E6137577-A168-4004-B583-338CC859F613}" Directory_="interpret_Dir" Attributes="0" KeyPath="CHANGELOG" Type="0"/>
+    <ROW Component="CHANGELOG.md" ComponentId="{27224BEB-2099-4848-9C3D-5A93F3EC5CEF}" Directory_="colorconvert_Dir" Attributes="0" KeyPath="CHANGELOG.md_2" Type="0"/>
+    <ROW Component="CHANGELOG.md_1" ComponentId="{47CE3C10-05F3-4D78-B750-6045F18D76DA}" Directory_="shelljs_Dir" Attributes="0" KeyPath="CHANGELOG.md_3" Type="0"/>
+    <ROW Component="FUNDING.yml" ComponentId="{1C9F970E-381D-4FA0-9F41-1F952D72EDC3}" Directory_="github_Dir" Attributes="0" KeyPath="FUNDING.yml" Type="0"/>
+    <ROW Component="LICENSE" ComponentId="{B4A6645F-8EF8-4582-9798-5E451DB5F6E6}" Directory_="minimatch_Dir" Attributes="0" KeyPath="LICENSE_24" Type="0"/>
+    <ROW Component="LICENSE.md" ComponentId="{92CE139D-BD57-4926-A0B3-220E7843474F}" Directory_="hoek_Dir" Attributes="0" KeyPath="LICENSE.md" Type="0"/>
+    <ROW Component="LICENSE.md_1" ComponentId="{DBC75270-B068-4E06-ACC1-25B33BE6814D}" Directory_="topo_Dir" Attributes="0" KeyPath="LICENSE.md_1" Type="0"/>
+    <ROW Component="LICENSE.md_2" ComponentId="{AEB806A1-AAAD-4795-9FFF-60221B17CB52}" Directory_="address_Dir" Attributes="0" KeyPath="LICENSE.md_2" Type="0"/>
+    <ROW Component="LICENSE.md_3" ComponentId="{4BF4F2BD-FD44-4B7E-A91C-7708F7892387}" Directory_="formula_Dir" Attributes="0" KeyPath="LICENSE.md_3" Type="0"/>
+    <ROW Component="LICENSE.md_4" ComponentId="{66DE60D5-0AB4-463E-BFED-9C87EBA80F8C}" Directory_="pinpoint_Dir" Attributes="0" KeyPath="LICENSE.md_4" Type="0"/>
+    <ROW Component="LICENSE.md_5" ComponentId="{7DE6A62A-6BC4-43C2-9BB7-207EC952E943}" Directory_="joi_Dir" Attributes="0" KeyPath="LICENSE.md_7" Type="0"/>
+    <ROW Component="LICENSEMIT" ComponentId="{3DBC87CD-1722-4130-927F-FD0A596C6495}" Directory_="has_Dir" Attributes="0" KeyPath="LICENSEMIT" Type="0"/>
+    <ROW Component="LICENSE_1" ComponentId="{05BA2B54-0AFD-4B43-9614-10556F35B16C}" Directory_="once_Dir" Attributes="0" KeyPath="LICENSE_25" Type="0"/>
+    <ROW Component="LICENSE_2" ComponentId="{76FE3239-6791-481E-92B4-FD13AA9AF19B}" Directory_="wrappy_Dir" Attributes="0" KeyPath="LICENSE_33" Type="0"/>
     <ROW Component="ProductInformation" ComponentId="{B600F11C-0514-4B41-9CED-96BFE9C58AEE}" Directory_="APPDIR" Attributes="260" KeyPath="Version"/>
     <ROW Component="SHORTCUTDIR" ComponentId="{AF5F2DD7-0F2C-4AA4-8A70-D5545B7B9102}" Directory_="SHORTCUTDIR" Attributes="0"/>
     <ROW Component="Squirrel.exe" ComponentId="{1477EEDF-3C22-4FA2-B750-73453E94C364}" Directory_="bin_Dir" Attributes="0" KeyPath="Squirrel.exe"/>
     <ROW Component="Temp" ComponentId="{20BED998-817B-4CD3-94AC-CEAB63A42E1E}" Directory_="Temp_Dir" Attributes="0"/>
     <ROW Component="ThinkMay.exe" ComponentId="{F2E051BD-752C-4130-B048-6B0E756788D1}" Directory_="bin_Dir" Attributes="256" KeyPath="ThinkMay.exe"/>
-    <ROW Component="a.js" ComponentId="{1053E7EA-9197-4BF6-B159-14A35BD7000F}" Directory_="browser_field_Dir" Attributes="0" KeyPath="a.js" Type="0"/>
-    <ROW Component="aaa.js" ComponentId="{AB3B87E0-A416-4046-BA2D-F244BBB624C8}" Directory_="precedence_Dir" Attributes="0" KeyPath="aaa.js" Type="0"/>
+    <ROW Component="a.js" ComponentId="{80CB2BCB-5076-40AF-9280-AA70735C88E6}" Directory_="browser_field_Dir" Attributes="0" KeyPath="a.js" Type="0"/>
+    <ROW Component="aaa.js" ComponentId="{CA8EB5F8-5F18-46AB-A54B-6A4104E9C548}" Directory_="precedence_Dir" Attributes="0" KeyPath="aaa.js" Type="0"/>
     <ROW Component="agent.exe" ComponentId="{305D7BD1-F59D-4E81-B041-8A3E9033360B}" Directory_="bin_Dir" Attributes="256" KeyPath="agent.exe"/>
     <ROW Component="agent_log" ComponentId="{04CC02FE-CB0D-4AF4-9290-44A13E2F6294}" Directory_="agent_log_Dir" Attributes="0"/>
-    <ROW Component="alternatives.js" ComponentId="{8193F262-89C3-42D2-B817-F3D8F2607488}" Directory_="types_1_Dir" Attributes="0" KeyPath="alternatives.js" Type="0"/>
-    <ROW Component="am.pak" ComponentId="{DEFB52CC-61EE-4091-93AD-E23C50793C30}" Directory_="locales_Dir" Attributes="0" KeyPath="am.pak" Type="0"/>
-    <ROW Component="annotate.js" ComponentId="{DE46119D-C337-4F4F-81C4-33CF724BFCF1}" Directory_="lib_8_Dir" Attributes="0" KeyPath="annotate.js" Type="0"/>
-    <ROW Component="api.js" ComponentId="{0539F53B-EA07-482F-BB78-405E688A8E6B}" Directory_="lib_7_Dir" Attributes="0" KeyPath="api.js" Type="0"/>
-    <ROW Component="app.ejs" ComponentId="{70A4FB2E-1CB2-40D0-A057-CF199148A568}" Directory_="templates_1_Dir" Attributes="0" KeyPath="app.ejs" Type="0"/>
-    <ROW Component="applyToDefaults.js" ComponentId="{AE833EA3-3B39-472E-9168-253BD50560CF}" Directory_="lib_Dir" Attributes="0" KeyPath="applyToDefaults.js" Type="0"/>
-    <ROW Component="async.js" ComponentId="{DB5541C0-BB1D-42EB-B1A8-892251A9D769}" Directory_="lib_5_Dir" Attributes="0" KeyPath="async.js" Type="0"/>
-    <ROW Component="async.js_1" ComponentId="{4647395E-50BB-4CB5-BAAE-B53697474A21}" Directory_="example_1_Dir" Attributes="0" KeyPath="async.js_1" Type="0"/>
-    <ROW Component="async.js_2" ComponentId="{19A5F718-63E9-4EC4-9300-99554EA52EA7}" Directory_="lib_11_Dir" Attributes="0" KeyPath="async.js_2" Type="0"/>
-    <ROW Component="async.js_3" ComponentId="{9FD5F1E4-0C82-4439-8BE4-B59BED904144}" Directory_="mylib_Dir" Attributes="0" KeyPath="async.js_3" Type="0"/>
-    <ROW Component="bar.js" ComponentId="{223613A1-F9AA-433B-8666-D0BDD49A0FB2}" Directory_="package_Dir" Attributes="0" KeyPath="bar.js" Type="0"/>
-    <ROW Component="base64js.min.js" ComponentId="{C96532C0-5A5E-43AD-A031-9F67426413B3}" Directory_="base64js_Dir" Attributes="0" KeyPath="base64js.min.js" Type="0"/>
-    <ROW Component="bash_completion.sh" ComponentId="{8E11BAAD-7BF5-49A8-A634-95168BABB8CA}" Directory_="bin_2_Dir" Attributes="0" KeyPath="bash_completion.sh" Type="0"/>
-    <ROW Component="browser.js" ComponentId="{AB8BACD0-0D26-4741-88D9-BB6730F8E53E}" Directory_="src_Dir" Attributes="0" KeyPath="browser.js" Type="0"/>
-    <ROW Component="browser.js_1" ComponentId="{78435DD1-5A9B-400E-97AE-C0996A826C14}" Directory_="supportscolor_Dir" Attributes="0" KeyPath="browser.js_1" Type="0"/>
-    <ROW Component="build.js" ComponentId="{BB48204F-2BDF-4B82-8262-EDE61CB80CDC}" Directory_="lib_9_Dir" Attributes="0" KeyPath="build.js" Type="0"/>
-    <ROW Component="cat.js" ComponentId="{F50B5F57-A74D-4C6F-8188-68C23E5B5B92}" Directory_="src_3_Dir" Attributes="0" KeyPath="cat.js" Type="0"/>
+    <ROW Component="alternatives.js" ComponentId="{1046753B-B33F-4273-99D4-447E0127B98D}" Directory_="types_1_Dir" Attributes="0" KeyPath="alternatives.js" Type="0"/>
+    <ROW Component="am.pak" ComponentId="{D755C160-BC73-43DA-9D3D-0CBD388B11DC}" Directory_="locales_Dir" Attributes="0" KeyPath="am.pak" Type="0"/>
+    <ROW Component="annotate.js" ComponentId="{25D5482A-82C3-42DF-B579-3928D7EC6890}" Directory_="lib_8_Dir" Attributes="0" KeyPath="annotate.js" Type="0"/>
+    <ROW Component="api.js" ComponentId="{01F31300-D29B-4BD8-9332-E3CE2B20E726}" Directory_="lib_7_Dir" Attributes="0" KeyPath="api.js" Type="0"/>
+    <ROW Component="app.ejs" ComponentId="{7BD0F934-E26B-45C9-A34F-34ECC03D4759}" Directory_="templates_1_Dir" Attributes="0" KeyPath="app.ejs" Type="0"/>
+    <ROW Component="applyToDefaults.js" ComponentId="{04AFF72A-4BE0-4A1C-922A-837205EAEEC6}" Directory_="lib_Dir" Attributes="0" KeyPath="applyToDefaults.js" Type="0"/>
+    <ROW Component="async.js" ComponentId="{CD42A635-13A7-45AA-87DA-4FB04958296E}" Directory_="lib_5_Dir" Attributes="0" KeyPath="async.js" Type="0"/>
+    <ROW Component="async.js_1" ComponentId="{1D137CD1-2CD3-4061-A983-7CF17F6F5F11}" Directory_="example_1_Dir" Attributes="0" KeyPath="async.js_1" Type="0"/>
+    <ROW Component="async.js_2" ComponentId="{9BB2F8E1-8AFC-4A23-8451-AE0CEEA2CBFD}" Directory_="lib_11_Dir" Attributes="0" KeyPath="async.js_2" Type="0"/>
+    <ROW Component="async.js_3" ComponentId="{40767130-85F4-443F-AF81-AFF6F28E99D9}" Directory_="mylib_Dir" Attributes="0" KeyPath="async.js_3" Type="0"/>
+    <ROW Component="bar.js" ComponentId="{67C835DA-653B-41B6-BD79-5440ADE598AF}" Directory_="package_Dir" Attributes="0" KeyPath="bar.js" Type="0"/>
+    <ROW Component="base64js.min.js" ComponentId="{FFC2A302-EB7F-4CFF-A03C-E0EABDE80914}" Directory_="base64js_Dir" Attributes="0" KeyPath="base64js.min.js" Type="0"/>
+    <ROW Component="bash_completion.sh" ComponentId="{D7007D50-87E0-41D9-9FFE-2867A2BECE04}" Directory_="bin_2_Dir" Attributes="0" KeyPath="bash_completion.sh" Type="0"/>
+    <ROW Component="browser.js" ComponentId="{FF28BF01-DF94-4DD6-8EAA-88882ACA8A4E}" Directory_="src_Dir" Attributes="0" KeyPath="browser.js" Type="0"/>
+    <ROW Component="browser.js_1" ComponentId="{390DECCC-C426-40E0-A795-D34C9E9C6802}" Directory_="supportscolor_Dir" Attributes="0" KeyPath="browser.js_1" Type="0"/>
+    <ROW Component="build.js" ComponentId="{24CE09E9-0A7E-4A8D-8614-E11CCC9AEF7F}" Directory_="lib_9_Dir" Attributes="0" KeyPath="build.js" Type="0"/>
+    <ROW Component="cat.js" ComponentId="{9621D14F-CFE9-4779-9817-C6A16611B847}" Directory_="src_3_Dir" Attributes="0" KeyPath="cat.js" Type="0"/>
     <ROW Component="chrome_100_percent.pak" ComponentId="{BD9FFFEA-45D0-4D3F-9DFC-1138727FF858}" Directory_="bin_Dir" Attributes="0" KeyPath="chrome_100_percent.pak" Type="0"/>
-    <ROW Component="cli.js" ComponentId="{75A57F40-9AEF-44C7-BD69-632F56A89D1D}" Directory_="bin_1_Dir" Attributes="0" KeyPath="cli.js" Type="0"/>
-    <ROW Component="cli.js_1" ComponentId="{A08BFAF9-D835-4FCA-94C7-91118F932774}" Directory_="isdocker_Dir" Attributes="0" KeyPath="cli.js_1" Type="0"/>
-    <ROW Component="common.js" ComponentId="{307F029B-34A1-48FB-A3E7-A4D6A00D7009}" Directory_="glob_Dir" Attributes="0" KeyPath="common.js" Type="0"/>
-    <ROW Component="common.js_1" ComponentId="{CF8B58AF-7977-4CA6-B865-5B7898622B5A}" Directory_="validation_Dir" Attributes="0" KeyPath="common.js_2" Type="0"/>
-    <ROW Component="concurrent.jake.js" ComponentId="{A6445F58-5F5E-4089-B592-9F1CC501FB21}" Directory_="jakelib_Dir" Attributes="0" KeyPath="concurrent.jake.js" Type="0"/>
-    <ROW Component="concurrent.js" ComponentId="{7D0142ED-1B57-41AA-AB60-ECD7FD4FBD18}" Directory_="integration_Dir" Attributes="0" KeyPath="concurrent.js" Type="0"/>
-    <ROW Component="constants.js" ComponentId="{80D4A01E-DF5D-4AD2-A8AC-6B8753469402}" Directory_="config_Dir" Attributes="0" KeyPath="constants.js" Type="0"/>
-    <ROW Component="coveralls.yml" ComponentId="{3681EDB6-7187-40B7-8CE5-418D92711347}" Directory_="debug_Dir" Attributes="0" KeyPath="coveralls.yml" Type="0"/>
-    <ROW Component="cup.coffee" ComponentId="{AC2B0C1B-1F5A-41E0-A39B-3DB39D58C58E}" Directory_="resolver_Dir" Attributes="0" KeyPath="cup.coffee" Type="0"/>
+    <ROW Component="cli.js" ComponentId="{129C9DCC-17AB-43C9-85BB-8D3457F0AA02}" Directory_="bin_1_Dir" Attributes="0" KeyPath="cli.js" Type="0"/>
+    <ROW Component="cli.js_1" ComponentId="{3AE9AC47-8F62-4B6F-89C6-B0EB4DF135B0}" Directory_="isdocker_Dir" Attributes="0" KeyPath="cli.js_1" Type="0"/>
+    <ROW Component="common.js" ComponentId="{5E662650-A552-49B3-91C5-0954760945A1}" Directory_="glob_Dir" Attributes="0" KeyPath="common.js" Type="0"/>
+    <ROW Component="common.js_1" ComponentId="{0EA015D0-B610-4DCF-A2F0-E662F6530CF4}" Directory_="validation_Dir" Attributes="0" KeyPath="common.js_2" Type="0"/>
+    <ROW Component="concurrent.jake.js" ComponentId="{8E69F859-519A-41D2-89C5-BEC66C52721D}" Directory_="jakelib_Dir" Attributes="0" KeyPath="concurrent.jake.js" Type="0"/>
+    <ROW Component="concurrent.js" ComponentId="{19746C31-C8FF-4CA2-92D2-8404105C8D25}" Directory_="integration_Dir" Attributes="0" KeyPath="concurrent.js" Type="0"/>
+    <ROW Component="constants.js" ComponentId="{BFA63578-33DD-44A6-9D59-069954210F1C}" Directory_="config_Dir" Attributes="0" KeyPath="constants.js" Type="0"/>
+    <ROW Component="coveralls.yml" ComponentId="{C3953F49-A90E-4DEE-AD67-36230BEB0630}" Directory_="debug_Dir" Attributes="0" KeyPath="coveralls.yml" Type="0"/>
+    <ROW Component="cup.coffee" ComponentId="{7CC44D09-AE7D-4759-B63B-1F71948D6C50}" Directory_="resolver_Dir" Attributes="0" KeyPath="cup.coffee" Type="0"/>
     <ROW Component="d3dcompiler_47.dll" ComponentId="{91D29E63-3DDE-4EB2-BDA5-5F8F35019B76}" Directory_="bin_Dir" Attributes="256" KeyPath="d3dcompiler_47.dll"/>
-    <ROW Component="decode.js" ComponentId="{52681563-673F-4A23-9C8A-B380AA86C63B}" Directory_="lib_2_Dir" Attributes="0" KeyPath="decode.js" Type="0"/>
-    <ROW Component="defaultAppExist.sh" ComponentId="{0DC5A631-4DCA-4B1A-B814-DEA93D145BC8}" Directory_="macos_Dir" Attributes="0" KeyPath="defaultAppExist.sh" Type="0"/>
-    <ROW Component="desktop.ejs" ComponentId="{435DA255-4636-4AB0-BEE5-1B95D0E86110}" Directory_="templates_Dir" Attributes="0" KeyPath="desktop.ejs" Type="0"/>
-    <ROW Component="directory_task.js" ComponentId="{11C957E2-668F-4FAB-A5D0-DB9448C2FC2F}" Directory_="task_Dir" Attributes="0" KeyPath="directory_task.js" Type="0"/>
-    <ROW Component="domparser.js" ComponentId="{647C0593-9064-4AB5-865F-A3BE765B66E5}" Directory_="xmldom_Dir" Attributes="0" KeyPath="domparser.js" Type="0"/>
-    <ROW Component="doom.js" ComponentId="{1DB840CF-01AD-4EE5-8130-DE9F2E93F69D}" Directory_="baz_Dir" Attributes="0" KeyPath="doom.js" Type="0"/>
-    <ROW Component="editorconfig" ComponentId="{47B1AA7E-47C0-45C2-B823-30F6F55022A6}" Directory_="functionbind_Dir" Attributes="0" KeyPath="editorconfig" Type="0"/>
-    <ROW Component="editorconfig_1" ComponentId="{1BBBE02B-3066-44A2-873F-78A00A41B2F8}" Directory_="resolve_Dir" Attributes="0" KeyPath="editorconfig_1" Type="0"/>
-    <ROW Component="ejs.js" ComponentId="{90C7F384-8B1E-4AB5-BB29-448A9090A7FC}" Directory_="ejs_Dir" Attributes="0" KeyPath="ejs.js" Type="0"/>
-    <ROW Component="ejs.js_1" ComponentId="{20E52D5B-9946-43AF-A757-B67DBCD65729}" Directory_="lib_6_Dir" Attributes="0" KeyPath="ejs.js_1" Type="0"/>
-    <ROW Component="eslintignore" ComponentId="{64429E23-2746-4530-B55E-8ABEC383E3FA}" Directory_="iscoremodule_Dir" Attributes="0" KeyPath="eslintignore" Type="0"/>
-    <ROW Component="eslintrc" ComponentId="{A0FC0C53-D62A-4ABC-A74D-4FC55ED163F7}" Directory_="electronsquirrelstartup_Dir" Attributes="0" KeyPath="eslintrc" Type="0"/>
-    <ROW Component="eslintrc.json" ComponentId="{E3F425F6-077F-42F0-9022-28DD3F9C551B}" Directory_="colorname_Dir" Attributes="0" KeyPath="eslintrc.json" Type="0"/>
-    <ROW Component="eslintrc_1" ComponentId="{3FF7FB4E-F2B3-4091-8B6B-AB4D367D3FB3}" Directory_="test_2_Dir" Attributes="0" KeyPath="eslintrc_3" Type="0"/>
-    <ROW Component="eslintrc_2" ComponentId="{66BA4C26-738E-4813-99BD-2CD7422F52CC}" Directory_="test_6_Dir" Attributes="0" KeyPath="eslintrc_6" Type="0"/>
-    <ROW Component="extension.js" ComponentId="{06D57383-8594-4828-A469-FC3BCAA1501A}" Directory_="lib_10_Dir" Attributes="0" KeyPath="extension.js" Type="0"/>
+    <ROW Component="decode.js" ComponentId="{1407CFC3-F14E-4E5C-ACBC-39E3AA8B3B63}" Directory_="lib_2_Dir" Attributes="0" KeyPath="decode.js" Type="0"/>
+    <ROW Component="defaultAppExist.sh" ComponentId="{90052C4B-53CF-470B-9722-77E968A37BC7}" Directory_="macos_Dir" Attributes="0" KeyPath="defaultAppExist.sh" Type="0"/>
+    <ROW Component="desktop.ejs" ComponentId="{A7080510-9FD2-4BF0-8779-CDB2C03744BD}" Directory_="templates_Dir" Attributes="0" KeyPath="desktop.ejs" Type="0"/>
+    <ROW Component="directory_task.js" ComponentId="{75DC479B-9E9A-46B9-A8BE-AEC49C4E6768}" Directory_="task_Dir" Attributes="0" KeyPath="directory_task.js" Type="0"/>
+    <ROW Component="domparser.js" ComponentId="{D62AECB8-1B9D-4BCC-8257-E0A744083F7E}" Directory_="xmldom_Dir" Attributes="0" KeyPath="domparser.js" Type="0"/>
+    <ROW Component="doom.js" ComponentId="{5AEE853B-9D96-48A4-B7C2-13A68FC299BD}" Directory_="baz_Dir" Attributes="0" KeyPath="doom.js" Type="0"/>
+    <ROW Component="editorconfig" ComponentId="{AC7D3552-E299-48FE-B591-D87AE9E7432B}" Directory_="functionbind_Dir" Attributes="0" KeyPath="editorconfig" Type="0"/>
+    <ROW Component="editorconfig_1" ComponentId="{912C1A4C-3FB7-4C61-9B9D-98B421ED9701}" Directory_="resolve_Dir" Attributes="0" KeyPath="editorconfig_1" Type="0"/>
+    <ROW Component="ejs.js" ComponentId="{D6CD8FAD-E917-4E89-AF32-24F3D2B5801C}" Directory_="ejs_Dir" Attributes="0" KeyPath="ejs.js" Type="0"/>
+    <ROW Component="ejs.js_1" ComponentId="{D4405FF1-2B80-48F7-87C1-CE1AB038AE25}" Directory_="lib_6_Dir" Attributes="0" KeyPath="ejs.js_1" Type="0"/>
+    <ROW Component="eslintignore" ComponentId="{FCCD1485-B481-4996-8259-CAEF864245D2}" Directory_="iscoremodule_Dir" Attributes="0" KeyPath="eslintignore" Type="0"/>
+    <ROW Component="eslintrc" ComponentId="{AD7967F7-8C1D-4DD1-9DD2-846CEC58185A}" Directory_="electronsquirrelstartup_Dir" Attributes="0" KeyPath="eslintrc" Type="0"/>
+    <ROW Component="eslintrc.json" ComponentId="{4650C3F8-B40E-40DE-928A-7D13F4FA28CE}" Directory_="colorname_Dir" Attributes="0" KeyPath="eslintrc.json" Type="0"/>
+    <ROW Component="eslintrc_1" ComponentId="{E9BFEC2A-7919-4403-95C2-B6A889680F08}" Directory_="test_2_Dir" Attributes="0" KeyPath="eslintrc_3" Type="0"/>
+    <ROW Component="eslintrc_2" ComponentId="{CAB57E84-6EAB-49A8-B23E-DF64C1AB18AF}" Directory_="test_6_Dir" Attributes="0" KeyPath="eslintrc_6" Type="0"/>
+    <ROW Component="extension.js" ComponentId="{3F05EBF3-79AA-4D1A-8C01-88CEE91DF2F4}" Directory_="lib_10_Dir" Attributes="0" KeyPath="extension.js" Type="0"/>
     <ROW Component="ffmpeg.dll" ComponentId="{FE0FF6E5-E28B-431C-927C-67B568669D75}" Directory_="bin_Dir" Attributes="256" KeyPath="ffmpeg.dll"/>
-    <ROW Component="file.js" ComponentId="{C6A116DF-A442-43CC-8C3C-66E98DDA1F88}" Directory_="utils_Dir" Attributes="0" KeyPath="file.js" Type="0"/>
-    <ROW Component="foo.js" ComponentId="{7334628C-B2F1-41D1-B024-1939830B07DC}" Directory_="same_names_Dir" Attributes="0" KeyPath="foo.js_1" Type="0"/>
-    <ROW Component="foo.js_1" ComponentId="{A7D6E7C9-E45D-48DC-8043-339FDF7A0653}" Directory_="node_modules_3_Dir" Attributes="0" KeyPath="foo.js_2" Type="0"/>
-    <ROW Component="gitattributes" ComponentId="{0C6A0F1F-1C77-4E4D-908E-3AF3223F3A78}" Directory_="protocolregistry_Dir" Attributes="0" KeyPath="gitattributes" Type="0"/>
-    <ROW Component="gitkeep" ComponentId="{A8BC36F7-9B31-4B91-8165-0CB439580819}" Directory_="temp_Dir" Attributes="0" KeyPath="gitkeep" Type="0"/>
-    <ROW Component="gitkeep_1" ComponentId="{17BA467E-BD83-4E32-BD9C-1E8F6BC84352}" Directory_="symlink_target_Dir" Attributes="0" KeyPath="gitkeep_1" Type="0"/>
-    <ROW Component="index.d.ts" ComponentId="{41C47B68-6616-42EA-B0A3-ACDDCB2FD4DA}" Directory_="lib_1_Dir" Attributes="0" KeyPath="index.d.ts_1" Type="0"/>
-    <ROW Component="index.d.ts_1" ComponentId="{CD351FEE-71C3-4D8D-A668-0ED2926FC33D}" Directory_="lib_3_Dir" Attributes="0" KeyPath="index.d.ts_3" Type="0"/>
-    <ROW Component="index.d.ts_2" ComponentId="{24F83FE6-A9B6-473A-BE2F-2381C28EE51B}" Directory_="lib_4_Dir" Attributes="0" KeyPath="index.d.ts_4" Type="0"/>
-    <ROW Component="index.d.ts_3" ComponentId="{D2820B0D-B045-4680-8F72-AC02811C5CDD}" Directory_="filelist_Dir" Attributes="0" KeyPath="index.d.ts_6" Type="0"/>
-    <ROW Component="index.d.ts_4" ComponentId="{F4D4182C-1B77-416F-BA30-2A26E7272EE8}" Directory_="iswsl_Dir" Attributes="0" KeyPath="index.d.ts_8" Type="0"/>
-    <ROW Component="index.d.ts_5" ComponentId="{8FB7DDE5-2044-449D-99CC-16478417E3C0}" Directory_="types_Dir" Attributes="0" KeyPath="index.d.ts_9" Type="0"/>
-    <ROW Component="index.d.ts_6" ComponentId="{E36EBBF0-DE04-4080-A4BF-C9C66D31011C}" Directory_="src_2_Dir" Attributes="0" KeyPath="index.d.ts_11" Type="0"/>
-    <ROW Component="index.html" ComponentId="{72C36FB7-F58D-4D1A-8F7F-042B12191C22}" Directory_="browser_Dir" Attributes="0" KeyPath="index.html" Type="0"/>
-    <ROW Component="index.js" ComponentId="{75C7FE3B-0994-43EC-8B6B-552371D49A86}" Directory_="balancedmatch_Dir" Attributes="0" KeyPath="index.js_5" Type="0"/>
-    <ROW Component="index.js_1" ComponentId="{FB4FA350-FADC-4402-BE48-3B35BD0178E7}" Directory_="braceexpansion_Dir" Attributes="0" KeyPath="index.js_7" Type="0"/>
-    <ROW Component="index.js_10" ComponentId="{0A615962-407B-4F34-9692-0F42CCA04067}" Directory_="hasflag_Dir" Attributes="0" KeyPath="index.js_30" Type="0"/>
-    <ROW Component="index.js_11" ComponentId="{0BD2424C-68AE-430E-9E74-4B9DD3014863}" Directory_="pathisabsolute_Dir" Attributes="0" KeyPath="index.js_33" Type="0"/>
-    <ROW Component="index.js_12" ComponentId="{9005D512-0F87-4F24-838F-104B13580ED7}" Directory_="pathparse_Dir" Attributes="0" KeyPath="index.js_34" Type="0"/>
-    <ROW Component="index.js_13" ComponentId="{F53C68DE-3515-44B5-91A3-94468A9C3240}" Directory_="linux_Dir" Attributes="0" KeyPath="index.js_37" Type="0"/>
-    <ROW Component="index.js_14" ComponentId="{E6BCCB1F-3FE6-40E3-AF86-7A2B79677F9F}" Directory_="windows_Dir" Attributes="0" KeyPath="index.js_39" Type="0"/>
-    <ROW Component="index.js_15" ComponentId="{B9525AF4-FFAF-4906-8A01-95ABDD765148}" Directory_="abc_Dir" Attributes="0" KeyPath="index.js_42" Type="0"/>
-    <ROW Component="index.js_16" ComponentId="{D9FA18AD-5275-470C-B6B8-3B82188B825B}" Directory_="dotdot_Dir" Attributes="0" KeyPath="index.js_43" Type="0"/>
-    <ROW Component="index.js_17" ComponentId="{3CEAE41D-C859-42FB-8404-DD1B116777DA}" Directory_="aaa_Dir" Attributes="0" KeyPath="index.js_44" Type="0"/>
-    <ROW Component="index.js_18" ComponentId="{5B6F695B-513D-4726-952A-6BC8FACCBC5B}" Directory_="aaa_1_Dir" Attributes="0" KeyPath="index.js_45" Type="0"/>
-    <ROW Component="index.js_19" ComponentId="{730BBAA6-A354-4807-BE9E-4CB7684E1D82}" Directory_="aaa_2_Dir" Attributes="0" KeyPath="index.js_46" Type="0"/>
-    <ROW Component="index.js_2" ComponentId="{AECB1E9D-7386-4F64-AD01-308B4B3E0104}" Directory_="ms_Dir" Attributes="0" KeyPath="index.js_11" Type="0"/>
-    <ROW Component="index.js_20" ComponentId="{3D58DA76-2A92-4CC9-B011-2F7C0EAD4F12}" Directory_="ccc_Dir" Attributes="0" KeyPath="index.js_47" Type="0"/>
-    <ROW Component="index.js_21" ComponentId="{13E89D3B-BC50-4744-908D-2BB02D2E84CD}" Directory_="bbb_1_Dir" Attributes="0" KeyPath="index.js_48" Type="0"/>
-    <ROW Component="index.js_22" ComponentId="{D2FBA3CA-27AD-4CAF-8EA8-1A4F25BFAF4B}" Directory_="ccc_1_Dir" Attributes="0" KeyPath="index.js_49" Type="0"/>
-    <ROW Component="index.js_23" ComponentId="{C8C0AB91-6586-4CCB-AA89-53A4947CF86E}" Directory_="aaa_3_Dir" Attributes="0" KeyPath="index.js_50" Type="0"/>
-    <ROW Component="index.js_24" ComponentId="{113EF90F-30B5-4B02-B700-1D9085C324A8}" Directory_="dot_main_Dir" Attributes="0" KeyPath="index.js_51" Type="0"/>
-    <ROW Component="index.js_25" ComponentId="{0B980C0D-6227-482D-BD58-508CDF520FA6}" Directory_="dot_slash_main_Dir" Attributes="0" KeyPath="index.js_52" Type="0"/>
-    <ROW Component="index.js_26" ComponentId="{4502A8B9-CF4B-4D77-BA89-38E711D9783C}" Directory_="incorrect_main_Dir" Attributes="0" KeyPath="index.js_53" Type="0"/>
-    <ROW Component="index.js_27" ComponentId="{CB1FA948-8165-4E92-B62B-9B9D3CA23BB1}" Directory_="packagea_Dir" Attributes="0" KeyPath="index.js_54" Type="0"/>
-    <ROW Component="index.js_28" ComponentId="{5A09427B-FDE8-4170-ADE8-ACF0769D0B89}" Directory_="packageb_Dir" Attributes="0" KeyPath="index.js_55" Type="0"/>
-    <ROW Component="index.js_29" ComponentId="{712317CF-3EF4-4AF4-A1D0-D43CE3E1CE2B}" Directory_="foo_Dir" Attributes="0" KeyPath="index.js_56" Type="0"/>
-    <ROW Component="index.js_3" ComponentId="{91D31917-69FF-407D-8896-363DF597DA28}" Directory_="fs.realpath_Dir" Attributes="0" KeyPath="index.js_13" Type="0"/>
-    <ROW Component="index.js_30" ComponentId="{0A08A695-CD1C-4C8C-9BAB-550D01F7C244}" Directory_="foo_1_Dir" Attributes="0" KeyPath="index.js_57" Type="0"/>
-    <ROW Component="index.js_31" ComponentId="{9ABE8B75-BEBE-4BEC-9DC8-0FF833C6F37F}" Directory_="util_Dir" Attributes="0" KeyPath="index.js_58" Type="0"/>
-    <ROW Component="index.js_32" ComponentId="{DB0A5B5E-62DB-4B34-8FA2-3D0630431114}" Directory_="src_4_Dir" Attributes="0" KeyPath="index.js_59" Type="0"/>
-    <ROW Component="index.js_33" ComponentId="{6B73EBC1-5B47-47D5-A331-A32136312B37}" Directory_="lib_14_Dir" Attributes="0" KeyPath="index.js_60" Type="0"/>
-    <ROW Component="index.js_4" ComponentId="{EE620ED5-E5C8-4BC9-AE26-7022D3BC1497}" Directory_="src_1_Dir" Attributes="0" KeyPath="index.js_16" Type="0"/>
-    <ROW Component="index.js_5" ComponentId="{DC2417AC-B9DC-4E2E-91B2-1AC8A7806ED9}" Directory_="test_3_Dir" Attributes="0" KeyPath="index.js_17" Type="0"/>
-    <ROW Component="index.js_6" ComponentId="{9AC1566F-9C77-4416-920F-F0A6AC3F7C2D}" Directory_="test_4_Dir" Attributes="0" KeyPath="index.js_20" Type="0"/>
-    <ROW Component="index.js_7" ComponentId="{5A6337BF-2CA5-45EF-AF25-217665AFB478}" Directory_="ansistyles_Dir" Attributes="0" KeyPath="index.js_25" Type="0"/>
-    <ROW Component="index.js_8" ComponentId="{7CAC86BB-DF3D-4F18-9478-E0B11FBC6EEE}" Directory_="chalk_Dir" Attributes="0" KeyPath="index.js_26" Type="0"/>
-    <ROW Component="index.js_9" ComponentId="{D713EB21-02B8-4A6B-9FB8-9E1017CF95D5}" Directory_="escapestringregexp_Dir" Attributes="0" KeyPath="index.js_29" Type="0"/>
-    <ROW Component="index.test.js" ComponentId="{434501B8-597D-4312-A664-9B21322695BA}" Directory_="test_1_Dir" Attributes="0" KeyPath="index.test.js" Type="0"/>
-    <ROW Component="inflight.js" ComponentId="{3E921832-1CB4-423B-8FD9-2AA0CE117CCE}" Directory_="inflight_Dir" Attributes="0" KeyPath="inflight.js" Type="0"/>
-    <ROW Component="inherits.js" ComponentId="{7CFE78AF-89A9-4952-A2D7-D761ECCBA45C}" Directory_="inherits_Dir" Attributes="0" KeyPath="inherits.js" Type="0"/>
-    <ROW Component="jakefile.js" ComponentId="{4DDF0280-A05E-46EB-827C-BF5F1602A7E2}" Directory_="jake_Dir" Attributes="0" KeyPath="jakefile.js_2" Type="0"/>
-    <ROW Component="jakefile.js_1" ComponentId="{49ED4494-19FD-44F9-9BD4-24FFAC84472C}" Directory_="unit_Dir" Attributes="0" KeyPath="jakefile.js_4" Type="0"/>
-    <ROW Component="joibrowser.min.js" ComponentId="{3BDC9BFA-B392-4D97-A515-883CC41DF021}" Directory_="dist_Dir" Attributes="0" KeyPath="joibrowser.min.js" Type="0"/>
-    <ROW Component="jshintrc" ComponentId="{1F14F115-F5F4-47AA-A6D3-3466C6164DC8}" Directory_="plist_Dir" Attributes="0" KeyPath="jshintrc" Type="0"/>
-    <ROW Component="lerna.json" ComponentId="{7F09640A-E632-46DB-A7D6-1F1C53A794A0}" Directory_="multirepo_Dir" Attributes="0" KeyPath="lerna.json" Type="0"/>
+    <ROW Component="file.js" ComponentId="{A3B5FA9B-E2B9-4834-A37B-D60098266C5C}" Directory_="utils_Dir" Attributes="0" KeyPath="file.js" Type="0"/>
+    <ROW Component="foo.js" ComponentId="{97022539-DB35-45B8-B54B-88330AE34635}" Directory_="same_names_Dir" Attributes="0" KeyPath="foo.js_1" Type="0"/>
+    <ROW Component="foo.js_1" ComponentId="{5D7D539D-92DD-4E49-BCD3-B6A40C7E8EEB}" Directory_="node_modules_3_Dir" Attributes="0" KeyPath="foo.js_2" Type="0"/>
+    <ROW Component="gitattributes" ComponentId="{A3F50946-D004-4BAC-AB98-61ECA6EEFB45}" Directory_="protocolregistry_Dir" Attributes="0" KeyPath="gitattributes" Type="0"/>
+    <ROW Component="gitkeep" ComponentId="{7FE4D432-904B-4075-AFD9-4CA2381A91E9}" Directory_="temp_Dir" Attributes="0" KeyPath="gitkeep" Type="0"/>
+    <ROW Component="gitkeep_1" ComponentId="{383F7F83-4411-421E-8C48-A95F2ADA086F}" Directory_="symlink_target_Dir" Attributes="0" KeyPath="gitkeep_1" Type="0"/>
+    <ROW Component="index.d.ts" ComponentId="{FD5AEBB8-2ED7-4EE8-8CA7-D76DCC3C16D7}" Directory_="lib_1_Dir" Attributes="0" KeyPath="index.d.ts_1" Type="0"/>
+    <ROW Component="index.d.ts_1" ComponentId="{C2981051-0DC3-4547-B434-43C473309F9B}" Directory_="lib_3_Dir" Attributes="0" KeyPath="index.d.ts_3" Type="0"/>
+    <ROW Component="index.d.ts_2" ComponentId="{7E58B8B8-3DDB-4D23-9ED4-3FBC1DCBA290}" Directory_="lib_4_Dir" Attributes="0" KeyPath="index.d.ts_4" Type="0"/>
+    <ROW Component="index.d.ts_3" ComponentId="{D39F425A-B153-4A83-AA00-479CDD7B3A00}" Directory_="filelist_Dir" Attributes="0" KeyPath="index.d.ts_6" Type="0"/>
+    <ROW Component="index.d.ts_4" ComponentId="{CA8D837F-0369-482B-8D3C-89B848A2B7FF}" Directory_="iswsl_Dir" Attributes="0" KeyPath="index.d.ts_8" Type="0"/>
+    <ROW Component="index.d.ts_5" ComponentId="{CDFE81FA-B0D3-4E7C-9961-3CC9C69CA5E3}" Directory_="types_Dir" Attributes="0" KeyPath="index.d.ts_9" Type="0"/>
+    <ROW Component="index.d.ts_6" ComponentId="{CB1CEDDA-181B-4671-A287-72B49658FCC2}" Directory_="src_2_Dir" Attributes="0" KeyPath="index.d.ts_11" Type="0"/>
+    <ROW Component="index.html" ComponentId="{EFE4CA95-E0A9-4F5A-8A4F-5ECD1320B86F}" Directory_="browser_Dir" Attributes="0" KeyPath="index.html" Type="0"/>
+    <ROW Component="index.js" ComponentId="{0B9C4F18-A9BC-4E6A-BC61-ECBA2E12DE0B}" Directory_="balancedmatch_Dir" Attributes="0" KeyPath="index.js_5" Type="0"/>
+    <ROW Component="index.js_1" ComponentId="{2C61C50B-BAB9-4DBB-8D67-65638A95DBD0}" Directory_="braceexpansion_Dir" Attributes="0" KeyPath="index.js_7" Type="0"/>
+    <ROW Component="index.js_10" ComponentId="{21C4C031-AF05-4463-B054-BA34EAFC791B}" Directory_="hasflag_Dir" Attributes="0" KeyPath="index.js_30" Type="0"/>
+    <ROW Component="index.js_11" ComponentId="{33774E28-E92F-439C-86C6-E7B52EA498B0}" Directory_="pathisabsolute_Dir" Attributes="0" KeyPath="index.js_33" Type="0"/>
+    <ROW Component="index.js_12" ComponentId="{BA06A884-718C-427C-9020-04CEB8AF3BE0}" Directory_="pathparse_Dir" Attributes="0" KeyPath="index.js_34" Type="0"/>
+    <ROW Component="index.js_13" ComponentId="{C6177A84-A8FB-46B4-8268-448DD8A4AFA5}" Directory_="linux_Dir" Attributes="0" KeyPath="index.js_37" Type="0"/>
+    <ROW Component="index.js_14" ComponentId="{A1DE5685-86AF-4594-B29D-03E406D76CE2}" Directory_="windows_Dir" Attributes="0" KeyPath="index.js_39" Type="0"/>
+    <ROW Component="index.js_15" ComponentId="{8D334798-8A8E-4627-BEFD-A5698428CC62}" Directory_="abc_Dir" Attributes="0" KeyPath="index.js_42" Type="0"/>
+    <ROW Component="index.js_16" ComponentId="{715CD318-309F-4974-B096-AE8ACD0784CB}" Directory_="dotdot_Dir" Attributes="0" KeyPath="index.js_43" Type="0"/>
+    <ROW Component="index.js_17" ComponentId="{72F88278-BF0C-459A-8B7D-D991E475CD69}" Directory_="aaa_Dir" Attributes="0" KeyPath="index.js_44" Type="0"/>
+    <ROW Component="index.js_18" ComponentId="{4C95B0EF-EA35-464B-8D09-E921704AF776}" Directory_="aaa_1_Dir" Attributes="0" KeyPath="index.js_45" Type="0"/>
+    <ROW Component="index.js_19" ComponentId="{AF6ADBC3-517A-4E56-A290-39C0A0328817}" Directory_="aaa_2_Dir" Attributes="0" KeyPath="index.js_46" Type="0"/>
+    <ROW Component="index.js_2" ComponentId="{A063A95D-CB95-43EE-AF65-A1B300957539}" Directory_="ms_Dir" Attributes="0" KeyPath="index.js_11" Type="0"/>
+    <ROW Component="index.js_20" ComponentId="{5CE264AC-8636-4ED3-A8B0-BC796FC243EA}" Directory_="ccc_Dir" Attributes="0" KeyPath="index.js_47" Type="0"/>
+    <ROW Component="index.js_21" ComponentId="{0A03A23E-B94B-44F4-AA2E-C958FDFF83CA}" Directory_="bbb_1_Dir" Attributes="0" KeyPath="index.js_48" Type="0"/>
+    <ROW Component="index.js_22" ComponentId="{E1984597-111A-4FCF-9A47-88DB11019DFB}" Directory_="ccc_1_Dir" Attributes="0" KeyPath="index.js_49" Type="0"/>
+    <ROW Component="index.js_23" ComponentId="{612FC117-37B1-498D-BB47-ABAC984DC261}" Directory_="aaa_3_Dir" Attributes="0" KeyPath="index.js_50" Type="0"/>
+    <ROW Component="index.js_24" ComponentId="{F1B7A061-EDDC-434F-934E-2BBE7C3EE1EA}" Directory_="dot_main_Dir" Attributes="0" KeyPath="index.js_51" Type="0"/>
+    <ROW Component="index.js_25" ComponentId="{E03DEE1D-0B47-4B01-AAFD-CDC28DC87342}" Directory_="dot_slash_main_Dir" Attributes="0" KeyPath="index.js_52" Type="0"/>
+    <ROW Component="index.js_26" ComponentId="{CF0B3237-3B74-4F63-AA30-96D0C4D09515}" Directory_="incorrect_main_Dir" Attributes="0" KeyPath="index.js_53" Type="0"/>
+    <ROW Component="index.js_27" ComponentId="{6B8874ED-F8ED-405D-BA58-BCBC0E8709C5}" Directory_="packagea_Dir" Attributes="0" KeyPath="index.js_54" Type="0"/>
+    <ROW Component="index.js_28" ComponentId="{20B03F4C-8773-40B4-A485-BAFFDC864585}" Directory_="packageb_Dir" Attributes="0" KeyPath="index.js_55" Type="0"/>
+    <ROW Component="index.js_29" ComponentId="{E4F9A1FE-4DCC-4165-81CA-26CA4087AE6A}" Directory_="foo_Dir" Attributes="0" KeyPath="index.js_56" Type="0"/>
+    <ROW Component="index.js_3" ComponentId="{E79AFDFD-C2BC-4D49-A20C-5C107D62AC12}" Directory_="fs.realpath_Dir" Attributes="0" KeyPath="index.js_13" Type="0"/>
+    <ROW Component="index.js_30" ComponentId="{A6562BDD-EE67-4792-AB0F-62B90CAD7CC2}" Directory_="foo_1_Dir" Attributes="0" KeyPath="index.js_57" Type="0"/>
+    <ROW Component="index.js_31" ComponentId="{2091534E-3F20-413B-BABA-5AB6BDC6D1AA}" Directory_="util_Dir" Attributes="0" KeyPath="index.js_58" Type="0"/>
+    <ROW Component="index.js_32" ComponentId="{00F4B138-67D4-4C9C-9DFF-D7AE204CA822}" Directory_="src_4_Dir" Attributes="0" KeyPath="index.js_59" Type="0"/>
+    <ROW Component="index.js_33" ComponentId="{D0C32164-92EE-4A4D-96A3-038667DFA196}" Directory_="lib_14_Dir" Attributes="0" KeyPath="index.js_60" Type="0"/>
+    <ROW Component="index.js_4" ComponentId="{AAED6DC7-A895-483E-879D-1665D68E53A9}" Directory_="src_1_Dir" Attributes="0" KeyPath="index.js_16" Type="0"/>
+    <ROW Component="index.js_5" ComponentId="{DF41CC21-71BE-49A8-8B0C-C52B8D5F89D4}" Directory_="test_3_Dir" Attributes="0" KeyPath="index.js_17" Type="0"/>
+    <ROW Component="index.js_6" ComponentId="{5F6B211C-667E-462E-A76E-326DF7D29312}" Directory_="test_4_Dir" Attributes="0" KeyPath="index.js_20" Type="0"/>
+    <ROW Component="index.js_7" ComponentId="{163CB5BA-BC53-4E00-975B-1B1BBF371CB8}" Directory_="ansistyles_Dir" Attributes="0" KeyPath="index.js_25" Type="0"/>
+    <ROW Component="index.js_8" ComponentId="{46433E81-7733-4F8E-9A71-506A86A3AEBC}" Directory_="chalk_Dir" Attributes="0" KeyPath="index.js_26" Type="0"/>
+    <ROW Component="index.js_9" ComponentId="{5C3F8588-99CB-49B9-AC91-534880FDB4A7}" Directory_="escapestringregexp_Dir" Attributes="0" KeyPath="index.js_29" Type="0"/>
+    <ROW Component="index.test.js" ComponentId="{8BBAC7AD-58F0-40C0-85DA-713C5786FDEC}" Directory_="test_1_Dir" Attributes="0" KeyPath="index.test.js" Type="0"/>
+    <ROW Component="inflight.js" ComponentId="{A89B12C4-CD83-4412-BC70-27B8EEA13ADA}" Directory_="inflight_Dir" Attributes="0" KeyPath="inflight.js" Type="0"/>
+    <ROW Component="inherits.js" ComponentId="{0E54FE83-7B3C-46AC-82FC-B908B7CB63DA}" Directory_="inherits_Dir" Attributes="0" KeyPath="inherits.js" Type="0"/>
+    <ROW Component="jakefile.js" ComponentId="{0A212865-6132-4919-9CE4-CEA5DB01C83B}" Directory_="jake_Dir" Attributes="0" KeyPath="jakefile.js_2" Type="0"/>
+    <ROW Component="jakefile.js_1" ComponentId="{98527944-9F5D-45C2-BFA7-5E3B321C67D4}" Directory_="unit_Dir" Attributes="0" KeyPath="jakefile.js_4" Type="0"/>
+    <ROW Component="joibrowser.min.js" ComponentId="{19265EFC-F9AB-4516-BB99-210BA0C109F9}" Directory_="dist_Dir" Attributes="0" KeyPath="joibrowser.min.js" Type="0"/>
+    <ROW Component="jshintrc" ComponentId="{6C82C680-7ACB-46E8-9710-2A997FEE3F22}" Directory_="plist_Dir" Attributes="0" KeyPath="jshintrc" Type="0"/>
+    <ROW Component="lerna.json" ComponentId="{90453F3D-17AD-457F-93A3-25974A725D6D}" Directory_="multirepo_Dir" Attributes="0" KeyPath="lerna.json" Type="0"/>
     <ROW Component="libEGL.dll" ComponentId="{48F097EF-F89D-4CFE-B0E7-A67A49558BE9}" Directory_="bin_Dir" Attributes="256" KeyPath="libEGL.dll"/>
-    <ROW Component="libEGL.dll_1" ComponentId="{CEEE569A-3A40-4EF9-A6A8-7C478F1413E2}" Directory_="swiftshader_Dir" Attributes="256" KeyPath="libEGL.dll_1"/>
+    <ROW Component="libEGL.dll_1" ComponentId="{5BC68060-C6D8-4A9B-98A1-52B152902A3B}" Directory_="swiftshader_Dir" Attributes="256" KeyPath="libEGL.dll_1"/>
     <ROW Component="libGLESv2.dll" ComponentId="{AE4CC043-1114-4423-97BA-92DBAD9C5E07}" Directory_="bin_Dir" Attributes="256" KeyPath="libGLESv2.dll"/>
-    <ROW Component="libGLESv2.dll_1" ComponentId="{FCFC60BE-2262-4753-88CD-C0C5A4D1126E}" Directory_="swiftshader_Dir" Attributes="256" KeyPath="libGLESv2.dll_1"/>
-    <ROW Component="logo.ico" ComponentId="{47BDA91F-3228-4433-A320-9F9F0B337BBA}" Directory_="assets_Dir" Attributes="0" KeyPath="logo.ico" Type="0"/>
-    <ROW Component="main.js" ComponentId="{FB56606C-E19A-4852-99E4-B4D75A338270}" Directory_="app_Dir" Attributes="0" KeyPath="main.js" Type="0"/>
-    <ROW Component="main.js_1" ComponentId="{CDA90ECE-99FD-402E-9B22-974A1F3CE5DE}" Directory_="bbb_Dir" Attributes="0" KeyPath="main.js_1" Type="0"/>
-    <ROW Component="main.js_2" ComponentId="{9A2D7E04-ED1A-4262-8B33-431BB96F1E1B}" Directory_="deep_ref_Dir" Attributes="0" KeyPath="main.js_2" Type="0"/>
-    <ROW Component="main.js_3" ComponentId="{48D4D6F9-98A1-49D3-AE75-18098F00AE7A}" Directory_="bbb_2_Dir" Attributes="0" KeyPath="main.js_4" Type="0"/>
-    <ROW Component="main.js_4" ComponentId="{7195E3C6-0FF3-49AE-8370-EA01DB18327C}" Directory_="without_basedir_Dir" Attributes="0" KeyPath="main.js_5" Type="0"/>
-    <ROW Component="map.js" ComponentId="{5FFCA4B3-B2F9-4C8F-8D14-36F7C4497658}" Directory_="example_Dir" Attributes="0" KeyPath="map.js" Type="0"/>
-    <ROW Component="map.js_1" ComponentId="{28C40DC9-D585-4207-98B1-C36D030164EF}" Directory_="test_Dir" Attributes="0" KeyPath="map.js_1" Type="0"/>
-    <ROW Component="mocha.opts" ComponentId="{332FA654-BE3E-4B0D-89F6-9E3BE14FF83B}" Directory_="test_7_Dir" Attributes="0" KeyPath="mocha.opts_1" Type="0"/>
-    <ROW Component="npmignore" ComponentId="{273D45BA-33B6-4D84-92B4-02084FD5B070}" Directory_="rechoir_Dir" Attributes="0" KeyPath="npmignore_4" Type="0"/>
-    <ROW Component="npmignore_1" ComponentId="{F9B67787-0484-4425-857F-DC05CF274C92}" Directory_="winreg_Dir" Attributes="0" KeyPath="npmignore_5" Type="0"/>
-    <ROW Component="npmignore_2" ComponentId="{C78D765F-5555-4225-8563-C0296EE99D61}" Directory_="xmlbuilder_Dir" Attributes="0" KeyPath="npmignore_6" Type="0"/>
-    <ROW Component="otherlib.js" ComponentId="{086ACB0F-E73D-4AA1-8246-8E78FBD5F061}" Directory_="lib_12_Dir" Attributes="0" KeyPath="otherlib.js" Type="0"/>
-    <ROW Component="package.json" ComponentId="{DD88183D-B1BE-4011-AD93-E97DBAD10452}" Directory_="invalid_main_Dir" Attributes="0" KeyPath="package.json_48" Type="0"/>
-    <ROW Component="packagelock.json" ComponentId="{145B9022-FD15-4AAD-8AFA-DE87F550C4D1}" Directory_="node_modules_Dir" Attributes="0" KeyPath="packagelock.json" Type="0"/>
-    <ROW Component="plistbuild.js" ComponentId="{1C728BA2-099F-446D-8257-59F315C10908}" Directory_="dist_1_Dir" Attributes="0" KeyPath="plistbuild.js" Type="0"/>
-    <ROW Component="processCommand.js" ComponentId="{0C9AC819-8BE4-4E0C-8AF2-25848784E6B2}" Directory_="utils_1_Dir" Attributes="0" KeyPath="processCommand.js" Type="0"/>
-    <ROW Component="registry.js" ComponentId="{B9AF4566-3C9C-47B6-B3A6-690E28B457C8}" Directory_="lib_13_Dir" Attributes="0" KeyPath="registry.js" Type="0"/>
+    <ROW Component="libGLESv2.dll_1" ComponentId="{2852A721-D1E4-4C84-9D66-3423AFAEFC7A}" Directory_="swiftshader_Dir" Attributes="256" KeyPath="libGLESv2.dll_1"/>
+    <ROW Component="logo.ico" ComponentId="{6C30CA16-1411-4E54-89D2-A444E12D33A6}" Directory_="assets_Dir" Attributes="0" KeyPath="logo.ico" Type="0"/>
+    <ROW Component="main.js" ComponentId="{1843F40B-AC89-4BD7-AB7F-772405B43FED}" Directory_="app_Dir" Attributes="0" KeyPath="main.js" Type="0"/>
+    <ROW Component="main.js_1" ComponentId="{DE616763-5937-44A9-92F4-8940E800DDD4}" Directory_="bbb_Dir" Attributes="0" KeyPath="main.js_1" Type="0"/>
+    <ROW Component="main.js_2" ComponentId="{CA16F21D-0A7D-4189-9F2F-ECBFF5A6D307}" Directory_="deep_ref_Dir" Attributes="0" KeyPath="main.js_2" Type="0"/>
+    <ROW Component="main.js_3" ComponentId="{A13223C1-8CA2-4CCC-B9CA-7717F455BB70}" Directory_="bbb_2_Dir" Attributes="0" KeyPath="main.js_4" Type="0"/>
+    <ROW Component="main.js_4" ComponentId="{EF87740C-6F5A-4E45-B3FC-3D5B471B6F96}" Directory_="without_basedir_Dir" Attributes="0" KeyPath="main.js_5" Type="0"/>
+    <ROW Component="map.js" ComponentId="{A43140C2-34E8-4A5F-B64A-75221E17A809}" Directory_="example_Dir" Attributes="0" KeyPath="map.js" Type="0"/>
+    <ROW Component="map.js_1" ComponentId="{EB3A8B84-363C-41C4-A0A3-5E69EE862F6F}" Directory_="test_Dir" Attributes="0" KeyPath="map.js_1" Type="0"/>
+    <ROW Component="mocha.opts" ComponentId="{1FAC4B1F-C7CE-4DB6-AF85-E25DAC1DD1D2}" Directory_="test_7_Dir" Attributes="0" KeyPath="mocha.opts_1" Type="0"/>
+    <ROW Component="npmignore" ComponentId="{4D2C65E7-C13C-4E9C-9EE0-48FEBCAAFEB3}" Directory_="rechoir_Dir" Attributes="0" KeyPath="npmignore_4" Type="0"/>
+    <ROW Component="npmignore_1" ComponentId="{20E6EECF-C382-419D-9BC9-DE63EC83708D}" Directory_="winreg_Dir" Attributes="0" KeyPath="npmignore_5" Type="0"/>
+    <ROW Component="npmignore_2" ComponentId="{FDDE540A-DB04-49B1-B374-4898F48A515F}" Directory_="xmlbuilder_Dir" Attributes="0" KeyPath="npmignore_6" Type="0"/>
+    <ROW Component="otherlib.js" ComponentId="{5703B50B-27AC-478A-90D7-AF3061805DE3}" Directory_="lib_12_Dir" Attributes="0" KeyPath="otherlib.js" Type="0"/>
+    <ROW Component="package.json" ComponentId="{74FDABB3-1E23-4766-89DE-E670DF6D9A32}" Directory_="invalid_main_Dir" Attributes="0" KeyPath="package.json_48" Type="0"/>
+    <ROW Component="packagelock.json" ComponentId="{BC67A454-5F5B-4811-AFDE-74433ED9A78E}" Directory_="node_modules_Dir" Attributes="0" KeyPath="packagelock.json" Type="0"/>
+    <ROW Component="plistbuild.js" ComponentId="{61666E81-9EB1-4206-9F4B-0F2974E3D20E}" Directory_="dist_1_Dir" Attributes="0" KeyPath="plistbuild.js" Type="0"/>
+    <ROW Component="processCommand.js" ComponentId="{7DA4EA05-B9C7-4C79-BD0B-49A647EA9C49}" Directory_="utils_1_Dir" Attributes="0" KeyPath="processCommand.js" Type="0"/>
+    <ROW Component="registry.js" ComponentId="{5E30E558-7D23-45EE-BA1C-C6760EFD227F}" Directory_="lib_13_Dir" Attributes="0" KeyPath="registry.js" Type="0"/>
     <ROW Component="remoteapp.exe" ComponentId="{92D0893C-8EA4-42A6-AC36-EB6894779BC1}" Directory_="bin_Dir" Attributes="256" KeyPath="remoteapp.exe"/>
-    <ROW Component="root.js" ComponentId="{6B2A6B4A-FB68-4FF8-94E7-D7C2AB1D2FD3}" Directory_="other_path_Dir" Attributes="0" KeyPath="root.js" Type="0"/>
+    <ROW Component="remoteapp.exe_1" ComponentId="{1848B004-F167-4F63-8061-ECBB09844D76}" Directory_="app_Dir" Attributes="256" KeyPath="remoteapp.exe_1"/>
+    <ROW Component="root.js" ComponentId="{AE412C86-C0DB-493F-8620-68D5E63E24DC}" Directory_="other_path_Dir" Attributes="0" KeyPath="root.js" Type="0"/>
     <ROW Component="sessioncore.exe" ComponentId="{0E4FE15D-E784-4801-B1B8-761827B7A136}" Directory_="bin_Dir" Attributes="256" KeyPath="sessioncore.exe"/>
-    <ROW Component="shjs" ComponentId="{55D746D1-618D-4E1A-ACC1-FE093C2B7F37}" Directory_="bin_3_Dir" Attributes="0" KeyPath="shjs" Type="0"/>
-    <ROW Component="syncpackagemanagers.js" ComponentId="{A1D6116F-0DC2-4A95-A07B-5E7AFF862F0F}" Directory_="support_Dir" Attributes="0" KeyPath="syncpackagemanagers.js" Type="0"/>
-    <ROW Component="travis.yml" ComponentId="{6408503D-BA34-47F9-A01E-1D56A9195D87}" Directory_="async_Dir" Attributes="0" KeyPath="travis.yml" Type="0"/>
-    <ROW Component="travis.yml_1" ComponentId="{C303CB90-7D70-4CFE-AE32-35BCDD03253D}" Directory_="concatmap_Dir" Attributes="0" KeyPath="travis.yml_1" Type="0"/>
+    <ROW Component="shjs" ComponentId="{F65AB5E6-4704-4E3C-957C-DA8C9EE89723}" Directory_="bin_3_Dir" Attributes="0" KeyPath="shjs" Type="0"/>
+    <ROW Component="syncpackagemanagers.js" ComponentId="{078473BC-1DA2-492F-BBEB-356F518E9971}" Directory_="support_Dir" Attributes="0" KeyPath="syncpackagemanagers.js" Type="0"/>
+    <ROW Component="travis.yml" ComponentId="{8A5D2D10-6D9B-4AE0-A2B8-859478E85093}" Directory_="async_Dir" Attributes="0" KeyPath="travis.yml" Type="0"/>
+    <ROW Component="travis.yml_1" ComponentId="{732BE612-6F73-4A1D-9B9E-7FDF97431F4B}" Directory_="concatmap_Dir" Attributes="0" KeyPath="travis.yml_1" Type="0"/>
     <ROW Component="videotesting.exe" ComponentId="{CAFF0FF8-1C98-4C61-B04E-50EE1FFB79C0}" Directory_="bin_Dir" Attributes="256" KeyPath="videotesting.exe"/>
     <ROW Component="vk_swiftshader.dll" ComponentId="{40DA9325-A6E5-4B0F-8267-916B1EC688E0}" Directory_="bin_Dir" Attributes="256" KeyPath="vk_swiftshader.dll"/>
     <ROW Component="vulkan1.dll" ComponentId="{A50B92FE-805E-4708-837F-EF14F1F8DD07}" Directory_="bin_Dir" Attributes="256" KeyPath="vulkan1.dll"/>
+    <ROW Component="welcome.exe" ComponentId="{0DD9C908-4ED2-47E4-ABA7-5A47E12E06C8}" Directory_="bin_Dir" Attributes="256" KeyPath="welcome.exe"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
     <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0"/>
@@ -386,6 +388,13 @@
     <ROW File="vk_swiftshader.dll" Component_="vk_swiftshader.dll" FileName="VK_SWI~1.DLL|vk_swiftshader.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\vk_swiftshader.dll" SelfReg="false"/>
     <ROW File="vk_swiftshader_icd.json" Component_="chrome_100_percent.pak" FileName="VK_SWI~1.JSO|vk_swiftshader_icd.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\vk_swiftshader_icd.json" SelfReg="false"/>
     <ROW File="vulkan1.dll" Component_="vulkan1.dll" FileName="vulkan-1.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\vulkan-1.dll" SelfReg="false"/>
+    <ROW File="remoteapp.exe" Component_="remoteapp.exe" FileName="REMOTE~1.EXE|remote-app.exe" Attributes="0" SourcePath="..\bin\remote-app.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="remoteapp.pdb" Component_="remoteapp.exe" FileName="REMOTE~1.PDB|remote-app.pdb" Attributes="0" SourcePath="..\bin\remote-app.pdb" SelfReg="false"/>
+    <ROW File="remotetoken" Component_="chrome_100_percent.pak" FileName="REMOTE~1|remote-token" Attributes="0" SourcePath="..\bin\remote-token" SelfReg="false"/>
+    <ROW File="videotesting.exe" Component_="videotesting.exe" FileName="VIDEOT~1.EXE|videotesting.exe" Attributes="0" SourcePath="..\bin\videotesting.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="videotesting.pdb" Component_="videotesting.exe" FileName="VIDEOT~1.PDB|videotesting.pdb" Attributes="0" SourcePath="..\bin\videotesting.pdb" SelfReg="false"/>
+    <ROW File="welcome.exe" Component_="welcome.exe" FileName="welcome.exe" Attributes="0" SourcePath="..\bin\welcome.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="welcome.pdb" Component_="welcome.exe" FileName="welcome.pdb" Attributes="0" SourcePath="..\bin\welcome.pdb" SelfReg="false"/>
     <ROW File="am.pak" Component_="am.pak" FileName="am.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\am.pak" SelfReg="false"/>
     <ROW File="ar.pak" Component_="am.pak" FileName="ar.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\ar.pak" SelfReg="false"/>
     <ROW File="bg.pak" Component_="am.pak" FileName="bg.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\bg.pak" SelfReg="false"/>
@@ -997,13 +1006,12 @@
     <ROW File="package.json_57" Component_="npmignore_2" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\package.json" SelfReg="false"/>
     <ROW File="README.md_43" Component_="npmignore_2" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\README.md" SelfReg="false"/>
     <ROW File="package.json_58" Component_="main.js" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\package.json" SelfReg="false"/>
+    <ROW File="remoteapp.exe_1" Component_="remoteapp.exe_1" FileName="REMOTE~1.EXE|remote-app.exe" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\remote-app.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="remoteapp.pdb_1" Component_="remoteapp.exe_1" FileName="REMOTE~1.PDB|remote-app.pdb" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\remote-app.pdb" SelfReg="false"/>
+    <ROW File="remotetoken_1" Component_="main.js" FileName="REMOTE~1|remote-token" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\remote-token" SelfReg="false"/>
+    <ROW File="temp.txt" Component_="main.js" FileName="temp.txt" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\temp.txt" SelfReg="false"/>
     <ROW File="libEGL.dll_1" Component_="libEGL.dll_1" FileName="libEGL.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\swiftshader\libEGL.dll" SelfReg="false"/>
     <ROW File="libGLESv2.dll_1" Component_="libGLESv2.dll_1" FileName="LIBGLE~1.DLL|libGLESv2.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\swiftshader\libGLESv2.dll" SelfReg="false"/>
-    <ROW File="remoteapp.exe" Component_="remoteapp.exe" FileName="REMOTE~1.EXE|remote-app.exe" Attributes="0" SourcePath="..\bin\remote-app.exe" SelfReg="false" DigSign="true"/>
-    <ROW File="remoteapp.pdb" Component_="remoteapp.exe" FileName="REMOTE~1.PDB|remote-app.pdb" Attributes="0" SourcePath="..\bin\remote-app.pdb" SelfReg="false"/>
-    <ROW File="remotetoken" Component_="chrome_100_percent.pak" FileName="REMOTE~1|remote-token" Attributes="0" SourcePath="..\bin\remote-token" SelfReg="false"/>
-    <ROW File="videotesting.exe" Component_="videotesting.exe" FileName="VIDEOT~1.EXE|videotesting.exe" Attributes="0" SourcePath="..\bin\videotesting.exe" SelfReg="false" DigSign="true"/>
-    <ROW File="videotesting.pdb" Component_="videotesting.exe" FileName="VIDEOT~1.PDB|videotesting.pdb" Attributes="0" SourcePath="..\bin\videotesting.pdb" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
@@ -1225,15 +1233,17 @@
     <ROW Feature_="MainFeature" Component_="cat.js"/>
     <ROW Feature_="MainFeature" Component_="npmignore_1"/>
     <ROW Feature_="MainFeature" Component_="registry.js"/>
+    <ROW Feature_="MainFeature" Component_="remoteapp.exe"/>
     <ROW Feature_="MainFeature" Component_="mocha.opts"/>
     <ROW Feature_="MainFeature" Component_="index.js_32"/>
+    <ROW Feature_="MainFeature" Component_="videotesting.exe"/>
+    <ROW Feature_="MainFeature" Component_="welcome.exe"/>
     <ROW Feature_="MainFeature" Component_="LICENSE_2"/>
     <ROW Feature_="MainFeature" Component_="npmignore_2"/>
     <ROW Feature_="MainFeature" Component_="index.js_33"/>
-    <ROW Feature_="MainFeature" Component_="remoteapp.exe"/>
+    <ROW Feature_="MainFeature" Component_="remoteapp.exe_1"/>
     <ROW Feature_="MainFeature" Component_="libEGL.dll_1"/>
     <ROW Feature_="MainFeature" Component_="libGLESv2.dll_1"/>
-    <ROW Feature_="MainFeature" Component_="videotesting.exe"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="logo.exe" SourcePath="..\client\window\electron\assets\logo.ico" Index="0"/>
