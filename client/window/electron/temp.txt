@@ -1,0 +1,9 @@
+
+(remote-app.exe:11068): GStreamer-WARNING **: 23:17:56.087: Failed to load plugin 'C:\gstreamer\1.0\msvc_x86_64\lib\gstreamer-1.0\gstclosedcaption.dll': 'C:\gstreamer\1.0\msvc_x86_64\lib\gstreamer-1.0\gstclosedcaption.dll': The specified procedure could not be found.
+
+(remote-app.exe:11068): GStreamer-WARNING **: 23:17:56.103: Failed to load plugin 'C:\gstreamer\1.0\msvc_x86_64\lib\gstreamer-1.0\gstpango.dll': 'C:\gstreamer\1.0\msvc_x86_64\lib\gstreamer-1.0\gstpango.dll': The specified procedure could not be found.
+
+(remote-app.exe:11068): GStreamer-WARNING **: 23:17:56.114: Failed to load plugin 'C:\gstreamer\1.0\msvc_x86_64\lib\gstreamer-1.0\gstrsvg.dll': 'C:\gstreamer\1.0\msvc_x86_64\lib\gstreamer-1.0\gstrsvg.dll': The specified procedure could not be found.
+
+(remote-app.exe:11068): GStreamer-WARNING **: 23:17:56.494: Unhandled state change from VOID_PENDING to READY
+Cannot detect gamepad^C
