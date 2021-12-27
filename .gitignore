@@ -17,7 +17,6 @@
 mono_crash.*
 
 # Build results
-.vscode/
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
@@ -34,7 +33,6 @@ bld/
 [Oo]ut/
 [Ll]og/
 [Ll]ogs/
-.vscode/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -377,7 +375,6 @@ FodyWeavers.xsd
 # binary folder
 bin/
 *.vcxproj
-.vscode/launch.json
 
 
 
