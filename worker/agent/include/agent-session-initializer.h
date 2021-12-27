@@ -15,7 +15,6 @@
 #include <agent-server.h>
 #include <agent-type.h>
 
-#include <Windows.h>
 
 
 /**

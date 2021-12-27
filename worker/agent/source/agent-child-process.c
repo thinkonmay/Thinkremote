@@ -80,7 +80,7 @@ handle_child_process_stderr(GInputStream* stream,
     ChildProcess* proc = (ChildProcess*) data;
 
     GBytes* output = g_input_stream_read_bytes_finish(proc->process_stderr,result,&error);    
-    proc->stderr_handler(output, proc, proc->agent,proc->data);
+    proc->stderr_handler(output, proc->agent,proc->data);
     g_bytes_unref(output);
 }
 #else
@@ -147,7 +147,12 @@ wait_for_childproces(ChildProcess* process)
 void
 childprocess_force_exit(ChildProcess* proc)
 {
+#ifdef G_OS_WIN32
     TerminateProcess(proc->process, 1);
+#else
+    g_subprocess_force_exit(proc->process);
+
+#endif
 }
 
 ChildProcess*

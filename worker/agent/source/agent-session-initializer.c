@@ -19,7 +19,6 @@
 #include <logging.h>
 
 #include <gmodule.h>
-#include <Windows.h>
 #include <stdio.h>
 
 #define BUFFER_SIZE 10000

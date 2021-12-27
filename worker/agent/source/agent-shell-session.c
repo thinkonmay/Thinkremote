@@ -18,6 +18,9 @@
 #include <message-form.h>
 #include <agent-server.h>
 
+#include <glib.h>
+
+
 
 
 #ifdef G_OS_WIN32
@@ -59,6 +62,34 @@ void  output_handle(GBytes* buffer,
 
 }
 
+
+void reverse(char s[])
+{
+    int i, j;
+    char c;
+
+    for (i = 0, j = strlen(s)-1; i<j; i++, j--) {
+        c = s[i];
+        s[i] = s[j];
+        s[j] = c;
+    }
+}  
+
+void itoa(int n, char s[])
+{
+    int i, sign;
+
+    if ((sign = n) < 0)  /* record sign */
+        n = -n;          /* make n positive */
+    i = 0;
+    do {       /* generate digits in reverse order */
+        s[i++] = n % 10 + '0';   /* get next digit */
+    } while ((n /= 10) > 0);     /* delete it */
+    if (sign < 0)
+        s[i++] = '-';
+    s[i] = '\0';
+    reverse(s);
+}  
 void
 initialize_shell_session(AgentServer* agent,
                          SoupMessage* message)
@@ -68,12 +99,12 @@ initialize_shell_session(AgentServer* agent,
     session.message = message;
 
     GRand* random = g_rand_new();
-    gchar* random_int = g_rand_int(random);
+    guint32 random_int = g_rand_int(random);
 
     gchar* random_string = malloc(100);
     memset(random_string,0,100);
 
-    itoa(random_int,random_string,10);
+    itoa(random_int,random_string);
 
     GString * input_file_path = g_string_new(g_get_current_dir());
     GString * output_file_path = g_string_new(g_get_current_dir());
