@@ -284,8 +284,6 @@ on_incoming_stream (GstElement * webrtc,
     gchar* encoding = gst_structure_get_string(gst_caps_get_structure(caps, 0), "encoding-name");
     gchar* name = gst_structure_get_name(gst_caps_get_structure(caps, 0));
 
-    g_print("handling media type %s with encoding %s\n",name,encoding);
-
     if(!g_strcmp0("application/x-rtp",name) &&
        !g_strcmp0("OPUS",encoding))
     {
@@ -413,7 +411,7 @@ setup_pipeline(RemoteApp* core)
     GstStateChangeReturn result = gst_element_change_state(pipe->pipeline, GST_STATE_READY);
     if(result == GST_STATE_CHANGE_FAILURE)
     {
-        g_print("remote app fil to start, aborting ...\n");
+        g_print("remote app fail to start, aborting ...\n");
         remote_app_finalize(core,NULL);
     }
     connect_signalling_handler(core);

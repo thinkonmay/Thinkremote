@@ -114,11 +114,6 @@ signalling_hub_setup(SignallingHub* hub,
         }
         turn = DEFAULT_TURN;
     }
-    else
-    {
-		g_print("starting remote session with turn server\n");
-		g_print(turn);
-    }
     memcpy(hub->remote_token, remote_token,strlen(remote_token));
     memcpy(hub->signalling_server, url,strlen(url));
     memcpy(hub->turn, turn,strlen(turn));

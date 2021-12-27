@@ -12,16 +12,10 @@
 #ifndef __AGNET_DEVICE_H__
 #define __AGENT_DEVICE_H__
 
-#include <Windows.h>	
-#include <stdio.h>
-#include <sysinfoapi.h>
-#include <d3d9.h>
-#include <intrin.h>
+
+
 #include <glib.h>
 
-
-
-#pragma comment(lib, "d3d9.lib")
 
 
 

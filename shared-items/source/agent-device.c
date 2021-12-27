@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2021
  * 
  */
-#include <winsock2.h>
+
 #include <agent-device.h>
 
 #include <logging.h>
@@ -16,7 +16,12 @@
 
 #include <json-glib/json-glib.h>
 #ifdef G_OS_WIN32
+#include <winsock2.h>
+#include <Windows.h>	
 #include <stdio.h>
+#include <sysinfoapi.h>
+#include <d3d9.h>
+#include <intrin.h>
 #include <stdlib.h>
 #include <iphlpapi.h>
 #include <global-var.h>
@@ -24,6 +29,7 @@
 #define DIV 1048576
 #define ID  0
 #pragma comment(lib, "IPHLPAPI.lib")
+#pragma comment(lib, "d3d9.lib")
 
 #define MALLOC(x) HeapAlloc(GetProcessHeap(), 0, (x))
 #define FREE(x) HeapFree(GetProcessHeap(), 0, (x))

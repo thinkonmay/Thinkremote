@@ -17,6 +17,7 @@
 #include <glib-2.0/glib.h>
 #include <libsoup/soup.h>
 #include <message-form.h>
+#include <stdio.h>
 
 #define GST_DEBUG               4
 #define    THINKMAY_ACCOUNT_URL              "https://host.thinkmay.net/Account/Login"
