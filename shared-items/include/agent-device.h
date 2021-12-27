@@ -9,9 +9,10 @@
  * 
  */
 #pragma once
-#ifndef __AGNET_DEVICE_H__
+#ifndef __AGENT_DEVICE_H__
 #define __AGENT_DEVICE_H__
 
+#ifdef G_OS_WIN32
 #include <Windows.h>	
 #include <stdio.h>
 #include <sysinfoapi.h>
@@ -43,4 +44,5 @@ gchar*                  get_registration_message        ();
  */
 gchar*                  get_local_ip                    ();
 
+#endif
 #endif

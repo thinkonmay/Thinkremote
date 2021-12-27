@@ -25,13 +25,6 @@
  */
 typedef struct _Socket 				Socket;
 
-
-/**
- * @brief 
- * Device INformation is a structure that wrap around information of worker node
- */
-typedef struct _DeviceInformation 	DeviceInformation;
-
 /**
  * @brief 
  * Agent server is a data structure that wrap around agent module

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @file session-core-pipeline.c
  * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
  * @brief 
@@ -20,8 +20,7 @@
 
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>
-#include <gst/webrtc\webrtc.h>
-#include <gst/rtp\gstrtppayloads.h>
+#include <gst/webrtc/webrtc.h>
 
 
 
@@ -101,7 +100,7 @@ static gchar sound_capture_device_id[1000]  = {0};
 static gchar sound_output_device_id[1000]   = {0};
 
 
-void device_foreach(gpointer data, gpointer user_data);
+void device_foreach(GstDevice* data, gpointer user_data);
 
 Pipeline*
 pipeline_initialize(SessionCore* core)
@@ -370,7 +369,7 @@ setup_element_factory(SessionCore* core,
 
 
 
-static void
+void
 device_foreach(GstDevice* device, 
                 gpointer data)
 {

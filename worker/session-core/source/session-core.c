@@ -99,11 +99,13 @@ struct _SessionCore
  * @param query 
  * @param user_data pointer to session core
  */
-void	   server_callback (SoupServer        *server,
-							SoupMessage	   	  *msg,
-							const char        *path,
-							GHashTable        *query,
-							gpointer           user_data);
+void
+server_callback (SoupServer        *server,
+                 SoupMessage	   *msg,
+		 		 const char        *path,
+                 GHashTable        *query,
+				 SoupClientContext *ctx,
+		 		 gpointer           user_data);
 
 
 
@@ -320,7 +322,11 @@ server_callback (SoupServer        *server,
 gpointer
 session_core_sync_state_with_cluster(gpointer user_data)
 {
-	Sleep(3000);
+#ifdef G_OS_WIN32
+        Sleep(3000);
+#else
+        sleep(3000);
+#endif
 	SessionCore* core = (SessionCore*)user_data;
 	const char* https_aliases[] = { "https", NULL };
 	SoupSession* https_session = soup_session_new_with_options(
@@ -344,7 +350,11 @@ session_core_sync_state_with_cluster(gpointer user_data)
 
 		if(infor_message->status_code == SOUP_STATUS_OK)
 		{
+#ifdef G_OS_WIN32
 			Sleep(1000);
+#else
+			sleep(1000);
+#endif
 		}
 		else
 		{

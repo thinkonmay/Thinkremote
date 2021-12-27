@@ -20,7 +20,6 @@
 
 
 #include <stdio.h>
-#include <Windows.h>
 
 
 
@@ -69,6 +68,8 @@ qoe_initialize()
 }
 
 
+#ifdef G_OS_WIN32
+#include <Windows.h>
 void
 display_setting_get_and_set(gint* screen_width,
 							gint* screen_height)
@@ -89,6 +90,7 @@ display_setting_get_and_set(gint* screen_width,
 	memcpy(screen_height,&y,sizeof(gint));
 	memcpy(screen_width,&x,sizeof(gint));
 }
+#endif
 
 
 void
@@ -99,7 +101,9 @@ qoe_setup(StreamConfig* qoe,
 		  Codec video_codec,
 		  QoEMode mode)
 {
+#ifdef G_OS_WIN32
 	display_setting_get_and_set(&qoe->screen_width,&qoe->screen_height);
+#endif
 	
 	qoe->screen_width =  screen_width;
 	qoe->screen_height =  screen_height;

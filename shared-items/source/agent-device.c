@@ -8,14 +8,26 @@
  * @copyright Copyright (c) 2021
  * 
  */
-#include <winsock2.h>
 #include <agent-device.h>
 
 #include <logging.h>
 #include <message-form.h>
-
 #include <json-glib/json-glib.h>
+
+/// <summary>
+/// Information about slave hardware configuration
+/// </summary>
+typedef struct _DeviceInformation
+{
+	gchar cpu[100];
+	gchar gpu[512];
+	gint ram_capacity;
+	gchar OS[100];
+	gchar IP[100];
+}DeviceInformation;
+
 #ifdef G_OS_WIN32
+#include <winsock2.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <iphlpapi.h>
@@ -82,18 +94,6 @@ get_local_ip()
 
 
 
-
-/// <summary>
-/// Information about slave hardware configuration
-/// </summary>
-typedef struct _DeviceInformation
-{
-	gchar cpu[100];
-	gchar gpu[512];
-	gint ram_capacity;
-	gchar OS[100];
-	gchar IP[100];
-}DeviceInformation;
 
 
 
@@ -176,6 +176,14 @@ get_device_information()
 
 	return device_info;
 }
+#else
+
+DeviceInformation*
+get_device_information() 
+{
+
+}
+
 #endif 
 
 
