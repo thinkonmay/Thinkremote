@@ -63,6 +63,7 @@ void  output_handle(GBytes* buffer,
 }
 
 
+#ifndef G_OS_WIN32
 void reverse(char s[])
 {
     int i, j;
@@ -75,7 +76,7 @@ void reverse(char s[])
     }
 }  
 
-void itoa(int n, char s[])
+void itoa(int n, char s[],int ten)
 {
     int i, sign;
 
@@ -90,6 +91,8 @@ void itoa(int n, char s[])
     s[i] = '\0';
     reverse(s);
 }  
+#endif
+
 void
 initialize_shell_session(AgentServer* agent,
                          SoupMessage* message)
@@ -104,7 +107,7 @@ initialize_shell_session(AgentServer* agent,
     gchar* random_string = malloc(100);
     memset(random_string,0,100);
 
-    itoa(random_int,random_string);
+    itoa(random_int,random_string,10);
 
     GString * input_file_path = g_string_new(g_get_current_dir());
     GString * output_file_path = g_string_new(g_get_current_dir());
