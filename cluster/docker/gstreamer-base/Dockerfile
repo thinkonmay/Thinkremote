@@ -162,30 +162,5 @@ RUN \
     meson build --prefix=/usr && \
     ninja -C build install
 
-# debugging tool
-RUN \
-    apt install gdb \
 
-RUN \
-    apt-get install -y libsoup-gnome2.4-dev \
-
-RUN \
-    apt-get install -y libjson-glib-1.0-0 \
-    apt-get install -y libjson-glib-dev
-
-
-
-FROM base AS build
-
-RUN mkdir source
-
-WORKDIR source
-
-RUN \
-    git clone https://github.com/thinkonmay/personal-cloud-computing \
-    cd personal-cloud-computing \
-    mkdir build \ 
-    cd build \
-    cmake .. \
-    make 
 
