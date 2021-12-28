@@ -13,6 +13,7 @@ pkg_check_modules(CONTROLLER REQUIRED gstreamer-controller-1.0)
 
 
 
+
 file(GLOB SOURCE_LIST 
 ${CMAKE_SOURCE_DIR}/worker/session-core/source/*.c
 ${CMAKE_SOURCE_DIR}/shared-items/source/*.c)
@@ -22,8 +23,7 @@ add_executable(session-core ${SOURCE_LIST})
 
 
 
-target_include_directories(session-core 
-PUBLIC
+target_include_directories(session-core PUBLIC
     ${CMAKE_SOURCE_DIR}/worker/session-core/include
     ${SHARED_HEADER}
     ${LIBSOUP_INCLUDE_DIRS}
@@ -66,5 +66,15 @@ target_link_libraries(session-core PUBLIC
 
 
 
+if(MSVC)
+else()
+    pkg_check_modules(X11 REQUIRED x11)
+
+    target_link_libraries(session-core PUBLIC  ${X11_LIBRARIES})
+    target_compile_options(session-core PUBLIC ${X11_CFLAGS})
+
+    # this is due to the missing of include path of x11 module in pkg-config and should not consider as a good example
+    target_include_directories(session-core PUBLIC "/usr/include/X11" ) 
+endif()
 
 

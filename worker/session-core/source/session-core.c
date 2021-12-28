@@ -31,6 +31,8 @@
 #ifdef G_OS_WIN32
 #include <Windows.h>
 
+#else
+#include <Xlib.h>
 #endif
 
 
@@ -83,6 +85,10 @@ struct _SessionCore
 	 * 
 	 */
 	CoreEngine peer_engine;
+
+#ifndef G_OS_WIN32
+	Display* x_display
+#endif
 };
 
 
@@ -461,3 +467,12 @@ session_core_get_client_engine(SessionCore* self)
 {
 	return self->peer_engine;
 }
+
+#ifndef G_OS_WIN32
+Display*
+session_core_display_interface(SessionCore* self)
+{
+	return self->x_display;
+
+}
+#endif

@@ -32,6 +32,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${CMAKE_SOURCE_DIR}/bin)
 
 
 set(SHARED_HEADER ${CMAKE_SOURCE_DIR}/shared-items/include)
+file(GLOB SHARED_SOURCE ${CMAKE_SOURCE_DIR}/shared-items/source/*.c)
+
 add_subdirectory(worker)
 add_subdirectory(client)
 add_subdirectory(testing)

@@ -9,7 +9,10 @@ RUN \
 RUN \
     apt install -y libsoup-gnome2.4-dev \
                    libjson-glib-1.0-0 \
-                   libjson-glib-dev
+                   libjson-glib-dev \
+                   libx11-dev \
+                   xserver-xorg-dev \
+                   xorg-dev
 
 
 
@@ -22,6 +25,9 @@ WORKDIR /source/personal-cloud-computing/build
 RUN cmake .. 
 RUN make
 
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-COPY /source/personal-cloud-computing /bin
-WORKDIR /bin
+CMD sleep 6000m 
+
+

@@ -105,5 +105,10 @@ DeviceType		session_core_get_client_device			(SessionCore* self);
  */
 CoreEngine 		session_core_get_client_engine			(SessionCore* self);
 
+#ifndef G_OS_WIN32
+#include <Xlib.h>
+
+Display* 		session_core_display_interface			(SessionCore* self);
+#endif
 
 #endif 

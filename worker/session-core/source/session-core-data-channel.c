@@ -28,10 +28,6 @@
 
 
 
-#ifdef G_OS_WIN32
-#include <Windows.h>
-#endif
-
 
 
 
@@ -61,6 +57,28 @@ struct _WebRTCHub
     gboolean relative_mouse;
 };
 
+WebRTCHub* 
+webrtchub_initialize()
+{
+    WebRTCHub* hub = malloc(sizeof(WebRTCHub));
+    hub->relative_mouse = FALSE;
+    return hub;
+}
+
+
+void            handle_input_win32              (gchar* message,  
+                                                SessionCore* core);
+
+void            handle_input_qt                 (gchar* message,  
+                                                SessionCore* core);
+
+void            handle_input_javascript         (gchar* message, 
+                                                SessionCore* core);
+
+
+#ifdef G_OS_WIN32
+#include <Windows.h>
+
 /**
  * @brief 
  * (IMPLEMENTATION SPECIFIC)
@@ -71,69 +89,6 @@ struct _WebRTCHub
 void
 handle_input_win32(gchar* message,  
                     SessionCore* core);
-
-
-
-
-
-WebRTCHub* 
-webrtchub_initialize()
-{
-    WebRTCHub* hub = malloc(sizeof(WebRTCHub));
-    hub->relative_mouse = FALSE;
-    return hub;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * @brief 
- * ignore binary message
- * @param datachannel 
- * @param byte 
- * @param core 
- */
-static void
-control_channel_on_message_data(GObject* datachannel,
-    GBytes* byte,
-    SessionCore* core)
-{
-    return;
-}
-
-/**
- * @brief 
- * ignore binary message
- * @param datachannel 
- * @param data 
- * @param core 
- */
-static void
-hid_channel_on_message_data(GObject* datachannel,
-    GBytes* data,
-    SessionCore* core)
-{
-    return;
-}
-
-
-
-
-
-
-#ifdef G_OS_WIN32
 
 /**
  * @brief 
@@ -403,6 +358,146 @@ handle_input_win32(gchar* message,
 
     g_object_unref(parser);
 }
+#else
+
+#include <Xlib.h>
+
+void            
+handle_input_win32(gchar* message,  
+                   SessionCore* core)
+{
+    GError* error = NULL;
+    JsonParser* parser = json_parser_new();
+    JsonObject* object = get_json_object_from_string(message,&error,parser);
+	if(!error == NULL || object == NULL) {return;}
+
+    WebRTCHub* hub = session_core_get_rtc_hub(core); 
+    Win32Opcode opcode = json_object_get_int_member(object, "Opcode");
+
+}
+
+void            
+handle_input_qt(gchar* message,  
+                SessionCore* core)
+{
+
+}
+
+void            
+handle_input_javascript(gchar* message, 
+                        SessionCore* core)
+{
+    GError* error = NULL;
+    JsonParser* parser = json_parser_new();
+    JsonObject* object = get_json_object_from_string(message,&error,parser);
+	if(!error == NULL || object == NULL) {return;}
+
+    WebRTCHub* hub = session_core_get_rtc_hub(core); 
+    JavaScriptOpcode opcode = json_object_get_int_member(object, "Opcode");
+}
+#include <keysym.h>
+
+
+
+
+XKeyEvent 
+createKeyEvent(Display *display, 
+                Window win,
+                Window winRoot, 
+                gboolean press,
+                int keycode, 
+                int modifiers)
+{
+	XKeyEvent event;
+
+	event.display     = display;
+	event.window      = win;
+	event.root        = winRoot;
+	event.subwindow   = None;
+	event.time        = CurrentTime;
+	event.x           = 1;
+	event.y           = 1;
+	event.x_root      = 1;
+	event.y_root      = 1;
+	event.same_screen = True;
+	event.keycode     = XKeysymToKeycode(display, keycode);
+	event.state       = modifiers;
+
+	if(press)
+		event.type = KeyPress;
+	else
+		event.type = KeyRelease;
+
+	return event;
+}
+
+
+void
+stimulate_mouse_event(SessionCore* core)
+{
+    Display* display = session_core_display_interface(core);
+
+    // Get the root window for the current display.
+	Window winRoot = XDefaultRootWindow(display);
+
+    // Find the window which has the current keyboard focus.
+	Window winFocus;
+	int    revert;
+	XGetInputFocus(display, &winFocus, &revert);
+    
+
+    XKeyEvent event = createKeyEvent(display, winFocus, winRoot, TRUE, XK_Down, 0);
+	XSendEvent(event.display, event.window, True, KeyPressMask, (XEvent *)&event);
+
+// Send a fake key release event to the window.
+	event = createKeyEvent(display, winFocus, winRoot, FALSE, XK_Down, 0);
+	XSendEvent(event.display, event.window, True, KeyPressMask, (XEvent *)&event);
+}
+
+#endif
+
+
+
+
+
+
+/**
+ * @brief 
+ * ignore binary message
+ * @param datachannel 
+ * @param byte 
+ * @param core 
+ */
+static void
+control_channel_on_message_data(GObject* datachannel,
+    GBytes* byte,
+    SessionCore* core)
+{
+    return;
+}
+
+/**
+ * @brief 
+ * ignore binary message
+ * @param datachannel 
+ * @param data 
+ * @param core 
+ */
+static void
+hid_channel_on_message_data(GObject* datachannel,
+    GBytes* data,
+    SessionCore* core)
+{
+    return;
+}
+
+
+
+
+
+
+#ifdef G_OS_WIN32
+
 #endif
 
 
@@ -432,16 +527,21 @@ hid_channel_on_message_string(GObject* dc,
     }
 
 
-#ifdef G_OS_WIN32
     if(engine == CHROME)
     {
         handle_input_javascript(package,core);
     }
     else if (engine == GSTREAMER)
     {
-        handle_input_win32(package,core);
+        if(device == WINDOW_APP)
+        {
+            handle_input_win32(package,core);
+        }
+        else if(device == LINUX_APP)
+        {
+            handle_input_qt(package,core);
+        }
     }
-#endif
     free(package);
 }
 
