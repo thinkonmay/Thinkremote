@@ -84,6 +84,22 @@ struct _GUI
 static GUI _gui = {0};
 
 
+GUI*
+init_remote_app_gui(RemoteApp *app)
+{
+    memset(&_gui,0,sizeof(GUI));
+
+
+    _gui.app = app;
+#ifdef G_OS_WIN32
+    RECT wr = { 0, 0, 320, 240 };
+    _gui.wr = wr;
+
+    set_up_window(&_gui);
+#endif
+    return &_gui;
+}
+
 #ifdef G_OS_WIN32
 #include <windows.h>
 #include <WinUser.h>
@@ -221,21 +237,6 @@ setup_video_overlay(GstElement* videosink,
     gst_video_overlay_set_window_handle (GST_VIDEO_OVERLAY (videosink),
         (guintptr) _gui.window);
 
-    return NULL;
-}
-
-GUI*
-init_remote_app_gui(RemoteApp *app)
-{
-    memset(&_gui,0,sizeof(GUI));
-
-
-    _gui.app = app;
-    RECT wr = { 0, 0, 320, 240 };
-    _gui.wr = wr;
-
-    set_up_window(&_gui);
-    return &_gui;
 }
 
 
@@ -458,7 +459,7 @@ window_proc(HWND hWnd,
 {
     if (message == WM_DESTROY) 
     {
-        remote_app_finalize(_gui.app,0,NULL);
+        remote_app_finalize(_gui.app,NULL);
     } 
     else if (message == WM_INPUT)
     {
@@ -530,12 +531,34 @@ enable_client_cursor()
 
 
 
-
 void
 gui_terminate(GUI* gui)
 {
     DestroyWindow(gui->window);
 }
 
+
 #else
+
+
+
+void
+gui_terminate(GUI* gui)
+{
+}
+
+gpointer
+setup_video_overlay(GstElement* videosink, 
+                    RemoteApp* app)
+{
+    GUI* gui = remote_app_get_gui(app);
+    Pipeline* pipeline = remote_app_get_pipeline(app);
+    GstElement* pipe_element = pipeline_get_pipeline_element(pipeline);
+
+    /* prepare the pipeline */
+    gst_object_ref_sink (videosink);
+
+
+
+}
 #endif

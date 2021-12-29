@@ -39,7 +39,6 @@ spec:
         app: selkies
     spec:
       serviceAccount: default
-
       enableServiceLinks: false
 
       # Disable service account used for accessing the kubernetes API/
@@ -88,6 +87,7 @@ spec:
           emptyDir:
             medium: Memory
             sizeLimit: 1Gi
+
       initContainers: []
       containers:
         ###
@@ -107,9 +107,6 @@ spec:
               value: "/usr/local/nvidia/lib64:/usr/local/nvidia/lib32"
             - name: PULSE_SERVER
               value: "127.0.0.1:4713"
-
-
-
 
           volumeMounts:
            # Shared pod mount at host for intra-container and cross-pod sharing.
@@ -195,15 +192,3 @@ spec:
           resources:
             requests: {}
             limits: {}
-        ###
-        # signalling container
-        ###
-        - name: signalling
-          image: gcr.io/cloud-solutions-images/webrtc-gpu-streaming-signaling:latest
-          imagePullPolicy: IfNotPresent
-          ports:
-            - name: signalling
-              containerPort: 8080
-          readinessProbe:
-            tcpSocket:
-              port: signalling

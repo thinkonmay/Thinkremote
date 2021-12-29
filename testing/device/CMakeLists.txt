@@ -10,6 +10,7 @@ pkg_check_modules(LIBSOUP REQUIRED libsoup-2.4)
 pkg_check_modules(WEBRTC REQUIRED gstreamer-webrtc-1.0)
 pkg_check_modules(CONTROLLER REQUIRED gstreamer-controller-1.0)
 pkg_check_modules(VIDEO REQUIRED gstreamer-video-1.0)
+pkg_check_modules(GTK REQUIRED gtkmm-3.0)
 
 
 
@@ -35,6 +36,7 @@ PUBLIC
     ${JSON_GLIB_INCLUDE_DIRS}
     ${WEBRTC_INCLUDE_DIRS}
     ${CONTROLLER_INCLUDE_DIRS}
+    ${GTK_INCLUDE_DIRs}
     ${VIDEO_INCLUDE_DIRS})
 
 
@@ -50,6 +52,7 @@ target_compile_options(videotesting PUBLIC ${JSON_GLIB_CFLAGS})
 target_compile_options(videotesting PUBLIC ${WEBRTC_CFLAGS})
 target_compile_options(videotesting PUBLIC ${CONTROLLER_CFLAGS})
 target_compile_options(videotesting PUBLIC ${VIDEO_CFLAGS})
+target_compile_options(videotesting PUBLIC ${GTK_CFLAGS})
 
 target_link_directories(videotesting PUBLIC ${INCLUDE_LIBRARY} )    
 
@@ -64,6 +67,7 @@ target_link_libraries(videotesting
     ${WEBRTC_LIBRARIES}
     ${CONTROLLER_LIBRARIES}
     ${VIDEO_LIBRARIES}
+    ${GTK_LIBRARIES}
 )
 
 

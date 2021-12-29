@@ -27,10 +27,12 @@
 
 
 
-/// <summary>
-/// gstreamer video element enumaration,
-/// the order of element in enum must follow the 
-/// </summary>
+
+/**
+ * @brief 
+ * gstreamer video element enumaration,
+ * the order of element in enum must follow the 
+ */
 enum
 {
     /*screen capture source*/

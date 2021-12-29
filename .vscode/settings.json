@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "xlib.h": "c"
+        "xlib.h": "c",
+        "remote-app-remote-config.h": "c",
+        "navigation.h": "c"
     }
 }

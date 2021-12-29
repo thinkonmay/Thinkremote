@@ -140,8 +140,7 @@ start_pipeline(RemoteApp* core)
     ret = GST_IS_ELEMENT(pipe->pipeline);    
 
     ret = gst_element_set_state(GST_ELEMENT(pipe->pipeline), GST_STATE_PLAYING);
-    if (ret == GST_STATE_CHANGE_FAILURE)
-    {
+    if (ret == GST_STATE_CHANGE_FAILURE) {
         GError error;
         error.message = "Fail to start pipeline, this may due to pipeline setup failure";
         remote_app_finalize(core, &error);
@@ -338,7 +337,7 @@ handle_event(GstPad* pad,
 {
     switch (GST_EVENT_TYPE (event)) {
       case GST_EVENT_NAVIGATION:
-        handle_navigator(event,pipeline_singleton.core);
+        // handle_navigator(event,pipeline_singleton.core);
         break;
       default:
         gst_pad_event_default(pad, parent,event);

@@ -1,3 +1,1 @@
-if(MSVC)
-    add_subdirectory(device)
-endif(MSVC)
+add_subdirectory(device)

@@ -323,7 +323,7 @@ on_server_closed(SoupWebsocketConnection* conn G_GNUC_UNUSED,
     SignallingHub* hub = remote_app_get_signalling_hub(core);
     hub->connection = NULL;
     hub->session = NULL;
-    remote_app_finalize(core,0,NULL);
+    remote_app_finalize(core,NULL);
 }
 
 
@@ -608,7 +608,7 @@ on_server_message(SoupWebsocketConnection* conn,
  * @param res 
  * @param core 
  */
-static void
+void
 on_server_connected(SoupSession* session,
     GAsyncResult* res,
     RemoteApp* core)

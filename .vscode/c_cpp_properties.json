@@ -4,7 +4,9 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/usr/**"
+                "/usr/**",
+                "/usr/include/glib-2.0",
+                "/usr/include/gstreamer-1.0"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
