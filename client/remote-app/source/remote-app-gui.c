@@ -24,7 +24,6 @@
 
 
 
-
 struct _GUI
 {
     /**
@@ -83,6 +82,12 @@ struct _GUI
 
 static GUI _gui = {0};
 
+/**
+ * @brief Set the up window object
+ * 
+ * @param gui 
+ */
+void                        set_up_window           (GUI* gui);
 
 GUI*
 init_remote_app_gui(RemoteApp *app)

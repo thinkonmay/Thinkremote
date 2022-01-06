@@ -3,5 +3,6 @@
         "xlib.h": "c",
         "remote-app-remote-config.h": "c",
         "navigation.h": "c"
-    }
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }
