@@ -69,7 +69,7 @@ webrtchub_initialize()
 void            handle_input_win32              (gchar* message,  
                                                 SessionCore* core);
 
-void            handle_input_qt                 (gchar* message,  
+void            handle_input_gtk                 (gchar* message,  
                                                 SessionCore* core);
 
 void            handle_input_javascript         (gchar* message, 
@@ -358,6 +358,12 @@ handle_input_win32(gchar* message,
 
     g_object_unref(parser);
 }
+void            
+handle_input_gtk(gchar* message,  
+                SessionCore* core)
+{
+
+}
 #else
 
 #include <Xlib.h>
@@ -376,12 +382,6 @@ handle_input_win32(gchar* message,
 
 }
 
-void            
-handle_input_qt(gchar* message,  
-                SessionCore* core)
-{
-
-}
 
 void            
 handle_input_javascript(gchar* message, 
@@ -539,7 +539,7 @@ hid_channel_on_message_string(GObject* dc,
         }
         else if(device == LINUX_APP)
         {
-            handle_input_qt(package,core);
+            handle_input_gtk(package,core);
         }
     }
     free(package);

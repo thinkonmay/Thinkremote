@@ -175,16 +175,6 @@ _keydown(int *key)
 
 
 
-/**
- * @brief 
- * 
- * @param data 
- * @return gpointer 
- */
-gpointer 
-gamepad_thread_func(gpointer data)
-{
-}
 
 
 #ifdef G_OS_WIN32
