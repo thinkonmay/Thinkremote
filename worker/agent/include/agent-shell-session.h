@@ -31,6 +31,16 @@
 void				initialize_shell_session					(AgentServer* agent,
                     										     SoupMessage* message);
 
+/**
+ * @brief 
+ * initialize shell session without soup message
+ * @param agent 
+ * @param data 
+ * @return gchar* 
+ */
+gchar* 				initialize_shell_session_websocket			(AgentServer* agent, 
+                                   								 gchar* data);
+
 #endif
 
 
