@@ -77,14 +77,14 @@ server_callback (SoupServer        *server,
 	SoupURI* uri = soup_message_get_uri(msg);
 	gchar* request_token;
 
-	if(!g_strcmp0(uri->path,"/cluster/ping"))
+	if(!g_strcmp0(uri->path,"/ping"))
 	{
 		gchar* response = "ping";
 		soup_message_set_response(msg, "application/json",SOUP_MEMORY_COPY,response,strlen(response));
 		soup_message_set_status(msg,SOUP_STATUS_OK);
 		return;
 	}
-	else if(!g_strcmp0(uri->path,"/cluster/Shell")) {
+	else if(!g_strcmp0(uri->path,"/Shell")) {
 		initialize_shell_session(agent,msg);
 		return;
 	}
@@ -102,10 +102,10 @@ server_callback (SoupServer        *server,
 		}
 	}
 
-	if(!g_strcmp0(uri->path,"/cluster/Initialize")) {
+	if(!g_strcmp0(uri->path,"/Initialize")) {
 		msg->status_code = session_initialize(agent)? SOUP_STATUS_OK : SOUP_STATUS_BAD_REQUEST;
 	}
-	else if(!g_strcmp0(uri->path,"/cluster/Terminate")) {
+	else if(!g_strcmp0(uri->path,"/Terminate")) {
 		msg->status_code = session_terminate(agent)? SOUP_STATUS_OK : SOUP_STATUS_BAD_REQUEST;
 	}
 }

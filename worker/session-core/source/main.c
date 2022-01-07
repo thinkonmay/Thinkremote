@@ -21,7 +21,7 @@ static GOptionEntry entries[] = {
       "String ID of the peer to connect to", "ID"},
   {"sessioncoreport", 0, 0, G_OPTION_ARG_INT, &SESSION_CORE_PORT,
       "Signalling server to connect to", "URL"},
-  {"clusterip", 0, 0, G_OPTION_ARG_STRING, &CLUSTER_IP,
+  {"clusterip", 0, 0, G_OPTION_ARG_STRING, &CLUSTER_URL,
       "Signalling server to connect to", "URL"},
   {"token", 0, 0, G_OPTION_ARG_STRING, &DEVICE_TOKEN,
       "Signalling server to connect to", "URL"},
@@ -48,7 +48,7 @@ main(int argc, char* argv[])
     if(!DEVELOPMENT_ENVIRONMENT)
     {
         g_print("session core start with cluster manager url\n");
-        g_print(CLUSTER_IP);
+        g_print(CLUSTER_URL);
         g_print("\n");
         g_print("session core start with worker token\n");
         g_print(DEVICE_TOKEN);

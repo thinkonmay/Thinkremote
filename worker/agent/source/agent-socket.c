@@ -85,7 +85,7 @@ register_with_host(AgentServer* agent)
 
     gchar* package = get_registration_message();
     GString* register_url = g_string_new(socket->cluster_url);
-    g_string_append(register_url,"/register");
+    g_string_append(register_url,"/worker/register");
     gchar* final_url = g_string_free(register_url,FALSE);
 
     SoupMessage* soupMessage = soup_message_new(SOUP_METHOD_POST,final_url);
@@ -153,12 +153,7 @@ initialize_socket()
     memset(socket,0,sizeof(Socket)); 
     const gchar* http_aliases[] = { "http", NULL };
 
-    GString* string = g_string_new("http://");
-    g_string_append(string,CLUSTER_IP);
-    g_string_append(string,":5000/agent");
-    gchar* url = g_string_free(string,FALSE);
-
-    memcpy( socket->cluster_url,url,strlen(url)); 
+    memcpy( socket->cluster_url,CLUSTER_URL,strlen(CLUSTER_URL)); 
     socket->session = soup_session_new_with_options(
             SOUP_SESSION_SSL_STRICT, FALSE,
             SOUP_SESSION_SSL_USE_SYSTEM_CA_FILE, TRUE,

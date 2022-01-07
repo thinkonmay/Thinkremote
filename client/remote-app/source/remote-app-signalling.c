@@ -432,6 +432,7 @@ signalling_connect(RemoteApp* core)
     const char* https_aliases[] = { "wss", NULL };
     JsonObject* json_object;
     SignallingHub* hub = remote_app_get_signalling_hub(core);
+    
     GString* string = g_string_new(hub->signalling_server);
     g_string_append(string,"?token=");
     g_string_append(string,hub->remote_token);

@@ -30,7 +30,7 @@ static GOptionEntry entries[] = {
       "String ID of the peer to connect to", "ID"},
   {"coreport", 0, 0, G_OPTION_ARG_STRING, &SESSION_CORE_PORT,
       "Signalling server to connect to", "URL"},
-  {"clusterip", 0, 0, G_OPTION_ARG_STRING, &CLUSTER_IP,
+  {"clusterip", 0, 0, G_OPTION_ARG_STRING, &CLUSTER_URL,
       "Signalling server to connect to", "URL"},
   {"user", 0, 0, G_OPTION_ARG_STRING, &USER,
       "thinkmay manager username", "URL"},
@@ -71,10 +71,10 @@ main(int argc, char* argv[])
         g_print("Enter your thinkmay manager password:\n[PASSWORD]: ");
         scanf("%s", PASSWORD);
     }
-    if(!strlen(CLUSTER_IP))
+    if(!strlen(CLUSTER_URL))
     {
-        g_print("thinkmay cluster manager ip:\n[IP ADDRESS]: ");
-        scanf("%s", CLUSTER_IP);
+        g_print("thinkmay cluster manager URL:\n[URL]: ");
+        scanf("%s", CLUSTER_URL);
     }
 
 

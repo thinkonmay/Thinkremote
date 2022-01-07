@@ -40,7 +40,7 @@ const gchar*                      device_token ;
  * @brief 
  * clueter manager ip address
  */
-#define			CLUSTER_IP 					cluster_ip 
+#define			CLUSTER_URL 					cluster_ip 
 
 /**
  * @brief 

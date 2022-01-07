@@ -24,9 +24,8 @@ validate_token(gchar* token)
             SOUP_SESSION_SSL_USE_SYSTEM_CA_FILE, TRUE,
             SOUP_SESSION_HTTPS_ALIASES, http_aliases, NULL);
 
-    GString* token_url= g_string_new("http://");
-    g_string_append(token_url, CLUSTER_IP);
-    g_string_append(token_url,":5000/token/validate?token=");
+    GString* token_url= g_string_new(CLUSTER_URL);
+    g_string_append(token_url,"/worker/token/validate?token=");
     g_string_append(token_url, token);
     gchar* token_str = g_string_free(token_url,FALSE);
 
