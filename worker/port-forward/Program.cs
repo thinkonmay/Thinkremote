@@ -3,6 +3,7 @@ using System;
 using Newtonsoft.Json;
 using System.Text;
 using RestSharp;
+using System.Collections.Generic;
 
 namespace port_forward
 {
@@ -10,21 +11,42 @@ namespace port_forward
     {
         static void Main(string[] args)
         {
-            var ClusterName = args[0];
-            var Token = args[1];
+            MainAsync( Int32.Parse(args[1]), args[2], args[3]).Wait();
+        }
 
-            uint.TryParse(args[2], out var WorkerPort);
-            uint.TryParse(args[3], out var ClusterPort);
+        static async Task MainAsync(string token,
+                                    int agent_port, 
+                                    int core_port)
+        {
+            ClusterInstance instance = null;
+            PortForward agentPort = null, corePort = null;
+            try
+            {
+                var request = new RestRequest("https://development.thinkmay.net/Cluster/Infor", Method.GET)
+                    .AddHeader("Authorization",token);
+                var agentPortRequest = new RestRequest("https://development.thinkmay.net/Port/Request", Method.GET)
+                    .AddQueryParameter("WorkerID",WorkerID.ToString())
+                    .AddQueryParameter("LocalPort",agent_port)
+                    .AddHeader("Authorization",token);
+                var corePortRequest = new RestRequest("https://development.thinkmay.net/Port/Request", Method.GET)
+                    .AddQueryParameter("WorkerID",WorkerID.ToString())
+                    .AddQueryParameter("LocalPort",core_port)
+                    .AddHeader("Authorization",token);
 
-            var request = new RestRequest("https://host.thinkmay.net/Cluster/SSH/Key")
-                .AddQueryParameter("ClusterName", ClusterName)
-                .AddHeader("Authorization","Bearer "+Token);
-            request.Method = Method.GET;
+                var instanceResult = (await (new RestClient()).ExecuteAsync(request));
+                var agentResult   =  (await (new RestClient()).ExecuteAsync(agentPortRequest));
+                var coreResult    =  (await (new RestClient()).ExecuteAsync(corePortRequest));
 
-            var Content = ((new RestClient()).Execute(request));
-            if(Content.StatusCode == System.Net.HttpStatusCode.BadRequest) { return; }
+                instance =  JsonConvert.DeserializeObject<GlobalCluster>(instanceResult.Content).instance;
+                agentPort = JsonConvert.DeserializeObject<PortForward>(agentResult.Content);
+                corePort  = JsonConvert.DeserializeObject<PortForward>(coreResult.Content);
+            }
+            catch (Exception ex)
+            {
 
-            var instance = JsonConvert.DeserializeObject<ClusterInstance>(Content.Content);
+            }
+
+
             MemoryStream keyStream = new MemoryStream(Encoding.UTF8.GetBytes(instance.keyPair.PrivateKey));
             var keyFiles = new[] { new PrivateKeyFile(keyStream) };
 
@@ -33,19 +55,49 @@ namespace port_forward
 
             var con = new ConnectionInfo(instance.IPAdress, 22, "ubuntu", methods.ToArray());
             var client = new SshClient(con);
-            var port = new ForwardedPortLocal("localhost", WorkerPort, "localhost", ClusterPort);
+            var agent = new ForwardedPortLocal("localhost", agent_port, "localhost", (uint)agentPort.InstancePort);
+            var core  = new ForwardedPortLocal("localhost", core_port, "localhost", (uint)corePort.InstancePort);
 
-            client.Connect();
-            client.AddForwardedPort(port);
-            port.Start();
 
-            while (true)
+            try
             {
-                System.Threading.Thread.Sleep(1000);        
+
+                client.Connect();
+                client.AddForwardedPort(agent);
+                client.AddForwardedPort(core);
+                agent.Start();
+                core.Start();
+
+                var portDescription = new Dictionary<string,int>();
+                portDescription.Add("agent",agentPort.InstancePort);
+                portDescription.Add("core", corePort.InstancePort);
+                var PortDescribe = new RestRequest($"https://localhost:{agent_port}/Port/Describe", Method.POST)
+                    .AddJsonBody(portDescription);
+                await (new RestClient()).ExecuteAsync(PortDescribe);
+
+                while (true) { System.Threading.Thread.Sleep(100000); }
+
+                agent.Stop();
+                core.Stop();
+                client.Disconnect();            
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"got exception {ex.Message} while connecting with cluster");
+                agent.Stop();
+                core.Stop();
             }
 
-            port.Stop();
-            client.Disconnect();            
+            var agentPortRelease = new RestRequest($"https://development.thinkmay.net/Port/Release", Method.GET)
+                .AddQueryParameter("InstancePort",agent_port.ToString())
+                .AddHeader("Authorization",token);
+            var corePortRelease = new RestRequest($"https://development.thinkmay.net/Port/Release", Method.GET)
+                .AddQueryParameter("InstancePort",core_port.ToString())
+                .AddHeader("Authorization",token);
+
+            await (new RestClient()).ExecuteAsync(agentPortRelease);
+            await (new RestClient()).ExecuteAsync(corePortRelease);
+
         }
     }
 }

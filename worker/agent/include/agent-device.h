@@ -12,17 +12,7 @@
 #ifndef __AGENT_DEVICE_H__
 #define __AGENT_DEVICE_H__
 
-#ifdef G_OS_WIN32
-#include <Windows.h>	
-#include <stdio.h>
-#include <sysinfoapi.h>
-#include <d3d9.h>
-#include <intrin.h>
 #include <glib.h>
-
-
-
-#pragma comment(lib, "d3d9.lib")
 
 
 
@@ -33,16 +23,7 @@
  * this function wrap around process of getting worker information
  * @return gchar* registration message string 
  */
-gchar*                  get_registration_message        ();
-
-
-
-/**
- * @brief Get the local ip object
- * 
- * @return gchar* 
- */
-gchar*                  get_local_ip                    ();
-
-#endif
+gchar*                  get_registration_message        (gboolean port_forward, 
+						                                 gchar* agent_instance_port, 
+						                                 gchar* core_instance_port);
 #endif

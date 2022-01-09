@@ -16,6 +16,7 @@
 #include <agent-shell-session.h>
 #include <agent-device.h>
 #include <agent-child-process.h>
+#include <agent-port-forward.h>
 
 
 
@@ -93,11 +94,19 @@ server_callback (SoupServer        *server,
 		}
 	}
 
+
 	if(!g_strcmp0(uri->path,"/Initialize")) {
 		msg->status_code = session_initialize(agent)? SOUP_STATUS_OK : SOUP_STATUS_BAD_REQUEST;
 	}
 	else if(!g_strcmp0(uri->path,"/Terminate")) {
 		msg->status_code = session_terminate(agent)? SOUP_STATUS_OK : SOUP_STATUS_BAD_REQUEST;
+	}
+
+	if(!g_strcmp0(uri->path,"/Port/Describe")) {
+		JsonParser* parser = json_parser_new();	
+		get_json_object_from_string(msg->request_body->data,NULL,parser);
+
+		msg->status_code = SOUP_STATUS_OK;
 	}
 }
 
@@ -121,7 +130,7 @@ init_agent_server(AgentServer* agent)
 }
 
 AgentServer*
-agent_new()
+agent_new(gboolean self_host)
 {	
 	GError* error = NULL;
 	AgentServer* agent = malloc(sizeof(AgentServer));
@@ -132,7 +141,16 @@ agent_new()
 	agent->server = init_agent_server(agent);
 	if(!agent->server){return;}
 	
-	register_with_host(agent);
+	if(self_host)
+	{
+		register_with_selfhosted_cluster(agent,self_host);
+
+	}
+	else
+	{
+		start_portforward(agent);
+	}
+	
 	agent->loop = g_main_loop_new(NULL, FALSE);
 	g_main_loop_run(agent->loop);
 	return agent;

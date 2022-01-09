@@ -5,22 +5,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace port_forward
 {
+    public class GlobalCluster
+    {
+        public ClusterInstance instance {get;set;}
+    }
+
     public class ClusterInstance
     {
-        public int ID { get; set; }
-
-        public string TurnUser { get; set; }
-
-        public string TurnPassword { get; set; }
-
-        public DateTime? Registered { get; set; }
         public string IPAdress { set; get; }
-
-        public string InstanceID { get; set; }
-
-        public string InstanceName { set; get; }
-
-        public string PrivateIP { get; set; }
 
         public EC2KeyPair keyPair { get; set; }
     }
@@ -30,5 +22,11 @@ namespace port_forward
         public int ID { get; set; }
         public string Name { set; get; }
         public string PrivateKey { get; set; }
+    }
+    public class PortForward
+    {
+        public int  LocalPort{get;set;}
+
+        public int  InstancePort {get;set;}
     }
 }

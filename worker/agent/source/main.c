@@ -18,8 +18,13 @@
 #include <libsoup/soup.h>
 #include <message-form.h>
 
+#include <stdio.h>
+
 #define GST_DEBUG               4
-#define    THINKMAY_ACCOUNT_URL              "https://host.thinkmay.net/Account/Login"
+
+#define    THINKMAY_ACCOUNT_URL              "https://development.thinkmay.net/Account/Login"
+#define    THINKMAY_CLUSTER_URL              "https://development.thinkmay.net/Cluster/Token"
+#define    THINKMAY_CLUSTER_INFOR            "https://development.thinkmay.net/Cluster/Infor"
 
 
 
@@ -71,11 +76,15 @@ main(int argc, char* argv[])
         g_print("Enter your thinkmay manager password:\n[PASSWORD]: ");
         scanf("%s", PASSWORD);
     }
-    if(!strlen(CLUSTER_URL))
+    if(!strlen(CLUSTER_NAME))
     {
-        g_print("thinkmay cluster manager URL:\n[URL]: ");
-        scanf("%s", CLUSTER_URL);
+        g_print("thinkmay cluster manager NAME:\n[NAME]: ");
+        scanf("%s", CLUSTER_NAME);
     }
+
+
+
+
 
 
     JsonObject* login = json_object_new();
@@ -88,11 +97,12 @@ main(int argc, char* argv[])
     soup_message_set_request(message,"application/json",SOUP_MEMORY_COPY,login_body,strlen(login_body));
     soup_session_send_message(session,message);
 
-    JsonParser* parser = json_parser_new();
-    JsonObject* result_json = get_json_object_from_string(message->response_body->data,&error,parser);
-    gchar* token_result = json_object_get_string_member(result_json,"token");
-    g_object_unref(parser); 
-    if(!token_result) {
+    JsonParser* user_parser = json_parser_new();
+    JsonObject* user_request_result = get_json_object_from_string(message->response_body->data,&error,user_parser);
+    gchar* user_token = json_object_get_string_member(user_request_result,"token");
+    memcpy(TOKEN,user_token,strlen(user_token));
+    g_object_unref(user_parser); 
+    if(!user_token) {
         g_printerr("fail to login, retry\n");
         return;
     }
@@ -101,8 +111,56 @@ main(int argc, char* argv[])
         g_print("login success\n");
     }
 
-    memcpy(TOKEN,token_result,strlen(token_result));
-    agent_new();
+
+
+    GString* string = g_string_new(THINKMAY_CLUSTER_URL);
+    g_string_append(string,"?ClusterName=");
+    g_string_append(string,CLUSTER_NAME);
+    gchar* cluster_token_url = g_string_free(string,FALSE);
+
+    SoupMessage* cluster_message = soup_message_new(SOUP_METHOD_GET,cluster_token_url);
+    soup_message_headers_append(cluster_message->request_headers, "Authorization",TOKEN);
+    soup_session_send_message(session,cluster_message);
+
+    JsonParser* cluster_parser = json_parser_new();
+    JsonObject* cluster_request_result = get_json_object_from_string(cluster_message->response_body->data,&error,cluster_parser);
+    gchar* cluster_token_received = json_object_get_string_member(cluster_request_result,"token");
+    memcpy(CLUSTER_TOKEN,cluster_token_received,strlen(cluster_token_received));
+    g_object_unref(cluster_parser); 
+
+
+
+
+    SoupMessage* cluster_infor_message = soup_message_new(SOUP_METHOD_GET,THINKMAY_CLUSTER_INFOR);
+    soup_message_headers_append(cluster_infor_message->request_headers, "Authorization",cluster_token);
+    soup_session_send_message(session,cluster_infor_message);
+
+    JsonParser* cluster_infor_parser = json_parser_new();
+    JsonObject* cluster_infor_result = get_json_object_from_string(cluster_infor_message->response_body->data,&error,cluster_infor_parser);
+
+    gboolean self_host = json_object_get_boolean_member(cluster_infor_result,"selfHost");
+    if(!self_host)
+    {
+        JsonObject* instance = json_object_get_object_member(cluster_infor_result,"instance");
+        gchar* ipAddress = json_object_get_string_member(instance,"ipAdress");
+
+
+        GString* cluster_url_string = g_string_new("http://");
+        g_string_append(cluster_url_string,ipAddress);
+        g_string_append(cluster_url_string,":5000");
+        gchar* cluster_url_result = g_string_free(cluster_url_string,FALSE);
+
+        memcpy(CLUSTER_URL, cluster_url_result,strlen(cluster_url_result));
+    }
+    else
+    {
+        g_print("thinkmay cluster manager URL:\n[URL]: ");
+        scanf("%s", CLUSTER_URL);
+    }
+
+
+    g_object_unref(cluster_infor_parser); 
+    agent_new(self_host);
     return;
 }
 

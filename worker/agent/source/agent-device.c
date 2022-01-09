@@ -13,6 +13,7 @@
 #include <logging.h>
 #include <message-form.h>
 #include <json-glib/json-glib.h>
+#include <global-var.h>
 
 /// <summary>
 /// Information about slave hardware configuration
@@ -222,7 +223,9 @@ get_device_information()
 
 
 gchar*
-get_registration_message()
+get_registration_message(gboolean port_forward, 
+						 gchar* agent_instance_port, 
+						 gchar* core_instance_port)
 {
 	DeviceInformation* infor = get_device_information();
 	JsonObject* information = json_object_new();
@@ -230,8 +233,32 @@ get_registration_message()
 	json_object_set_string_member(information,	"CPU", infor->cpu);
 	json_object_set_string_member(information,	"GPU", infor->gpu);
 	json_object_set_string_member(information,	"OS", infor->OS);
-	json_object_set_string_member(information,	"LocalIP", infor->IP);
 	json_object_set_int_member(information,		"RAMcapacity", infor->ram_capacity);
 
+	GString* core_url_string = g_string_new("http://");
+	GString* agent_url_string = g_string_new("http://");
+
+	g_string_append(core_url_string, port_forward ? "localhost" : infor->IP);
+	g_string_append(agent_url_string, port_forward ? "localhost" : infor->IP);
+
+	g_string_append(core_url_string,  ":");
+	g_string_append(agent_url_string, ":");
+
+	g_string_append(core_url_string, port_forward ?  SESSION_CORE_PORT  : core_instance_port);
+	g_string_append(agent_url_string, port_forward ? AGENT_PORT 		: agent_instance_port);
+
+	json_object_set_string_member(information,	"CoreUrl", 	g_string_free(core_url_string,FALSE));
+	json_object_set_string_member(information,	"AgentUrl", g_string_free(agent_url_string,FALSE));
+
+	if(port_forward)
+	{
+		json_object_set_string_member(information,	"agentInstancePort", agent_instance_port);
+		json_object_set_string_member(information,	"coreInstancePort",  core_instance_port);
+	}
+	else
+	{
+		json_object_set_null_member(information, "agentInstancePort");
+		json_object_set_null_member(information, "coreInstancePort");
+	}
 	return get_string_from_json_object(information);
 }

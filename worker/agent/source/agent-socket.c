@@ -13,6 +13,7 @@
 #include <agent-session-initializer.h>
 #include <agent-device.h>
 #include <agent-server.h>
+#include <agent-port-forward.h>
 
 #include <logging.h>
 #include <message-form.h>
@@ -23,7 +24,7 @@
 #include <libsoup/soup.h>
 
 
-#define WRITE_TOKEN_TO_FILE TRUE
+#define WRITE_TOKEN_TO_FILE FALSE
 
 /// <summary>
 /// contain information about websocket socket with host
@@ -75,26 +76,22 @@ send_message_to_cluster(AgentServer* object,
 }
 
 
-
-gboolean
-register_with_host(AgentServer* agent)
+void
+register_with_managed_cluster(AgentServer* agent, 
+                              gchar* agent_instance_port,
+                              gchar* core_instance_port)
 {
-    GError* error = NULL;
     Socket* socket = agent_get_socket(agent);
-    worker_log_output("Registering with host");
-
-    gchar* package = get_registration_message();
+    gchar* package = get_registration_message(FALSE,agent_instance_port,core_instance_port);
     GString* register_url = g_string_new(socket->cluster_url);
     g_string_append(register_url,"/worker/register");
     gchar* final_url = g_string_free(register_url,FALSE);
 
     SoupMessage* soupMessage = soup_message_new(SOUP_METHOD_POST,final_url);
-
     soup_message_headers_append(soupMessage->request_headers,"Authorization",TOKEN);
+    soup_message_set_request(soupMessage,"application/json", SOUP_MEMORY_COPY, package,strlen(package));
 
-    soup_message_set_request(soupMessage,"application/json", SOUP_MEMORY_COPY,
-        package,strlen(package));
-
+    worker_log_output("Registering with host");
     soup_session_send_message(socket->session,soupMessage);
 
     if(soupMessage->status_code != SOUP_STATUS_OK)
@@ -105,9 +102,12 @@ register_with_host(AgentServer* agent)
     }
     else
     {
+        GError* error = NULL;
         JsonParser* parser = json_parser_new();
         JsonObject* result_json = get_json_object_from_string(soupMessage->response_body->data,&error,parser);
         gchar* token_result = json_object_get_string_member(result_json,"token");
+        memcpy(DEVICE_TOKEN,token_result,strlen(token_result));
+        g_object_unref(parser); 
 
         if(WRITE_TOKEN_TO_FILE)
         {
@@ -116,28 +116,58 @@ register_with_host(AgentServer* agent)
             file = g_file_new_for_path("./remote-token");
             GFileOutputStream* stream = g_file_append_to(file,G_FILE_CREATE_REPLACE_DESTINATION,NULL,NULL);
             GOutputStream* output_Stream = (GOutputStream*)stream;
-            g_output_stream_write_all(output_Stream,token_result,strlen(token_result),
-                NULL,NULL,NULL);
+            g_output_stream_write_all(output_Stream,DEVICE_TOKEN,strlen(DEVICE_TOKEN), NULL,NULL,NULL);
         }
 
-        if(token_result) 
-        { 
-            memcpy(DEVICE_TOKEN,token_result,strlen(token_result));
-            g_print("Register successfully with cluster manager and got worker token\n");
-            g_object_unref(parser); 
-            return FALSE; 
-        }
-        else
-        {
-            g_print("receive package from cluster do dotn include worker token, aborting...\n");
-            agent_finalize(agent);
-            return FALSE; 
-        }
+        g_print("Register successfully with cluster manager and got worker token\n");
+        return FALSE; 
     }
-    
+}
 
 
-    return TRUE; 
+void
+register_with_selfhosted_cluster(AgentServer* agent)
+{
+    GError* error = NULL;
+    Socket* socket = agent_get_socket(agent);
+
+    gchar* package = get_registration_message(FALSE,NULL,NULL);
+    GString* register_url = g_string_new(socket->cluster_url);
+    g_string_append(register_url,"/worker/register");
+    gchar* final_url = g_string_free(register_url,FALSE);
+
+    SoupMessage* soupMessage = soup_message_new(SOUP_METHOD_POST,final_url);
+    soup_message_headers_append(soupMessage->request_headers,"Authorization",TOKEN);
+    soup_message_set_request(soupMessage,"application/json", SOUP_MEMORY_COPY, package,strlen(package));
+
+    worker_log_output("Registering with host");
+    soup_session_send_message(socket->session,soupMessage);
+
+    if(soupMessage->status_code != SOUP_STATUS_OK)
+    {
+        g_printerr("Fail to register device and get worker token\n");
+        agent_finalize(agent);
+    }
+    else
+    {
+        JsonParser* parser = json_parser_new();
+        JsonObject* result_json = get_json_object_from_string(soupMessage->response_body->data,&error,parser);
+        gchar* token_result = json_object_get_string_member(result_json,"token");
+        memcpy(DEVICE_TOKEN,token_result,strlen(token_result));
+        g_object_unref(parser); 
+
+        if(WRITE_TOKEN_TO_FILE)
+        {
+            GFile* file = g_file_new_for_path("./remote-token");
+            g_file_delete(file,NULL,NULL);
+            file = g_file_new_for_path("./remote-token");
+            GFileOutputStream* stream = g_file_append_to(file,G_FILE_CREATE_REPLACE_DESTINATION,NULL,NULL);
+            GOutputStream* output_Stream = (GOutputStream*)stream;
+            g_output_stream_write_all(output_Stream,DEVICE_TOKEN,strlen(DEVICE_TOKEN), NULL,NULL,NULL);
+        }
+
+        g_print("Register successfully with cluster manager and got worker token\n");
+    }
 }
 
 

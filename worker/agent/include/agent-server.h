@@ -24,7 +24,7 @@ void											agent_finalize						(AgentServer* object);
  * iniitalize agent server and mainloop
  * @return AgentServer* 
  */
-AgentServer*									agent_new							();
+AgentServer*									agent_new							(gboolean port_forward);
 
 /**
  * @brief 

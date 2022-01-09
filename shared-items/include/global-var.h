@@ -17,12 +17,13 @@
 const gchar*                      agent_port ;
 const gchar*                      session_core_port ;
 const gchar*                      cluster_ip ; 
+const gchar*                      cluster_name ; 
 const gchar*                      token ;
 const gchar*                      turn ; 
 const gchar*                      user ; 
 const gchar*                      password ; 
 const gchar*                      device_token ; 
-
+const gchar*                      cluster_token ; 
 
 /**
  * @brief 
@@ -44,10 +45,21 @@ const gchar*                      device_token ;
 
 /**
  * @brief 
+ * 
+ */
+#define			CLUSTER_NAME 				cluster_name
+
+/**
+ * @brief 
  * user token to communication with other module
  */
 #define			TOKEN 						token
 
+/**
+ * @brief 
+ * worker token to communication with other module
+ */
+#define			CLUSTER_TOKEN               cluster_token 
 
 /**
  * @brief 

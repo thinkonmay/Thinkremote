@@ -16,7 +16,6 @@
 #include <libsoup/soup.h>
 #include <global-var.h>
 #include <development.h>
-#include <agent-device.h>
 
 
 
