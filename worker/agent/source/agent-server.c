@@ -48,6 +48,8 @@ struct _AgentServer
 	RemoteSession* remote_session;
 
 	SoupWebsocketConnection* websocket;
+
+	PortForward* portforward;
 };
 
 
@@ -69,17 +71,39 @@ server_callback (SoupServer        *server,
 	SoupURI* uri = soup_message_get_uri(msg);
 	gchar* request_token;
 
-	if(!g_strcmp0(uri->path,"/ping"))
-	{
+	if(!g_strcmp0(uri->path,"/ping")) {
 		gchar* response = "ping";
 		soup_message_set_response(msg, "application/json",SOUP_MEMORY_COPY,response,strlen(response));
 		soup_message_set_status(msg,SOUP_STATUS_OK);
 		return;
-	}
-	else if(!g_strcmp0(uri->path,"/Shell")) {
+	} else if(!g_strcmp0(uri->path,"/Shell")) {
 		initialize_shell_session(agent,msg);
 		return;
-	}
+	} else if(!g_strcmp0(uri->path,"/Port/Describe")) {
+		soup_message_headers_iter_init (&iter, msg->request_headers);
+		while (soup_message_headers_iter_next (&iter, &name, &value))
+		{
+			if(!g_strcmp0(name,"Authorization"))
+			{
+				if(g_strcmp0(value,CLUSTER_TOKEN))
+				{
+					msg->status_code = SOUP_STATUS_UNAUTHORIZED;
+					return;
+				}
+			}
+		}
+
+		JsonParser* parser = json_parser_new();	
+		JsonObject* object = get_json_object_from_string(msg->request_body->data,NULL,parser);
+		register_with_managed_cluster(agent,
+			json_object_get_string_member(object,"agent"),
+			json_object_get_string_member(object,"core"));
+		msg->status_code = SOUP_STATUS_OK;
+		return;
+	} 
+
+
+
 
 	soup_message_headers_iter_init (&iter, msg->request_headers);
 	while (soup_message_headers_iter_next (&iter, &name, &value))
@@ -97,17 +121,10 @@ server_callback (SoupServer        *server,
 
 	if(!g_strcmp0(uri->path,"/Initialize")) {
 		msg->status_code = session_initialize(agent)? SOUP_STATUS_OK : SOUP_STATUS_BAD_REQUEST;
-	}
-	else if(!g_strcmp0(uri->path,"/Terminate")) {
+	} else if(!g_strcmp0(uri->path,"/Terminate")) {
 		msg->status_code = session_terminate(agent)? SOUP_STATUS_OK : SOUP_STATUS_BAD_REQUEST;
 	}
 
-	if(!g_strcmp0(uri->path,"/Port/Describe")) {
-		JsonParser* parser = json_parser_new();	
-		get_json_object_from_string(msg->request_body->data,NULL,parser);
-
-		msg->status_code = SOUP_STATUS_OK;
-	}
 }
 
 
@@ -115,7 +132,8 @@ server_callback (SoupServer        *server,
 
 
 static SoupServer*
-init_agent_server(AgentServer* agent)
+init_agent_server(AgentServer* agent,
+				  gboolean self_host)
 {
 	GError* error = NULL;
 	SoupServer* server = soup_server_new(NULL);
@@ -125,7 +143,12 @@ init_agent_server(AgentServer* agent)
 		(SoupServerCallback)server_callback,agent,NULL);
 
 	gint port = atoi(AGENT_PORT);
-	soup_server_listen_all(agent->server,port,0,&error);
+	if(self_host) {
+		soup_server_listen_all(agent->server,port,0,&error);
+	} else {
+		soup_server_listen_local(agent->server,port,0,&error);
+	}
+	
 	if(error){g_printerr(error->message); return;}
 }
 
@@ -138,16 +161,12 @@ agent_new(gboolean self_host)
 
 	agent->remote_session = intialize_remote_session_service();
 	agent->socket = initialize_socket();
-	agent->server = init_agent_server(agent);
+	agent->server = init_agent_server(agent,self_host);
 	if(!agent->server){return;}
-	
-	if(self_host)
-	{
-		register_with_selfhosted_cluster(agent,self_host);
 
-	}
-	else
-	{
+	if(self_host) {
+		register_with_selfhosted_cluster(agent,self_host);
+	} else {
 		start_portforward(agent);
 	}
 	
@@ -207,6 +226,12 @@ RemoteSession*
 agent_get_remote_session(AgentServer* self)
 {
 	return self->remote_session;
+}
+
+PortForward*
+agent_get_portforward(AgentServer* self)
+{
+	return self->portforward;
 }
 
 void

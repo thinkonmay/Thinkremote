@@ -36,6 +36,11 @@ typedef struct _AgentServer			AgentServer;
  */
 typedef	struct _ChildProcess		ChildProcess;
 
+/**
+ * @brief 
+ * 
+ */
+typedef struct _PortForward         PortForward;
 
 /**
  * @brief 

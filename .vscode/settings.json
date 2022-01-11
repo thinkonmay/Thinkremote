@@ -2,7 +2,8 @@
     "files.associations": {
         "xlib.h": "c",
         "remote-app-remote-config.h": "c",
-        "navigation.h": "c"
+        "navigation.h": "c",
+        "agent-type.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

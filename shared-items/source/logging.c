@@ -25,7 +25,7 @@ void
 worker_log_output(gchar* text)
 {
 
-    if(!DEVELOPMENT_ENVIRONMENT)
+    if(!DEVELOPMENT_ENVIRONMENT || CLUSTER_URL)
     {
         const gchar* http_aliases[] = { "http", NULL };
         SoupSession* session = soup_session_new_with_options(

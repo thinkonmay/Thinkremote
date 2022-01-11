@@ -51,9 +51,9 @@ typedef struct _DeviceInformation
 gchar* 
 get_local_ip()
 {
-	gchar* ip_address;
+	gchar* ip_address = malloc(20);
     PIP_ADAPTER_INFO pAdapterInfo;
-    PIP_ADAPTER_INFO pAdapter = NULL;
+    PIP_ADAPTER_INFO current_adapter = NULL;
     DWORD dwRetVal = 0;
     UINT i;
 
@@ -80,12 +80,13 @@ get_local_ip()
     }
 
     if ((dwRetVal = GetAdaptersInfo(pAdapterInfo, &ulOutBufLen)) == NO_ERROR) {
-        pAdapter = pAdapterInfo;
-        ip_address = pAdapter->IpAddressList.IpAddress.String;
-		while(!g_strcmp0(ip_address,"0.0.0.0")) 
-		{
-			ip_address = pAdapter->Next->IpAddressList.IpAddress.String;
-		}
+        current_adapter = pAdapterInfo;
+		do {
+			memset(ip_address,0,20);
+			memcpy(ip_address, current_adapter->IpAddressList.IpAddress.String,
+				strlen(current_adapter->IpAddressList.IpAddress.String));
+			current_adapter = current_adapter->Next;
+		} while(!g_strcmp0(ip_address,"0.0.0.0")); 
     } else {
         printf("GetAdaptersInfo failed with error: %d\n", dwRetVal);
 
@@ -238,27 +239,38 @@ get_registration_message(gboolean port_forward,
 	GString* core_url_string = g_string_new("http://");
 	GString* agent_url_string = g_string_new("http://");
 
-	g_string_append(core_url_string, port_forward ? "localhost" : infor->IP);
-	g_string_append(agent_url_string, port_forward ? "localhost" : infor->IP);
 
-	g_string_append(core_url_string,  ":");
-	g_string_append(agent_url_string, ":");
-
-	g_string_append(core_url_string, port_forward ?  SESSION_CORE_PORT  : core_instance_port);
-	g_string_append(agent_url_string, port_forward ? AGENT_PORT 		: agent_instance_port);
-
-	json_object_set_string_member(information,	"CoreUrl", 	g_string_free(core_url_string,FALSE));
-	json_object_set_string_member(information,	"AgentUrl", g_string_free(agent_url_string,FALSE));
-
-	if(port_forward)
+	if(!port_forward)
 	{
-		json_object_set_string_member(information,	"agentInstancePort", agent_instance_port);
-		json_object_set_string_member(information,	"coreInstancePort",  core_instance_port);
-	}
-	else
-	{
+		g_string_append(core_url_string,  infor->IP );
+		g_string_append(agent_url_string, infor->IP );
+
+		g_string_append(core_url_string,  ":");
+		g_string_append(agent_url_string, ":");
+
+		g_string_append(core_url_string, SESSION_CORE_PORT  );
+		g_string_append(agent_url_string, AGENT_PORT 		);
+
+
 		json_object_set_null_member(information, "agentInstancePort");
 		json_object_set_null_member(information, "coreInstancePort");
 	}
+	else
+	{
+		g_string_append(core_url_string, "localhost" );
+		g_string_append(agent_url_string,"localhost" );
+
+		g_string_append(core_url_string,  ":");
+		g_string_append(agent_url_string, ":");
+
+		g_string_append(core_url_string,  core_instance_port);
+		g_string_append(agent_url_string, agent_instance_port);
+
+		json_object_set_string_member(information,	"agentInstancePort", agent_instance_port);
+		json_object_set_string_member(information,	"coreInstancePort",  core_instance_port);
+	}
+	json_object_set_string_member(information,	"CoreUrl", 	g_string_free(core_url_string,FALSE));
+	json_object_set_string_member(information,	"AgentUrl", g_string_free(agent_url_string,FALSE));
+
 	return get_string_from_json_object(information);
 }

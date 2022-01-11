@@ -12,8 +12,25 @@
 #define __AGENT_PORT_FORWARD_H__
 
 #include <glib.h>
+#include <agent-type.h>
 
 
-void          start_portforward                       (AgentServer* agent);
+/**
+ * @brief 
+ * 
+ * @param agent 
+ * @return gpointer 
+ */
+gpointer                start_portforward                       (AgentServer* agent);
+
+
+
+/**
+ * @brief 
+ * 
+ */
+void                    describe_portforward                    (PortForward* port_forward, 
+                                                                 gchar* agent_instance_port,
+                                                                 gchar* core_instance_port);
 
 #endif

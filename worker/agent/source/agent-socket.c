@@ -26,19 +26,15 @@
 
 #define WRITE_TOKEN_TO_FILE FALSE
 
-/// <summary>
-/// contain information about websocket socket with host
-/// </summary>
+
+/**
+ * @brief 
+ * contain information about websocket socket with host
+ */
 struct _Socket
 {
-    /// <summary>
-    /// 
-    /// </summary>
     SoupSession* session;
     
-	/// <summary>
-	/// 
-	/// </summary>
 	gchar cluster_url[50];
 };
 

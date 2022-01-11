@@ -4,14 +4,14 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
-
         {
-            "name": ".NET Core Launch (console)",
+            "name": "port-forward",
             "type": "coreclr",
             "request": "launch",
-            "program": "${workspaceFolder}/worker/port-forward/bin/Debug/net6.0/port-forward.dll",
-            "args": [],
+            "program": "${workspaceFolder}/bin/port-forward.dll",
+            "args": ["eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOYW1lIjoiMDgxMTAxIiwiT3duZXIiOiIyIiwiSUQiOiIxNSIsIm5iZiI6MTY0MTg2NDYyNiwiZXhwIjoxNjQ0NDU2NjI2LCJpYXQiOjE2NDE4NjQ2MjZ9.effz14uyPBrhObzGUZHLuYTLkdx1L3MoOrRHCwPzNeY",
+                    "2220",
+                    "3330"],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
             "console": "internalConsole"

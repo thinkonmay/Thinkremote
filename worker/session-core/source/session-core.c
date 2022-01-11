@@ -321,6 +321,8 @@ server_callback (SoupServer        *server,
 gpointer
 session_core_sync_state_with_cluster(gpointer user_data)
 {
+	if(DEVELOPMENT_ENVIRONMENT)
+		return;
 #ifdef G_OS_WIN32
         Sleep(3000);
 #else

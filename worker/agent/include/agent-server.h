@@ -43,8 +43,13 @@ void											agent_start_file_transfer			(gchar* server_commmand);
  */
 Socket*											agent_get_socket					(AgentServer* self);
 
-
-
+/**
+ * @brief 
+ * 
+ * @param self 
+ * @return PortForward* 
+ */
+PortForward*                                    agent_get_portforward               (AgentServer* self);
 
 
 /**
