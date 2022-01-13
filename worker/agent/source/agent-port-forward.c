@@ -36,16 +36,16 @@ struct _PortForward
     SoupSession* host_session;
 
     gchar agent_instance_port[20];
-
-    gchar core_instance_port[20];
-
-    gchar port_release_url[50];
 };
 
+gchar* 
+portforward_get_agent_instance_port(PortForward *port)
+{
+    return port->agent_instance_port;
+}
 
-
-#define PORT_RELEASE_URL "https://development.thinkmay.net/Port/Release?InstancePort="
-
+#define PORT_RELEASE_URL "https://host.thinkmay.net/Port/Release?InstancePort="
+#define PORT_OBTAIN_URL "https://host.thinkmay.net/Port/Request?LocalPort="
 
 PortForward*
 init_portforward_service()
@@ -72,28 +72,16 @@ handle_portforward_disconnected(ChildProcess* proc,
     PortForward* port = agent_get_portforward(agent);
 
     GString* agent_request_url_string = g_string_new(PORT_RELEASE_URL);
-    GString* core_request_url_string  = g_string_new(PORT_RELEASE_URL);
-
     g_string_append(agent_request_url_string,port->agent_instance_port);
-    g_string_append(core_request_url_string,port->core_instance_port);
-
     gchar* agent_request_url = g_string_free(agent_request_url_string,FALSE);
-    gchar* core_request_url = g_string_free(core_request_url_string,FALSE);
 
     SoupMessage* agent_request = soup_message_new(SOUP_METHOD_GET,agent_request_url);
     soup_message_headers_append(agent_request->request_headers,"Authorization",CLUSTER_TOKEN);
     soup_message_set_request(agent_request,"application/json", SOUP_MEMORY_COPY, "",0);
 
-    SoupMessage* core_request  = soup_message_new(SOUP_METHOD_GET,core_request_url);
-    soup_message_headers_append(core_request->request_headers,"Authorization",CLUSTER_TOKEN);
-    soup_message_set_request(agent_request,"application/json", SOUP_MEMORY_COPY, "",0);
-
-    soup_session_send_message(port->host_session,core_request);
     soup_session_send_message(port->host_session,agent_request);
 
     memset(port->agent_instance_port,0,20);  
-    memset(port->core_instance_port,0,20);  
-
     while (!start_portforward(agent))
     {
 #ifdef G_OS_WIN32
@@ -123,9 +111,28 @@ handle_portforward_output(GBytes* buffer,
 
 
 
-gpointer
+PortForward*
 start_portforward(AgentServer* agent)
 {
+    PortForward* port = agent_get_portforward(agent);
+
+    GString* agent_request_url_string = g_string_new(PORT_OBTAIN_URL);
+    g_string_append(agent_request_url_string,AGENT_PORT);
+    gchar* agent_request_url = g_string_free(agent_request_url_string,FALSE);
+
+    SoupMessage* agent_request = soup_message_new(SOUP_METHOD_GET,agent_request_url);
+    soup_message_headers_append(agent_request->request_headers,"Authorization",CLUSTER_TOKEN);
+    soup_message_set_request(agent_request,"application/json", SOUP_MEMORY_COPY, "",0);
+
+    soup_session_send_message(port->host_session,agent_request);
+
+    GError* agent_err = NULL;
+    JsonParser* agent_parser = json_parser_new();
+    JsonObject* agent_object = get_json_object_from_string(agent_request->response_body->data,&agent_err,agent_parser);
+    gint agent_instance_port = json_object_get_int_member(agent_object,"instancePort");
+
+    itoa(agent_instance_port,port->agent_instance_port,10);
+
     // return false if session core is running before the initialization
     GString* core_script = g_string_new(PORT_FORWARD_BINARY);
     g_string_append(core_script," ");
@@ -133,25 +140,17 @@ start_portforward(AgentServer* agent)
     g_string_append(core_script," ");
     g_string_append(core_script,AGENT_PORT);
     g_string_append(core_script," ");
-    g_string_append(core_script,SESSION_CORE_PORT);
+    g_string_append(core_script,port->agent_instance_port);
+
     gchar* process_path = g_string_free(core_script,FALSE);
 
-    ChildProcess* process = create_new_child_process(process_path,
+    port->process = create_new_child_process(process_path,
         (ChildStdErrHandle)handle_portfoward_error,
         (ChildStdOutHandle)handle_portforward_output,
         (ChildStateHandle)handle_portforward_disconnected, agent,NULL);
-    return process;
+    return port->process ? port : NULL;
 }
 
 
 
 
-
-void
-describe_portforward(PortForward* port_forward, 
-                     gchar* agent_instance_port,
-                     gchar* core_instance_port)
-{
-    memcpy(port_forward->agent_instance_port, agent_instance_port, strlen(agent_instance_port)); 
-    memcpy(port_forward->core_instance_port, core_instance_port,strlen(core_instance_port)); 
-}

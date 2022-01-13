@@ -150,6 +150,8 @@ session_core_setup_session(SessionCore* self)
 
 
 		SoupMessage* token_message = soup_message_new(SOUP_METHOD_POST,token_str);
+		gchar* buffer = "null";
+		soup_message_set_request(token_message,"application/json", SOUP_MEMORY_STATIC, "null", 4);
 
 		worker_log_output("registering with device token\n");
 		worker_log_output(DEVICE_TOKEN);
@@ -341,8 +343,9 @@ session_core_sync_state_with_cluster(gpointer user_data)
 	while (TRUE)
 	{
 		SoupMessage* infor_message = soup_message_new(SOUP_METHOD_POST,infor_url_str);
-		soup_message_headers_append(infor_message->request_headers,
-			"Authorization",DEVICE_TOKEN);
+		gchar* buffer = "null";
+		soup_message_set_request(infor_message, "application/json", SOUP_MEMORY_STATIC, buffer, strlen(buffer));
+		soup_message_headers_append(infor_message->request_headers, "Authorization",DEVICE_TOKEN);
 
 		soup_session_send_message(https_session,infor_message);
 

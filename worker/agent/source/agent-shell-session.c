@@ -86,6 +86,79 @@ void itoa(int n, char s[],int ten)
 }  
 #endif
 
+gboolean
+initialize_shell_session_from_byte(AgentServer* agent,
+                                    GBytes* input,
+                                    gchar* output)
+{
+    GError* error = NULL;
+    ShellSession session;
+
+    GRand* random = g_rand_new();
+    guint32 random_int = g_rand_int(random);
+
+    gchar* random_string = malloc(100);
+    memset(random_string,0,100);
+
+    _itoa(random_int,random_string,10);
+
+    GString * input_file_path = g_string_new(g_get_current_dir());
+    GString * output_file_path = g_string_new(g_get_current_dir());
+    g_string_append(input_file_path,"\\");
+    g_string_append(output_file_path,"\\");
+    g_string_append(input_file_path,random_string);
+    g_string_append(output_file_path,random_string);
+    g_string_append(input_file_path,".ps1");
+    g_string_append(output_file_path,".txt");
+
+    gchar* input_file__path_char = g_string_free(input_file_path,FALSE);
+    gchar* output_file__path_char = g_string_free(output_file_path,FALSE);
+
+    session.input_file = g_file_new_for_path(input_file__path_char);
+    session.output_file = g_file_new_for_path(output_file__path_char);
+
+
+    if(!session.input_file || !session.output_file)
+        return FALSE;
+
+    g_file_set_contents(input_file__path_char,
+        g_bytes_get_data(input,NULL),
+        g_bytes_get_size(input),&error);
+    if(error){return;}
+
+
+    GString* string = g_string_new("powershell ");
+    g_string_append(string,input_file__path_char);
+    g_string_append(string," | out-file -encoding ASCII ");
+    g_string_append(string,output_file__path_char);
+    gchar* script = g_string_free(string,FALSE); 
+
+
+    session.process = create_new_child_process(script,
+                                                (ChildStdErrHandle)output_handle,
+                                                (ChildStdOutHandle)output_handle,
+                                                (ChildStateHandle)state_handle,
+                                                agent,&session);
+    if(!session.process)
+        return;
+
+    
+    wait_for_childproces(session.process);
+
+    gchar* buffer;
+    gsize file_size;
+    g_file_get_contents(output_file__path_char,&buffer,&file_size,&error);
+
+    if(buffer)
+       memcpy(output,buffer,strlen(buffer));
+
+    free(random_string);
+    g_file_delete(session.input_file,NULL,NULL);
+    g_file_delete(session.output_file,NULL,NULL);
+    clean_childprocess(session.process); 
+    return TRUE;
+}
+
 
 
 void

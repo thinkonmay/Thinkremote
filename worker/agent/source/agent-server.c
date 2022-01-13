@@ -16,6 +16,7 @@
 #include <agent-shell-session.h>
 #include <agent-device.h>
 #include <agent-child-process.h>
+#include <agent-win32-server.h>
 #include <agent-port-forward.h>
 
 
@@ -55,102 +56,47 @@ struct _AgentServer
 
 
 
-static void
-server_callback (SoupServer        *server,
-                 SoupMessage	   *msg,
-		 		 const char        *path,
-                 GHashTable        *query,
-				 SoupClientContext *ctx,
-		 		 gpointer           user_data)
+
+gboolean    
+handle_message_server(gchar* path,
+					  gchar* token,
+                      GBytes* request_body,
+                      gchar* response_body,
+                      gpointer data)
 {
-	char *file_path;
-	SoupMessageHeadersIter iter;
-	SoupMessageBody *request_body;
-	const char *name, *value;
-	AgentServer* agent = (AgentServer*)user_data;
-	SoupURI* uri = soup_message_get_uri(msg);
-	gchar* request_token;
+	AgentServer* agent = (AgentServer*) data;
 
-	if(!g_strcmp0(uri->path,"/ping")) {
-		gchar* response = "ping";
-		soup_message_set_response(msg, "application/json",SOUP_MEMORY_COPY,response,strlen(response));
-		soup_message_set_status(msg,SOUP_STATUS_OK);
-		return;
-	} else if(!g_strcmp0(uri->path,"/Shell")) {
-		initialize_shell_session(agent,msg);
-		return;
-	} else if(!g_strcmp0(uri->path,"/Port/Describe")) {
-		soup_message_headers_iter_init (&iter, msg->request_headers);
-		while (soup_message_headers_iter_next (&iter, &name, &value))
-		{
-			if(!g_strcmp0(name,"Authorization"))
-			{
-				if(g_strcmp0(value,CLUSTER_TOKEN))
-				{
-					msg->status_code = SOUP_STATUS_UNAUTHORIZED;
-					return;
-				}
-			}
-		}
-
-		JsonParser* parser = json_parser_new();	
-		JsonObject* object = get_json_object_from_string(msg->request_body->data,NULL,parser);
-		register_with_managed_cluster(agent,
-			json_object_get_string_member(object,"agent"),
-			json_object_get_string_member(object,"core"));
-		msg->status_code = SOUP_STATUS_OK;
-		return;
-	} 
-
-
-
-
-	soup_message_headers_iter_init (&iter, msg->request_headers);
-	while (soup_message_headers_iter_next (&iter, &name, &value))
-	{
-		if(!g_strcmp0(name,"Authorization"))
-		{
-			if(!validate_token(value))
-			{
-				msg->status_code = SOUP_STATUS_UNAUTHORIZED;
-				return;
-			}
-		}
-	}
-
-
-	if(!g_strcmp0(uri->path,"/Initialize")) {
-		msg->status_code = session_initialize(agent)? SOUP_STATUS_OK : SOUP_STATUS_BAD_REQUEST;
-	} else if(!g_strcmp0(uri->path,"/Terminate")) {
-		msg->status_code = session_terminate(agent)? SOUP_STATUS_OK : SOUP_STATUS_BAD_REQUEST;
-	}
-
-}
-
-
-
-
-
-static SoupServer*
-init_agent_server(AgentServer* agent,
-				  gboolean self_host)
-{
-	GError* error = NULL;
-	SoupServer* server = soup_server_new(NULL);
-	agent->server = server;
-
-	soup_server_add_handler(agent->server,"/",
-		(SoupServerCallback)server_callback,agent,NULL);
-
-	gint port = atoi(AGENT_PORT);
-	if(self_host) {
-		soup_server_listen_all(agent->server,port,0,&error);
-	} else {
-		soup_server_listen_local(agent->server,port,0,&error);
-	}
+	if(!g_strcmp0(path,"/ping"))
+		return TRUE;
 	
-	if(error){g_printerr(error->message); return;}
+	if(!g_strcmp0(path,"/PortDescribe")) {
+		JsonObject* object = json_object_new();
+		json_object_set_string_member(object,"token",CLUSTER_TOKEN);
+		json_object_set_string_member(object,"agent_port",portforward_get_agent_instance_port(agent_get_portforward(agent)));
+		gchar* res = get_string_from_json_object(object);
+
+		memcpy(response_body,res,strlen(res));
+		return TRUE;
+	}
+
+
+	if(!g_strcmp0(path,"/Initialize")) {
+		if(!validate_token(token))
+			return FALSE;
+		return session_initialize(agent);
+	} else if(!g_strcmp0(path,"/Terminate")) {
+		if(!validate_token(token))
+			return FALSE;
+		return session_terminate(data);
+	} else if(!g_strcmp0(path,"/Shell")) {
+		return initialize_shell_session_from_byte(agent,request_body,response_body);
+	} 
 }
+
+
+
+
+
 
 AgentServer*
 agent_new(gboolean self_host)
@@ -159,18 +105,28 @@ agent_new(gboolean self_host)
 	AgentServer* agent = malloc(sizeof(AgentServer));
 	memset(agent,0,sizeof(AgentServer));
 
+	agent->loop = g_main_loop_new(NULL, FALSE);
+	agent->portforward = init_portforward_service();
 	agent->remote_session = intialize_remote_session_service();
 	agent->socket = initialize_socket();
+
+#ifndef G_OS_WIN32
 	agent->server = init_agent_server(agent,self_host);
+#else
+	agent->server = init_window_server(handle_message_server,agent);
+#endif
+
 	if(!agent->server){return;}
 
 	if(self_host) {
 		register_with_selfhosted_cluster(agent,self_host);
 	} else {
-		start_portforward(agent);
+		PortForward* port = start_portforward(agent);
+
+		register_with_managed_cluster(agent,
+			portforward_get_agent_instance_port(port), NULL);
 	}
 	
-	agent->loop = g_main_loop_new(NULL, FALSE);
 	g_main_loop_run(agent->loop);
 	return agent;
 }

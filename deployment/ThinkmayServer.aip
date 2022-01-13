@@ -2,19 +2,20 @@
 <DOCUMENT Type="Advanced Installer" CreateVersion="18.7" version="18.7" Modules="simple" RootPath="." Language="en" Id="{7D8F630C-8D7F-4C3D-8D18-2E084D24258C}">
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
-    <ROW Property="AI_CURRENT_YEAR" Value="2021" ValueLocId="-"/>
-    <ROW Property="ALLUSERS" Value="1"/>
+    <ROW Property="AI_CURRENT_YEAR" Value="2022" ValueLocId="-"/>
+    <ROW Property="ALLUSERS" Value="1" MultiBuildValue="x64_Release:"/>
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPCONTACT" Value="contact@thinkmay.net"/>
     <ROW Property="ARPHELPLINK" Value="https://www.thinkmay.net"/>
     <ROW Property="ARPHELPTELEPHONE" Value="https://www.thinkmay.net"/>
+    <ROW Property="ARPPRODUCTICON" Value="logo.exe" Type="8"/>
     <ROW Property="ARPURLINFOABOUT" Value="https://www.thinkmay.net"/>
     <ROW Property="ARPURLUPDATEINFO" Value="https://www.thinkmay.net"/>
     <ROW Property="Manufacturer" Value="Thinkmay"/>
     <ROW Property="ProductCode" Value="1033:{63FF3F26-DCF4-458B-A417-335E896D6E04} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Personal-cloud-computing"/>
-    <ROW Property="ProductVersion" Value="1.0.1" Type="32"/>
+    <ROW Property="ProductVersion" Value="1.0.3" Type="32"/>
     <ROW Property="REBOOT" MultiBuildValue="x64_Release:ReallySuppress"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{806C0493-5DCB-40B8-AF39-017AC94022DD}"/>
@@ -151,6 +152,7 @@
     <ROW Directory="protocolregistry_Dir" Directory_Parent="node_modules_Dir" DefaultDir="PROTOC~1|protocol-registry"/>
     <ROW Directory="quux_Dir" Directory_Parent="resolver_Dir" DefaultDir="quux"/>
     <ROW Directory="rechoir_Dir" Directory_Parent="node_modules_Dir" DefaultDir="rechoir"/>
+    <ROW Directory="ref_Dir" Directory_Parent="bin_Dir" DefaultDir="ref"/>
     <ROW Directory="resolve_Dir" Directory_Parent="node_modules_Dir" DefaultDir="resolve"/>
     <ROW Directory="resolver_Dir" Directory_Parent="test_6_Dir" DefaultDir="resolver"/>
     <ROW Directory="resources_Dir" Directory_Parent="bin_Dir" DefaultDir="RESOUR~1|resources"/>
@@ -216,9 +218,13 @@
     <ROW Component="LICENSEMIT" ComponentId="{3DBC87CD-1722-4130-927F-FD0A596C6495}" Directory_="has_Dir" Attributes="0" KeyPath="LICENSEMIT" Type="0"/>
     <ROW Component="LICENSE_1" ComponentId="{05BA2B54-0AFD-4B43-9614-10556F35B16C}" Directory_="once_Dir" Attributes="0" KeyPath="LICENSE_25" Type="0"/>
     <ROW Component="LICENSE_2" ComponentId="{76FE3239-6791-481E-92B4-FD13AA9AF19B}" Directory_="wrappy_Dir" Attributes="0" KeyPath="LICENSE_33" Type="0"/>
+    <ROW Component="Newtonsoft.Json.dll" ComponentId="{7B5F5781-A8FC-457A-B068-2FF9DB8BB71A}" Directory_="bin_Dir" Attributes="0" KeyPath="Newtonsoft.Json.dll"/>
     <ROW Component="ProductInformation" ComponentId="{B600F11C-0514-4B41-9CED-96BFE9C58AEE}" Directory_="APPDIR" Attributes="260" KeyPath="Version"/>
+    <ROW Component="Renci.SshNet.dll" ComponentId="{2C417BD7-38B1-4D4F-8F58-455D9C77313F}" Directory_="bin_Dir" Attributes="0" KeyPath="Renci.SshNet.dll"/>
+    <ROW Component="RestSharp.dll" ComponentId="{172C84D9-21A4-4A10-AED6-025DF329CFFA}" Directory_="bin_Dir" Attributes="0" KeyPath="RestSharp.dll"/>
     <ROW Component="SHORTCUTDIR" ComponentId="{AF5F2DD7-0F2C-4AA4-8A70-D5545B7B9102}" Directory_="SHORTCUTDIR" Attributes="0"/>
     <ROW Component="Squirrel.exe" ComponentId="{1477EEDF-3C22-4FA2-B750-73453E94C364}" Directory_="bin_Dir" Attributes="0" KeyPath="Squirrel.exe"/>
+    <ROW Component="SshNet.Security.Cryptography.dll" ComponentId="{FC449301-DFC1-4887-AC0B-98E633BCB1E7}" Directory_="bin_Dir" Attributes="0" KeyPath="SshNet.Security.Cryptography.dll"/>
     <ROW Component="Temp" ComponentId="{20BED998-817B-4CD3-94AC-CEAB63A42E1E}" Directory_="Temp_Dir" Attributes="0"/>
     <ROW Component="ThinkMay.exe" ComponentId="{F2E051BD-752C-4130-B048-6B0E756788D1}" Directory_="bin_Dir" Attributes="256" KeyPath="ThinkMay.exe"/>
     <ROW Component="a.js" ComponentId="{80CB2BCB-5076-40AF-9280-AA70735C88E6}" Directory_="browser_field_Dir" Attributes="0" KeyPath="a.js" Type="0"/>
@@ -346,6 +352,9 @@
     <ROW Component="package.json" ComponentId="{74FDABB3-1E23-4766-89DE-E670DF6D9A32}" Directory_="invalid_main_Dir" Attributes="0" KeyPath="package.json_48" Type="0"/>
     <ROW Component="packagelock.json" ComponentId="{BC67A454-5F5B-4811-AFDE-74433ED9A78E}" Directory_="node_modules_Dir" Attributes="0" KeyPath="packagelock.json" Type="0"/>
     <ROW Component="plistbuild.js" ComponentId="{61666E81-9EB1-4206-9F4B-0F2974E3D20E}" Directory_="dist_1_Dir" Attributes="0" KeyPath="plistbuild.js" Type="0"/>
+    <ROW Component="portforward.dll" ComponentId="{353255D7-C00F-43DA-92D5-24FDEB70AAA7}" Directory_="bin_Dir" Attributes="0" KeyPath="portforward.dll"/>
+    <ROW Component="portforward.dll_1" ComponentId="{FA63301B-7C49-451E-BE13-0FBEC305A02C}" Directory_="ref_Dir" Attributes="0" KeyPath="portforward.dll_1"/>
+    <ROW Component="portforward.exe" ComponentId="{733FA3E7-6CA4-44B9-A233-B0A799816D7B}" Directory_="bin_Dir" Attributes="256" KeyPath="portforward.exe"/>
     <ROW Component="processCommand.js" ComponentId="{7DA4EA05-B9C7-4C79-BD0B-49A647EA9C49}" Directory_="utils_1_Dir" Attributes="0" KeyPath="processCommand.js" Type="0"/>
     <ROW Component="registry.js" ComponentId="{5E30E558-7D23-45EE-BA1C-C6760EFD227F}" Directory_="lib_13_Dir" Attributes="0" KeyPath="registry.js" Type="0"/>
     <ROW Component="remoteapp.exe" ComponentId="{92D0893C-8EA4-42A6-AC36-EB6894779BC1}" Directory_="bin_Dir" Attributes="256" KeyPath="remoteapp.exe"/>
@@ -390,7 +399,6 @@
     <ROW File="vulkan1.dll" Component_="vulkan1.dll" FileName="vulkan-1.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\vulkan-1.dll" SelfReg="false"/>
     <ROW File="remoteapp.exe" Component_="remoteapp.exe" FileName="REMOTE~1.EXE|remote-app.exe" Attributes="0" SourcePath="..\bin\remote-app.exe" SelfReg="false" DigSign="true"/>
     <ROW File="remoteapp.pdb" Component_="remoteapp.exe" FileName="REMOTE~1.PDB|remote-app.pdb" Attributes="0" SourcePath="..\bin\remote-app.pdb" SelfReg="false"/>
-    <ROW File="remotetoken" Component_="chrome_100_percent.pak" FileName="REMOTE~1|remote-token" Attributes="0" SourcePath="..\bin\remote-token" SelfReg="false"/>
     <ROW File="videotesting.exe" Component_="videotesting.exe" FileName="VIDEOT~1.EXE|videotesting.exe" Attributes="0" SourcePath="..\bin\videotesting.exe" SelfReg="false" DigSign="true"/>
     <ROW File="videotesting.pdb" Component_="videotesting.exe" FileName="VIDEOT~1.PDB|videotesting.pdb" Attributes="0" SourcePath="..\bin\videotesting.pdb" SelfReg="false"/>
     <ROW File="welcome.exe" Component_="welcome.exe" FileName="welcome.exe" Attributes="0" SourcePath="..\bin\welcome.exe" SelfReg="false" DigSign="true"/>
@@ -1012,6 +1020,16 @@
     <ROW File="temp.txt" Component_="main.js" FileName="temp.txt" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\temp.txt" SelfReg="false"/>
     <ROW File="libEGL.dll_1" Component_="libEGL.dll_1" FileName="libEGL.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\swiftshader\libEGL.dll" SelfReg="false"/>
     <ROW File="libGLESv2.dll_1" Component_="libGLESv2.dll_1" FileName="LIBGLE~1.DLL|libGLESv2.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\swiftshader\libGLESv2.dll" SelfReg="false"/>
+    <ROW File="Newtonsoft.Json.dll" Component_="Newtonsoft.Json.dll" FileName="NEWTON~1.DLL|Newtonsoft.Json.dll" Attributes="0" SourcePath="..\bin\Newtonsoft.Json.dll" SelfReg="false"/>
+    <ROW File="portforward.deps.json" Component_="chrome_100_percent.pak" FileName="PORT-F~1.JSO|port-forward.deps.json" Attributes="0" SourcePath="..\bin\port-forward.deps.json" SelfReg="false"/>
+    <ROW File="portforward.dll" Component_="portforward.dll" FileName="PORT-F~1.DLL|port-forward.dll" Attributes="0" SourcePath="..\bin\port-forward.dll" SelfReg="false"/>
+    <ROW File="portforward.exe" Component_="portforward.exe" FileName="PORT-F~1.EXE|port-forward.exe" Attributes="0" SourcePath="..\bin\port-forward.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="portforward.pdb" Component_="portforward.exe" FileName="PORT-F~1.PDB|port-forward.pdb" Attributes="0" SourcePath="..\bin\port-forward.pdb" SelfReg="false"/>
+    <ROW File="portforward.runtimeconfig.json" Component_="chrome_100_percent.pak" FileName="PORT-F~2.JSO|port-forward.runtimeconfig.json" Attributes="0" SourcePath="..\bin\port-forward.runtimeconfig.json" SelfReg="false"/>
+    <ROW File="Renci.SshNet.dll" Component_="Renci.SshNet.dll" FileName="RENCIS~1.DLL|Renci.SshNet.dll" Attributes="0" SourcePath="..\bin\Renci.SshNet.dll" SelfReg="false"/>
+    <ROW File="RestSharp.dll" Component_="RestSharp.dll" FileName="RESTSH~1.DLL|RestSharp.dll" Attributes="0" SourcePath="..\bin\RestSharp.dll" SelfReg="false"/>
+    <ROW File="SshNet.Security.Cryptography.dll" Component_="SshNet.Security.Cryptography.dll" FileName="SSHNET~1.DLL|SshNet.Security.Cryptography.dll" Attributes="0" SourcePath="..\bin\SshNet.Security.Cryptography.dll" SelfReg="false"/>
+    <ROW File="portforward.dll_1" Component_="portforward.dll_1" FileName="PORT-F~1.DLL|port-forward.dll" Attributes="0" SourcePath="..\bin\ref\port-forward.dll" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
@@ -1080,7 +1098,7 @@
     <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
     <ROW Action="AI_SHOW_LOG" Type="65" Source="aicustact.dll" Target="LaunchLogFile" WithoutSeq="true"/>
     <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
-    <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]" MultiBuildTarget="x64_Release:[ProgramFiles64Folder][ProductName]"/>
+    <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]" MultiBuildTarget="x64_Release:[AppDataFolder][ProductName]"/>
     <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
     <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
   </COMPONENT>
@@ -1244,6 +1262,13 @@
     <ROW Feature_="MainFeature" Component_="remoteapp.exe_1"/>
     <ROW Feature_="MainFeature" Component_="libEGL.dll_1"/>
     <ROW Feature_="MainFeature" Component_="libGLESv2.dll_1"/>
+    <ROW Feature_="MainFeature" Component_="Newtonsoft.Json.dll"/>
+    <ROW Feature_="MainFeature" Component_="portforward.dll"/>
+    <ROW Feature_="MainFeature" Component_="portforward.exe"/>
+    <ROW Feature_="MainFeature" Component_="Renci.SshNet.dll"/>
+    <ROW Feature_="MainFeature" Component_="RestSharp.dll"/>
+    <ROW Feature_="MainFeature" Component_="SshNet.Security.Cryptography.dll"/>
+    <ROW Feature_="MainFeature" Component_="portforward.dll_1"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="logo.exe" SourcePath="..\client\window\electron\assets\logo.ico" Index="0"/>

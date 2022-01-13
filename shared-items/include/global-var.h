@@ -15,7 +15,6 @@
 
 
 const gchar*                      agent_port ;
-const gchar*                      session_core_port ;
 const gchar*                      cluster_ip ; 
 const gchar*                      cluster_name ; 
 const gchar*                      token ;
@@ -25,17 +24,12 @@ const gchar*                      password ;
 const gchar*                      device_token ; 
 const gchar*                      cluster_token ; 
 
+
 /**
  * @brief 
  * agent to expose to session core and cluster manager
  */
-#define			AGENT_PORT 					agent_port
-
-/**
- * @brief 
- * session core port to expose with agent and cluster manager
- */
-#define			SESSION_CORE_PORT 			session_core_port
+#define			AGENT_PORT 					    "2220"
 
 /**
  * @brief 

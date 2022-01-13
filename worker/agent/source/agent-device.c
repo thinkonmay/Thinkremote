@@ -236,40 +236,25 @@ get_registration_message(gboolean port_forward,
 	json_object_set_string_member(information,	"OS", infor->OS);
 	json_object_set_int_member(information,		"RAMcapacity", infor->ram_capacity);
 
-	GString* core_url_string = g_string_new("http://");
 	GString* agent_url_string = g_string_new("http://");
-
 
 	if(!port_forward)
 	{
-		g_string_append(core_url_string,  infor->IP );
 		g_string_append(agent_url_string, infor->IP );
 
-		g_string_append(core_url_string,  ":");
 		g_string_append(agent_url_string, ":");
 
-		g_string_append(core_url_string, SESSION_CORE_PORT  );
 		g_string_append(agent_url_string, AGENT_PORT 		);
-
-
-		json_object_set_null_member(information, "agentInstancePort");
-		json_object_set_null_member(information, "coreInstancePort");
 	}
 	else
 	{
-		g_string_append(core_url_string, "localhost" );
 		g_string_append(agent_url_string,"localhost" );
 
-		g_string_append(core_url_string,  ":");
 		g_string_append(agent_url_string, ":");
 
-		g_string_append(core_url_string,  core_instance_port);
 		g_string_append(agent_url_string, agent_instance_port);
-
-		json_object_set_string_member(information,	"agentInstancePort", agent_instance_port);
-		json_object_set_string_member(information,	"coreInstancePort",  core_instance_port);
 	}
-	json_object_set_string_member(information,	"CoreUrl", 	g_string_free(core_url_string,FALSE));
+	
 	json_object_set_string_member(information,	"AgentUrl", g_string_free(agent_url_string,FALSE));
 
 	return get_string_from_json_object(information);

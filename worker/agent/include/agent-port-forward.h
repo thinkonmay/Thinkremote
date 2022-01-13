@@ -21,9 +21,15 @@
  * @param agent 
  * @return gpointer 
  */
-gpointer                start_portforward                       (AgentServer* agent);
+PortForward*            start_portforward                       (AgentServer* agent);
 
 
+/**
+ * @brief 
+ * 
+ * @return PortForward* 
+ */
+PortForward*            init_portforward_service                ();
 
 /**
  * @brief 
@@ -32,5 +38,19 @@ gpointer                start_portforward                       (AgentServer* ag
 void                    describe_portforward                    (PortForward* port_forward, 
                                                                  gchar* agent_instance_port,
                                                                  gchar* core_instance_port);
+
+
+/**
+ * @brief 
+ * 
+ * @param port 
+ * @return gchar* 
+ */
+gchar*                  portforward_get_agent_instance_port     (PortForward *port);
+
+
+
+
+
 
 #endif

@@ -4,14 +4,22 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
+    
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach"
+        },
+    
         {
             "name": "port-forward",
             "type": "coreclr",
             "request": "launch",
-            "program": "${workspaceFolder}/bin/port-forward.dll",
-            "args": ["eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOYW1lIjoiMDgxMTAxIiwiT3duZXIiOiIyIiwiSUQiOiIxNSIsIm5iZiI6MTY0MTg2NDYyNiwiZXhwIjoxNjQ0NDU2NjI2LCJpYXQiOjE2NDE4NjQ2MjZ9.effz14uyPBrhObzGUZHLuYTLkdx1L3MoOrRHCwPzNeY",
+            "program": "${workspaceFolder}/bin/port-forward.exe",
+            "args": ["eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOYW1lIjoiMTIiLCJPd25lciI6IjIiLCJJRCI6IjE3IiwibmJmIjoxNjQxOTc4OTAyLCJleHAiOjE2NDQ1NzA5MDIsImlhdCI6MTY0MTk3ODkwMn0.1NdIf9f48Mm1RCWV5ioJr7bBWxmfSIF83TXZPWQ3u_s",
                     "2220",
-                    "3330"],
+                    "1523"],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
             "console": "internalConsole"

@@ -47,8 +47,8 @@ struct _Socket
 
 gboolean
 send_message_to_cluster(AgentServer* object,
-                     gchar* endpoint,
-                     gchar* message)
+                        gchar* endpoint,
+                        gchar* message)
 {
     Socket* socket = agent_get_socket(object);
     GString* messsage_url = g_string_new(socket->cluster_url);
@@ -78,7 +78,7 @@ register_with_managed_cluster(AgentServer* agent,
                               gchar* core_instance_port)
 {
     Socket* socket = agent_get_socket(agent);
-    gchar* package = get_registration_message(FALSE,agent_instance_port,core_instance_port);
+    gchar* package = get_registration_message(TRUE,agent_instance_port,core_instance_port);
     GString* register_url = g_string_new(socket->cluster_url);
     g_string_append(register_url,"/worker/register");
     gchar* final_url = g_string_free(register_url,FALSE);

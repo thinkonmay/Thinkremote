@@ -25,7 +25,7 @@ void
 worker_log_output(gchar* text)
 {
 
-    if(!DEVELOPMENT_ENVIRONMENT || CLUSTER_URL)
+    if(!DEVELOPMENT_ENVIRONMENT && CLUSTER_URL)
     {
         const gchar* http_aliases[] = { "http", NULL };
         SoupSession* session = soup_session_new_with_options(
@@ -40,17 +40,9 @@ worker_log_output(gchar* text)
         SoupMessage* message = soup_message_new(SOUP_METHOD_POST,log_url);
         soup_message_headers_append(message->request_headers,"Authorization",DEVICE_TOKEN);
 
-
-
-        GString* string =  g_string_new("\"");
-        g_string_append(string,text);
-        g_string_append(string,"\"");
-        gchar* body = g_string_free(string,FALSE);
-
-
         // copy from buffer to soup message
         soup_message_set_request(message,"application/json",SOUP_MEMORY_COPY,
-            body,strlen(body));
+            text,strlen(text));
 
         soup_session_send_async(session,message,NULL,NULL,NULL);    
     }

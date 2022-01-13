@@ -19,8 +19,6 @@ static gchar remote_token[500] = {0};
 static GOptionEntry entries[] = {
   {"agentport", 0, 0, G_OPTION_ARG_INT, &AGENT_PORT,
       "String ID of the peer to connect to", "ID"},
-  {"sessioncoreport", 0, 0, G_OPTION_ARG_INT, &SESSION_CORE_PORT,
-      "Signalling server to connect to", "URL"},
   {"clusterip", 0, 0, G_OPTION_ARG_STRING, &CLUSTER_URL,
       "Signalling server to connect to", "URL"},
   {"token", 0, 0, G_OPTION_ARG_STRING, &DEVICE_TOKEN,
@@ -62,6 +60,5 @@ main(int argc, char* argv[])
     
 
     session_core_initialize();
-
     return;
 }

@@ -100,6 +100,7 @@ session_initialize(AgentServer* agent)
         (ChildStdOutHandle)handle_session_core_output,
         (ChildStateHandle)handler_session_core_state_function, agent,NULL);
     
+
     if(!session->process)
         return FALSE;
     else    

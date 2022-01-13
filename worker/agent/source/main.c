@@ -22,9 +22,9 @@
 
 #define GST_DEBUG               4
 
-#define    THINKMAY_ACCOUNT_URL              "https://development.thinkmay.net/Account/Login"
-#define    THINKMAY_CLUSTER_URL              "https://development.thinkmay.net/Cluster/Token"
-#define    THINKMAY_CLUSTER_INFOR            "https://development.thinkmay.net/Cluster/Infor"
+#define    THINKMAY_ACCOUNT_URL              "https://host.thinkmay.net/Account/Login"
+#define    THINKMAY_CLUSTER_URL              "https://host.thinkmay.net/Cluster/Token"
+#define    THINKMAY_CLUSTER_INFOR            "https://host.thinkmay.net/Cluster/Infor"
 
 
 
@@ -33,8 +33,6 @@ static GOptionEntry entries[] = {
       "token register with worker manager", "TOKEN"},
   {"agentport", 0, 0, G_OPTION_ARG_STRING, &AGENT_PORT,
       "String ID of the peer to connect to", "ID"},
-  {"coreport", 0, 0, G_OPTION_ARG_STRING, &SESSION_CORE_PORT,
-      "Signalling server to connect to", "URL"},
   {"clusterip", 0, 0, G_OPTION_ARG_STRING, &CLUSTER_URL,
       "Signalling server to connect to", "URL"},
   {"user", 0, 0, G_OPTION_ARG_STRING, &USER,
