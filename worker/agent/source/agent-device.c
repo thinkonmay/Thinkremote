@@ -15,9 +15,10 @@
 #include <json-glib/json-glib.h>
 #include <global-var.h>
 
-/// <summary>
-/// Information about slave hardware configuration
-/// </summary>
+/**
+ * @brief 
+ * 
+ */
 typedef struct _DeviceInformation
 {
 	gchar cpu[100];

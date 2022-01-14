@@ -17,6 +17,7 @@
 #include <glib-2.0/glib.h>
 #include <libsoup/soup.h>
 #include <message-form.h>
+#include <stdio.h>
 
 #include <stdio.h>
 

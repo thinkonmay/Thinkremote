@@ -57,3 +57,13 @@ ProtocolRegistry.register({
 }).then(async () => {
     console.log('Successfully registered');
 });
+
+ProtocolRegistry.register({
+  protocol: 'loginThinkmay', // sets protocol for your command , testproto://**
+  command: `powershell Start-Process "https://service.thinkmay.net/token-auth" && exit`, // $_URL_ will the replaces by the url used to initiate it
+  override: true, // Use this with caution as it will destroy all previous Registrations on this protocol
+  terminal: true, // Use this to run your command inside a terminal
+  script: false
+}).then(async () => {
+  console.log('Successfully registered');
+});
