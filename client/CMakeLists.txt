@@ -1,2 +1,2 @@
-add_subdirectory(window)
+add_subdirectory(remote-app)
 add_subdirectory(welcome)

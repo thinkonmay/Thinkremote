@@ -157,6 +157,7 @@
     <ROW Directory="protocolregistry_Dir" Directory_Parent="node_modules_Dir" DefaultDir="PROTOC~1|protocol-registry"/>
     <ROW Directory="quux_Dir" Directory_Parent="resolver_Dir" DefaultDir="quux"/>
     <ROW Directory="rechoir_Dir" Directory_Parent="node_modules_Dir" DefaultDir="rechoir"/>
+    <ROW Directory="ref_Dir" Directory_Parent="bin_Dir" DefaultDir="ref"/>
     <ROW Directory="resolve_Dir" Directory_Parent="node_modules_Dir" DefaultDir="resolve"/>
     <ROW Directory="resolver_Dir" Directory_Parent="test_6_Dir" DefaultDir="resolver"/>
     <ROW Directory="resources_Dir" Directory_Parent="bin_Dir" DefaultDir="RESOUR~1|resources"/>
@@ -209,6 +210,7 @@
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
     <ROW Component="AI_IA_ENABLE" ComponentId="{1BFE367D-2D55-48DA-A4C7-5477BAB008A8}" Directory_="APPDIR" Attributes="260" KeyPath="AI_IA_ENABLE" Options="1"/>
     <ROW Component="APPDIR" ComponentId="{6FC2F270-A62B-430B-A1E9-A34BAF05C8EE}" Directory_="APPDIR" Attributes="0"/>
+<<<<<<< HEAD
     <ROW Component="CHANGELOG" ComponentId="{AD3AA492-AD70-4398-8627-4202ED669B06}" Directory_="interpret_Dir" Attributes="0" KeyPath="CHANGELOG" Type="0"/>
     <ROW Component="CHANGELOG.md" ComponentId="{7110FA54-B0BE-4F1F-A625-E4EC4B1A602F}" Directory_="colorconvert_Dir" Attributes="0" KeyPath="CHANGELOG.md_2" Type="0"/>
     <ROW Component="CHANGELOG.md_1" ComponentId="{E65B4EA9-FA78-4F0B-B959-7CB748D8BD4D}" Directory_="shelljs_Dir" Attributes="0" KeyPath="CHANGELOG.md_3" Type="0"/>
@@ -226,12 +228,198 @@
     <ROW Component="ProductInformation" ComponentId="{B600F11C-0514-4B41-9CED-96BFE9C58AEE}" Directory_="APPDIR" Attributes="260" KeyPath="Version"/>
     <ROW Component="SHORTCUTDIR" ComponentId="{020A22D7-FCA9-464C-860A-B23B24EC00AB}" Directory_="SHORTCUTDIR" Attributes="0"/>
     <ROW Component="Squirrel.exe" ComponentId="{9DE689F5-4DA8-41F6-B9C4-2F0CABFD7401}" Directory_="bin_Dir" Attributes="0" KeyPath="Squirrel.exe"/>
+=======
+<<<<<<< HEAD
+    <ROW Component="CHANGELOG" ComponentId="{E6137577-A168-4004-B583-338CC859F613}" Directory_="interpret_Dir" Attributes="0" KeyPath="CHANGELOG" Type="0"/>
+    <ROW Component="CHANGELOG.md" ComponentId="{27224BEB-2099-4848-9C3D-5A93F3EC5CEF}" Directory_="colorconvert_Dir" Attributes="0" KeyPath="CHANGELOG.md_2" Type="0"/>
+    <ROW Component="CHANGELOG.md_1" ComponentId="{47CE3C10-05F3-4D78-B750-6045F18D76DA}" Directory_="shelljs_Dir" Attributes="0" KeyPath="CHANGELOG.md_3" Type="0"/>
+    <ROW Component="FUNDING.yml" ComponentId="{1C9F970E-381D-4FA0-9F41-1F952D72EDC3}" Directory_="github_Dir" Attributes="0" KeyPath="FUNDING.yml" Type="0"/>
+    <ROW Component="LICENSE" ComponentId="{B4A6645F-8EF8-4582-9798-5E451DB5F6E6}" Directory_="minimatch_Dir" Attributes="0" KeyPath="LICENSE_24" Type="0"/>
+    <ROW Component="LICENSE.md" ComponentId="{92CE139D-BD57-4926-A0B3-220E7843474F}" Directory_="hoek_Dir" Attributes="0" KeyPath="LICENSE.md" Type="0"/>
+    <ROW Component="LICENSE.md_1" ComponentId="{DBC75270-B068-4E06-ACC1-25B33BE6814D}" Directory_="topo_Dir" Attributes="0" KeyPath="LICENSE.md_1" Type="0"/>
+    <ROW Component="LICENSE.md_2" ComponentId="{AEB806A1-AAAD-4795-9FFF-60221B17CB52}" Directory_="address_Dir" Attributes="0" KeyPath="LICENSE.md_2" Type="0"/>
+    <ROW Component="LICENSE.md_3" ComponentId="{4BF4F2BD-FD44-4B7E-A91C-7708F7892387}" Directory_="formula_Dir" Attributes="0" KeyPath="LICENSE.md_3" Type="0"/>
+    <ROW Component="LICENSE.md_4" ComponentId="{66DE60D5-0AB4-463E-BFED-9C87EBA80F8C}" Directory_="pinpoint_Dir" Attributes="0" KeyPath="LICENSE.md_4" Type="0"/>
+    <ROW Component="LICENSE.md_5" ComponentId="{7DE6A62A-6BC4-43C2-9BB7-207EC952E943}" Directory_="joi_Dir" Attributes="0" KeyPath="LICENSE.md_7" Type="0"/>
+    <ROW Component="LICENSEMIT" ComponentId="{3DBC87CD-1722-4130-927F-FD0A596C6495}" Directory_="has_Dir" Attributes="0" KeyPath="LICENSEMIT" Type="0"/>
+    <ROW Component="LICENSE_1" ComponentId="{05BA2B54-0AFD-4B43-9614-10556F35B16C}" Directory_="once_Dir" Attributes="0" KeyPath="LICENSE_25" Type="0"/>
+    <ROW Component="LICENSE_2" ComponentId="{76FE3239-6791-481E-92B4-FD13AA9AF19B}" Directory_="wrappy_Dir" Attributes="0" KeyPath="LICENSE_33" Type="0"/>
+    <ROW Component="Newtonsoft.Json.dll" ComponentId="{7B5F5781-A8FC-457A-B068-2FF9DB8BB71A}" Directory_="bin_Dir" Attributes="0" KeyPath="Newtonsoft.Json.dll"/>
+    <ROW Component="ProductInformation" ComponentId="{B600F11C-0514-4B41-9CED-96BFE9C58AEE}" Directory_="APPDIR" Attributes="260" KeyPath="Version"/>
+    <ROW Component="Renci.SshNet.dll" ComponentId="{2C417BD7-38B1-4D4F-8F58-455D9C77313F}" Directory_="bin_Dir" Attributes="0" KeyPath="Renci.SshNet.dll"/>
+    <ROW Component="RestSharp.dll" ComponentId="{172C84D9-21A4-4A10-AED6-025DF329CFFA}" Directory_="bin_Dir" Attributes="0" KeyPath="RestSharp.dll"/>
+    <ROW Component="SHORTCUTDIR" ComponentId="{AF5F2DD7-0F2C-4AA4-8A70-D5545B7B9102}" Directory_="SHORTCUTDIR" Attributes="0"/>
+    <ROW Component="Squirrel.exe" ComponentId="{1477EEDF-3C22-4FA2-B750-73453E94C364}" Directory_="bin_Dir" Attributes="0" KeyPath="Squirrel.exe"/>
+    <ROW Component="SshNet.Security.Cryptography.dll" ComponentId="{FC449301-DFC1-4887-AC0B-98E633BCB1E7}" Directory_="bin_Dir" Attributes="0" KeyPath="SshNet.Security.Cryptography.dll"/>
+=======
+    <ROW Component="CHANGELOG" ComponentId="{AD3AA492-AD70-4398-8627-4202ED669B06}" Directory_="interpret_Dir" Attributes="0" KeyPath="CHANGELOG" Type="0"/>
+    <ROW Component="CHANGELOG.md" ComponentId="{7110FA54-B0BE-4F1F-A625-E4EC4B1A602F}" Directory_="colorconvert_Dir" Attributes="0" KeyPath="CHANGELOG.md_2" Type="0"/>
+    <ROW Component="CHANGELOG.md_1" ComponentId="{E65B4EA9-FA78-4F0B-B959-7CB748D8BD4D}" Directory_="shelljs_Dir" Attributes="0" KeyPath="CHANGELOG.md_3" Type="0"/>
+    <ROW Component="FUNDING.yml" ComponentId="{FA2BAC20-BCAC-4A48-BCF2-1C5202087FD3}" Directory_="github_Dir" Attributes="0" KeyPath="FUNDING.yml" Type="0"/>
+    <ROW Component="LICENSE" ComponentId="{7E6A7D11-6E43-4701-8482-5AFAD998DB33}" Directory_="minimatch_Dir" Attributes="0" KeyPath="LICENSE_23" Type="0"/>
+    <ROW Component="LICENSE.md" ComponentId="{7DD15948-A699-49BB-813B-612AB4A95DEC}" Directory_="hoek_Dir" Attributes="0" KeyPath="LICENSE.md" Type="0"/>
+    <ROW Component="LICENSE.md_1" ComponentId="{B7719DEF-3D3B-421F-AF69-737666C70C1B}" Directory_="topo_Dir" Attributes="0" KeyPath="LICENSE.md_1" Type="0"/>
+    <ROW Component="LICENSE.md_2" ComponentId="{E3FAAF49-CADE-4DF9-B03D-BBE41EBBE593}" Directory_="address_Dir" Attributes="0" KeyPath="LICENSE.md_2" Type="0"/>
+    <ROW Component="LICENSE.md_3" ComponentId="{7559DAD4-7631-4D2C-828E-96E66D13E9BE}" Directory_="formula_Dir" Attributes="0" KeyPath="LICENSE.md_3" Type="0"/>
+    <ROW Component="LICENSE.md_4" ComponentId="{D61CC4E8-6447-47A4-87E3-5703484F950D}" Directory_="pinpoint_Dir" Attributes="0" KeyPath="LICENSE.md_4" Type="0"/>
+    <ROW Component="LICENSE.md_5" ComponentId="{87CC6003-50CF-4049-A43A-0CAFF1AA63F6}" Directory_="joi_Dir" Attributes="0" KeyPath="LICENSE.md_7" Type="0"/>
+    <ROW Component="LICENSEMIT" ComponentId="{3A368889-329A-4EB1-B338-B50279B8F9C7}" Directory_="has_Dir" Attributes="0" KeyPath="LICENSEMIT" Type="0"/>
+    <ROW Component="LICENSE_1" ComponentId="{68FE1F31-8864-435E-B9A7-71D4BAC17E66}" Directory_="once_Dir" Attributes="0" KeyPath="LICENSE_24" Type="0"/>
+    <ROW Component="LICENSE_2" ComponentId="{A70F747F-905B-4019-B38B-8D7AA91D0BA0}" Directory_="wrappy_Dir" Attributes="0" KeyPath="LICENSE_32" Type="0"/>
+    <ROW Component="ProductInformation" ComponentId="{B600F11C-0514-4B41-9CED-96BFE9C58AEE}" Directory_="APPDIR" Attributes="260" KeyPath="Version"/>
+    <ROW Component="SHORTCUTDIR" ComponentId="{020A22D7-FCA9-464C-860A-B23B24EC00AB}" Directory_="SHORTCUTDIR" Attributes="0"/>
+    <ROW Component="Squirrel.exe" ComponentId="{9DE689F5-4DA8-41F6-B9C4-2F0CABFD7401}" Directory_="bin_Dir" Attributes="0" KeyPath="Squirrel.exe"/>
+>>>>>>> main
+>>>>>>> platform-linux
     <ROW Component="Temp" ComponentId="{20BED998-817B-4CD3-94AC-CEAB63A42E1E}" Directory_="Temp_Dir" Attributes="0"/>
     <ROW Component="ThinkMay.exe" ComponentId="{B770CB96-CB02-44F8-B0D6-B3CB3AB623E3}" Directory_="bin_Dir" Attributes="256" KeyPath="ThinkMay.exe"/>
     <ROW Component="a.js" ComponentId="{07D6CF2B-297A-471C-9289-20D04D69F868}" Directory_="browser_field_Dir" Attributes="0" KeyPath="a.js" Type="0"/>
     <ROW Component="aaa.js" ComponentId="{27AA0E71-61E7-4954-8671-217E3A82985D}" Directory_="precedence_Dir" Attributes="0" KeyPath="aaa.js" Type="0"/>
     <ROW Component="agent.exe" ComponentId="{A41D3508-B4D4-47AE-9009-CE01A1340B92}" Directory_="bin_Dir" Attributes="256" KeyPath="agent.exe"/>
     <ROW Component="agent_log" ComponentId="{04CC02FE-CB0D-4AF4-9290-44A13E2F6294}" Directory_="agent_log_Dir" Attributes="0"/>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    <ROW Component="alternatives.js" ComponentId="{1046753B-B33F-4273-99D4-447E0127B98D}" Directory_="types_1_Dir" Attributes="0" KeyPath="alternatives.js" Type="0"/>
+    <ROW Component="am.pak" ComponentId="{D755C160-BC73-43DA-9D3D-0CBD388B11DC}" Directory_="locales_Dir" Attributes="0" KeyPath="am.pak" Type="0"/>
+    <ROW Component="annotate.js" ComponentId="{25D5482A-82C3-42DF-B579-3928D7EC6890}" Directory_="lib_8_Dir" Attributes="0" KeyPath="annotate.js" Type="0"/>
+    <ROW Component="api.js" ComponentId="{01F31300-D29B-4BD8-9332-E3CE2B20E726}" Directory_="lib_7_Dir" Attributes="0" KeyPath="api.js" Type="0"/>
+    <ROW Component="app.ejs" ComponentId="{7BD0F934-E26B-45C9-A34F-34ECC03D4759}" Directory_="templates_1_Dir" Attributes="0" KeyPath="app.ejs" Type="0"/>
+    <ROW Component="applyToDefaults.js" ComponentId="{04AFF72A-4BE0-4A1C-922A-837205EAEEC6}" Directory_="lib_Dir" Attributes="0" KeyPath="applyToDefaults.js" Type="0"/>
+    <ROW Component="async.js" ComponentId="{CD42A635-13A7-45AA-87DA-4FB04958296E}" Directory_="lib_5_Dir" Attributes="0" KeyPath="async.js" Type="0"/>
+    <ROW Component="async.js_1" ComponentId="{1D137CD1-2CD3-4061-A983-7CF17F6F5F11}" Directory_="example_1_Dir" Attributes="0" KeyPath="async.js_1" Type="0"/>
+    <ROW Component="async.js_2" ComponentId="{9BB2F8E1-8AFC-4A23-8451-AE0CEEA2CBFD}" Directory_="lib_11_Dir" Attributes="0" KeyPath="async.js_2" Type="0"/>
+    <ROW Component="async.js_3" ComponentId="{40767130-85F4-443F-AF81-AFF6F28E99D9}" Directory_="mylib_Dir" Attributes="0" KeyPath="async.js_3" Type="0"/>
+    <ROW Component="bar.js" ComponentId="{67C835DA-653B-41B6-BD79-5440ADE598AF}" Directory_="package_Dir" Attributes="0" KeyPath="bar.js" Type="0"/>
+    <ROW Component="base64js.min.js" ComponentId="{FFC2A302-EB7F-4CFF-A03C-E0EABDE80914}" Directory_="base64js_Dir" Attributes="0" KeyPath="base64js.min.js" Type="0"/>
+    <ROW Component="bash_completion.sh" ComponentId="{D7007D50-87E0-41D9-9FFE-2867A2BECE04}" Directory_="bin_2_Dir" Attributes="0" KeyPath="bash_completion.sh" Type="0"/>
+    <ROW Component="browser.js" ComponentId="{FF28BF01-DF94-4DD6-8EAA-88882ACA8A4E}" Directory_="src_Dir" Attributes="0" KeyPath="browser.js" Type="0"/>
+    <ROW Component="browser.js_1" ComponentId="{390DECCC-C426-40E0-A795-D34C9E9C6802}" Directory_="supportscolor_Dir" Attributes="0" KeyPath="browser.js_1" Type="0"/>
+    <ROW Component="build.js" ComponentId="{24CE09E9-0A7E-4A8D-8614-E11CCC9AEF7F}" Directory_="lib_9_Dir" Attributes="0" KeyPath="build.js" Type="0"/>
+    <ROW Component="cat.js" ComponentId="{9621D14F-CFE9-4779-9817-C6A16611B847}" Directory_="src_3_Dir" Attributes="0" KeyPath="cat.js" Type="0"/>
+    <ROW Component="chrome_100_percent.pak" ComponentId="{BD9FFFEA-45D0-4D3F-9DFC-1138727FF858}" Directory_="bin_Dir" Attributes="0" KeyPath="chrome_100_percent.pak" Type="0"/>
+    <ROW Component="cli.js" ComponentId="{129C9DCC-17AB-43C9-85BB-8D3457F0AA02}" Directory_="bin_1_Dir" Attributes="0" KeyPath="cli.js" Type="0"/>
+    <ROW Component="cli.js_1" ComponentId="{3AE9AC47-8F62-4B6F-89C6-B0EB4DF135B0}" Directory_="isdocker_Dir" Attributes="0" KeyPath="cli.js_1" Type="0"/>
+    <ROW Component="common.js" ComponentId="{5E662650-A552-49B3-91C5-0954760945A1}" Directory_="glob_Dir" Attributes="0" KeyPath="common.js" Type="0"/>
+    <ROW Component="common.js_1" ComponentId="{0EA015D0-B610-4DCF-A2F0-E662F6530CF4}" Directory_="validation_Dir" Attributes="0" KeyPath="common.js_2" Type="0"/>
+    <ROW Component="concurrent.jake.js" ComponentId="{8E69F859-519A-41D2-89C5-BEC66C52721D}" Directory_="jakelib_Dir" Attributes="0" KeyPath="concurrent.jake.js" Type="0"/>
+    <ROW Component="concurrent.js" ComponentId="{19746C31-C8FF-4CA2-92D2-8404105C8D25}" Directory_="integration_Dir" Attributes="0" KeyPath="concurrent.js" Type="0"/>
+    <ROW Component="constants.js" ComponentId="{BFA63578-33DD-44A6-9D59-069954210F1C}" Directory_="config_Dir" Attributes="0" KeyPath="constants.js" Type="0"/>
+    <ROW Component="coveralls.yml" ComponentId="{C3953F49-A90E-4DEE-AD67-36230BEB0630}" Directory_="debug_Dir" Attributes="0" KeyPath="coveralls.yml" Type="0"/>
+    <ROW Component="cup.coffee" ComponentId="{7CC44D09-AE7D-4759-B63B-1F71948D6C50}" Directory_="resolver_Dir" Attributes="0" KeyPath="cup.coffee" Type="0"/>
+    <ROW Component="d3dcompiler_47.dll" ComponentId="{91D29E63-3DDE-4EB2-BDA5-5F8F35019B76}" Directory_="bin_Dir" Attributes="256" KeyPath="d3dcompiler_47.dll"/>
+    <ROW Component="decode.js" ComponentId="{1407CFC3-F14E-4E5C-ACBC-39E3AA8B3B63}" Directory_="lib_2_Dir" Attributes="0" KeyPath="decode.js" Type="0"/>
+    <ROW Component="defaultAppExist.sh" ComponentId="{90052C4B-53CF-470B-9722-77E968A37BC7}" Directory_="macos_Dir" Attributes="0" KeyPath="defaultAppExist.sh" Type="0"/>
+    <ROW Component="desktop.ejs" ComponentId="{A7080510-9FD2-4BF0-8779-CDB2C03744BD}" Directory_="templates_Dir" Attributes="0" KeyPath="desktop.ejs" Type="0"/>
+    <ROW Component="directory_task.js" ComponentId="{75DC479B-9E9A-46B9-A8BE-AEC49C4E6768}" Directory_="task_Dir" Attributes="0" KeyPath="directory_task.js" Type="0"/>
+    <ROW Component="domparser.js" ComponentId="{D62AECB8-1B9D-4BCC-8257-E0A744083F7E}" Directory_="xmldom_Dir" Attributes="0" KeyPath="domparser.js" Type="0"/>
+    <ROW Component="doom.js" ComponentId="{5AEE853B-9D96-48A4-B7C2-13A68FC299BD}" Directory_="baz_Dir" Attributes="0" KeyPath="doom.js" Type="0"/>
+    <ROW Component="editorconfig" ComponentId="{AC7D3552-E299-48FE-B591-D87AE9E7432B}" Directory_="functionbind_Dir" Attributes="0" KeyPath="editorconfig" Type="0"/>
+    <ROW Component="editorconfig_1" ComponentId="{912C1A4C-3FB7-4C61-9B9D-98B421ED9701}" Directory_="resolve_Dir" Attributes="0" KeyPath="editorconfig_1" Type="0"/>
+    <ROW Component="ejs.js" ComponentId="{D6CD8FAD-E917-4E89-AF32-24F3D2B5801C}" Directory_="ejs_Dir" Attributes="0" KeyPath="ejs.js" Type="0"/>
+    <ROW Component="ejs.js_1" ComponentId="{D4405FF1-2B80-48F7-87C1-CE1AB038AE25}" Directory_="lib_6_Dir" Attributes="0" KeyPath="ejs.js_1" Type="0"/>
+    <ROW Component="eslintignore" ComponentId="{FCCD1485-B481-4996-8259-CAEF864245D2}" Directory_="iscoremodule_Dir" Attributes="0" KeyPath="eslintignore" Type="0"/>
+    <ROW Component="eslintrc" ComponentId="{AD7967F7-8C1D-4DD1-9DD2-846CEC58185A}" Directory_="electronsquirrelstartup_Dir" Attributes="0" KeyPath="eslintrc" Type="0"/>
+    <ROW Component="eslintrc.json" ComponentId="{4650C3F8-B40E-40DE-928A-7D13F4FA28CE}" Directory_="colorname_Dir" Attributes="0" KeyPath="eslintrc.json" Type="0"/>
+    <ROW Component="eslintrc_1" ComponentId="{E9BFEC2A-7919-4403-95C2-B6A889680F08}" Directory_="test_2_Dir" Attributes="0" KeyPath="eslintrc_3" Type="0"/>
+    <ROW Component="eslintrc_2" ComponentId="{CAB57E84-6EAB-49A8-B23E-DF64C1AB18AF}" Directory_="test_6_Dir" Attributes="0" KeyPath="eslintrc_6" Type="0"/>
+    <ROW Component="extension.js" ComponentId="{3F05EBF3-79AA-4D1A-8C01-88CEE91DF2F4}" Directory_="lib_10_Dir" Attributes="0" KeyPath="extension.js" Type="0"/>
+    <ROW Component="ffmpeg.dll" ComponentId="{FE0FF6E5-E28B-431C-927C-67B568669D75}" Directory_="bin_Dir" Attributes="256" KeyPath="ffmpeg.dll"/>
+    <ROW Component="file.js" ComponentId="{A3B5FA9B-E2B9-4834-A37B-D60098266C5C}" Directory_="utils_Dir" Attributes="0" KeyPath="file.js" Type="0"/>
+    <ROW Component="foo.js" ComponentId="{97022539-DB35-45B8-B54B-88330AE34635}" Directory_="same_names_Dir" Attributes="0" KeyPath="foo.js_1" Type="0"/>
+    <ROW Component="foo.js_1" ComponentId="{5D7D539D-92DD-4E49-BCD3-B6A40C7E8EEB}" Directory_="node_modules_3_Dir" Attributes="0" KeyPath="foo.js_2" Type="0"/>
+    <ROW Component="gitattributes" ComponentId="{A3F50946-D004-4BAC-AB98-61ECA6EEFB45}" Directory_="protocolregistry_Dir" Attributes="0" KeyPath="gitattributes" Type="0"/>
+    <ROW Component="gitkeep" ComponentId="{7FE4D432-904B-4075-AFD9-4CA2381A91E9}" Directory_="temp_Dir" Attributes="0" KeyPath="gitkeep" Type="0"/>
+    <ROW Component="gitkeep_1" ComponentId="{383F7F83-4411-421E-8C48-A95F2ADA086F}" Directory_="symlink_target_Dir" Attributes="0" KeyPath="gitkeep_1" Type="0"/>
+    <ROW Component="index.d.ts" ComponentId="{FD5AEBB8-2ED7-4EE8-8CA7-D76DCC3C16D7}" Directory_="lib_1_Dir" Attributes="0" KeyPath="index.d.ts_1" Type="0"/>
+    <ROW Component="index.d.ts_1" ComponentId="{C2981051-0DC3-4547-B434-43C473309F9B}" Directory_="lib_3_Dir" Attributes="0" KeyPath="index.d.ts_3" Type="0"/>
+    <ROW Component="index.d.ts_2" ComponentId="{7E58B8B8-3DDB-4D23-9ED4-3FBC1DCBA290}" Directory_="lib_4_Dir" Attributes="0" KeyPath="index.d.ts_4" Type="0"/>
+    <ROW Component="index.d.ts_3" ComponentId="{D39F425A-B153-4A83-AA00-479CDD7B3A00}" Directory_="filelist_Dir" Attributes="0" KeyPath="index.d.ts_6" Type="0"/>
+    <ROW Component="index.d.ts_4" ComponentId="{CA8D837F-0369-482B-8D3C-89B848A2B7FF}" Directory_="iswsl_Dir" Attributes="0" KeyPath="index.d.ts_8" Type="0"/>
+    <ROW Component="index.d.ts_5" ComponentId="{CDFE81FA-B0D3-4E7C-9961-3CC9C69CA5E3}" Directory_="types_Dir" Attributes="0" KeyPath="index.d.ts_9" Type="0"/>
+    <ROW Component="index.d.ts_6" ComponentId="{CB1CEDDA-181B-4671-A287-72B49658FCC2}" Directory_="src_2_Dir" Attributes="0" KeyPath="index.d.ts_11" Type="0"/>
+    <ROW Component="index.html" ComponentId="{EFE4CA95-E0A9-4F5A-8A4F-5ECD1320B86F}" Directory_="browser_Dir" Attributes="0" KeyPath="index.html" Type="0"/>
+    <ROW Component="index.js" ComponentId="{0B9C4F18-A9BC-4E6A-BC61-ECBA2E12DE0B}" Directory_="balancedmatch_Dir" Attributes="0" KeyPath="index.js_5" Type="0"/>
+    <ROW Component="index.js_1" ComponentId="{2C61C50B-BAB9-4DBB-8D67-65638A95DBD0}" Directory_="braceexpansion_Dir" Attributes="0" KeyPath="index.js_7" Type="0"/>
+    <ROW Component="index.js_10" ComponentId="{21C4C031-AF05-4463-B054-BA34EAFC791B}" Directory_="hasflag_Dir" Attributes="0" KeyPath="index.js_30" Type="0"/>
+    <ROW Component="index.js_11" ComponentId="{33774E28-E92F-439C-86C6-E7B52EA498B0}" Directory_="pathisabsolute_Dir" Attributes="0" KeyPath="index.js_33" Type="0"/>
+    <ROW Component="index.js_12" ComponentId="{BA06A884-718C-427C-9020-04CEB8AF3BE0}" Directory_="pathparse_Dir" Attributes="0" KeyPath="index.js_34" Type="0"/>
+    <ROW Component="index.js_13" ComponentId="{C6177A84-A8FB-46B4-8268-448DD8A4AFA5}" Directory_="linux_Dir" Attributes="0" KeyPath="index.js_37" Type="0"/>
+    <ROW Component="index.js_14" ComponentId="{A1DE5685-86AF-4594-B29D-03E406D76CE2}" Directory_="windows_Dir" Attributes="0" KeyPath="index.js_39" Type="0"/>
+    <ROW Component="index.js_15" ComponentId="{8D334798-8A8E-4627-BEFD-A5698428CC62}" Directory_="abc_Dir" Attributes="0" KeyPath="index.js_42" Type="0"/>
+    <ROW Component="index.js_16" ComponentId="{715CD318-309F-4974-B096-AE8ACD0784CB}" Directory_="dotdot_Dir" Attributes="0" KeyPath="index.js_43" Type="0"/>
+    <ROW Component="index.js_17" ComponentId="{72F88278-BF0C-459A-8B7D-D991E475CD69}" Directory_="aaa_Dir" Attributes="0" KeyPath="index.js_44" Type="0"/>
+    <ROW Component="index.js_18" ComponentId="{4C95B0EF-EA35-464B-8D09-E921704AF776}" Directory_="aaa_1_Dir" Attributes="0" KeyPath="index.js_45" Type="0"/>
+    <ROW Component="index.js_19" ComponentId="{AF6ADBC3-517A-4E56-A290-39C0A0328817}" Directory_="aaa_2_Dir" Attributes="0" KeyPath="index.js_46" Type="0"/>
+    <ROW Component="index.js_2" ComponentId="{A063A95D-CB95-43EE-AF65-A1B300957539}" Directory_="ms_Dir" Attributes="0" KeyPath="index.js_11" Type="0"/>
+    <ROW Component="index.js_20" ComponentId="{5CE264AC-8636-4ED3-A8B0-BC796FC243EA}" Directory_="ccc_Dir" Attributes="0" KeyPath="index.js_47" Type="0"/>
+    <ROW Component="index.js_21" ComponentId="{0A03A23E-B94B-44F4-AA2E-C958FDFF83CA}" Directory_="bbb_1_Dir" Attributes="0" KeyPath="index.js_48" Type="0"/>
+    <ROW Component="index.js_22" ComponentId="{E1984597-111A-4FCF-9A47-88DB11019DFB}" Directory_="ccc_1_Dir" Attributes="0" KeyPath="index.js_49" Type="0"/>
+    <ROW Component="index.js_23" ComponentId="{612FC117-37B1-498D-BB47-ABAC984DC261}" Directory_="aaa_3_Dir" Attributes="0" KeyPath="index.js_50" Type="0"/>
+    <ROW Component="index.js_24" ComponentId="{F1B7A061-EDDC-434F-934E-2BBE7C3EE1EA}" Directory_="dot_main_Dir" Attributes="0" KeyPath="index.js_51" Type="0"/>
+    <ROW Component="index.js_25" ComponentId="{E03DEE1D-0B47-4B01-AAFD-CDC28DC87342}" Directory_="dot_slash_main_Dir" Attributes="0" KeyPath="index.js_52" Type="0"/>
+    <ROW Component="index.js_26" ComponentId="{CF0B3237-3B74-4F63-AA30-96D0C4D09515}" Directory_="incorrect_main_Dir" Attributes="0" KeyPath="index.js_53" Type="0"/>
+    <ROW Component="index.js_27" ComponentId="{6B8874ED-F8ED-405D-BA58-BCBC0E8709C5}" Directory_="packagea_Dir" Attributes="0" KeyPath="index.js_54" Type="0"/>
+    <ROW Component="index.js_28" ComponentId="{20B03F4C-8773-40B4-A485-BAFFDC864585}" Directory_="packageb_Dir" Attributes="0" KeyPath="index.js_55" Type="0"/>
+    <ROW Component="index.js_29" ComponentId="{E4F9A1FE-4DCC-4165-81CA-26CA4087AE6A}" Directory_="foo_Dir" Attributes="0" KeyPath="index.js_56" Type="0"/>
+    <ROW Component="index.js_3" ComponentId="{E79AFDFD-C2BC-4D49-A20C-5C107D62AC12}" Directory_="fs.realpath_Dir" Attributes="0" KeyPath="index.js_13" Type="0"/>
+    <ROW Component="index.js_30" ComponentId="{A6562BDD-EE67-4792-AB0F-62B90CAD7CC2}" Directory_="foo_1_Dir" Attributes="0" KeyPath="index.js_57" Type="0"/>
+    <ROW Component="index.js_31" ComponentId="{2091534E-3F20-413B-BABA-5AB6BDC6D1AA}" Directory_="util_Dir" Attributes="0" KeyPath="index.js_58" Type="0"/>
+    <ROW Component="index.js_32" ComponentId="{00F4B138-67D4-4C9C-9DFF-D7AE204CA822}" Directory_="src_4_Dir" Attributes="0" KeyPath="index.js_59" Type="0"/>
+    <ROW Component="index.js_33" ComponentId="{D0C32164-92EE-4A4D-96A3-038667DFA196}" Directory_="lib_14_Dir" Attributes="0" KeyPath="index.js_60" Type="0"/>
+    <ROW Component="index.js_4" ComponentId="{AAED6DC7-A895-483E-879D-1665D68E53A9}" Directory_="src_1_Dir" Attributes="0" KeyPath="index.js_16" Type="0"/>
+    <ROW Component="index.js_5" ComponentId="{DF41CC21-71BE-49A8-8B0C-C52B8D5F89D4}" Directory_="test_3_Dir" Attributes="0" KeyPath="index.js_17" Type="0"/>
+    <ROW Component="index.js_6" ComponentId="{5F6B211C-667E-462E-A76E-326DF7D29312}" Directory_="test_4_Dir" Attributes="0" KeyPath="index.js_20" Type="0"/>
+    <ROW Component="index.js_7" ComponentId="{163CB5BA-BC53-4E00-975B-1B1BBF371CB8}" Directory_="ansistyles_Dir" Attributes="0" KeyPath="index.js_25" Type="0"/>
+    <ROW Component="index.js_8" ComponentId="{46433E81-7733-4F8E-9A71-506A86A3AEBC}" Directory_="chalk_Dir" Attributes="0" KeyPath="index.js_26" Type="0"/>
+    <ROW Component="index.js_9" ComponentId="{5C3F8588-99CB-49B9-AC91-534880FDB4A7}" Directory_="escapestringregexp_Dir" Attributes="0" KeyPath="index.js_29" Type="0"/>
+    <ROW Component="index.test.js" ComponentId="{8BBAC7AD-58F0-40C0-85DA-713C5786FDEC}" Directory_="test_1_Dir" Attributes="0" KeyPath="index.test.js" Type="0"/>
+    <ROW Component="inflight.js" ComponentId="{A89B12C4-CD83-4412-BC70-27B8EEA13ADA}" Directory_="inflight_Dir" Attributes="0" KeyPath="inflight.js" Type="0"/>
+    <ROW Component="inherits.js" ComponentId="{0E54FE83-7B3C-46AC-82FC-B908B7CB63DA}" Directory_="inherits_Dir" Attributes="0" KeyPath="inherits.js" Type="0"/>
+    <ROW Component="jakefile.js" ComponentId="{0A212865-6132-4919-9CE4-CEA5DB01C83B}" Directory_="jake_Dir" Attributes="0" KeyPath="jakefile.js_2" Type="0"/>
+    <ROW Component="jakefile.js_1" ComponentId="{98527944-9F5D-45C2-BFA7-5E3B321C67D4}" Directory_="unit_Dir" Attributes="0" KeyPath="jakefile.js_4" Type="0"/>
+    <ROW Component="joibrowser.min.js" ComponentId="{19265EFC-F9AB-4516-BB99-210BA0C109F9}" Directory_="dist_Dir" Attributes="0" KeyPath="joibrowser.min.js" Type="0"/>
+    <ROW Component="jshintrc" ComponentId="{6C82C680-7ACB-46E8-9710-2A997FEE3F22}" Directory_="plist_Dir" Attributes="0" KeyPath="jshintrc" Type="0"/>
+    <ROW Component="lerna.json" ComponentId="{90453F3D-17AD-457F-93A3-25974A725D6D}" Directory_="multirepo_Dir" Attributes="0" KeyPath="lerna.json" Type="0"/>
+    <ROW Component="libEGL.dll" ComponentId="{48F097EF-F89D-4CFE-B0E7-A67A49558BE9}" Directory_="bin_Dir" Attributes="256" KeyPath="libEGL.dll"/>
+    <ROW Component="libEGL.dll_1" ComponentId="{5BC68060-C6D8-4A9B-98A1-52B152902A3B}" Directory_="swiftshader_Dir" Attributes="256" KeyPath="libEGL.dll_1"/>
+    <ROW Component="libGLESv2.dll" ComponentId="{AE4CC043-1114-4423-97BA-92DBAD9C5E07}" Directory_="bin_Dir" Attributes="256" KeyPath="libGLESv2.dll"/>
+    <ROW Component="libGLESv2.dll_1" ComponentId="{2852A721-D1E4-4C84-9D66-3423AFAEFC7A}" Directory_="swiftshader_Dir" Attributes="256" KeyPath="libGLESv2.dll_1"/>
+    <ROW Component="logo.ico" ComponentId="{6C30CA16-1411-4E54-89D2-A444E12D33A6}" Directory_="assets_Dir" Attributes="0" KeyPath="logo.ico" Type="0"/>
+    <ROW Component="main.js" ComponentId="{1843F40B-AC89-4BD7-AB7F-772405B43FED}" Directory_="app_Dir" Attributes="0" KeyPath="main.js" Type="0"/>
+    <ROW Component="main.js_1" ComponentId="{DE616763-5937-44A9-92F4-8940E800DDD4}" Directory_="bbb_Dir" Attributes="0" KeyPath="main.js_1" Type="0"/>
+    <ROW Component="main.js_2" ComponentId="{CA16F21D-0A7D-4189-9F2F-ECBFF5A6D307}" Directory_="deep_ref_Dir" Attributes="0" KeyPath="main.js_2" Type="0"/>
+    <ROW Component="main.js_3" ComponentId="{A13223C1-8CA2-4CCC-B9CA-7717F455BB70}" Directory_="bbb_2_Dir" Attributes="0" KeyPath="main.js_4" Type="0"/>
+    <ROW Component="main.js_4" ComponentId="{EF87740C-6F5A-4E45-B3FC-3D5B471B6F96}" Directory_="without_basedir_Dir" Attributes="0" KeyPath="main.js_5" Type="0"/>
+    <ROW Component="map.js" ComponentId="{A43140C2-34E8-4A5F-B64A-75221E17A809}" Directory_="example_Dir" Attributes="0" KeyPath="map.js" Type="0"/>
+    <ROW Component="map.js_1" ComponentId="{EB3A8B84-363C-41C4-A0A3-5E69EE862F6F}" Directory_="test_Dir" Attributes="0" KeyPath="map.js_1" Type="0"/>
+    <ROW Component="mocha.opts" ComponentId="{1FAC4B1F-C7CE-4DB6-AF85-E25DAC1DD1D2}" Directory_="test_7_Dir" Attributes="0" KeyPath="mocha.opts_1" Type="0"/>
+    <ROW Component="npmignore" ComponentId="{4D2C65E7-C13C-4E9C-9EE0-48FEBCAAFEB3}" Directory_="rechoir_Dir" Attributes="0" KeyPath="npmignore_4" Type="0"/>
+    <ROW Component="npmignore_1" ComponentId="{20E6EECF-C382-419D-9BC9-DE63EC83708D}" Directory_="winreg_Dir" Attributes="0" KeyPath="npmignore_5" Type="0"/>
+    <ROW Component="npmignore_2" ComponentId="{FDDE540A-DB04-49B1-B374-4898F48A515F}" Directory_="xmlbuilder_Dir" Attributes="0" KeyPath="npmignore_6" Type="0"/>
+    <ROW Component="otherlib.js" ComponentId="{5703B50B-27AC-478A-90D7-AF3061805DE3}" Directory_="lib_12_Dir" Attributes="0" KeyPath="otherlib.js" Type="0"/>
+    <ROW Component="package.json" ComponentId="{74FDABB3-1E23-4766-89DE-E670DF6D9A32}" Directory_="invalid_main_Dir" Attributes="0" KeyPath="package.json_48" Type="0"/>
+    <ROW Component="packagelock.json" ComponentId="{BC67A454-5F5B-4811-AFDE-74433ED9A78E}" Directory_="node_modules_Dir" Attributes="0" KeyPath="packagelock.json" Type="0"/>
+    <ROW Component="plistbuild.js" ComponentId="{61666E81-9EB1-4206-9F4B-0F2974E3D20E}" Directory_="dist_1_Dir" Attributes="0" KeyPath="plistbuild.js" Type="0"/>
+    <ROW Component="portforward.dll" ComponentId="{353255D7-C00F-43DA-92D5-24FDEB70AAA7}" Directory_="bin_Dir" Attributes="0" KeyPath="portforward.dll"/>
+    <ROW Component="portforward.dll_1" ComponentId="{FA63301B-7C49-451E-BE13-0FBEC305A02C}" Directory_="ref_Dir" Attributes="0" KeyPath="portforward.dll_1"/>
+    <ROW Component="portforward.exe" ComponentId="{733FA3E7-6CA4-44B9-A233-B0A799816D7B}" Directory_="bin_Dir" Attributes="256" KeyPath="portforward.exe"/>
+    <ROW Component="processCommand.js" ComponentId="{7DA4EA05-B9C7-4C79-BD0B-49A647EA9C49}" Directory_="utils_1_Dir" Attributes="0" KeyPath="processCommand.js" Type="0"/>
+    <ROW Component="registry.js" ComponentId="{5E30E558-7D23-45EE-BA1C-C6760EFD227F}" Directory_="lib_13_Dir" Attributes="0" KeyPath="registry.js" Type="0"/>
+    <ROW Component="remoteapp.exe" ComponentId="{92D0893C-8EA4-42A6-AC36-EB6894779BC1}" Directory_="bin_Dir" Attributes="256" KeyPath="remoteapp.exe"/>
+    <ROW Component="remoteapp.exe_1" ComponentId="{1848B004-F167-4F63-8061-ECBB09844D76}" Directory_="app_Dir" Attributes="256" KeyPath="remoteapp.exe_1"/>
+    <ROW Component="root.js" ComponentId="{AE412C86-C0DB-493F-8620-68D5E63E24DC}" Directory_="other_path_Dir" Attributes="0" KeyPath="root.js" Type="0"/>
+    <ROW Component="sessioncore.exe" ComponentId="{0E4FE15D-E784-4801-B1B8-761827B7A136}" Directory_="bin_Dir" Attributes="256" KeyPath="sessioncore.exe"/>
+    <ROW Component="shjs" ComponentId="{F65AB5E6-4704-4E3C-957C-DA8C9EE89723}" Directory_="bin_3_Dir" Attributes="0" KeyPath="shjs" Type="0"/>
+    <ROW Component="syncpackagemanagers.js" ComponentId="{078473BC-1DA2-492F-BBEB-356F518E9971}" Directory_="support_Dir" Attributes="0" KeyPath="syncpackagemanagers.js" Type="0"/>
+    <ROW Component="travis.yml" ComponentId="{8A5D2D10-6D9B-4AE0-A2B8-859478E85093}" Directory_="async_Dir" Attributes="0" KeyPath="travis.yml" Type="0"/>
+    <ROW Component="travis.yml_1" ComponentId="{732BE612-6F73-4A1D-9B9E-7FDF97431F4B}" Directory_="concatmap_Dir" Attributes="0" KeyPath="travis.yml_1" Type="0"/>
+    <ROW Component="videotesting.exe" ComponentId="{CAFF0FF8-1C98-4C61-B04E-50EE1FFB79C0}" Directory_="bin_Dir" Attributes="256" KeyPath="videotesting.exe"/>
+    <ROW Component="vk_swiftshader.dll" ComponentId="{40DA9325-A6E5-4B0F-8267-916B1EC688E0}" Directory_="bin_Dir" Attributes="256" KeyPath="vk_swiftshader.dll"/>
+    <ROW Component="vulkan1.dll" ComponentId="{A50B92FE-805E-4708-837F-EF14F1F8DD07}" Directory_="bin_Dir" Attributes="256" KeyPath="vulkan1.dll"/>
+    <ROW Component="welcome.exe" ComponentId="{0DD9C908-4ED2-47E4-ABA7-5A47E12E06C8}" Directory_="bin_Dir" Attributes="256" KeyPath="welcome.exe"/>
+=======
+>>>>>>> platform-linux
     <ROW Component="alternatives.js" ComponentId="{698633EC-E1EF-4843-8D94-D2D67BCFA9DA}" Directory_="types_1_Dir" Attributes="0" KeyPath="alternatives.js" Type="0"/>
     <ROW Component="am.pak" ComponentId="{7D96023F-0200-4454-9D32-599898BCC12A}" Directory_="locales_Dir" Attributes="0" KeyPath="am.pak" Type="0"/>
     <ROW Component="annotate.js" ComponentId="{B07CEBFD-9636-44DF-A481-B5543037E18C}" Directory_="lib_8_Dir" Attributes="0" KeyPath="annotate.js" Type="0"/>
@@ -368,12 +556,103 @@
     <ROW Component="vulkan1.dll" ComponentId="{E339C16E-F90D-4A9C-8667-6FD62420D44F}" Directory_="bin_Dir" Attributes="256" KeyPath="vulkan1.dll"/>
     <ROW Component="welcome.exe" ComponentId="{64A966C1-51FC-4C09-96C5-E15D9F37B7C1}" Directory_="app_Dir" Attributes="256" KeyPath="welcome.exe"/>
     <ROW Component="welcome.exe_1" ComponentId="{36BA3265-6FB2-48A4-95E4-6ADE77F17D16}" Directory_="bin_Dir" Attributes="256" KeyPath="welcome.exe_1"/>
+<<<<<<< HEAD
+=======
+>>>>>>> main
+>>>>>>> platform-linux
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
     <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0"/>
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    <ROW File="agent.exe" Component_="agent.exe" FileName="agent.exe" Attributes="0" SourcePath="..\bin\agent.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="agent.pdb" Component_="agent.exe" FileName="agent.pdb" Attributes="0" SourcePath="..\bin\agent.pdb" SelfReg="false"/>
+    <ROW File="sessioncore.exe" Component_="sessioncore.exe" FileName="SESSIO~1.EXE|session-core.exe" Attributes="0" SourcePath="..\bin\session-core.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="sessioncore.pdb" Component_="sessioncore.exe" FileName="SESSIO~1.PDB|session-core.pdb" Attributes="0" SourcePath="..\bin\session-core.pdb" SelfReg="false"/>
+    <ROW File="chrome_100_percent.pak" Component_="chrome_100_percent.pak" FileName="CHROME~1.PAK|chrome_100_percent.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\chrome_100_percent.pak" SelfReg="false"/>
+    <ROW File="chrome_200_percent.pak" Component_="chrome_100_percent.pak" FileName="CHROME~2.PAK|chrome_200_percent.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\chrome_200_percent.pak" SelfReg="false"/>
+    <ROW File="d3dcompiler_47.dll" Component_="d3dcompiler_47.dll" FileName="D3DCOM~1.DLL|d3dcompiler_47.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\d3dcompiler_47.dll" SelfReg="false"/>
+    <ROW File="ffmpeg.dll" Component_="ffmpeg.dll" FileName="ffmpeg.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\ffmpeg.dll" SelfReg="false"/>
+    <ROW File="icudtl.dat" Component_="chrome_100_percent.pak" FileName="icudtl.dat" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\icudtl.dat" SelfReg="false"/>
+    <ROW File="libEGL.dll" Component_="libEGL.dll" FileName="libEGL.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\libEGL.dll" SelfReg="false"/>
+    <ROW File="libGLESv2.dll" Component_="libGLESv2.dll" FileName="LIBGLE~1.DLL|libGLESv2.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\libGLESv2.dll" SelfReg="false"/>
+    <ROW File="LICENSE" Component_="chrome_100_percent.pak" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\LICENSE" SelfReg="false"/>
+    <ROW File="LICENSES.chromium.html" Component_="chrome_100_percent.pak" FileName="LICENS~1.HTM|LICENSES.chromium.html" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\LICENSES.chromium.html" SelfReg="false"/>
+    <ROW File="resources.pak" Component_="chrome_100_percent.pak" FileName="RESOUR~1.PAK|resources.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources.pak" SelfReg="false"/>
+    <ROW File="snapshot_blob.bin" Component_="chrome_100_percent.pak" FileName="SNAPSH~1.BIN|snapshot_blob.bin" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\snapshot_blob.bin" SelfReg="false"/>
+    <ROW File="Squirrel.exe" Component_="Squirrel.exe" FileName="Squirrel.exe" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\Squirrel.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="ThinkMay.exe" Component_="ThinkMay.exe" FileName="ThinkMay.exe" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\ThinkMay.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="v8_context_snapshot.bin" Component_="chrome_100_percent.pak" FileName="V8_CON~1.BIN|v8_context_snapshot.bin" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\v8_context_snapshot.bin" SelfReg="false"/>
+    <ROW File="version" Component_="chrome_100_percent.pak" FileName="version" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\version" SelfReg="false"/>
+    <ROW File="vk_swiftshader.dll" Component_="vk_swiftshader.dll" FileName="VK_SWI~1.DLL|vk_swiftshader.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\vk_swiftshader.dll" SelfReg="false"/>
+    <ROW File="vk_swiftshader_icd.json" Component_="chrome_100_percent.pak" FileName="VK_SWI~1.JSO|vk_swiftshader_icd.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\vk_swiftshader_icd.json" SelfReg="false"/>
+    <ROW File="vulkan1.dll" Component_="vulkan1.dll" FileName="vulkan-1.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\vulkan-1.dll" SelfReg="false"/>
+    <ROW File="remoteapp.exe" Component_="remoteapp.exe" FileName="REMOTE~1.EXE|remote-app.exe" Attributes="0" SourcePath="..\bin\remote-app.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="remoteapp.pdb" Component_="remoteapp.exe" FileName="REMOTE~1.PDB|remote-app.pdb" Attributes="0" SourcePath="..\bin\remote-app.pdb" SelfReg="false"/>
+    <ROW File="videotesting.exe" Component_="videotesting.exe" FileName="VIDEOT~1.EXE|videotesting.exe" Attributes="0" SourcePath="..\bin\videotesting.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="videotesting.pdb" Component_="videotesting.exe" FileName="VIDEOT~1.PDB|videotesting.pdb" Attributes="0" SourcePath="..\bin\videotesting.pdb" SelfReg="false"/>
+    <ROW File="welcome.exe" Component_="welcome.exe" FileName="welcome.exe" Attributes="0" SourcePath="..\bin\welcome.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="welcome.pdb" Component_="welcome.exe" FileName="welcome.pdb" Attributes="0" SourcePath="..\bin\welcome.pdb" SelfReg="false"/>
+    <ROW File="am.pak" Component_="am.pak" FileName="am.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\am.pak" SelfReg="false"/>
+    <ROW File="ar.pak" Component_="am.pak" FileName="ar.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\ar.pak" SelfReg="false"/>
+    <ROW File="bg.pak" Component_="am.pak" FileName="bg.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\bg.pak" SelfReg="false"/>
+    <ROW File="bn.pak" Component_="am.pak" FileName="bn.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\bn.pak" SelfReg="false"/>
+    <ROW File="ca.pak" Component_="am.pak" FileName="ca.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\ca.pak" SelfReg="false"/>
+    <ROW File="cs.pak" Component_="am.pak" FileName="cs.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\cs.pak" SelfReg="false"/>
+    <ROW File="da.pak" Component_="am.pak" FileName="da.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\da.pak" SelfReg="false"/>
+    <ROW File="de.pak" Component_="am.pak" FileName="de.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\de.pak" SelfReg="false"/>
+    <ROW File="el.pak" Component_="am.pak" FileName="el.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\el.pak" SelfReg="false"/>
+    <ROW File="enGB.pak" Component_="am.pak" FileName="en-GB.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\en-GB.pak" SelfReg="false"/>
+    <ROW File="enUS.pak" Component_="am.pak" FileName="en-US.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\en-US.pak" SelfReg="false"/>
+    <ROW File="es419.pak" Component_="am.pak" FileName="es-419.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\es-419.pak" SelfReg="false"/>
+    <ROW File="es.pak" Component_="am.pak" FileName="es.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\es.pak" SelfReg="false"/>
+    <ROW File="et.pak" Component_="am.pak" FileName="et.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\et.pak" SelfReg="false"/>
+    <ROW File="fa.pak" Component_="am.pak" FileName="fa.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\fa.pak" SelfReg="false"/>
+    <ROW File="fi.pak" Component_="am.pak" FileName="fi.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\fi.pak" SelfReg="false"/>
+    <ROW File="fil.pak" Component_="am.pak" FileName="fil.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\fil.pak" SelfReg="false"/>
+    <ROW File="fr.pak" Component_="am.pak" FileName="fr.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\fr.pak" SelfReg="false"/>
+    <ROW File="gu.pak" Component_="am.pak" FileName="gu.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\gu.pak" SelfReg="false"/>
+    <ROW File="he.pak" Component_="am.pak" FileName="he.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\he.pak" SelfReg="false"/>
+    <ROW File="hi.pak" Component_="am.pak" FileName="hi.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\hi.pak" SelfReg="false"/>
+    <ROW File="hr.pak" Component_="am.pak" FileName="hr.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\hr.pak" SelfReg="false"/>
+    <ROW File="hu.pak" Component_="am.pak" FileName="hu.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\hu.pak" SelfReg="false"/>
+    <ROW File="id.pak" Component_="am.pak" FileName="id.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\id.pak" SelfReg="false"/>
+    <ROW File="it.pak" Component_="am.pak" FileName="it.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\it.pak" SelfReg="false"/>
+    <ROW File="ja.pak" Component_="am.pak" FileName="ja.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\ja.pak" SelfReg="false"/>
+    <ROW File="kn.pak" Component_="am.pak" FileName="kn.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\kn.pak" SelfReg="false"/>
+    <ROW File="ko.pak" Component_="am.pak" FileName="ko.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\ko.pak" SelfReg="false"/>
+    <ROW File="lt.pak" Component_="am.pak" FileName="lt.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\lt.pak" SelfReg="false"/>
+    <ROW File="lv.pak" Component_="am.pak" FileName="lv.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\lv.pak" SelfReg="false"/>
+    <ROW File="ml.pak" Component_="am.pak" FileName="ml.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\ml.pak" SelfReg="false"/>
+    <ROW File="mr.pak" Component_="am.pak" FileName="mr.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\mr.pak" SelfReg="false"/>
+    <ROW File="ms.pak" Component_="am.pak" FileName="ms.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\ms.pak" SelfReg="false"/>
+    <ROW File="nb.pak" Component_="am.pak" FileName="nb.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\nb.pak" SelfReg="false"/>
+    <ROW File="nl.pak" Component_="am.pak" FileName="nl.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\nl.pak" SelfReg="false"/>
+    <ROW File="pl.pak" Component_="am.pak" FileName="pl.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\pl.pak" SelfReg="false"/>
+    <ROW File="ptBR.pak" Component_="am.pak" FileName="pt-BR.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\pt-BR.pak" SelfReg="false"/>
+    <ROW File="ptPT.pak" Component_="am.pak" FileName="pt-PT.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\pt-PT.pak" SelfReg="false"/>
+    <ROW File="ro.pak" Component_="am.pak" FileName="ro.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\ro.pak" SelfReg="false"/>
+    <ROW File="ru.pak" Component_="am.pak" FileName="ru.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\ru.pak" SelfReg="false"/>
+    <ROW File="sk.pak" Component_="am.pak" FileName="sk.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\sk.pak" SelfReg="false"/>
+    <ROW File="sl.pak" Component_="am.pak" FileName="sl.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\sl.pak" SelfReg="false"/>
+    <ROW File="sr.pak" Component_="am.pak" FileName="sr.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\sr.pak" SelfReg="false"/>
+    <ROW File="sv.pak" Component_="am.pak" FileName="sv.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\sv.pak" SelfReg="false"/>
+    <ROW File="sw.pak" Component_="am.pak" FileName="sw.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\sw.pak" SelfReg="false"/>
+    <ROW File="ta.pak" Component_="am.pak" FileName="ta.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\ta.pak" SelfReg="false"/>
+    <ROW File="te.pak" Component_="am.pak" FileName="te.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\te.pak" SelfReg="false"/>
+    <ROW File="th.pak" Component_="am.pak" FileName="th.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\th.pak" SelfReg="false"/>
+    <ROW File="tr.pak" Component_="am.pak" FileName="tr.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\tr.pak" SelfReg="false"/>
+    <ROW File="uk.pak" Component_="am.pak" FileName="uk.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\uk.pak" SelfReg="false"/>
+    <ROW File="vi.pak" Component_="am.pak" FileName="vi.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\vi.pak" SelfReg="false"/>
+    <ROW File="zhCN.pak" Component_="am.pak" FileName="zh-CN.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\zh-CN.pak" SelfReg="false"/>
+    <ROW File="zhTW.pak" Component_="am.pak" FileName="zh-TW.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\zh-TW.pak" SelfReg="false"/>
+=======
+>>>>>>> main
+>>>>>>> platform-linux
     <ROW File="logo.ico" Component_="logo.ico" FileName="logo.ico" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\assets\logo.ico" SelfReg="false"/>
     <ROW File="logo.png" Component_="logo.ico" FileName="logo.png" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\assets\logo.png" SelfReg="false"/>
     <ROW File="logo_thinkmay.png" Component_="logo.ico" FileName="LOGO_T~1.PNG|logo_thinkmay.png" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\assets\logo_thinkmay.png" SelfReg="false"/>
@@ -936,6 +1215,23 @@
     <ROW File="remoteapp.pdb" Component_="remoteapp.exe" FileName="REMOTE~1.PDB|remote-app.pdb" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\remote-app.pdb" SelfReg="false"/>
     <ROW File="remotetoken" Component_="main.js" FileName="REMOTE~1|remote-token" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\remote-token" SelfReg="false"/>
     <ROW File="temp.txt" Component_="main.js" FileName="temp.txt" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\temp.txt" SelfReg="false"/>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    <ROW File="libEGL.dll_1" Component_="libEGL.dll_1" FileName="libEGL.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\swiftshader\libEGL.dll" SelfReg="false"/>
+    <ROW File="libGLESv2.dll_1" Component_="libGLESv2.dll_1" FileName="LIBGLE~1.DLL|libGLESv2.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\swiftshader\libGLESv2.dll" SelfReg="false"/>
+    <ROW File="Newtonsoft.Json.dll" Component_="Newtonsoft.Json.dll" FileName="NEWTON~1.DLL|Newtonsoft.Json.dll" Attributes="0" SourcePath="..\bin\Newtonsoft.Json.dll" SelfReg="false"/>
+    <ROW File="portforward.deps.json" Component_="chrome_100_percent.pak" FileName="PORT-F~1.JSO|port-forward.deps.json" Attributes="0" SourcePath="..\bin\port-forward.deps.json" SelfReg="false"/>
+    <ROW File="portforward.dll" Component_="portforward.dll" FileName="PORT-F~1.DLL|port-forward.dll" Attributes="0" SourcePath="..\bin\port-forward.dll" SelfReg="false"/>
+    <ROW File="portforward.exe" Component_="portforward.exe" FileName="PORT-F~1.EXE|port-forward.exe" Attributes="0" SourcePath="..\bin\port-forward.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="portforward.pdb" Component_="portforward.exe" FileName="PORT-F~1.PDB|port-forward.pdb" Attributes="0" SourcePath="..\bin\port-forward.pdb" SelfReg="false"/>
+    <ROW File="portforward.runtimeconfig.json" Component_="chrome_100_percent.pak" FileName="PORT-F~2.JSO|port-forward.runtimeconfig.json" Attributes="0" SourcePath="..\bin\port-forward.runtimeconfig.json" SelfReg="false"/>
+    <ROW File="Renci.SshNet.dll" Component_="Renci.SshNet.dll" FileName="RENCIS~1.DLL|Renci.SshNet.dll" Attributes="0" SourcePath="..\bin\Renci.SshNet.dll" SelfReg="false"/>
+    <ROW File="RestSharp.dll" Component_="RestSharp.dll" FileName="RESTSH~1.DLL|RestSharp.dll" Attributes="0" SourcePath="..\bin\RestSharp.dll" SelfReg="false"/>
+    <ROW File="SshNet.Security.Cryptography.dll" Component_="SshNet.Security.Cryptography.dll" FileName="SSHNET~1.DLL|SshNet.Security.Cryptography.dll" Attributes="0" SourcePath="..\bin\SshNet.Security.Cryptography.dll" SelfReg="false"/>
+    <ROW File="portforward.dll_1" Component_="portforward.dll_1" FileName="PORT-F~1.DLL|port-forward.dll" Attributes="0" SourcePath="..\bin\ref\port-forward.dll" SelfReg="false"/>
+=======
+>>>>>>> platform-linux
     <ROW File="welcome.exe" Component_="welcome.exe" FileName="welcome.exe" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\welcome.exe" SelfReg="false" DigSign="true"/>
     <ROW File="welcome.pdb" Component_="welcome.exe" FileName="welcome.pdb" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\welcome.pdb" SelfReg="false"/>
     <ROW File="am.pak" Component_="am.pak" FileName="am.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\am.pak" SelfReg="false"/>
@@ -1029,6 +1325,10 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AiPersistentPropComponent">
     <ROW Property="AI_IA_ENABLE" Registry="AI_IA_ENABLE" HklmSearch="AI_IA_ENABLE" HkcuSearch="AI_IA_ENABLE_1" Hklm64Search="AI_IA_ENABLE_2" Hkcu64Search="AI_IA_ENABLE_3"/>
+<<<<<<< HEAD
+=======
+>>>>>>> main
+>>>>>>> platform-linux
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
@@ -1285,11 +1585,27 @@
     <ROW Feature_="MainFeature" Component_="ffmpeg.dll"/>
     <ROW Feature_="MainFeature" Component_="libEGL.dll_1"/>
     <ROW Feature_="MainFeature" Component_="libGLESv2.dll_1"/>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    <ROW Feature_="MainFeature" Component_="Newtonsoft.Json.dll"/>
+    <ROW Feature_="MainFeature" Component_="portforward.dll"/>
+    <ROW Feature_="MainFeature" Component_="portforward.exe"/>
+    <ROW Feature_="MainFeature" Component_="Renci.SshNet.dll"/>
+    <ROW Feature_="MainFeature" Component_="RestSharp.dll"/>
+    <ROW Feature_="MainFeature" Component_="SshNet.Security.Cryptography.dll"/>
+    <ROW Feature_="MainFeature" Component_="portforward.dll_1"/>
+=======
+>>>>>>> platform-linux
     <ROW Feature_="MainFeature" Component_="Squirrel.exe"/>
     <ROW Feature_="MainFeature" Component_="ThinkMay.exe"/>
     <ROW Feature_="MainFeature" Component_="vk_swiftshader.dll"/>
     <ROW Feature_="MainFeature" Component_="vulkan1.dll"/>
     <ROW Feature_="MainFeature" Component_="SHORTCUTDIR"/>
+<<<<<<< HEAD
+=======
+>>>>>>> main
+>>>>>>> platform-linux
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="ThinkMay.exe" SourcePath="..\client\window\electron\assets\logo.ico" Index="0"/>

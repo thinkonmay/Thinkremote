@@ -31,6 +31,8 @@
 #ifdef G_OS_WIN32
 #include <Windows.h>
 
+#else
+#include <Xlib.h>
 #endif
 
 
@@ -83,6 +85,10 @@ struct _SessionCore
 	 * 
 	 */
 	CoreEngine peer_engine;
+
+#ifndef G_OS_WIN32
+	Display* x_display
+#endif
 };
 
 
@@ -99,11 +105,13 @@ struct _SessionCore
  * @param query 
  * @param user_data pointer to session core
  */
-void	   server_callback (SoupServer        *server,
-							SoupMessage	   	  *msg,
-							const char        *path,
-							GHashTable        *query,
-							gpointer           user_data);
+void
+server_callback (SoupServer        *server,
+                 SoupMessage	   *msg,
+		 		 const char        *path,
+                 GHashTable        *query,
+				 SoupClientContext *ctx,
+		 		 gpointer           user_data);
 
 
 
@@ -133,16 +141,17 @@ session_core_setup_session(SessionCore* self)
 				SOUP_SESSION_SSL_USE_SYSTEM_CA_FILE, TRUE,
 				SOUP_SESSION_HTTPS_ALIASES, http_aliases, NULL);
 
-		GString* token_url= g_string_new("http://");
-		g_string_append(token_url,	CLUSTER_IP);
-		g_string_append(token_url,":5000/session/token");
+		GString* token_url= g_string_new(CLUSTER_URL);
+		g_string_append(token_url,"/worker/session/token");
 		gchar* token_str = g_string_free(token_url,FALSE);
 
 		worker_log_output("getting remote token from server\n");
 		worker_log_output(token_str);
 
 
-		SoupMessage* token_message = soup_message_new(SOUP_METHOD_GET,token_str);
+		SoupMessage* token_message = soup_message_new(SOUP_METHOD_POST,token_str);
+		gchar* buffer = "null";
+		soup_message_set_request(token_message,"application/json", SOUP_MEMORY_STATIC, "null", 4);
 
 		worker_log_output("registering with device token\n");
 		worker_log_output(DEVICE_TOKEN);
@@ -287,7 +296,7 @@ server_callback (SoupServer        *server,
 	const char *name, *value;
 	SessionCore* core = (SessionCore*) user_data;
 	SoupURI* uri = soup_message_get_uri(msg);
-	if(!g_strcmp0(uri->path,"/cluster/ping"))
+	if(!g_strcmp0(uri->path,"/ping"))
 	{
 		gchar* response = "ping";
 		soup_message_set_response(msg,
@@ -308,19 +317,19 @@ server_callback (SoupServer        *server,
 			}
 		}
 	}
-
-	if(!g_strcmp0(uri->path,"/agent/message"))
-	{
-		msg->status_code = SOUP_STATUS_OK;
-		return;
-	}
 }
 
 
 gpointer
 session_core_sync_state_with_cluster(gpointer user_data)
 {
-	Sleep(3000);
+	if(DEVELOPMENT_ENVIRONMENT)
+		return;
+#ifdef G_OS_WIN32
+        Sleep(3000);
+#else
+        sleep(3000);
+#endif
 	SessionCore* core = (SessionCore*)user_data;
 	const char* https_aliases[] = { "https", NULL };
 	SoupSession* https_session = soup_session_new_with_options(
@@ -328,23 +337,25 @@ session_core_sync_state_with_cluster(gpointer user_data)
 			SOUP_SESSION_SSL_USE_SYSTEM_CA_FILE, TRUE,
 			SOUP_SESSION_HTTPS_ALIASES, https_aliases, NULL);
 	
+	GString* infor_url = g_string_new(CLUSTER_URL);
+	g_string_append(infor_url,"/worker/session/continue");
+	gchar* infor_url_str = g_string_free(infor_url,FALSE);
 	while (TRUE)
 	{
-		GString* infor_url = g_string_new("http://");
-		g_string_append(infor_url,CLUSTER_IP);
-		g_string_append(infor_url,":5000/session/continue");
-		gchar* infor_url_str = g_string_free(infor_url,FALSE);
-
-
-		SoupMessage* infor_message = soup_message_new(SOUP_METHOD_GET,infor_url_str);
-		soup_message_headers_append(infor_message->request_headers,
-			"Authorization",DEVICE_TOKEN);
+		SoupMessage* infor_message = soup_message_new(SOUP_METHOD_POST,infor_url_str);
+		gchar* buffer = "null";
+		soup_message_set_request(infor_message, "application/json", SOUP_MEMORY_STATIC, buffer, strlen(buffer));
+		soup_message_headers_append(infor_message->request_headers, "Authorization",DEVICE_TOKEN);
 
 		soup_session_send_message(https_session,infor_message);
 
 		if(infor_message->status_code == SOUP_STATUS_OK)
 		{
+#ifdef G_OS_WIN32
 			Sleep(1000);
+#else
+			sleep(1000);
+#endif
 		}
 		else
 		{
@@ -451,3 +462,12 @@ session_core_get_client_engine(SessionCore* self)
 {
 	return self->peer_engine;
 }
+
+#ifndef G_OS_WIN32
+Display*
+session_core_display_interface(SessionCore* self)
+{
+	return self->x_display;
+
+}
+#endif

@@ -31,6 +31,19 @@
 void				initialize_shell_session					(AgentServer* agent,
                     										     SoupMessage* message);
 
+
+
+/**
+ * @brief 
+ * 
+ * @param agent 
+ * @param input 
+ * @param output 
+ * @return gboolean 
+ */
+gboolean 			initialize_shell_session_from_byte			(AgentServer* agent,
+																 GBytes* input,
+																 gchar* output);
 #endif
 
 

@@ -24,7 +24,7 @@ void											agent_finalize						(AgentServer* object);
  * iniitalize agent server and mainloop
  * @return AgentServer* 
  */
-AgentServer*									agent_new							();
+AgentServer*									agent_new							(gboolean port_forward);
 
 /**
  * @brief 
@@ -43,8 +43,13 @@ void											agent_start_file_transfer			(gchar* server_commmand);
  */
 Socket*											agent_get_socket					(AgentServer* self);
 
-
-
+/**
+ * @brief 
+ * 
+ * @param self 
+ * @return PortForward* 
+ */
+PortForward*                                    agent_get_portforward               (AgentServer* self);
 
 
 /**

@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "xlib.h": "c",
+        "remote-app-remote-config.h": "c",
+        "navigation.h": "c",
+        "agent-type.h": "c",
+        "agent-win32-server.h": "c",
+        "soup.h": "c",
+        "xlocale": "c",
+        "xstring": "c",
+        "format": "c"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
+}

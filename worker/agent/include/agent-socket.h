@@ -26,15 +26,25 @@
 
 
 
+
+
 /**
  * @brief 
- * register device with host through cluster manager
- * @param self 
- * @return gboolean 
+ * 
+ * @param agent 
  */
-gboolean                                register_with_host                  (AgentServer* self);
+void 									register_with_selfhosted_cluster	(AgentServer* agent);
 
-
+/**
+ * @brief 
+ * 
+ * @param agent 
+ * @param agent_instance_port 
+ * @param core_instance_port 
+ */
+void 									register_with_managed_cluster		(AgentServer* agent, 
+                              												 gchar* agent_instance_port,
+                              												 gchar* core_instance_port);
 /**
  * @brief 
  * send message to cluster at a specific endpoint
@@ -44,8 +54,8 @@ gboolean                                register_with_host                  (Age
  * @return gboolean 
  */
 gboolean 								send_message_to_cluster				(AgentServer* object,
-																			gchar* endpoint,
-																			gchar* message);
+																			 gchar* endpoint,
+																			 gchar* message);
 
 /**
  * @brief 

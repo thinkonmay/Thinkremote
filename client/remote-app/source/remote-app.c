@@ -130,7 +130,7 @@ remote_app_setup_session(RemoteApp* self,
 			GError* error = malloc(sizeof(GError));
 			g_printerr("response code: %d\n",infor_message->status_code);
 			error->message = "fail to get session information";
-			remote_app_finalize(self,0,error);
+			remote_app_finalize(self,error);
 			return;
 		}
 	}
@@ -204,7 +204,6 @@ remote_app_initialize(gchar* remote_token)
 
 void
 remote_app_finalize(RemoteApp* self, 
-					  gint exit_code, 
 					  GError* error)
 {
 	if(error)
@@ -212,7 +211,7 @@ remote_app_finalize(RemoteApp* self,
 
 	gui_terminate(self->gui);
 	signalling_close(self->signalling);
-	ExitProcess(exit_code);
+	g_main_loop_quit(self->loop);
 }
 
 

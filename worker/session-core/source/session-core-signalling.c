@@ -30,7 +30,6 @@
 #include <libsoup/soup.h>
 
 #include <stdio.h>
-#include <Windows.h>
 
 
 
@@ -412,7 +411,6 @@ signalling_connect(SessionCore* core)
     hub->session =
         soup_session_new_with_options(SOUP_SESSION_SSL_STRICT, TRUE,
             SOUP_SESSION_SSL_USE_SYSTEM_CA_FILE, TRUE,
-            //SOUP_SESSION_SSL_CA_FILE, "/etc/ssl/certs/ca-bundle.crt",
             SOUP_SESSION_HTTPS_ALIASES, https_aliases, NULL);
 
     logger = soup_logger_new(SOUP_LOGGER_LOG_BODY, -1);

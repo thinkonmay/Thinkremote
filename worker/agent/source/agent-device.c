@@ -8,13 +8,26 @@
  * @copyright Copyright (c) 2021
  * 
  */
-
 #include <agent-device.h>
 
 #include <logging.h>
 #include <message-form.h>
-
 #include <json-glib/json-glib.h>
+#include <global-var.h>
+
+/**
+ * @brief 
+ * 
+ */
+typedef struct _DeviceInformation
+{
+	gchar cpu[100];
+	gchar gpu[512];
+	gint ram_capacity;
+	gchar OS[100];
+	gchar IP[100];
+}DeviceInformation;
+
 #ifdef G_OS_WIN32
 #include <winsock2.h>
 #include <Windows.h>	
@@ -39,9 +52,9 @@
 gchar* 
 get_local_ip()
 {
-	gchar* ip_address;
+	gchar* ip_address = malloc(20);
     PIP_ADAPTER_INFO pAdapterInfo;
-    PIP_ADAPTER_INFO pAdapter = NULL;
+    PIP_ADAPTER_INFO current_adapter = NULL;
     DWORD dwRetVal = 0;
     UINT i;
 
@@ -68,12 +81,13 @@ get_local_ip()
     }
 
     if ((dwRetVal = GetAdaptersInfo(pAdapterInfo, &ulOutBufLen)) == NO_ERROR) {
-        pAdapter = pAdapterInfo;
-        ip_address = pAdapter->IpAddressList.IpAddress.String;
-		while(!g_strcmp0(ip_address,"0.0.0.0")) 
-		{
-			ip_address = pAdapter->Next->IpAddressList.IpAddress.String;
-		}
+        current_adapter = pAdapterInfo;
+		do {
+			memset(ip_address,0,20);
+			memcpy(ip_address, current_adapter->IpAddressList.IpAddress.String,
+				strlen(current_adapter->IpAddressList.IpAddress.String));
+			current_adapter = current_adapter->Next;
+		} while(!g_strcmp0(ip_address,"0.0.0.0")); 
     } else {
         printf("GetAdaptersInfo failed with error: %d\n", dwRetVal);
 
@@ -88,18 +102,6 @@ get_local_ip()
 
 
 
-
-/// <summary>
-/// Information about slave hardware configuration
-/// </summary>
-typedef struct _DeviceInformation
-{
-	gchar cpu[100];
-	gchar gpu[512];
-	gint ram_capacity;
-	gchar OS[100];
-	gchar IP[100];
-}DeviceInformation;
 
 
 
@@ -182,11 +184,50 @@ get_device_information()
 
 	return device_info;
 }
+#else
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h> /* for strncpy */
+
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <sys/ioctl.h>
+#include <netinet/in.h>
+#include <net/if.h>
+#include <arpa/inet.h>
+
+gchar*
+get_local_ip()
+{
+	int fd;
+	struct ifreq ifr;
+
+	fd = socket(AF_INET, SOCK_DGRAM, 0);
+
+	/* I want to get an IPv4 IP address */
+	ifr.ifr_addr.sa_family = AF_INET;
+
+	/* I want IP address attached to "eth0" */
+	strncpy(ifr.ifr_name, "eth0", IFNAMSIZ-1);
+	ioctl(fd, SIOCGIFADDR, &ifr);
+	close(fd);
+
+	return inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr);
+}
+
+DeviceInformation*
+get_device_information() 
+{
+
+}
+
 #endif 
 
 
 gchar*
-get_registration_message()
+get_registration_message(gboolean port_forward, 
+						 gchar* agent_instance_port, 
+						 gchar* core_instance_port)
 {
 	DeviceInformation* infor = get_device_information();
 	JsonObject* information = json_object_new();
@@ -194,8 +235,28 @@ get_registration_message()
 	json_object_set_string_member(information,	"CPU", infor->cpu);
 	json_object_set_string_member(information,	"GPU", infor->gpu);
 	json_object_set_string_member(information,	"OS", infor->OS);
-	json_object_set_string_member(information,	"LocalIP", infor->IP);
 	json_object_set_int_member(information,		"RAMcapacity", infor->ram_capacity);
+
+	GString* agent_url_string = g_string_new("http://");
+
+	if(!port_forward)
+	{
+		g_string_append(agent_url_string, infor->IP );
+
+		g_string_append(agent_url_string, ":");
+
+		g_string_append(agent_url_string, AGENT_PORT 		);
+	}
+	else
+	{
+		g_string_append(agent_url_string,"localhost" );
+
+		g_string_append(agent_url_string, ":");
+
+		g_string_append(agent_url_string, agent_instance_port);
+	}
+	
+	json_object_set_string_member(information,	"AgentUrl", g_string_free(agent_url_string,FALSE));
 
 	return get_string_from_json_object(information);
 }

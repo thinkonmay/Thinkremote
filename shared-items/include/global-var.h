@@ -15,32 +15,33 @@
 
 
 const gchar*                      agent_port ;
-const gchar*                      session_core_port ;
 const gchar*                      cluster_ip ; 
+const gchar*                      cluster_name ; 
 const gchar*                      token ;
 const gchar*                      turn ; 
 const gchar*                      user ; 
 const gchar*                      password ; 
 const gchar*                      device_token ; 
+const gchar*                      cluster_token ; 
 
 
 /**
  * @brief 
  * agent to expose to session core and cluster manager
  */
-#define			AGENT_PORT 					agent_port
-
-/**
- * @brief 
- * session core port to expose with agent and cluster manager
- */
-#define			SESSION_CORE_PORT 			session_core_port
+#define			AGENT_PORT 					    "2220"
 
 /**
  * @brief 
  * clueter manager ip address
  */
-#define			CLUSTER_IP 					cluster_ip 
+#define			CLUSTER_URL 					cluster_ip 
+
+/**
+ * @brief 
+ * 
+ */
+#define			CLUSTER_NAME 				cluster_name
 
 /**
  * @brief 
@@ -48,6 +49,11 @@ const gchar*                      device_token ;
  */
 #define			TOKEN 						token
 
+/**
+ * @brief 
+ * worker token to communication with other module
+ */
+#define			CLUSTER_TOKEN               cluster_token 
 
 /**
  * @brief 

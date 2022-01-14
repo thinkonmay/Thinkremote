@@ -14,7 +14,6 @@
 
 #include <glib.h>
 #include <json-glib/json-glib.h>
-#include <Windows.h>
 
 
 
@@ -24,13 +23,6 @@
  * Socket is a object that wrap around agent connection with cluster manager
  */
 typedef struct _Socket 				Socket;
-
-
-/**
- * @brief 
- * Device INformation is a structure that wrap around information of worker node
- */
-typedef struct _DeviceInformation 	DeviceInformation;
 
 /**
  * @brief 
@@ -44,6 +36,11 @@ typedef struct _AgentServer			AgentServer;
  */
 typedef	struct _ChildProcess		ChildProcess;
 
+/**
+ * @brief 
+ * 
+ */
+typedef struct _PortForward         PortForward;
 
 /**
  * @brief 
@@ -57,30 +54,44 @@ typedef struct _ShellSession        ShellSession;
  */
 typedef struct _RemoteSession       RemoteSession;
 
+/**
+ * @brief 
+ * 
+ */
+typedef struct _Win32Server         Win32Server;
+
+
+
+typedef gboolean    (*ServerMessageHandle)  (gchar* path,
+                                             gchar* token,
+                                             GBytes* request_body,
+                                             gchar* response_body,
+                                             gpointer data);
 
 /**
  * @brief 
  * Child stdout handle is a function that will be 
  * callback for every new output buffer from child process
  */
-typedef void  (*ChildStdOutHandle)    (GBytes* buffer,
-                                     AgentServer* agent,
-                                     gpointer data);
+typedef void        (*ChildStdOutHandle)    (GBytes* buffer,
+                                            AgentServer* agent,
+                                            gpointer data);
 
 /**
  * @brief 
  * Child stdout handle is a function that will be 
  * callback for every new stderr buffer from child process
  */
-typedef void  (*ChildStdErrHandle)    (GBytes* buffer,
-                                     AgentServer* agent,
-                                     gpointer data);
+typedef void        (*ChildStdErrHandle)    (GBytes* buffer,
+                                            AgentServer* agent,
+                                            gpointer data);
 /**
  * @brief 
  * ChildStateHandle is a function that handle self termination of child process
  */
-typedef void  (*ChildStateHandle)  (ChildProcess* proc,
-                                    AgentServer* agent,
-                                    gpointer data);
+typedef void        (*ChildStateHandle)     (ChildProcess* proc,
+                                            AgentServer* agent,
+                                            gpointer data);
+
 
 #endif

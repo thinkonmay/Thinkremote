@@ -109,10 +109,17 @@ signalling_hub_setup(SignallingHub* hub,
 {
     if(!turn)
     {
-        if(DEVELOPMENT_ENVIRONMENT) {
+        if(DEVELOPMENT_ENVIRONMENT) 
+        {
             g_printerr("Fail to get turn server, setting default value");
         }
         turn = DEFAULT_TURN;
+    }
+    else
+    {
+		g_print("starting remote session with turn server\n");
+		g_print(turn);
+		g_print("\n");
     }
     memcpy(hub->remote_token, remote_token,strlen(remote_token));
     memcpy(hub->signalling_server, url,strlen(url));
@@ -318,7 +325,7 @@ on_server_closed(SoupWebsocketConnection* conn G_GNUC_UNUSED,
     SignallingHub* hub = remote_app_get_signalling_hub(core);
     hub->connection = NULL;
     hub->session = NULL;
-    remote_app_finalize(core,0,NULL);
+    remote_app_finalize(core,NULL);
 }
 
 
@@ -427,6 +434,7 @@ signalling_connect(RemoteApp* core)
     const char* https_aliases[] = { "wss", NULL };
     JsonObject* json_object;
     SignallingHub* hub = remote_app_get_signalling_hub(core);
+    
     GString* string = g_string_new(hub->signalling_server);
     g_string_append(string,"?token=");
     g_string_append(string,hub->remote_token);
@@ -603,7 +611,7 @@ on_server_message(SoupWebsocketConnection* conn,
  * @param res 
  * @param core 
  */
-static void
+void
 on_server_connected(SoupSession* session,
     GAsyncResult* res,
     RemoteApp* core)

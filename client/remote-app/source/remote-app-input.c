@@ -27,6 +27,7 @@
 #include <Xinput.h>
 #include <Windows.h>
 #define WIN32_HID_CAPTURE
+#endif
 
 
 
@@ -74,7 +75,6 @@ gpointer            gamepad_thread_func             (gpointer data);
 
 
 
-
 void
 trigger_capture_input_event(RemoteApp* app)
 {
@@ -85,10 +85,7 @@ trigger_capture_input_event(RemoteApp* app)
 }
 
 
-#else
 
-
-#endif
 
 
 
@@ -145,18 +142,6 @@ send_mouse_wheel_signal(HidInput* input,
     hid_data_channel_send(get_string_from_json_object(object),core);
 }
 
-static void
-send_gamepad_signal(HARDWAREINPUT input,
-                    RemoteApp* core)
-{
-    JsonObject* object = json_object_new();
-    json_object_set_int_member(object,"Opcode",GAMEPAD_IN);
-    json_object_set_int_member(object,"uMsg",(gint)input.uMsg);
-    json_object_set_int_member(object,"wParamH",(gint)input.wParamH);
-    json_object_set_int_member(object,"wParamL",(gint)input.wParamL);
-
-    hid_data_channel_send(get_string_from_json_object(object),core);
-}
 
 
 static void
@@ -172,16 +157,6 @@ send_key_event(HidInput* input,
 }
 
 
-static gint reset_key_array[10] = 
-{
-    VK_SHIFT,
-    VK_CONTROL,
-    VK_LWIN,
-    VK_RWIN,
-    VK_ESCAPE,
-    VK_MENU,
-    0,
-};
 
 /**
  * @brief 
@@ -192,32 +167,27 @@ static gint reset_key_array[10] =
 static gboolean
 _keydown(int *key)
 {
+#ifdef G_OS_WIN32
     return (GetAsyncKeyState(key) & 0x8000) != 0;
+#else
+#endif
 }
 
 
-void
-reset_key(RemoteApp* app)
+
+
+
+#ifdef G_OS_WIN32
+static gint reset_key_array[10] = 
 {
-    gint i = 0;
-    while (!reset_key_array[i])
-    {
-        
-        if(_keydown(reset_key_array[i]))
-        {
-            HidInput input = {0};
-            input.opcode = KEYRAW;
-            input.key_is_up = TRUE;
-            input.keyboard_code = reset_key_array[i]; 
-            send_key_event(&input,app);
-        }
-        i++;
-    }
-}
-
-
-
-
+    VK_SHIFT,
+    VK_CONTROL,
+    VK_LWIN,
+    VK_RWIN,
+    VK_ESCAPE,
+    VK_MENU,
+    0,
+};
 static gint reset_mouse_array[10] = 
 {
     WM_LBUTTONUP,
@@ -251,6 +221,46 @@ reset_mouse(RemoteApp* app)
     }
 }
 
+
+
+
+static void
+send_gamepad_signal(HARDWAREINPUT input,
+                    RemoteApp* core)
+{
+    JsonObject* object = json_object_new();
+    json_object_set_int_member(object,"Opcode",GAMEPAD_IN);
+    json_object_set_int_member(object,"uMsg",(gint)input.uMsg);
+    json_object_set_int_member(object,"wParamH",(gint)input.wParamH);
+    json_object_set_int_member(object,"wParamL",(gint)input.wParamL);
+
+    hid_data_channel_send(get_string_from_json_object(object),core);
+}
+#else
+static gint reset_key_array[10] = 
+{
+    0,
+};
+#endif
+
+void
+reset_key(RemoteApp* app)
+{
+    gint i = 0;
+    while (!reset_key_array[i])
+    {
+        
+        if(_keydown(reset_key_array[i]))
+        {
+            HidInput input = {0};
+            input.opcode = KEYRAW;
+            input.key_is_up = TRUE;
+            input.keyboard_code = reset_key_array[i]; 
+            send_key_event(&input,app);
+        }
+        i++;
+    }
+}
 
 
 
@@ -299,6 +309,11 @@ parse_hid_event(HidInput* input,
 
 
 #ifndef WIN32_HID_CAPTURE
+
+
+#include <gst/video/navigation.h>
+
+
 gboolean      
 handle_navigator(GstEvent *event, 
                 RemoteApp* core)
@@ -325,11 +340,11 @@ handle_navigator(GstEvent *event,
             navigation->opcode = MOUSE_WHEEL;
             break; 
         case GST_NAVIGATION_EVENT_MOUSE_BUTTON_PRESS: 
-            gst_navigation_event_parse_mouse_button_event(event,&(navigation->button_code),&(navigation->x_pos),&(navigation->y_pos));
+            gst_navigation_event_parse_mouse_button_event(event,&(navigation->mouse_code),&(navigation->x_pos),&(navigation->y_pos));
             navigation->opcode = MOUSE_DOWN;
             break; 
         case GST_NAVIGATION_EVENT_MOUSE_BUTTON_RELEASE: 
-            gst_navigation_event_parse_mouse_button_event(event,&(navigation->button_code),&(navigation->x_pos),&(navigation->y_pos));
+            gst_navigation_event_parse_mouse_button_event(event,&(navigation->mouse_code),&(navigation->x_pos),&(navigation->y_pos));
             navigation->opcode = MOUSE_UP;
             break; 
         default:
@@ -339,6 +354,7 @@ handle_navigator(GstEvent *event,
     free(navigation);
 }
 #else
+
 
 /**
  * @brief 
@@ -375,7 +391,6 @@ gamepad_thread_func(gpointer data)
         g_printerr("Cannot detect gamepad");
     }
 }
-
 
 void
 send_gamepad_vibration(XINPUT_VIBRATION vibration)

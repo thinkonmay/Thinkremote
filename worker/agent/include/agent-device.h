@@ -9,7 +9,7 @@
  * 
  */
 #pragma once
-#ifndef __AGNET_DEVICE_H__
+#ifndef __AGENT_DEVICE_H__
 #define __AGENT_DEVICE_H__
 
 
@@ -26,15 +26,7 @@
  * this function wrap around process of getting worker information
  * @return gchar* registration message string 
  */
-gchar*                  get_registration_message        ();
-
-
-
-/**
- * @brief Get the local ip object
- * 
- * @return gchar* 
- */
-gchar*                  get_local_ip                    ();
-
+gchar*                  get_registration_message        (gboolean port_forward, 
+						                                 gchar* agent_instance_port, 
+						                                 gchar* core_instance_port);
 #endif
