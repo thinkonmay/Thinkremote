@@ -16,17 +16,15 @@ namespace port_forward
         {
             try
             {
-                var request = new RestRequest("http://localhost:2220/PortDescribe", Method.POST)
-                    .AddJsonBody("asdfbsdaklfbjsdafb");
-                var result = JsonConvert.DeserializeObject<Dictionary<string,string>>((new RestClient()).Execute(request).Content);
 
-                result.TryGetValue("agent_port", out var agent_port);
-                result.TryGetValue("token", out var token);
+                var port = Environment.GetEnvironmentVariable("port");
+                var token = Environment.GetEnvironmentVariable("cluster_token");
 
-                MainAsync(token, 2220, int.Parse(agent_port)).Wait();
+                MainAsync(token, int.Parse(port), int.Parse(port)).Wait();
             }
             catch (Exception ex)
             {
+
             }
         }
         static async Task MainAsync(string cluster_token,

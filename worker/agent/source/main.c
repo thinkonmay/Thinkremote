@@ -9,8 +9,8 @@
  * 
  */
 #include <glib.h>
-#include <agent-server.h>
 #include <global-var.h>
+#include <agent-server.h>
 
 
 #include <gst/gst.h>
@@ -30,8 +30,6 @@
 static GOptionEntry entries[] = {
   {"token", 0, 0, G_OPTION_ARG_STRING, &TOKEN,
       "token register with worker manager", "TOKEN"},
-  {"agentport", 0, 0, G_OPTION_ARG_STRING, &AGENT_PORT,
-      "String ID of the peer to connect to", "ID"},
   {"clusterip", 0, 0, G_OPTION_ARG_STRING, &CLUSTER_URL,
       "Signalling server to connect to", "URL"},
   {"user", 0, 0, G_OPTION_ARG_STRING, &USER,

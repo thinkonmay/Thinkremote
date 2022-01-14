@@ -29,13 +29,13 @@ const gchar*                      cluster_token ;
  * @brief 
  * agent to expose to session core and cluster manager
  */
-#define			AGENT_PORT 					    "2220"
+#define			AGENT_PORT 					agent_port
 
 /**
  * @brief 
  * clueter manager ip address
  */
-#define			CLUSTER_URL 					cluster_ip 
+#define			CLUSTER_URL 				cluster_ip 
 
 /**
  * @brief 

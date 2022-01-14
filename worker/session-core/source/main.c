@@ -17,8 +17,6 @@ static gchar remote_token[500] = {0};
 
 
 static GOptionEntry entries[] = {
-  {"agentport", 0, 0, G_OPTION_ARG_INT, &AGENT_PORT,
-      "String ID of the peer to connect to", "ID"},
   {"clusterip", 0, 0, G_OPTION_ARG_STRING, &CLUSTER_URL,
       "Signalling server to connect to", "URL"},
   {"token", 0, 0, G_OPTION_ARG_STRING, &DEVICE_TOKEN,

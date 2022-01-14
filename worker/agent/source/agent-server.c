@@ -69,15 +69,6 @@ handle_message_server(gchar* path,
 	if(!g_strcmp0(path,"/ping"))
 		return TRUE;
 	
-	if(!g_strcmp0(path,"/PortDescribe")) {
-		JsonObject* object = json_object_new();
-		json_object_set_string_member(object,"token",CLUSTER_TOKEN);
-		json_object_set_string_member(object,"agent_port",portforward_get_agent_instance_port(agent_get_portforward(agent)));
-		gchar* res = get_string_from_json_object(object);
-
-		memcpy(response_body,res,strlen(res));
-		return TRUE;
-	}
 
 
 	if(!g_strcmp0(path,"/Initialize")) {
@@ -126,6 +117,7 @@ agent_new(gboolean self_host)
 		register_with_managed_cluster(agent,
 			portforward_get_agent_instance_port(port), NULL);
 	}
+
 	
 	g_main_loop_run(agent->loop);
 	return agent;
@@ -135,6 +127,7 @@ agent_new(gboolean self_host)
 void
 agent_finalize(AgentServer* self)
 {
+	session_terminate(self);
 	if (self->loop)
 		g_main_loop_quit(self->loop);
 

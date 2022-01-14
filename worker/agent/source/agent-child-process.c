@@ -18,6 +18,7 @@
 #include <glib.h>
 
 #include <general-constant.h>
+#include <global-var.h>
 
 #define BUFSIZE 5000
 
@@ -191,6 +192,9 @@ create_new_child_process(gchar* process_name,
     startup_infor.dwFlags |= STARTF_USESTDHANDLES;
     startup_infor.hStdOutput = NULL;
     startup_infor.hStdError = NULL;
+
+    SetEnvironmentVariable("port", TEXT(AGENT_PORT));
+    SetEnvironmentVariable("cluster_token", TEXT(CLUSTER_TOKEN));
 
     /*START process, all standard input and output are controlled by agent*/
     gboolean result = CreateProcess(NULL,

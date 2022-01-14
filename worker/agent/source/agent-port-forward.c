@@ -38,6 +38,7 @@ struct _PortForward
     gchar agent_instance_port[20];
 };
 
+#define PORT_FILE  "./instancePort"
 gchar* 
 portforward_get_agent_instance_port(PortForward *port)
 {
@@ -45,7 +46,7 @@ portforward_get_agent_instance_port(PortForward *port)
 }
 
 #define PORT_RELEASE_URL "https://host.thinkmay.net/Port/Release?InstancePort="
-#define PORT_OBTAIN_URL  "https://host.thinkmay.net/Port/Request?LocalPort="
+#define PORT_OBTAIN_URL  "https://host.thinkmay.net/Port/Request"
 
 PortForward*
 init_portforward_service()
@@ -59,6 +60,50 @@ init_portforward_service()
             SOUP_SESSION_SSL_STRICT, FALSE,
             SOUP_SESSION_SSL_USE_SYSTEM_CA_FILE, TRUE,
             SOUP_SESSION_HTTPS_ALIASES, https_aliases, NULL);
+
+
+
+
+
+    gint agent_instance_port;
+    GError* agent_err = NULL;
+    GError* error = NULL;
+    gchar* buffer;
+    gsize file_size;
+
+    g_setenv("port","2134",TRUE);
+    gchar* env = g_getenv("port");
+
+    g_file_get_contents(PORT_FILE,&buffer,&file_size,&error);
+    if(file_size > 0)
+    {
+        agent_instance_port = atoi(buffer);
+    }
+    else
+    {
+        SoupMessage* agent_request = soup_message_new(SOUP_METHOD_GET,PORT_OBTAIN_URL);
+        soup_message_headers_append(agent_request->request_headers,"Authorization",CLUSTER_TOKEN);
+        soup_message_set_request(agent_request,"application/json", SOUP_MEMORY_COPY, "",0);
+
+
+        soup_session_send_message(port->host_session,agent_request);
+
+        JsonParser* agent_parser = json_parser_new();
+        JsonObject* agent_object = get_json_object_from_string(agent_request->response_body->data,&agent_err,agent_parser);
+        agent_instance_port = json_object_get_int_member(agent_object,"instancePort");
+    }
+    
+
+
+
+    itoa(agent_instance_port,port->agent_instance_port,10);
+    memcpy(AGENT_PORT,port->agent_instance_port,10);
+
+
+
+
+
+
     return port;
 }
 
@@ -98,46 +143,11 @@ handle_portforward_output(GBytes* buffer,
     gchar* message = g_bytes_get_data(buffer, NULL);
 }
 
-#define PORT_FILE  "./instancePort"
 
 PortForward*
 start_portforward(AgentServer* agent)
 {
-    gint agent_instance_port;
-    GError* agent_err = NULL;
-    GError* error = NULL;
-    gchar* buffer;
-    gsize file_size;
     PortForward* port = agent_get_portforward(agent);
-
-
-    g_file_get_contents(PORT_FILE,&buffer,&file_size,&error);
-    if(file_size > 0)
-    {
-        agent_instance_port = atoi(buffer);
-    }
-    else
-    {
-        GString* agent_request_url_string = g_string_new(PORT_OBTAIN_URL);
-        g_string_append(agent_request_url_string,AGENT_PORT);
-        gchar* agent_request_url = g_string_free(agent_request_url_string,FALSE);
-
-        SoupMessage* agent_request = soup_message_new(SOUP_METHOD_GET,agent_request_url);
-        soup_message_headers_append(agent_request->request_headers,"Authorization",CLUSTER_TOKEN);
-        soup_message_set_request(agent_request,"application/json", SOUP_MEMORY_COPY, "",0);
-
-
-        soup_session_send_message(port->host_session,agent_request);
-
-        JsonParser* agent_parser = json_parser_new();
-        JsonObject* agent_object = get_json_object_from_string(agent_request->response_body->data,&agent_err,agent_parser);
-        agent_instance_port = json_object_get_int_member(agent_object,"instancePort");
-    }
-    
-
-
-
-    itoa(agent_instance_port,port->agent_instance_port,10);
 
     // return false if session core is running before the initialization
     GString* core_script = g_string_new(PORT_FORWARD_BINARY);

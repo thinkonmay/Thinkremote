@@ -8,7 +8,11 @@
         "soup.h": "c",
         "xlocale": "c",
         "xstring": "c",
-        "format": "c"
+        "format": "c",
+        "global-var.h": "c",
+        "charconv": "c",
+        "chrono": "c",
+        "xlocnum": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

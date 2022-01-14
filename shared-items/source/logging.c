@@ -41,8 +41,13 @@ worker_log_output(gchar* text)
         soup_message_headers_append(message->request_headers,"Authorization",DEVICE_TOKEN);
 
         // copy from buffer to soup message
+        GString* string = g_string_new("\"");
+        g_string_append(string,text);
+        g_string_append(string,"\"");
+        gchar* buffer = g_string_free(string,FALSE);
+
         soup_message_set_request(message,"application/json",SOUP_MEMORY_COPY,
-            text,strlen(text));
+            buffer,strlen(buffer));
 
         soup_session_send_async(session,message,NULL,NULL,NULL);    
     }

@@ -90,16 +90,22 @@ init_window_server(ServerMessageHandle handle,
 
     HTTPAPI_VERSION api_version = HTTPAPI_VERSION_1;
 
+    GString* string = g_string_new("http://localhost:");
+    g_string_append(string,AGENT_PORT);
+    g_string_append(string,"/");
+    gchar* utf8 = g_string_free(string,FALSE);
+    PCWSTR url = g_utf8_to_utf16(utf8,strlen(utf8),NULL,NULL,NULL);
+
     if (HttpInitialize( api_version, HTTP_INITIALIZE_SERVER, NULL)              != NO_ERROR) { goto Clean; }
     if (HttpCreateHttpHandle( &server->hReqQueue,0)                             != NO_ERROR) { goto Clean; }
-    if (HttpAddUrl( server->hReqQueue, L"http://localhost:"AGENT_PORT"/", NULL) != NO_ERROR) { goto Clean; }
+    if (HttpAddUrl( server->hReqQueue, (url), NULL) != NO_ERROR) { goto Clean; }
     
     g_thread_new("agent-server",DoReceiveRequests,server);
     return server;
 
 Clean:
     if(server->hReqQueue) { CloseHandle(server->hReqQueue); }
-    HttpRemoveUrl( server->hReqQueue, L"http://localhost:"AGENT_PORT"/");
+    HttpRemoveUrl( server->hReqQueue, (url));
     HttpTerminate(HTTP_INITIALIZE_SERVER, NULL);
     return NULL;
 }
