@@ -45,7 +45,7 @@ portforward_get_agent_instance_port(PortForward *port)
 }
 
 #define PORT_RELEASE_URL "https://host.thinkmay.net/Port/Release?InstancePort="
-#define PORT_OBTAIN_URL "https://host.thinkmay.net/Port/Request?LocalPort="
+#define PORT_OBTAIN_URL  "https://host.thinkmay.net/Port/Request?LocalPort="
 
 PortForward*
 init_portforward_service()
@@ -70,17 +70,6 @@ handle_portforward_disconnected(ChildProcess* proc,
                                 AgentServer* agent)
 {
     PortForward* port = agent_get_portforward(agent);
-
-    GString* agent_request_url_string = g_string_new(PORT_RELEASE_URL);
-    g_string_append(agent_request_url_string,port->agent_instance_port);
-    gchar* agent_request_url = g_string_free(agent_request_url_string,FALSE);
-
-    SoupMessage* agent_request = soup_message_new(SOUP_METHOD_GET,agent_request_url);
-    soup_message_headers_append(agent_request->request_headers,"Authorization",CLUSTER_TOKEN);
-    soup_message_set_request(agent_request,"application/json", SOUP_MEMORY_COPY, "",0);
-
-    soup_session_send_message(port->host_session,agent_request);
-
     memset(port->agent_instance_port,0,20);  
     while (!start_portforward(agent))
     {
@@ -109,27 +98,44 @@ handle_portforward_output(GBytes* buffer,
     gchar* message = g_bytes_get_data(buffer, NULL);
 }
 
-
+#define PORT_FILE  "./instancePort"
 
 PortForward*
 start_portforward(AgentServer* agent)
 {
+    gint agent_instance_port;
+    GError* agent_err = NULL;
+    GError* error = NULL;
+    gchar* buffer;
+    gsize file_size;
     PortForward* port = agent_get_portforward(agent);
 
-    GString* agent_request_url_string = g_string_new(PORT_OBTAIN_URL);
-    g_string_append(agent_request_url_string,AGENT_PORT);
-    gchar* agent_request_url = g_string_free(agent_request_url_string,FALSE);
 
-    SoupMessage* agent_request = soup_message_new(SOUP_METHOD_GET,agent_request_url);
-    soup_message_headers_append(agent_request->request_headers,"Authorization",CLUSTER_TOKEN);
-    soup_message_set_request(agent_request,"application/json", SOUP_MEMORY_COPY, "",0);
+    g_file_get_contents(PORT_FILE,&buffer,&file_size,&error);
+    if(file_size > 0)
+    {
+        agent_instance_port = atoi(buffer);
+    }
+    else
+    {
+        GString* agent_request_url_string = g_string_new(PORT_OBTAIN_URL);
+        g_string_append(agent_request_url_string,AGENT_PORT);
+        gchar* agent_request_url = g_string_free(agent_request_url_string,FALSE);
 
-    soup_session_send_message(port->host_session,agent_request);
+        SoupMessage* agent_request = soup_message_new(SOUP_METHOD_GET,agent_request_url);
+        soup_message_headers_append(agent_request->request_headers,"Authorization",CLUSTER_TOKEN);
+        soup_message_set_request(agent_request,"application/json", SOUP_MEMORY_COPY, "",0);
 
-    GError* agent_err = NULL;
-    JsonParser* agent_parser = json_parser_new();
-    JsonObject* agent_object = get_json_object_from_string(agent_request->response_body->data,&agent_err,agent_parser);
-    gint agent_instance_port = json_object_get_int_member(agent_object,"instancePort");
+
+        soup_session_send_message(port->host_session,agent_request);
+
+        JsonParser* agent_parser = json_parser_new();
+        JsonObject* agent_object = get_json_object_from_string(agent_request->response_body->data,&agent_err,agent_parser);
+        agent_instance_port = json_object_get_int_member(agent_object,"instancePort");
+    }
+    
+
+
 
     itoa(agent_instance_port,port->agent_instance_port,10);
 
@@ -148,6 +154,16 @@ start_portforward(AgentServer* agent)
         (ChildStdErrHandle)handle_portfoward_error,
         (ChildStdOutHandle)handle_portforward_output,
         (ChildStateHandle)handle_portforward_disconnected, agent,NULL);
+
+    if(port->process)
+    {
+        GFile* file = g_file_new_for_path(PORT_FILE);
+        g_file_delete(file,NULL,NULL);
+        file = g_file_new_for_path(PORT_FILE);
+        GFileOutputStream* stream = g_file_append_to(file,G_FILE_CREATE_REPLACE_DESTINATION,NULL,NULL);
+        GOutputStream* output_Stream = (GOutputStream*)stream;
+        g_output_stream_write_all(output_Stream,port->agent_instance_port,strlen(port->agent_instance_port), NULL,NULL,NULL);
+    }
     return port->process ? port : NULL;
 }
 

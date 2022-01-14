@@ -109,7 +109,8 @@ signalling_hub_setup(SignallingHub* hub,
 {
     if(!turn)
     {
-        if(DEVELOPMENT_ENVIRONMENT) {
+        if(DEVELOPMENT_ENVIRONMENT) 
+        {
             g_printerr("Fail to get turn server, setting default value");
         }
         turn = DEFAULT_TURN;
@@ -118,6 +119,7 @@ signalling_hub_setup(SignallingHub* hub,
     {
 		g_print("starting remote session with turn server\n");
 		g_print(turn);
+		g_print("\n");
     }
     memcpy(hub->remote_token, remote_token,strlen(remote_token));
     memcpy(hub->signalling_server, url,strlen(url));

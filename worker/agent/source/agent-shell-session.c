@@ -97,9 +97,7 @@ initialize_shell_session_from_byte(AgentServer* agent,
     GRand* random = g_rand_new();
     guint32 random_int = g_rand_int(random);
 
-    gchar* random_string = malloc(100);
-    memset(random_string,0,100);
-
+    gchar random_string[100] = {0};
     _itoa(random_int,random_string,10);
 
     GString * input_file_path = g_string_new(g_get_current_dir());
@@ -140,7 +138,7 @@ initialize_shell_session_from_byte(AgentServer* agent,
                                                 (ChildStateHandle)state_handle,
                                                 agent,&session);
     if(!session.process)
-        return;
+        return FALSE;
 
     
     wait_for_childproces(session.process);
@@ -149,10 +147,12 @@ initialize_shell_session_from_byte(AgentServer* agent,
     gsize file_size;
     g_file_get_contents(output_file__path_char,&buffer,&file_size,&error);
 
-    if(buffer)
-       memcpy(output,buffer,strlen(buffer));
+    if(file_size < 8192) {
+        memcpy(output,buffer,file_size);
+    } else {
+        memcpy(output,buffer,8191);
+    }
 
-    free(random_string);
     g_file_delete(session.input_file,NULL,NULL);
     g_file_delete(session.output_file,NULL,NULL);
     clean_childprocess(session.process); 
