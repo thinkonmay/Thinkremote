@@ -26,6 +26,8 @@ typedef struct _DeviceInformation
 	gint ram_capacity;
 	gchar OS[100];
 	gchar IP[100];
+	gchar Name[100];
+	gchar User[100];
 }DeviceInformation;
 
 #ifdef G_OS_WIN32
@@ -175,7 +177,17 @@ get_device_information()
 	strcat(OS, ".");
 	strcat(OS, minor);
 
+	#define INFO_BUFFER_SIZE 32767
+	TCHAR  infoBuf[INFO_BUFFER_SIZE];
+	DWORD  bufCharCount = INFO_BUFFER_SIZE;
 
+	// Get and display the name of the computer.
+	GetComputerName( infoBuf, &bufCharCount ) ;
+	memcpy(device_info->Name,infoBuf,bufCharCount);
+
+
+	GetUserName( infoBuf, &bufCharCount ) ;
+	memcpy(device_info->User,infoBuf,bufCharCount);
 
 	gchar* ip = get_local_ip();
 
@@ -232,10 +244,13 @@ get_registration_message(gboolean port_forward,
 	DeviceInformation* infor = get_device_information();
 	JsonObject* information = json_object_new();
 
+	json_object_set_int_member(information,		"RAMcapacity", infor->ram_capacity);
 	json_object_set_string_member(information,	"CPU", infor->cpu);
 	json_object_set_string_member(information,	"GPU", infor->gpu);
 	json_object_set_string_member(information,	"OS", infor->OS);
-	json_object_set_int_member(information,		"RAMcapacity", infor->ram_capacity);
+	json_object_set_string_member(information,	"Name", infor->Name);
+	json_object_set_string_member(information,	"User", infor->User);
+
 
 	GString* agent_url_string = g_string_new("http://");
 

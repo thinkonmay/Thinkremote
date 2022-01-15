@@ -560,6 +560,9 @@ on_server_message(SoupWebsocketConnection* conn,
     gchar* RequestType =    json_object_get_string_member(object, "RequestType");
     gchar* Content =        json_object_get_string_member(object, "Content");
 
+    if(DEVELOPMENT_ENVIRONMENT)
+        g_print("%s\n",Content);
+
     /*this is websocket message with signalling server and has nothing to do with 
     * json message format use to communicate with other module
     */
@@ -601,13 +604,6 @@ connect_signalling_handler(SessionCore* core)
     SignallingHub* hub = session_core_get_signalling_hub(core);
     GstElement* webrtcbin = pipeline_get_webrtc_bin(pipe);
 
-    /* Add stun server */
-    g_object_set(webrtcbin, "stun-server", 
-       "stun://stun.thinkmay.net:3478", NULL);
-
-    g_signal_emit_by_name (webrtcbin, "add-turn-server", hub->turn, NULL);
-
-
     /* This is the gstwebrtc entry point where we create the offer and so on. It
      * will be called when the pipeline goes to PLAYING. */
     g_signal_connect(webrtcbin, "on-negotiation-needed",
@@ -625,14 +621,6 @@ signalling_hub_setup_turn_and_stun(Pipeline* pipeline,
 {
     GstElement* webrtcbin = pipeline_get_webrtc_bin(pipeline);
     g_object_set(webrtcbin, "turn-server",hub->turn,NULL);
-
-    for (int i = 0; i < 5; i++)
-    {
-        if(strlen(hub->stuns[i]) > 0)
-        {
-            g_object_set(webrtcbin, "stun-server",hub->stuns[i],NULL);
-            return;
-        }
-    }
+    g_object_set(webrtcbin, "stun-server",hub->stuns[0],NULL);
 }
 

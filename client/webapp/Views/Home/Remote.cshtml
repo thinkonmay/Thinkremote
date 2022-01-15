@@ -1,0 +1,14 @@
+@model RemoteViewModel
+<script>
+
+fetch("https://host.thinkmay.net/Session/Setting?token=@Model.token", {
+    method: "GET",
+    }).then(async res => {
+        var sessionInfor = await (res).json();
+        app.remoteToken = "@Model.token"; 
+        app.SetupSession(sessionInfor);
+        WebrtcConnect();
+        app.connectServer();
+    }
+);
+</script>

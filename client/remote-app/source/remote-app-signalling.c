@@ -651,13 +651,9 @@ connect_signalling_handler(RemoteApp* core)
     SignallingHub* hub = remote_app_get_signalling_hub(core);
     GstElement* webrtcbin = pipeline_get_webrtc_bin(pipe);
 
-    /* Add stun server */
-    g_object_set(webrtcbin, "stun-server", 
-       "stun://stun.thinkmay.net:3478", NULL);
-
-    g_object_set(webrtcbin, "turn-server", 
-        hub->turn, NULL);
-
+    /* Add turn server */
+    g_object_set(webrtcbin, "turn-server", hub->turn, NULL);
+    g_object_set(webrtcbin, "stun-server", hub->stuns[0], NULL);
 
     /* This is the gstwebrtc entry point where we create the offer and so on. It
      * will be called when the pipeline goes to PLAYING. */

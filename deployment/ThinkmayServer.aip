@@ -13,10 +13,10 @@
     <ROW Property="ARPURLUPDATEINFO" Value="contact@thinkmay.net"/>
     <ROW Property="CTRLS" Value="2"/>
     <ROW Property="Manufacturer" Value="Thinkmay"/>
-    <ROW Property="ProductCode" Value="1033:{41B8A1FE-A73F-4ED2-9AFD-AE339DEEFCEF} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{E84FCB80-C61B-43B8-9580-185F318F2359} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="personal-cloud-computing"/>
-    <ROW Property="ProductVersion" Value="1.0.0" Type="32"/>
+    <ROW Property="ProductVersion" Value="2.0.1" Type="32"/>
     <ROW Property="RUNAPPLICATION" Value="1" Type="4"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{32E7DE1A-B618-4906-884C-E72C0687EC7E}"/>
@@ -57,6 +57,7 @@
     <ROW Directory="bbb_Dir" Directory_Parent="zmodules_Dir" DefaultDir="bbb"/>
     <ROW Directory="bin_1_Dir" Directory_Parent="jake_Dir" DefaultDir="bin"/>
     <ROW Directory="bin_2_Dir" Directory_Parent="shelljs_Dir" DefaultDir="bin"/>
+    <ROW Directory="bin_4_Dir" Directory_Parent="APPDIR" DefaultDir="bin"/>
     <ROW Directory="bin_Dir" Directory_Parent="ejs_Dir" DefaultDir="bin"/>
     <ROW Directory="braceexpansion_Dir" Directory_Parent="node_modules_Dir" DefaultDir="BRACE-~1|brace-expansion"/>
     <ROW Directory="browser_Dir" Directory_Parent="examples_Dir" DefaultDir="browser"/>
@@ -121,7 +122,7 @@
     <ROW Directory="lib_9_Dir" Directory_Parent="plist_Dir" DefaultDir="lib"/>
     <ROW Directory="lib_Dir" Directory_Parent="hoek_Dir" DefaultDir="lib"/>
     <ROW Directory="linux_Dir" Directory_Parent="src_2_Dir" DefaultDir="linux"/>
-    <ROW Directory="locales_Dir" Directory_Parent="APPDIR" DefaultDir="locales"/>
+    <ROW Directory="locales_Dir" Directory_Parent="bin_4_Dir" DefaultDir="locales"/>
     <ROW Directory="macos_Dir" Directory_Parent="src_2_Dir" DefaultDir="macos"/>
     <ROW Directory="minimatch_Dir" Directory_Parent="node_modules_Dir" DefaultDir="MINIMA~1|minimatch"/>
     <ROW Directory="module_dir_Dir" Directory_Parent="test_6_Dir" DefaultDir="MODULE~1|module_dir"/>
@@ -150,9 +151,10 @@
     <ROW Directory="protocolregistry_Dir" Directory_Parent="node_modules_Dir" DefaultDir="PROTOC~1|protocol-registry"/>
     <ROW Directory="quux_Dir" Directory_Parent="resolver_Dir" DefaultDir="quux"/>
     <ROW Directory="rechoir_Dir" Directory_Parent="node_modules_Dir" DefaultDir="rechoir"/>
+    <ROW Directory="ref_Dir" Directory_Parent="bin_4_Dir" DefaultDir="ref"/>
     <ROW Directory="resolve_Dir" Directory_Parent="node_modules_Dir" DefaultDir="resolve"/>
     <ROW Directory="resolver_Dir" Directory_Parent="test_6_Dir" DefaultDir="resolver"/>
-    <ROW Directory="resources_Dir" Directory_Parent="APPDIR" DefaultDir="RESOUR~1|resources"/>
+    <ROW Directory="resources_Dir" Directory_Parent="bin_4_Dir" DefaultDir="RESOUR~1|resources"/>
     <ROW Directory="same_names_Dir" Directory_Parent="resolver_Dir" DefaultDir="SAME_N~1|same_names"/>
     <ROW Directory="shadowed_core_Dir" Directory_Parent="test_6_Dir" DefaultDir="SHADOW~1|shadowed_core"/>
     <ROW Directory="shelljs_Dir" Directory_Parent="node_modules_Dir" DefaultDir="shelljs"/>
@@ -164,7 +166,7 @@
     <ROW Directory="src_Dir" Directory_Parent="debug_Dir" DefaultDir="src"/>
     <ROW Directory="support_Dir" Directory_Parent="async_Dir" DefaultDir="support"/>
     <ROW Directory="supportscolor_Dir" Directory_Parent="node_modules_2_Dir" DefaultDir="SUPPOR~1|supports-color"/>
-    <ROW Directory="swiftshader_Dir" Directory_Parent="APPDIR" DefaultDir="SWIFTS~1|swiftshader"/>
+    <ROW Directory="swiftshader_Dir" Directory_Parent="bin_4_Dir" DefaultDir="SWIFTS~1|swiftshader"/>
     <ROW Directory="symlink_target_Dir" Directory_Parent="__Dir" DefaultDir="SYMLIN~1|symlink_target"/>
     <ROW Directory="symlinked_Dir" Directory_Parent="resolver_Dir" DefaultDir="SYMLIN~1|symlinked"/>
     <ROW Directory="task_Dir" Directory_Parent="lib_7_Dir" DefaultDir="task"/>
@@ -215,13 +217,17 @@
     <ROW Component="LICENSEMIT" ComponentId="{67E62047-572E-4BF9-BD6E-BBF56D8DF2A1}" Directory_="has_Dir" Attributes="0" KeyPath="LICENSEMIT" Type="0"/>
     <ROW Component="LICENSE_1" ComponentId="{789E68B7-6430-4D38-8CF4-FB3FCBABD745}" Directory_="once_Dir" Attributes="0" KeyPath="LICENSE_24" Type="0"/>
     <ROW Component="LICENSE_2" ComponentId="{E4E9E234-B958-45B2-A6B3-2D80EE10C23D}" Directory_="wrappy_Dir" Attributes="0" KeyPath="LICENSE_32" Type="0"/>
-    <ROW Component="ProductInformation" ComponentId="{B3B853D4-EA96-448C-B230-3DDAE216CC19}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
+    <ROW Component="Newtonsoft.Json.dll" ComponentId="{030B9F49-4197-42B1-B267-42FDA2518289}" Directory_="bin_4_Dir" Attributes="0" KeyPath="Newtonsoft.Json.dll"/>
+    <ROW Component="ProductInformation" ComponentId="{B3B853D4-EA96-448C-B230-3DDAE216CC19}" Directory_="APPDIR" Attributes="260" KeyPath="Version"/>
+    <ROW Component="Renci.SshNet.dll" ComponentId="{F40088B3-9D6C-4501-A833-ABC33B23256E}" Directory_="bin_4_Dir" Attributes="0" KeyPath="Renci.SshNet.dll"/>
+    <ROW Component="RestSharp.dll" ComponentId="{CDFAFFCE-D5D2-4FF5-BE61-CA3578F76B26}" Directory_="bin_4_Dir" Attributes="0" KeyPath="RestSharp.dll"/>
     <ROW Component="SHORTCUTDIR" ComponentId="{956F3D3B-F17E-4CBE-BA9F-EA3DE28028D7}" Directory_="SHORTCUTDIR" Attributes="0"/>
-    <ROW Component="Squirrel.exe" ComponentId="{5A18C80D-48D1-4461-851E-DAFDA17E7007}" Directory_="APPDIR" Attributes="0" KeyPath="Squirrel.exe"/>
-    <ROW Component="ThinkMay.exe" ComponentId="{E255ED59-5C1A-4F2A-BABA-6B6791C1F9B1}" Directory_="APPDIR" Attributes="256" KeyPath="ThinkMay.exe"/>
+    <ROW Component="Squirrel.exe" ComponentId="{5A18C80D-48D1-4461-851E-DAFDA17E7007}" Directory_="bin_4_Dir" Attributes="0" KeyPath="Squirrel.exe"/>
+    <ROW Component="SshNet.Security.Cryptography.dll" ComponentId="{379E15F9-E358-4AB9-A0A2-E7034CACDA16}" Directory_="bin_4_Dir" Attributes="0" KeyPath="SshNet.Security.Cryptography.dll"/>
+    <ROW Component="ThinkMay.exe" ComponentId="{E255ED59-5C1A-4F2A-BABA-6B6791C1F9B1}" Directory_="bin_4_Dir" Attributes="256" KeyPath="ThinkMay.exe"/>
     <ROW Component="a.js" ComponentId="{B25BDBD6-C248-40EA-872D-0CC06F9078EE}" Directory_="browser_field_Dir" Attributes="0" KeyPath="a.js" Type="0"/>
     <ROW Component="aaa.js" ComponentId="{880527E9-C633-4304-8EC4-318359E96FB4}" Directory_="precedence_Dir" Attributes="0" KeyPath="aaa.js" Type="0"/>
-    <ROW Component="agent.exe" ComponentId="{D94E926C-F410-469D-B89B-02951537209E}" Directory_="APPDIR" Attributes="256" KeyPath="agent.exe"/>
+    <ROW Component="agent.exe_1" ComponentId="{B092E802-B0AD-4D69-BA77-DA6072D6D892}" Directory_="bin_4_Dir" Attributes="256" KeyPath="agent.exe"/>
     <ROW Component="alternatives.js" ComponentId="{AEAF2828-469D-408F-A709-189D259F6FBD}" Directory_="types_1_Dir" Attributes="0" KeyPath="alternatives.js" Type="0"/>
     <ROW Component="am.pak" ComponentId="{0E75E5A5-D1F5-4D29-A022-4E387C0765FE}" Directory_="locales_Dir" Attributes="0" KeyPath="am.pak" Type="0"/>
     <ROW Component="annotate.js" ComponentId="{898A6EE1-95DA-43C9-9AB6-D6ED33A41516}" Directory_="lib_8_Dir" Attributes="0" KeyPath="annotate.js" Type="0"/>
@@ -239,7 +245,7 @@
     <ROW Component="browser.js_1" ComponentId="{32FE5535-EABA-46B9-AF4E-D8FBE5ADBC27}" Directory_="supportscolor_Dir" Attributes="0" KeyPath="browser.js_1" Type="0"/>
     <ROW Component="build.js" ComponentId="{2B11044D-353C-41F8-BF63-3699B96FA504}" Directory_="lib_9_Dir" Attributes="0" KeyPath="build.js" Type="0"/>
     <ROW Component="cat.js" ComponentId="{CE93AD5A-8E86-428B-9A5B-02F419FF00DE}" Directory_="src_3_Dir" Attributes="0" KeyPath="cat.js" Type="0"/>
-    <ROW Component="chrome_100_percent.pak" ComponentId="{D5A2795C-018B-4D8E-B44A-F7E74CAD9BC3}" Directory_="APPDIR" Attributes="0" KeyPath="chrome_100_percent.pak" Type="0"/>
+    <ROW Component="chrome_100_percent.pak_1" ComponentId="{47A35EE6-7D33-44E7-BE42-8ACFD353A531}" Directory_="bin_4_Dir" Attributes="0" KeyPath="chrome_100_percent.pak" Type="0"/>
     <ROW Component="cli.js" ComponentId="{38FF309F-AE74-4779-9F8C-B4BFF011356A}" Directory_="bin_Dir" Attributes="0" KeyPath="cli.js" Type="0"/>
     <ROW Component="cli.js_1" ComponentId="{EE6BE00D-B1AF-4082-A4EB-5FCBF17268FC}" Directory_="isdocker_Dir" Attributes="0" KeyPath="cli.js_1" Type="0"/>
     <ROW Component="common.js" ComponentId="{B1909924-CD65-4FD9-A3DD-9DF845C7C380}" Directory_="glob_Dir" Attributes="0" KeyPath="common.js" Type="0"/>
@@ -249,7 +255,7 @@
     <ROW Component="constants.js" ComponentId="{D953A09E-A95E-4ADB-85AA-4FB9230BDD80}" Directory_="config_Dir" Attributes="0" KeyPath="constants.js" Type="0"/>
     <ROW Component="coveralls.yml" ComponentId="{58EF3A3E-A91A-4C2B-9E36-D5B99A21BE42}" Directory_="debug_Dir" Attributes="0" KeyPath="coveralls.yml" Type="0"/>
     <ROW Component="cup.coffee" ComponentId="{20239901-6502-4AF9-9265-6891E86A98F1}" Directory_="resolver_Dir" Attributes="0" KeyPath="cup.coffee" Type="0"/>
-    <ROW Component="d3dcompiler_47.dll" ComponentId="{F2841F02-5F63-4AC0-ABEF-35497869BA3E}" Directory_="APPDIR" Attributes="256" KeyPath="d3dcompiler_47.dll"/>
+    <ROW Component="d3dcompiler_47.dll" ComponentId="{F2841F02-5F63-4AC0-ABEF-35497869BA3E}" Directory_="bin_4_Dir" Attributes="256" KeyPath="d3dcompiler_47.dll"/>
     <ROW Component="decode.js" ComponentId="{BEA14457-664C-4699-9D88-F918F24BAA04}" Directory_="lib_2_Dir" Attributes="0" KeyPath="decode.js" Type="0"/>
     <ROW Component="defaultAppExist.sh" ComponentId="{61658BA2-E02E-477A-A8EC-873E7EB576B6}" Directory_="macos_Dir" Attributes="0" KeyPath="defaultAppExist.sh" Type="0"/>
     <ROW Component="desktop.ejs" ComponentId="{CE354C2F-9D5C-4A6B-955D-F897C177DDF2}" Directory_="templates_Dir" Attributes="0" KeyPath="desktop.ejs" Type="0"/>
@@ -266,7 +272,7 @@
     <ROW Component="eslintrc_1" ComponentId="{1623D4B6-4CE7-4E85-B579-BC9AC1E5C85F}" Directory_="test_2_Dir" Attributes="0" KeyPath="eslintrc_3" Type="0"/>
     <ROW Component="eslintrc_2" ComponentId="{B67DB105-CDFD-4798-9EC5-0E25D93823BF}" Directory_="test_6_Dir" Attributes="0" KeyPath="eslintrc_6" Type="0"/>
     <ROW Component="extension.js" ComponentId="{6AB8AA2C-50EF-4E97-AFC2-FE394F185C93}" Directory_="lib_10_Dir" Attributes="0" KeyPath="extension.js" Type="0"/>
-    <ROW Component="ffmpeg.dll" ComponentId="{9D80185E-C122-466C-821F-6C6F8D36A987}" Directory_="APPDIR" Attributes="256" KeyPath="ffmpeg.dll"/>
+    <ROW Component="ffmpeg.dll" ComponentId="{9D80185E-C122-466C-821F-6C6F8D36A987}" Directory_="bin_4_Dir" Attributes="256" KeyPath="ffmpeg.dll"/>
     <ROW Component="file.js" ComponentId="{67F98757-A382-4FBE-839D-593C845E1D30}" Directory_="utils_Dir" Attributes="0" KeyPath="file.js" Type="0"/>
     <ROW Component="foo.js" ComponentId="{7FAF3217-36F8-4863-BED3-23126F290FC8}" Directory_="same_names_Dir" Attributes="0" KeyPath="foo.js_1" Type="0"/>
     <ROW Component="foo.js_1" ComponentId="{8764B467-75C1-4A37-8385-68192877A989}" Directory_="node_modules_3_Dir" Attributes="0" KeyPath="foo.js_2" Type="0"/>
@@ -324,9 +330,9 @@
     <ROW Component="jshintrc" ComponentId="{B1DC9759-F74F-43D4-A834-2F43DD7CEBB0}" Directory_="plist_Dir" Attributes="0" KeyPath="jshintrc" Type="0"/>
     <ROW Component="lerna.json" ComponentId="{BF704C47-698A-49B8-84AF-F160F8C636A4}" Directory_="multirepo_Dir" Attributes="0" KeyPath="lerna.json" Type="0"/>
     <ROW Component="libEGL.dll" ComponentId="{3646342B-31A1-4A02-B9E3-923383FEB906}" Directory_="swiftshader_Dir" Attributes="256" KeyPath="libEGL.dll"/>
-    <ROW Component="libEGL.dll_1" ComponentId="{561C2624-9E9C-4DCC-9370-2153B704EF43}" Directory_="APPDIR" Attributes="256" KeyPath="libEGL.dll_1"/>
+    <ROW Component="libEGL.dll_1" ComponentId="{561C2624-9E9C-4DCC-9370-2153B704EF43}" Directory_="bin_4_Dir" Attributes="256" KeyPath="libEGL.dll_1"/>
     <ROW Component="libGLESv2.dll" ComponentId="{DFC7C198-26A3-4DED-B94A-85B0E23E4B72}" Directory_="swiftshader_Dir" Attributes="256" KeyPath="libGLESv2.dll"/>
-    <ROW Component="libGLESv2.dll_1" ComponentId="{9E77FF1F-3454-4570-945F-FAF1123563AC}" Directory_="APPDIR" Attributes="256" KeyPath="libGLESv2.dll_1"/>
+    <ROW Component="libGLESv2.dll_1" ComponentId="{9E77FF1F-3454-4570-945F-FAF1123563AC}" Directory_="bin_4_Dir" Attributes="256" KeyPath="libGLESv2.dll_1"/>
     <ROW Component="logo.ico" ComponentId="{AC197A73-F494-4547-BA51-4CA5299CB994}" Directory_="assets_Dir" Attributes="0" KeyPath="logo.ico" Type="0"/>
     <ROW Component="main.js" ComponentId="{DCA41F56-FF6C-43DF-AFF9-29D2754A68D3}" Directory_="app_Dir" Attributes="0" KeyPath="main.js" Type="0"/>
     <ROW Component="main.js_1" ComponentId="{F6F1E354-FAF6-4098-9BEA-71A50D85B7B3}" Directory_="bbb_Dir" Attributes="0" KeyPath="main.js_1" Type="0"/>
@@ -343,21 +349,24 @@
     <ROW Component="package.json" ComponentId="{531DDFA1-4898-4AEE-A1BA-E2B886331A90}" Directory_="invalid_main_Dir" Attributes="0" KeyPath="package.json_48" Type="0"/>
     <ROW Component="packagelock.json" ComponentId="{3ED4C8C8-660F-4DE0-B7B8-BD1E1E0BCF2A}" Directory_="node_modules_Dir" Attributes="0" KeyPath="packagelock.json" Type="0"/>
     <ROW Component="plistbuild.js" ComponentId="{DC9A12FD-B7B5-4395-9C6F-9252349B11EF}" Directory_="dist_1_Dir" Attributes="0" KeyPath="plistbuild.js" Type="0"/>
+    <ROW Component="portforward.dll" ComponentId="{860FDE03-1CAE-4E20-AAD9-130CA37B8853}" Directory_="bin_4_Dir" Attributes="0" KeyPath="portforward.dll"/>
+    <ROW Component="portforward.dll_1" ComponentId="{A5D15306-EBEB-4B33-AD43-967F291B38DD}" Directory_="ref_Dir" Attributes="0" KeyPath="portforward.dll_1"/>
+    <ROW Component="portforward.exe_1" ComponentId="{B9AF57B1-8CA2-4C73-A08E-7BD9B481647A}" Directory_="bin_4_Dir" Attributes="256" KeyPath="portforward.exe"/>
     <ROW Component="processCommand.js" ComponentId="{B4B41C38-07F2-4C4E-BA21-8B56D8F0C921}" Directory_="utils_1_Dir" Attributes="0" KeyPath="processCommand.js" Type="0"/>
     <ROW Component="registry.js" ComponentId="{F76AC30E-5294-413D-BC3C-9623029AAC92}" Directory_="lib_13_Dir" Attributes="0" KeyPath="registry.js" Type="0"/>
-    <ROW Component="remoteapp.exe" ComponentId="{6A63FD1B-A771-4285-8F71-9B8372E98EC8}" Directory_="APPDIR" Attributes="256" KeyPath="remoteapp.exe"/>
     <ROW Component="remoteapp.exe_1" ComponentId="{05EB0CEF-983B-40B9-B1EE-FD24AD7AD325}" Directory_="app_Dir" Attributes="256" KeyPath="remoteapp.exe_1"/>
+    <ROW Component="remoteapp.exe_2" ComponentId="{84424DB1-AFA6-476F-A980-39C74350A823}" Directory_="bin_4_Dir" Attributes="256" KeyPath="remoteapp.exe"/>
     <ROW Component="root.js" ComponentId="{48815A35-E8B7-4EE9-A286-9E77235789D0}" Directory_="other_path_Dir" Attributes="0" KeyPath="root.js" Type="0"/>
-    <ROW Component="sessioncore.pdb" ComponentId="{23A8C207-9334-43DF-B076-1046EC082C79}" Directory_="APPDIR" Attributes="0" KeyPath="sessioncore.exe"/>
+    <ROW Component="sessioncore.exe" ComponentId="{0B8167E9-5601-4AD6-AF88-D4E254F33230}" Directory_="bin_4_Dir" Attributes="256" KeyPath="sessioncore.exe"/>
     <ROW Component="shjs" ComponentId="{991DB36A-FEDF-494E-A7FC-8D83CD655F36}" Directory_="bin_2_Dir" Attributes="0" KeyPath="shjs" Type="0"/>
     <ROW Component="syncpackagemanagers.js" ComponentId="{0847EED0-5DFB-4193-BBA9-99CA6F6BC634}" Directory_="support_Dir" Attributes="0" KeyPath="syncpackagemanagers.js" Type="0"/>
     <ROW Component="travis.yml" ComponentId="{654E42D5-8228-442F-A935-D7E010F789C4}" Directory_="async_Dir" Attributes="0" KeyPath="travis.yml" Type="0"/>
     <ROW Component="travis.yml_1" ComponentId="{ED3C11D5-DC01-4C2D-A511-7940843258C8}" Directory_="concatmap_Dir" Attributes="0" KeyPath="travis.yml_1" Type="0"/>
-    <ROW Component="vcruntime140d.dll" ComponentId="{EF8E620A-CC4E-4C51-B381-3E54E63FF5E5}" Directory_="APPDIR" Attributes="256" KeyPath="vcruntime140d.dll"/>
-    <ROW Component="videotesting.exe" ComponentId="{8AF2166B-FD46-4F7A-912A-9252A777B497}" Directory_="APPDIR" Attributes="256" KeyPath="videotesting.exe"/>
-    <ROW Component="vk_swiftshader.dll" ComponentId="{53F00950-CB85-4047-9120-9A8D9FA75195}" Directory_="APPDIR" Attributes="256" KeyPath="vk_swiftshader.dll"/>
-    <ROW Component="vulkan1.dll" ComponentId="{3FE28924-3FC3-47F5-A6C4-FC4F8CAB28B7}" Directory_="APPDIR" Attributes="256" KeyPath="vulkan1.dll"/>
-    <ROW Component="welcome.exe" ComponentId="{3F0680ED-D83A-4D04-8A58-58DBCBDE6957}" Directory_="APPDIR" Attributes="256" KeyPath="welcome.exe"/>
+    <ROW Component="vcruntime140d.dll" ComponentId="{EF8E620A-CC4E-4C51-B381-3E54E63FF5E5}" Directory_="bin_4_Dir" Attributes="256" KeyPath="vcruntime140d.dll"/>
+    <ROW Component="videotesting.exe_1" ComponentId="{B4B82D4F-8FA9-49F4-B626-189957220206}" Directory_="bin_4_Dir" Attributes="256" KeyPath="videotesting.exe"/>
+    <ROW Component="vk_swiftshader.dll" ComponentId="{53F00950-CB85-4047-9120-9A8D9FA75195}" Directory_="bin_4_Dir" Attributes="256" KeyPath="vk_swiftshader.dll"/>
+    <ROW Component="vulkan1.dll" ComponentId="{3FE28924-3FC3-47F5-A6C4-FC4F8CAB28B7}" Directory_="bin_4_Dir" Attributes="256" KeyPath="vulkan1.dll"/>
+    <ROW Component="welcome.exe_1" ComponentId="{12C6C1F8-24DF-4E2B-8B9A-FDC2E179DA40}" Directory_="bin_4_Dir" Attributes="256" KeyPath="welcome.exe"/>
     <ROW Component="welcome.pdb" ComponentId="{35D5A127-3FE7-4C31-A2B1-2AA72412DC39}" Directory_="app_Dir" Attributes="0" KeyPath="welcome.pdb_1" Type="4"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
@@ -365,16 +374,16 @@
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
-    <ROW File="sessioncore.pdb" Component_="sessioncore.pdb" FileName="SESSIO~1.PDB|session-core.pdb" Attributes="0" SourcePath="..\bin\session-core.pdb" SelfReg="false"/>
-    <ROW File="agent.exe" Component_="agent.exe" FileName="agent.exe" Attributes="0" SourcePath="..\bin\agent.exe" SelfReg="false" DigSign="true"/>
-    <ROW File="sessioncore.exe" Component_="sessioncore.pdb" FileName="SESSIO~1.EXE|session-core.exe" Attributes="0" SourcePath="..\bin\session-core.exe" SelfReg="false" DigSign="true"/>
-    <ROW File="remoteapp.exe" Component_="remoteapp.exe" FileName="REMOTE~1.EXE|remote-app.exe" Attributes="0" SourcePath="..\bin\remote-app.exe" SelfReg="false" DigSign="true"/>
-    <ROW File="videotesting.exe" Component_="videotesting.exe" FileName="VIDEOT~1.EXE|videotesting.exe" Attributes="0" SourcePath="..\bin\videotesting.exe" SelfReg="false" DigSign="true"/>
-    <ROW File="welcome.exe" Component_="welcome.exe" FileName="welcome.exe" Attributes="0" SourcePath="..\bin\welcome.exe" SelfReg="false" DigSign="true"/>
-    <ROW File="agent.pdb" Component_="agent.exe" FileName="agent.pdb" Attributes="0" SourcePath="..\bin\agent.pdb" SelfReg="false"/>
-    <ROW File="remoteapp.pdb" Component_="remoteapp.exe" FileName="REMOTE~1.PDB|remote-app.pdb" Attributes="0" SourcePath="..\bin\remote-app.pdb" SelfReg="false"/>
-    <ROW File="videotesting.pdb" Component_="videotesting.exe" FileName="VIDEOT~1.PDB|videotesting.pdb" Attributes="0" SourcePath="..\bin\videotesting.pdb" SelfReg="false"/>
-    <ROW File="welcome.pdb" Component_="welcome.exe" FileName="welcome.pdb" Attributes="0" SourcePath="..\bin\welcome.pdb" SelfReg="false"/>
+    <ROW File="sessioncore.pdb" Component_="sessioncore.exe" FileName="SESSIO~1.PDB|session-core.pdb" Attributes="0" SourcePath="..\bin\session-core.pdb" SelfReg="false"/>
+    <ROW File="agent.exe" Component_="agent.exe_1" FileName="agent.exe" Attributes="0" SourcePath="..\bin\agent.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="sessioncore.exe" Component_="sessioncore.exe" FileName="SESSIO~1.EXE|session-core.exe" Attributes="0" SourcePath="..\bin\session-core.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="remoteapp.exe" Component_="remoteapp.exe_2" FileName="REMOTE~1.EXE|remote-app.exe" Attributes="0" SourcePath="..\bin\remote-app.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="videotesting.exe" Component_="videotesting.exe_1" FileName="VIDEOT~1.EXE|videotesting.exe" Attributes="0" SourcePath="..\bin\videotesting.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="welcome.exe" Component_="welcome.exe_1" FileName="welcome.exe" Attributes="0" SourcePath="..\bin\welcome.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="agent.pdb" Component_="agent.exe_1" FileName="agent.pdb" Attributes="0" SourcePath="..\bin\agent.pdb" SelfReg="false"/>
+    <ROW File="remoteapp.pdb" Component_="remoteapp.exe_2" FileName="REMOTE~1.PDB|remote-app.pdb" Attributes="0" SourcePath="..\bin\remote-app.pdb" SelfReg="false"/>
+    <ROW File="videotesting.pdb" Component_="videotesting.exe_1" FileName="VIDEOT~1.PDB|videotesting.pdb" Attributes="0" SourcePath="..\bin\videotesting.pdb" SelfReg="false"/>
+    <ROW File="welcome.pdb" Component_="welcome.exe_1" FileName="welcome.pdb" Attributes="0" SourcePath="..\bin\welcome.pdb" SelfReg="false"/>
     <ROW File="am.pak" Component_="am.pak" FileName="am.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\am.pak" SelfReg="false"/>
     <ROW File="ar.pak" Component_="am.pak" FileName="ar.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\ar.pak" SelfReg="false"/>
     <ROW File="bg.pak" Component_="am.pak" FileName="bg.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\bg.pak" SelfReg="false"/>
@@ -993,31 +1002,41 @@
     <ROW File="welcome.pdb_1" Component_="welcome.pdb" FileName="welcome.pdb" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\welcome.pdb" SelfReg="false"/>
     <ROW File="libEGL.dll" Component_="libEGL.dll" FileName="libEGL.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\swiftshader\libEGL.dll" SelfReg="false"/>
     <ROW File="libGLESv2.dll" Component_="libGLESv2.dll" FileName="LIBGLE~1.DLL|libGLESv2.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\swiftshader\libGLESv2.dll" SelfReg="false"/>
-    <ROW File="chrome_100_percent.pak" Component_="chrome_100_percent.pak" FileName="CHROME~1.PAK|chrome_100_percent.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\chrome_100_percent.pak" SelfReg="false"/>
-    <ROW File="chrome_200_percent.pak" Component_="chrome_100_percent.pak" FileName="CHROME~2.PAK|chrome_200_percent.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\chrome_200_percent.pak" SelfReg="false"/>
+    <ROW File="chrome_100_percent.pak" Component_="chrome_100_percent.pak_1" FileName="CHROME~1.PAK|chrome_100_percent.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\chrome_100_percent.pak" SelfReg="false"/>
+    <ROW File="chrome_200_percent.pak" Component_="chrome_100_percent.pak_1" FileName="CHROME~2.PAK|chrome_200_percent.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\chrome_200_percent.pak" SelfReg="false"/>
     <ROW File="d3dcompiler_47.dll" Component_="d3dcompiler_47.dll" FileName="D3DCOM~1.DLL|d3dcompiler_47.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\d3dcompiler_47.dll" SelfReg="false"/>
     <ROW File="ffmpeg.dll" Component_="ffmpeg.dll" FileName="ffmpeg.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\ffmpeg.dll" SelfReg="false"/>
-    <ROW File="icudtl.dat" Component_="chrome_100_percent.pak" FileName="icudtl.dat" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\icudtl.dat" SelfReg="false"/>
+    <ROW File="icudtl.dat" Component_="chrome_100_percent.pak_1" FileName="icudtl.dat" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\icudtl.dat" SelfReg="false"/>
     <ROW File="libEGL.dll_1" Component_="libEGL.dll_1" FileName="libEGL.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\libEGL.dll" SelfReg="false"/>
     <ROW File="libGLESv2.dll_1" Component_="libGLESv2.dll_1" FileName="LIBGLE~1.DLL|libGLESv2.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\libGLESv2.dll" SelfReg="false"/>
-    <ROW File="LICENSE_34" Component_="chrome_100_percent.pak" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\LICENSE" SelfReg="false"/>
-    <ROW File="LICENSES.chromium.html" Component_="chrome_100_percent.pak" FileName="LICENS~1.HTM|LICENSES.chromium.html" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\LICENSES.chromium.html" SelfReg="false"/>
-    <ROW File="resources.pak" Component_="chrome_100_percent.pak" FileName="RESOUR~1.PAK|resources.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources.pak" SelfReg="false"/>
-    <ROW File="snapshot_blob.bin" Component_="chrome_100_percent.pak" FileName="SNAPSH~1.BIN|snapshot_blob.bin" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\snapshot_blob.bin" SelfReg="false"/>
+    <ROW File="LICENSE_34" Component_="chrome_100_percent.pak_1" FileName="LICENSE" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\LICENSE" SelfReg="false"/>
+    <ROW File="LICENSES.chromium.html" Component_="chrome_100_percent.pak_1" FileName="LICENS~1.HTM|LICENSES.chromium.html" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\LICENSES.chromium.html" SelfReg="false"/>
+    <ROW File="resources.pak" Component_="chrome_100_percent.pak_1" FileName="RESOUR~1.PAK|resources.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources.pak" SelfReg="false"/>
+    <ROW File="snapshot_blob.bin" Component_="chrome_100_percent.pak_1" FileName="SNAPSH~1.BIN|snapshot_blob.bin" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\snapshot_blob.bin" SelfReg="false"/>
     <ROW File="Squirrel.exe" Component_="Squirrel.exe" FileName="Squirrel.exe" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\Squirrel.exe" SelfReg="false" DigSign="true"/>
     <ROW File="ThinkMay.exe" Component_="ThinkMay.exe" FileName="ThinkMay.exe" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\ThinkMay.exe" SelfReg="false" DigSign="true"/>
-    <ROW File="v8_context_snapshot.bin" Component_="chrome_100_percent.pak" FileName="V8_CON~1.BIN|v8_context_snapshot.bin" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\v8_context_snapshot.bin" SelfReg="false"/>
-    <ROW File="version" Component_="chrome_100_percent.pak" FileName="version" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\version" SelfReg="false"/>
+    <ROW File="v8_context_snapshot.bin" Component_="chrome_100_percent.pak_1" FileName="V8_CON~1.BIN|v8_context_snapshot.bin" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\v8_context_snapshot.bin" SelfReg="false"/>
+    <ROW File="version" Component_="chrome_100_percent.pak_1" FileName="version" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\version" SelfReg="false"/>
     <ROW File="vk_swiftshader.dll" Component_="vk_swiftshader.dll" FileName="VK_SWI~1.DLL|vk_swiftshader.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\vk_swiftshader.dll" SelfReg="false"/>
-    <ROW File="vk_swiftshader_icd.json" Component_="chrome_100_percent.pak" FileName="VK_SWI~1.JSO|vk_swiftshader_icd.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\vk_swiftshader_icd.json" SelfReg="false"/>
+    <ROW File="vk_swiftshader_icd.json" Component_="chrome_100_percent.pak_1" FileName="VK_SWI~1.JSO|vk_swiftshader_icd.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\vk_swiftshader_icd.json" SelfReg="false"/>
     <ROW File="vulkan1.dll" Component_="vulkan1.dll" FileName="vulkan-1.dll" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\vulkan-1.dll" SelfReg="false"/>
-    <ROW File="vcruntime140d.dll" Component_="vcruntime140d.dll" FileName="VCRUNT~1.DLL|vcruntime140d.dll" Attributes="0" SourcePath="vcruntime140d.dll" SelfReg="false"/>
+    <ROW File="vcruntime140d.dll" Component_="vcruntime140d.dll" FileName="VCRUNT~1.DLL|vcruntime140d.dll" Attributes="0" SourcePath="..\bin\vcruntime140d.dll" SelfReg="false"/>
+    <ROW File="Newtonsoft.Json.dll" Component_="Newtonsoft.Json.dll" FileName="NEWTON~1.DLL|Newtonsoft.Json.dll" Attributes="0" SourcePath="..\bin\Newtonsoft.Json.dll" SelfReg="false"/>
+    <ROW File="portforward.deps.json" Component_="chrome_100_percent.pak_1" FileName="PORT-F~1.JSO|port-forward.deps.json" Attributes="0" SourcePath="..\bin\port-forward.deps.json" SelfReg="false"/>
+    <ROW File="portforward.dll" Component_="portforward.dll" FileName="PORT-F~1.DLL|port-forward.dll" Attributes="0" SourcePath="..\bin\port-forward.dll" SelfReg="false"/>
+    <ROW File="portforward.exe" Component_="portforward.exe_1" FileName="PORT-F~1.EXE|port-forward.exe" Attributes="0" SourcePath="..\bin\port-forward.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="portforward.pdb" Component_="portforward.exe_1" FileName="PORT-F~1.PDB|port-forward.pdb" Attributes="0" SourcePath="..\bin\port-forward.pdb" SelfReg="false"/>
+    <ROW File="portforward.runtimeconfig.json" Component_="chrome_100_percent.pak_1" FileName="PORT-F~2.JSO|port-forward.runtimeconfig.json" Attributes="0" SourcePath="..\bin\port-forward.runtimeconfig.json" SelfReg="false"/>
+    <ROW File="Renci.SshNet.dll" Component_="Renci.SshNet.dll" FileName="RENCIS~1.DLL|Renci.SshNet.dll" Attributes="0" SourcePath="..\bin\Renci.SshNet.dll" SelfReg="false"/>
+    <ROW File="RestSharp.dll" Component_="RestSharp.dll" FileName="RESTSH~1.DLL|RestSharp.dll" Attributes="0" SourcePath="..\bin\RestSharp.dll" SelfReg="false"/>
+    <ROW File="SshNet.Security.Cryptography.dll" Component_="SshNet.Security.Cryptography.dll" FileName="SSHNET~1.DLL|SshNet.Security.Cryptography.dll" Attributes="0" SourcePath="..\bin\SshNet.Security.Cryptography.dll" SelfReg="false"/>
+    <ROW File="portforward.dll_1" Component_="portforward.dll_1" FileName="PORT-F~1.DLL|port-forward.dll" Attributes="0" SourcePath="..\bin\ref\port-forward.dll" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
-    <ROW BuildKey="x64_Release" BuildName="x64_Release" BuildOrder="1" BuildType="0" PackageFolder="." PackageFileName="PersonalCloudComputing" Languages="en" InstallationType="4" UseLargeSchema="true"/>
+    <ROW BuildKey="x64_Release" BuildName="x64_Release" BuildOrder="1" BuildType="0" PackageFolder="." PackageFileName="PersonalCloudComputing" Languages="en" InstallationType="4" UseLargeSchema="true" MsiPackageType="x64"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
     <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
@@ -1098,11 +1117,6 @@
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatCompsComponent">
     <ROW Feature_="MainFeature" Component_="APPDIR"/>
     <ROW Feature_="MainFeature" Component_="ProductInformation"/>
-    <ROW Feature_="MainFeature" Component_="sessioncore.pdb"/>
-    <ROW Feature_="MainFeature" Component_="agent.exe"/>
-    <ROW Feature_="MainFeature" Component_="remoteapp.exe"/>
-    <ROW Feature_="MainFeature" Component_="videotesting.exe"/>
-    <ROW Feature_="MainFeature" Component_="welcome.exe"/>
     <ROW Feature_="MainFeature" Component_="SHORTCUTDIR"/>
     <ROW Feature_="MainFeature" Component_="am.pak"/>
     <ROW Feature_="MainFeature" Component_="logo.ico"/>
@@ -1243,7 +1257,6 @@
     <ROW Feature_="MainFeature" Component_="index.js_33"/>
     <ROW Feature_="MainFeature" Component_="remoteapp.exe_1"/>
     <ROW Feature_="MainFeature" Component_="welcome.pdb"/>
-    <ROW Feature_="MainFeature" Component_="chrome_100_percent.pak"/>
     <ROW Feature_="MainFeature" Component_="libEGL.dll"/>
     <ROW Feature_="MainFeature" Component_="libGLESv2.dll"/>
     <ROW Feature_="MainFeature" Component_="d3dcompiler_47.dll"/>
@@ -1255,6 +1268,19 @@
     <ROW Feature_="MainFeature" Component_="vk_swiftshader.dll"/>
     <ROW Feature_="MainFeature" Component_="vulkan1.dll"/>
     <ROW Feature_="MainFeature" Component_="vcruntime140d.dll"/>
+    <ROW Feature_="MainFeature" Component_="Newtonsoft.Json.dll"/>
+    <ROW Feature_="MainFeature" Component_="portforward.dll"/>
+    <ROW Feature_="MainFeature" Component_="Renci.SshNet.dll"/>
+    <ROW Feature_="MainFeature" Component_="RestSharp.dll"/>
+    <ROW Feature_="MainFeature" Component_="SshNet.Security.Cryptography.dll"/>
+    <ROW Feature_="MainFeature" Component_="portforward.dll_1"/>
+    <ROW Feature_="MainFeature" Component_="chrome_100_percent.pak_1"/>
+    <ROW Feature_="MainFeature" Component_="agent.exe_1"/>
+    <ROW Feature_="MainFeature" Component_="portforward.exe_1"/>
+    <ROW Feature_="MainFeature" Component_="remoteapp.exe_2"/>
+    <ROW Feature_="MainFeature" Component_="sessioncore.exe"/>
+    <ROW Feature_="MainFeature" Component_="videotesting.exe_1"/>
+    <ROW Feature_="MainFeature" Component_="welcome.exe_1"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="logo.exe" SourcePath="..\client\window\electron\assets\logo.ico" Index="0"/>
@@ -1310,7 +1336,7 @@
   <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
     <ROW Shortcut="ThinkMay" Directory_="SHORTCUTDIR" Name="ThinkMay" Component_="ThinkMay.exe" Target="[#ThinkMay.exe]" Hotkey="0" Icon_="logo.exe" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
     <ROW Shortcut="ThinkMay_1" Directory_="DesktopFolder" Name="ThinkMay" Component_="ThinkMay.exe" Target="[#ThinkMay.exe]" Hotkey="0" Icon_="logo.exe" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
-    <ROW Shortcut="agent.exe" Directory_="SHORTCUTDIR" Name="agent.exe" Component_="agent.exe" Target="[#agent.exe]" Description="agent.exe" Hotkey="0" Icon_="logo.exe" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="agent" Directory_="SHORTCUTDIR" Name="agent" Component_="agent.exe_1" Target="[#agent.exe]" Hotkey="0" Icon_="logo.exe" IconIndex="0" ShowCmd="1" WkDir="bin_4_Dir"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
     <ATTRIBUTE name="UsedTheme" value="classic"/>

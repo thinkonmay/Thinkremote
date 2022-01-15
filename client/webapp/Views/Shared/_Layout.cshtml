@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="~/material-floating-button/dist/mfb.css" rel="stylesheet">
+  <link href="~/css/googleapi.css" rel="stylesheet" />
+  <link href="~/css/vuetify.css" rel="stylesheet" />
+  <link href="~/css/dev.css" rel="stylesheet" />
+  <link href="~/css/loading-icon.css" rel="stylesheet" />
+  <link rel="shortcut icon" href="~/logo.png" />
+  <title>Thinkmay | Remote control</title>
+</head>
+
+<body style="overflow: hidden;">
+  <div id="app">
+    <v-app style="position: relative;">
+
+
+
+      <div id="video_container" class="video-container">
+        <video id="stream" autoplay playsinline> -->
+          Your browser doesn't support video
+        </video>
+      </div>
+
+
+    </v-app>      
+    <div id="loading" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+        <section class="wrapper dark" style="background-color: #ffffff00;">
+          <div class="spinner">
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+          </div>
+        </section>
+      </div>
+  </div>
+</body>
+
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.9/vue.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+
+<script src="~/src/app.js?ts=1"></script>
+<script src="~/src/enum.js?ts=1"></script>
+<script src="~/src/input.js?ts=1"></script>
+<script src="~/src/signalling.js?ts=1"></script>
+<script src="~/src/webrtc.js?ts=1"></script>
+<script src="~/src/quality-track.js?ts=1"></script>
+@RenderBody()
+</html>
