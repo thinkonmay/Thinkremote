@@ -95,10 +95,10 @@ static gchar sound_output_device_id[1000]   = {0};
 void device_foreach(GstDevice* data, gpointer user_data);
 
 Pipeline*
-pipeline_initialize(SessionCore* core)
+pipeline_initialize()
 {
-    static Pipeline pipeline;
-    memset(&pipeline,0,sizeof(pipeline));
+    Pipeline* pipeline = malloc(sizeof(Pipeline));
+    memset(pipeline,0,sizeof(Pipeline));
 
 #ifdef G_OS_WIN32
     GstDeviceMonitor* monitor = gst_device_monitor_new();
@@ -109,10 +109,16 @@ pipeline_initialize(SessionCore* core)
     worker_log_output("Searching for available device");
     GList* device_list = gst_device_monitor_get_devices(monitor);
     g_list_foreach(device_list,(GFunc)device_foreach,NULL);
-#else
-
 #endif
-    return &pipeline;
+    return pipeline;
+}
+
+void
+free_pipeline(Pipeline* pipeline)
+{
+    gst_element_set_state (pipeline->pipeline, GST_STATE_NULL);
+    gst_object_unref (pipeline->pipeline);
+    memset(pipeline,0,sizeof(Pipeline));
 }
 
 static gboolean
@@ -203,7 +209,7 @@ setup_element_factory(SessionCore* core,
                 gst_parse_launch("webrtcbin bundle-policy=max-bundle name=sendrecv "
 
                     "d3d11desktopdupsrc name=screencap ! "
-                    DIRECTX_PAD",framerate=60/1 ! "                             QUEUE
+                    DIRECTX_PAD",framerate=120/1 ! "                             QUEUE
                     "d3d11convert ! "DIRECTX_PAD",format=NV12 ! "               QUEUE
                     "mfh265enc name=videoencoder ! "                            QUEUE
                     "rtph265pay name=rtp ! "                                    QUEUE 
@@ -460,6 +466,9 @@ setup_pipeline(SessionCore* core)
     SignallingHub* signalling = session_core_get_signalling_hub(core);
     Pipeline* pipe = session_core_get_pipeline(core);
     StreamConfig* qoe= session_core_get_qoe(core);
+
+    if(pipe->pipeline)
+        free_pipeline(pipe);
     
 
 

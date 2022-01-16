@@ -83,6 +83,8 @@ signalling_hub_initialize(RemoteApp* core)
     return hub;
 }
 
+
+
 static void
 handle_stun_list(JsonArray* stun_array,
                  gint index,
@@ -325,7 +327,6 @@ on_server_closed(SoupWebsocketConnection* conn G_GNUC_UNUSED,
     SignallingHub* hub = remote_app_get_signalling_hub(core);
     hub->connection = NULL;
     hub->session = NULL;
-    remote_app_finalize(core,NULL);
 }
 
 
@@ -621,8 +622,7 @@ on_server_connected(SoupSession* session,
 
     
     hub->connection = soup_session_websocket_connect_finish(session, res, &error);
-    if (!error == NULL || hub->connection == NULL) 
-    {
+    if (!error == NULL || hub->connection == NULL) {
         remote_app_finalize(core, error);
     }
 
@@ -638,9 +638,11 @@ signalling_close(SignallingHub* hub)
     if (hub->connection)
     {
         if (soup_websocket_connection_get_state(hub->connection) == SOUP_WEBSOCKET_STATE_OPEN)
-            soup_websocket_connection_close(hub->connection, 1000, "");
-        else
-            g_object_unref(hub->connection);
+            soup_websocket_connection_close(hub->connection, 1000, "close");
+
+
+        g_object_unref(hub->connection);
+        g_object_unref(hub->session);
     }
 }
 

@@ -25,11 +25,10 @@ namespace remote.Controllers
             return View(new RemoteViewModel{ token = token });
         }
 
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [Route("/Local")]
+        public IActionResult Development(string ip, string port)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new DevelopmentViewModel{});
         }
     }
 }

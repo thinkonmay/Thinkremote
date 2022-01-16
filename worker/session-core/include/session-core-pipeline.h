@@ -39,7 +39,7 @@ GstElement*			pipeline_get_webrtc_bin			(Pipeline* pipeline);
  * @param core 
  * @return Pipeline* return to pipeline element
  */
-Pipeline*			pipeline_initialize				(SessionCore* core);
+Pipeline*			pipeline_initialize				();
 
 /**
  * @brief 

@@ -579,7 +579,7 @@ ping_thread(gpointer data)
         }
         else
         {
-            session_core_finalize(core,NULL);
+            // session_core_finalize(core,NULL);
         }
     }
 }
@@ -612,11 +612,8 @@ control_channel_on_message_string(GObject* dc,
     gchar* message,
     SessionCore* core)
 {
-    if(!g_strcmp0(message,"ping"))
-    {
-        g_thread_new("handle_ping",
-            (GThreadFunc)handle_ping_thread,dc);
-    }
+    WebRTCHub* hub = session_core_get_rtc_hub(core);
+    g_signal_emit_by_name(hub->hid,"send-string",message);
 }
 
 

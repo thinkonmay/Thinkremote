@@ -2,10 +2,8 @@ using System;
 
 namespace remote.Models
 {
-    public class ErrorViewModel
+    public class DevelopmentViewModel 
     {
-        public string RequestId { get; set; }
-
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+        public string Signalling {get;set;}
     }
 }

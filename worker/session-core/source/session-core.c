@@ -189,7 +189,7 @@ session_core_setup_session(SessionCore* self)
 					1920,
 					1080,
 					OPUS_ENC,
-					CODEC_H265,
+					CODEC_H264,
 					DEVELOPMENT_DEFAULT_BITRATE);
 		
 		self->peer_device = WINDOW_APP;
@@ -375,7 +375,7 @@ session_core_initialize()
 	core->hub =					webrtchub_initialize();
 	core->signalling =			signalling_hub_initialize(core);
 	core->qoe =					qoe_initialize();
-	core->pipe =				pipeline_initialize(core);
+	core->pipe =				pipeline_initialize();
 	core->loop =				g_main_loop_new(NULL, FALSE);
 
 	session_core_setup_session(core);

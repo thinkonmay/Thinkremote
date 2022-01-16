@@ -71,9 +71,6 @@ init_portforward_service()
     gchar* buffer;
     gsize file_size;
 
-    g_setenv("port","2134",TRUE);
-    gchar* env = g_getenv("port");
-
     g_file_get_contents(PORT_FILE,&buffer,&file_size,&error);
     if(file_size > 0)
     {
@@ -174,6 +171,7 @@ start_portforward(AgentServer* agent)
         GOutputStream* output_Stream = (GOutputStream*)stream;
         g_output_stream_write_all(output_Stream,port->agent_instance_port,strlen(port->agent_instance_port), NULL,NULL,NULL);
     }
+    
     return port->process ? port : NULL;
 }
 

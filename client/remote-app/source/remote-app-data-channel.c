@@ -3,6 +3,7 @@
 #include <remote-app-type.h>
 #include <remote-app-pipeline.h>
 #include <remote-app-remote-config.h>
+#include <remote-app-signalling.h>
 
 
 #include <human-interface-opcode.h>
@@ -53,19 +54,63 @@ webrtchub_initialize()
 }
 
 
+/**
+ * @brief 
+ * 
+ */
+static gboolean ping = TRUE;
+
+/**
+ * @brief 
+ * 
+ * @param data 
+ * @return gpointer 
+ */
+gpointer
+ping_thread(gpointer data)
+{
+    RemoteApp* app = (RemoteApp*) data;
+    while (TRUE)
+    {
+#ifdef G_OS_WIN32
+        Sleep(2000);
+#else
+        sleep(2000);
+#endif
+
+        if(ping)
+        {
+            ping = FALSE;
+            continue;
+        }
+        else
+        {
+            SignallingHub* hub = remote_app_get_signalling_hub(app);
+            signalling_close(hub);
+            setup_pipeline(app);
+            signalling_connect(app);
+        }
+    }
+}
+
 
 void
 hid_data_channel_send(gchar* message,
-                      RemoteApp* core)
+                      RemoteApp* app)
 {
-    WebRTCHub* hub = remote_app_get_rtc_hub(core);
+    WebRTCHub* hub = remote_app_get_rtc_hub(app);
     if(DEVELOPMENT_ENVIRONMENT)
     {
         g_print(message);
         g_print("\n");
     }
-   g_signal_emit_by_name(hub->hid,"send-string",message);
+
+    if(!g_strcmp0(message,"ping"))
+    {
+        g_signal_emit_by_name(hub->hid,"send-string",message);
+    }
 }
+
 
 void
 control_data_channel_send(gchar* message,

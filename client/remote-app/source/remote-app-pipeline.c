@@ -112,9 +112,6 @@ struct _Pipeline
 
     GstElement* video_element[VIDEO_ELEMENT_LAST];
     GstElement* audio_element[AUDIO_ELEMENT_LAST];
-
-    GstCaps* video_caps[VIDEO_ELEMENT_LAST];
-    GstCaps* audio_caps[AUDIO_ELEMENT_LAST];
 };
 
 
@@ -130,6 +127,15 @@ pipeline_initialize(RemoteApp* core)
     memset(pipeline,0,sizeof(Pipeline));
     return pipeline;
 }
+
+void
+free_pipeline(Pipeline* pipeline)
+{
+    gst_element_set_state (pipeline->pipeline, GST_STATE_NULL);
+    gst_object_unref (pipeline->pipeline);
+    memset(pipeline,0,sizeof(Pipeline));
+}
+
 
 static gboolean
 start_pipeline(RemoteApp* core)
@@ -299,11 +305,10 @@ on_incoming_stream (GstElement * webrtc,
     }
 
     if(!g_strcmp0("application/x-rtp",name) &&
-       !g_strcmp0("H265",encoding))
+       (!g_strcmp0("H265",encoding) ||
+        !g_strcmp0("H264",encoding)))
     {
-
         pipeline->video_element[VIDEO_DECODER] = gst_element_factory_make ("decodebin", "videodecoder");
-
         g_signal_connect (pipeline->video_element[VIDEO_DECODER], "pad-added",
             G_CALLBACK (on_incoming_decodebin_stream), core);
         gst_bin_add (GST_BIN (pipeline->pipeline), pipeline->video_element[VIDEO_DECODER]);
@@ -394,6 +399,9 @@ setup_pipeline(RemoteApp* core)
     GstWebRTCRTPTransceiver *trans = NULL;
     SignallingHub* signalling = remote_app_get_signalling_hub(core);
     Pipeline* pipe = remote_app_get_pipeline(core);
+
+    if(pipe->pipeline)
+        free_pipeline(pipe);
 
     GError* error = NULL;
 

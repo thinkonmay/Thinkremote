@@ -40,6 +40,7 @@ mouseButtonUp(event)
     
         app.HidDC.send(JSON.stringify(INPUT));
     }
+    event.preventDefault();
 }
 
 /**
@@ -74,6 +75,7 @@ mouseButtonDown(event)
     
         app.HidDC.send(JSON.stringify(INPUT));
     }
+    event.preventDefault();
 }
 
 /**
@@ -193,10 +195,10 @@ function keyup(event)
         event.code === 'KeyI' && event.ctrlKey && event.shiftKey ||
         event.code === 'KeyW' && event.ctrlKey ||
         event.code === 'F11') {
-        event.preventDefault();
         return;
     }
 
+    event.preventDefault();
 
 }
 
@@ -235,6 +237,7 @@ keydown(event)
     }
 
     app.HidDC.send(JSON.stringify(Keyboard));
+    event.preventDefault();
 
     // disable problematic browser shortcuts
     if (event.code === 'F5' && event.ctrlKey ||
