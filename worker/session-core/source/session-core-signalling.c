@@ -514,14 +514,15 @@ on_sdp_exchange(gchar* data,
     g_object_unref(parser);
 }
 
-/// <summary>
-/// callback function for signalling server message
-/// 
-/// </summary>
-/// <param name="conn"></param>
-/// <param name="type"></param>
-/// <param name="message"></param>
-/// <param name="core"></param>
+/**
+ * @brief 
+ * callback function of signalling websocket 
+ * @param conn 
+ * @param type 
+ * @param message 
+ * @param core 
+ */
+
 void
 on_server_message(SoupWebsocketConnection* conn,
     SoupWebsocketDataType type,

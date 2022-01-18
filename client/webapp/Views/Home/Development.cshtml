@@ -1,0 +1,26 @@
+@model DevelopmentViewModel 
+
+<script>
+
+app.remoteToken = "TestingClientModuleToken"; 
+
+var sessionClient =
+{
+    turnip : "turn:18.141.8.93:3478",
+    turnuser : "1668762456",
+    turnpassword : "1558459773",
+
+    stuns : [
+        "stun.l.gooogle.com:19302"
+    ],
+
+    signallingurl : "ws://localhost:5000/Handshake",
+    audiocodec : "asdf",
+    videocodec : "dsaf",
+}
+
+app.SetupSession(sessionClient);
+WebrtcConnect();
+app.connectServer();
+
+</script>

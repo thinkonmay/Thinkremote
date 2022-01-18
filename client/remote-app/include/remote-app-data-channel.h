@@ -21,15 +21,6 @@ gboolean                connect_data_channel_signals                (RemoteApp* 
 WebRTCHub*				webrtchub_initialize						();
 
 
-/**
- * @brief 
- * send message over control datachannel
- * @param message message string 
- * @param core 
- */
-void                    control_data_channel_send                   (gchar* message,
-                                                                     RemoteApp* core);
-
 
 /**
  * @brief 
@@ -40,3 +31,10 @@ void                    control_data_channel_send                   (gchar* mess
 void                    hid_data_channel_send                       (gchar* message,
                                                                      RemoteApp* core);
 
+
+/**
+ * @brief 
+ * 
+ * @param hub 
+ */
+void                    stop_to_ping                                (WebRTCHub* hub);

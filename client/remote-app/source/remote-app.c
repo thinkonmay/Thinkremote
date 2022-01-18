@@ -175,7 +175,6 @@ remote_app_initialize(gchar* remote_token)
 	app->pipe =				pipeline_initialize(app);
 	 
 	remote_app_setup_session(app, remote_token);
-	setup_pipeline(app);
 	signalling_connect(app);
 
 	g_main_loop_run(app->loop);
@@ -201,6 +200,13 @@ remote_app_initialize(gchar* remote_token)
 
 
 
+void
+remote_app_reset(RemoteApp* self)
+{
+	stop_to_ping(self->hub);
+	signalling_close(self->signalling);
+	signalling_connect(self);
+}
 
 void
 remote_app_finalize(RemoteApp* self, 

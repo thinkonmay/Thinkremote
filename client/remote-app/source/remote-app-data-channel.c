@@ -41,6 +41,18 @@ struct _WebRTCHub
      * control datachannel for control signal
      */
     GObject* control;
+
+    /**
+     * @brief 
+     * 
+     */
+    GThread* ping_thread;
+
+    /**
+     * @brief 
+     * 
+     */
+    gboolean still_connected;
 };
 
 
@@ -70,28 +82,30 @@ gpointer
 ping_thread(gpointer data)
 {
     RemoteApp* app = (RemoteApp*) data;
+    WebRTCHub* hub = remote_app_get_rtc_hub(app);
+
     while (TRUE)
     {
+        if(!hub->still_connected)
+            return;
+
 #ifdef G_OS_WIN32
-        Sleep(2000);
+        Sleep(300);
 #else
-        sleep(2000);
+        sleep(300);
 #endif
 
         if(ping)
         {
             ping = FALSE;
-            continue;
         }
         else
         {
-            SignallingHub* hub = remote_app_get_signalling_hub(app);
-            signalling_close(hub);
-            setup_pipeline(app);
-            signalling_connect(app);
+            remote_app_reset(app);
         }
     }
 }
+
 
 
 void
@@ -99,32 +113,11 @@ hid_data_channel_send(gchar* message,
                       RemoteApp* app)
 {
     WebRTCHub* hub = remote_app_get_rtc_hub(app);
-    if(DEVELOPMENT_ENVIRONMENT)
-    {
-        g_print(message);
-        g_print("\n");
-    }
 
-    if(!g_strcmp0(message,"ping"))
-    {
-        g_signal_emit_by_name(hub->hid,"send-string",message);
-    }
+    g_signal_emit_by_name(hub->hid,"send-string",message,NULL);
+    if(DEVELOPMENT_ENVIRONMENT) 
+        g_print("%s\n",message);
 }
-
-
-void
-control_data_channel_send(gchar* message,
-                          RemoteApp* core)
-{
-    WebRTCHub* hub = remote_app_get_rtc_hub(core);
-    g_signal_emit_by_name(hub->control,"send-string",message);
-}
-
-
-
-
-
-
 
 
 
@@ -138,8 +131,8 @@ control_data_channel_send(gchar* message,
  */
 static void
 data_channel_on_message_data(GObject* datachannel,
-    GBytes* data,
-    RemoteApp* core)
+                             GBytes* data,
+                             RemoteApp* core)
 {
     return;
 }
@@ -168,6 +161,23 @@ hid_channel_on_message_string(GObject* dc,
     g_object_unref(parser);
 }
 
+/**
+ * @brief 
+ * 
+ * @param user_data 
+ * @return gpointer 
+ */
+gpointer
+handle_ping_thread(gpointer user_data)
+{
+    GObject* dc = (GObject*) user_data;
+#ifdef G_OS_WIN32
+    Sleep(100);
+#else
+    sleep(100);
+#endif
+    g_signal_emit_by_name(dc,"send-string","ping",NULL);
+}
 
 /**
  * @brief 
@@ -178,11 +188,11 @@ hid_channel_on_message_string(GObject* dc,
  */
 static void
 control_channel_on_message_string(GObject* dc,
-    gchar* message,
-    RemoteApp* core)
+                                gchar* message,
+                                RemoteApp* core)
 {
-    if(!g_strcmp0(message,"ping"))
-        g_signal_emit_by_name(dc,"send-string","ping",NULL);
+    ping = TRUE;
+    g_thread_new("Ping",handle_ping_thread,dc);
 }
 
 
@@ -198,18 +208,29 @@ channel_on_open(GObject* dc,
 
 static void
 channel_on_close_and_error(GObject* dc,
-    RemoteApp* core)
+                           RemoteApp* app)
 {
+    remote_app_reset(app);
     return;
 }
 
 
+/**
+ * @brief 
+ * handle datachannel open signal
+ * @param dc 
+ * @param core 
+ */
+static void
+start_to_ping(GObject* dc,
+              RemoteApp* app)
+{
+    WebRTCHub* hub = remote_app_get_rtc_hub(app);
+    hub->still_connected = TRUE;
+    hub->ping_thread = g_thread_new("Ping",ping_thread,app);
 
-
-
-
-
-
+    g_signal_emit_by_name(dc,"send-string","ping",NULL);
+}
 
 
 /**
@@ -222,8 +243,8 @@ channel_on_close_and_error(GObject* dc,
  */
 static gboolean
 on_data_channel(GstElement* webrtc,
-    GObject* channel,
-    gpointer data)
+                GObject* channel,
+                gpointer data)
 {
     RemoteApp* core = (RemoteApp*)data;
     WebRTCHub* hub = remote_app_get_rtc_hub(core);
@@ -236,7 +257,7 @@ on_data_channel(GstElement* webrtc,
         g_signal_connect(hub->control, "on-error",
             G_CALLBACK(channel_on_close_and_error), core);
         g_signal_connect(hub->control, "on-open",
-            G_CALLBACK(channel_on_open), core);
+            G_CALLBACK(start_to_ping), core);
         g_signal_connect(hub->control, "on-close",
             G_CALLBACK(channel_on_close_and_error), core);
         g_signal_connect(hub->control, "on-message-string",
@@ -258,10 +279,6 @@ on_data_channel(GstElement* webrtc,
         g_signal_connect(hub->hid, "on-message-data",
             G_CALLBACK(data_channel_on_message_data), core);
     }
-    else
-    {
-        return;
-    }
 }
 
 
@@ -280,3 +297,8 @@ connect_data_channel_signals(RemoteApp* core)
 }
 
 
+void
+stop_to_ping(WebRTCHub* hub)
+{
+    hub->still_connected = FALSE;
+}

@@ -25,8 +25,7 @@ namespace Signalling.Services
 
         public async Task Handle(SessionAccession accession, WebSocket ws)
         {
-            onlineList.TryAdd(accession,ws);
-
+            onlineList.AddOrUpdate(accession,ws, (b,c) => ws);
             var core = onlineList.Where(o => o.Key.ID == accession.ID);
             if(core.Count() == 2)
             {
@@ -51,15 +50,13 @@ namespace Signalling.Services
                     }
                 } while (ws.State == WebSocketState.Open);
                 await ws.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
-                Serilog.Log.Information("Connection closed");
             }
             catch (Exception ex)
             {
-                Serilog.Log.Information("Connection closed");
-                Serilog.Log.Information(ex.Message);
-                Serilog.Log.Information(ex.StackTrace);
+                Serilog.Log.Information($"{ex.Message} : {ex.StackTrace}");
             }
 
+            Serilog.Log.Information("Connection closed");
             onlineList.TryRemove(accession,out var output);
         }
 

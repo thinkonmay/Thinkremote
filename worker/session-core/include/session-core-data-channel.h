@@ -20,14 +20,6 @@ gboolean                connect_data_channel_signals                (SessionCore
 
 /**
  * @brief 
- * 
- * @param core 
- * @return gboolean 
- */
-gboolean                ping_remote_client                          (SessionCore* core);
-
-/**
- * @brief 
  * initialize webrtchub with default member
  * @return WebRTCHub* 
  */

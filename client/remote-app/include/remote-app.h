@@ -29,6 +29,12 @@
  */
 RemoteApp*		remote_app_initialize				(gchar* remote_token);
 
+/**
+ * @brief 
+ * reset remote-app-stream
+ * @param self 
+ */
+void 			remote_app_reset					(RemoteApp* self);
 
 /**
  * @brief 

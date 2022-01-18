@@ -492,15 +492,6 @@ hid_channel_on_message_data(GObject* datachannel,
 }
 
 
-
-
-
-
-#ifdef G_OS_WIN32
-
-#endif
-
-
 /**
  * @brief 
  * handle message from hid datachannel and send to window
@@ -548,56 +539,6 @@ hid_channel_on_message_string(GObject* dc,
 
 
 
-/**
- * @brief 
- * 
- */
-static gboolean ping = TRUE;
-
-/**
- * @brief 
- * 
- * @param data 
- * @return gpointer 
- */
-gpointer
-ping_thread(gpointer data)
-{
-    SessionCore* core = (SessionCore*) data;
-    while (TRUE)
-    {
-#ifdef G_OS_WIN32
-        Sleep(2000);
-#else
-        sleep(2000);
-#endif
-
-        if(ping)
-        {
-            ping = FALSE;
-            continue;
-        }
-        else
-        {
-            // session_core_finalize(core,NULL);
-        }
-    }
-}
-
-
-
-gpointer
-handle_ping_thread(gpointer user_data)
-{
-    GObject* dc = (GObject*) user_data;
-#ifdef G_OS_WIN32
-        Sleep(1000);
-#else
-        sleep(1000);
-#endif
-    g_signal_emit_by_name(dc,"send-string","ping",NULL);
-    ping = TRUE;
-}
 
 
 /**
@@ -609,27 +550,11 @@ handle_ping_thread(gpointer user_data)
  */
 static void
 control_channel_on_message_string(GObject* dc,
-    gchar* message,
-    SessionCore* core)
+                                  gchar* message,
+                                  SessionCore* core)
 {
     WebRTCHub* hub = session_core_get_rtc_hub(core);
-    g_signal_emit_by_name(hub->hid,"send-string",message);
-}
-
-
-/**
- * @brief 
- * handle datachannel open signal
- * @param dc 
- * @param core 
- */
-static void
-start_to_ping(GObject* dc,
-                SessionCore* core)
-{
-    g_thread_new("Ping",ping_thread,core);
-    g_signal_emit_by_name(dc,"send-string","ping",NULL);
-    return;
+    g_signal_emit_by_name(dc,"send-string",message,NULL);
 }
 
 
@@ -643,7 +568,6 @@ static void
 channel_on_open(GObject* dc,
                 SessionCore* core)
 {
-
     return;
 }
 
@@ -667,13 +591,6 @@ channel_on_close_and_error(GObject* dc,
 
 
 
-gboolean                
-ping_remote_client(SessionCore* core)
-{
-    WebRTCHub* hub = session_core_get_rtc_hub(core);
-    g_signal_emit_by_name(hub->control,"send-string","ping",NULL);
-}
-
 
 gboolean
 connect_data_channel_signals(SessionCore* core)
@@ -681,9 +598,6 @@ connect_data_channel_signals(SessionCore* core)
     WebRTCHub* hub = session_core_get_rtc_hub(core);
     Pipeline* pipe = session_core_get_pipeline(core);
     GstElement* webrtcbin = pipeline_get_webrtc_bin(pipe);
-
-
-
 
 
     // connect data channel source
@@ -706,7 +620,7 @@ connect_data_channel_signals(SessionCore* core)
     g_signal_connect(hub->control, "on-error",
         G_CALLBACK(channel_on_close_and_error), core);
     g_signal_connect(hub->control, "on-open",
-        G_CALLBACK(start_to_ping), core);
+        G_CALLBACK(channel_on_open), core);
     g_signal_connect(hub->control, "on-close",
         G_CALLBACK(channel_on_close_and_error), core);
     g_signal_connect(hub->control, "on-message-string",

@@ -80,6 +80,8 @@ signalling_hub_initialize(RemoteApp* core)
 {
     SignallingHub* hub = malloc(sizeof(SignallingHub));
     memset(hub,0,sizeof(SignallingHub));
+
+
     return hub;
 }
 
@@ -114,8 +116,8 @@ signalling_hub_setup(SignallingHub* hub,
         if(DEVELOPMENT_ENVIRONMENT) 
         {
             g_printerr("Fail to get turn server, setting default value");
+            turn = DEFAULT_TURN;
         }
-        turn = DEFAULT_TURN;
     }
     else
     {
@@ -430,10 +432,6 @@ on_offer_received(RemoteApp* core,
 void
 signalling_connect(RemoteApp* core)
 {
-    SoupLogger* logger;
-    SoupMessage* message;
-    const char* https_aliases[] = { "wss", NULL };
-    JsonObject* json_object;
     SignallingHub* hub = remote_app_get_signalling_hub(core);
     
     GString* string = g_string_new(hub->signalling_server);
@@ -441,14 +439,13 @@ signalling_connect(RemoteApp* core)
     g_string_append(string,hub->remote_token);
     gchar* url = g_string_free(string,FALSE);
 
-
-
+    const char* https_aliases[] = { "wss", NULL };
     hub->session =
         soup_session_new_with_options(SOUP_SESSION_SSL_STRICT, TRUE,
             SOUP_SESSION_SSL_USE_SYSTEM_CA_FILE, TRUE,
             SOUP_SESSION_HTTPS_ALIASES, https_aliases, NULL);
 
-    message = soup_message_new(SOUP_METHOD_GET, url);
+    SoupMessage* message = soup_message_new(SOUP_METHOD_GET, url);
     soup_session_websocket_connect_async(hub->session,
         message, NULL, NULL, NULL,
         (GAsyncReadyCallback)on_server_connected, core);
@@ -559,9 +556,9 @@ static void
 on_server_message(SoupWebsocketConnection* conn,
     SoupWebsocketDataType type,
     GBytes* message,
-    RemoteApp* core)
+    RemoteApp* app)
 {
-    Pipeline* pipe = remote_app_get_pipeline(core);
+    Pipeline* pipe = remote_app_get_pipeline(app);
     gchar* text;
 
     switch (type) 
@@ -589,17 +586,19 @@ on_server_message(SoupWebsocketConnection* conn,
 
     gchar* RequestType =    json_object_get_string_member(object, "RequestType");
     gchar* Content =        json_object_get_string_member(object, "Content");
+
     if(DEVELOPMENT_ENVIRONMENT)
-    {
-        g_print(Content);
-        g_print("\n");
-    }
+        g_print("%s\n",Content);
+
+
 
     if (!g_strcmp0(RequestType, "OFFER_SDP")) {
-        on_sdp_exchange(Content, core);
+        setup_pipeline(app);
+        on_sdp_exchange(Content, app);
     } else if (!g_strcmp0(RequestType, "OFFER_ICE")) {
-        on_ice_exchange(Content, core);
+        on_ice_exchange(Content, app);
     }
+
     g_free(text);
     g_object_unref(parser);
 }
@@ -635,15 +634,8 @@ on_server_connected(SoupSession* session,
 gboolean
 signalling_close(SignallingHub* hub)
 {
-    if (hub->connection)
-    {
-        if (soup_websocket_connection_get_state(hub->connection) == SOUP_WEBSOCKET_STATE_OPEN)
-            soup_websocket_connection_close(hub->connection, 1000, "close");
-
-
-        g_object_unref(hub->connection);
-        g_object_unref(hub->session);
-    }
+    if (soup_websocket_connection_get_state(hub->connection) == SOUP_WEBSOCKET_STATE_OPEN)
+        soup_websocket_connection_close(hub->connection, 1000, "close");
 }
 
 void

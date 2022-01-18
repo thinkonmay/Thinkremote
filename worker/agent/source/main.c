@@ -30,7 +30,7 @@
 static GOptionEntry entries[] = {
   {"token", 0, 0, G_OPTION_ARG_STRING, &TOKEN,
       "token register with worker manager", "TOKEN"},
-  {"clusterip", 0, 0, G_OPTION_ARG_STRING, &CLUSTER_URL,
+  {"clusterurl", 0, 0, G_OPTION_ARG_STRING, &CLUSTER_URL,
       "Signalling server to connect to", "URL"},
   {"user", 0, 0, G_OPTION_ARG_STRING, &USER,
       "thinkmay manager username", "URL"},
@@ -49,7 +49,6 @@ main(int argc, char* argv[])
 
     context = g_option_context_new ("- thinkmay agent ");
     g_option_context_add_main_entries (context, entries, NULL);
-    g_option_context_add_group (context, gst_init_get_option_group ());
     if (!g_option_context_parse (context, &argc, &argv, &error)) {
         g_printerr ("Error initializing: %s\n", error->message);
         return -1;

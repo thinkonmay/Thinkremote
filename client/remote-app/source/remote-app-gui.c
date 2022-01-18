@@ -89,6 +89,12 @@ static GUI _gui = {0};
  */
 void                        set_up_window           (GUI* gui);
 
+/**
+ * @brief 
+ * 
+ */
+void                        handle_fullscreen_hotkey ();
+
 GUI*
 init_remote_app_gui(RemoteApp *app)
 {
@@ -235,13 +241,14 @@ setup_video_overlay(GstElement* videosink,
 
     /* prepare the pipeline */
     gst_object_ref_sink (videosink);
-
     gst_bus_add_watch (GST_ELEMENT_BUS (pipe_element), bus_msg, pipe_element);
 
     ShowWindow (_gui.window, SW_SHOW);
+
     gst_video_overlay_set_window_handle (GST_VIDEO_OVERLAY (videosink),
         (guintptr) _gui.window);
 
+    handle_fullscreen_hotkey();
 }
 
 
@@ -340,7 +347,6 @@ switch_fullscreen_mode(GUI* gui)
                     fullscreen_rect.top,
                     fullscreen_rect.right,
                     fullscreen_rect.bottom, SWP_FRAMECHANGED | SWP_NOACTIVATE);
-
         ShowWindow(gui->window, SW_MAXIMIZE);
     }
 }
@@ -413,34 +419,64 @@ center_mouse_position(GUI* gui)
 
 
 #define F_KEY  0x50
+#define W_KEY  0x57
+
+
+
+/**
+ * @brief 
+ * 
+ */
+void
+handle_fullscreen_hotkey()
+{
+    if(_gui.disable_client_cursor)
+    {
+        enable_client_cursor();
+        toggle_key_capturing(_gui.app,FALSE);
+        switch_fullscreen_mode(&_gui);
+    }
+    else
+    {
+        disable_client_cursor();
+        switch_fullscreen_mode(&_gui);
+        toggle_key_capturing(_gui.app,TRUE);
+
+        /**
+         * @brief 
+         * reset mouse and keyboard to prevent key stuck
+         */
+        reset_key(_gui.app);
+        reset_mouse(_gui.app);
+    }
+}
+
 
 void
 handle_user_shortcut()
 {
     if (_keydown(VK_SHIFT))
     {
-        if (_keydown(VK_CONTROL))
+        if (_keydown(VK_MENU))
         {
-            if (_keydown(F_KEY))
+            if (_keydown(VK_CONTROL))
             {
-                if(_gui.disable_client_cursor)
+                /**
+                 * @brief 
+                 * handle mouse lock key
+                 */
+                if (_keydown(F_KEY))
                 {
-                    enable_client_cursor();
-                    toggle_key_capturing(_gui.app,FALSE);
-                    switch_fullscreen_mode(&_gui);
+                    handle_fullscreen_hotkey();
                 }
-                else
-                {
-                    disable_client_cursor();
-                    switch_fullscreen_mode(&_gui);
-                    toggle_key_capturing(_gui.app,TRUE);
 
-                    /**
-                     * @brief 
-                     * reset mouse and keyboard to prevent key stuck
-                     */
-                    reset_key(_gui.app);
-                    reset_mouse(_gui.app);
+                /**
+                 * @brief 
+                 * handle reset video stream 
+                 */
+                if (_keydown(W_KEY))
+                {
+                    remote_app_reset(_gui.app);
                 }
             }
         }
