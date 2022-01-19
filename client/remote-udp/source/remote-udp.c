@@ -1,5 +1,5 @@
 /**
- * @file remote-app.c
+ * @file remote-udp.c
  * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
  * @brief 
  * @version 1.0
@@ -8,14 +8,14 @@
  * @copyright Copyright (c) 2021
  * 
  */
-#include <remote-app-signalling.h>
-#include <remote-app-remote-config.h>
-#include <remote-app-pipeline.h>
-#include <remote-app-data-channel.h>
-#include <remote-app.h>
-#include <remote-app-gui.h>
-#include <remote-app-type.h>
-#include <remote-app-input.h>
+#include <remote-udp-signalling.h>
+#include <remote-udp-remote-config.h>
+#include <remote-udp-pipeline.h>
+#include <remote-udp-data-channel.h>
+#include <remote-udp.h>
+#include <remote-udp-gui.h>
+#include <remote-udp-type.h>
+#include <remote-udp-input.h>
 
 #include <module-code.h>
 #include <development.h>

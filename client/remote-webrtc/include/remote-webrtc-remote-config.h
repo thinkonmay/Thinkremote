@@ -1,5 +1,5 @@
 /**
- * @file remote-app-remote-config.h
+ * @file remote-webrtc-remote-config.h
  * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
  * @brief 
  * @version 1.0
@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2021
  * 
  */
-#include <remote-app-type.h>
-#include "remote-app.h"
+#include <remote-webrtc-type.h>
+#include "remote-webrtc.h"
 #include <gst/gst.h>
 #include <qoe.h>
 

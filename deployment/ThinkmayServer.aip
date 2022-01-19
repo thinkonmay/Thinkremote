@@ -377,11 +377,11 @@
     <ROW File="sessioncore.pdb" Component_="sessioncore.exe" FileName="SESSIO~1.PDB|session-webrtc.pdb" Attributes="0" SourcePath="..\bin\session-webrtc.pdb" SelfReg="false"/>
     <ROW File="agent.exe" Component_="agent.exe_1" FileName="agent.exe" Attributes="0" SourcePath="..\bin\agent.exe" SelfReg="false" DigSign="true"/>
     <ROW File="sessioncore.exe" Component_="sessioncore.exe" FileName="SESSIO~1.EXE|session-webrtc.exe" Attributes="0" SourcePath="..\bin\session-webrtc.exe" SelfReg="false" DigSign="true"/>
-    <ROW File="remoteapp.exe" Component_="remoteapp.exe_2" FileName="REMOTE~1.EXE|remote-app.exe" Attributes="0" SourcePath="..\bin\remote-app.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="remoteapp.exe" Component_="remoteapp.exe_2" FileName="REMOTE~1.EXE|remote-webrtc.exe" Attributes="0" SourcePath="..\bin\remote-webrtc.exe" SelfReg="false" DigSign="true"/>
     <ROW File="videotesting.exe" Component_="videotesting.exe_1" FileName="VIDEOT~1.EXE|videotesting.exe" Attributes="0" SourcePath="..\bin\videotesting.exe" SelfReg="false" DigSign="true"/>
     <ROW File="welcome.exe" Component_="welcome.exe_1" FileName="welcome.exe" Attributes="0" SourcePath="..\bin\welcome.exe" SelfReg="false" DigSign="true"/>
     <ROW File="agent.pdb" Component_="agent.exe_1" FileName="agent.pdb" Attributes="0" SourcePath="..\bin\agent.pdb" SelfReg="false"/>
-    <ROW File="remoteapp.pdb" Component_="remoteapp.exe_2" FileName="REMOTE~1.PDB|remote-app.pdb" Attributes="0" SourcePath="..\bin\remote-app.pdb" SelfReg="false"/>
+    <ROW File="remoteapp.pdb" Component_="remoteapp.exe_2" FileName="REMOTE~1.PDB|remote-webrtc.pdb" Attributes="0" SourcePath="..\bin\remote-webrtc.pdb" SelfReg="false"/>
     <ROW File="videotesting.pdb" Component_="videotesting.exe_1" FileName="VIDEOT~1.PDB|videotesting.pdb" Attributes="0" SourcePath="..\bin\videotesting.pdb" SelfReg="false"/>
     <ROW File="welcome.pdb" Component_="welcome.exe_1" FileName="welcome.pdb" Attributes="0" SourcePath="..\bin\welcome.pdb" SelfReg="false"/>
     <ROW File="am.pak" Component_="am.pak" FileName="am.pak" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\locales\am.pak" SelfReg="false"/>
@@ -995,8 +995,8 @@
     <ROW File="package.json_57" Component_="npmignore_2" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\package.json" SelfReg="false"/>
     <ROW File="README.md_43" Component_="npmignore_2" FileName="README.md" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\node_modules\xmlbuilder\README.md" SelfReg="false"/>
     <ROW File="package.json_58" Component_="main.js" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\package.json" SelfReg="false"/>
-    <ROW File="remoteapp.exe_1" Component_="remoteapp.exe_1" FileName="REMOTE~1.EXE|remote-app.exe" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\remote-app.exe" SelfReg="false" DigSign="true"/>
-    <ROW File="remoteapp.pdb_1" Component_="remoteapp.exe_1" FileName="REMOTE~1.PDB|remote-app.pdb" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\remote-app.pdb" SelfReg="false"/>
+    <ROW File="remoteapp.exe_1" Component_="remoteapp.exe_1" FileName="REMOTE~1.EXE|remote-webrtc.exe" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\remote-webrtc.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="remoteapp.pdb_1" Component_="remoteapp.exe_1" FileName="REMOTE~1.PDB|remote-webrtc.pdb" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\remote-webrtc.pdb" SelfReg="false"/>
     <ROW File="remotetoken" Component_="main.js" FileName="REMOTE~1|remote-token" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\remote-token" SelfReg="false"/>
     <ROW File="temp.txt" Component_="main.js" FileName="temp.txt" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\temp.txt" SelfReg="false"/>
     <ROW File="welcome.pdb_1" Component_="welcome.pdb" FileName="welcome.pdb" Attributes="0" SourcePath="..\client\window\electron\out\ThinkMay-win32-x64\resources\app\welcome.pdb" SelfReg="false"/>

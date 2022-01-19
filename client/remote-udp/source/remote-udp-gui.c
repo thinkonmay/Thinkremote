@@ -1,5 +1,5 @@
 /**
- * @file remote-app-gui.c
+ * @file remote-udp-gui.c
  * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
  * @brief 
  * @version 1.0
@@ -8,11 +8,11 @@
  * @copyright Copyright (c) 2021
  * 
  */
-#include <remote-app-gui.h>
-#include <remote-app-type.h>
-#include <remote-app-pipeline.h>
-#include <remote-app-input.h>
-#include <remote-app.h>
+#include <remote-udp-gui.h>
+#include <remote-udp-type.h>
+#include <remote-udp-pipeline.h>
+#include <remote-udp-input.h>
+#include <remote-udp.h>
 
 #include <glib.h>
 

@@ -68,7 +68,7 @@
             "name": "remote app",
             "type": "cppvsdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/bin/remote-app.exe",
+            "program": "${workspaceFolder}/bin/remote-webrtc.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",

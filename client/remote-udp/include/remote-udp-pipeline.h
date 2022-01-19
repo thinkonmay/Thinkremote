@@ -1,5 +1,5 @@
 /**
- * @file remote-app-pipeline.h
+ * @file remote-udp-pipeline.h
  * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
  * @brief 
  * @version 1.0
@@ -10,10 +10,10 @@
  */
 #ifndef __REMOTE_APP_PIPELINE_H__
 #define __REMOTE_APP_PIPELINE_H__
-#include <remote-app-type.h>
+#include <remote-udp-type.h>
 #include <gst/gst.h>
 
-#include <remote-app-type.h>
+#include <remote-udp-type.h>
 #include <qoe.h>
 
 

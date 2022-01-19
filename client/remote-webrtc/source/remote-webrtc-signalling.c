@@ -1,8 +1,8 @@
 
-#include <remote-app-signalling.h>
-#include <remote-app.h>
-#include <remote-app-pipeline.h>
-#include <remote-app-type.h>
+#include <remote-webrtc-signalling.h>
+#include <remote-webrtc.h>
+#include <remote-webrtc-pipeline.h>
+#include <remote-webrtc-type.h>
 
 #include <signalling-message.h>
 #include <development.h>
@@ -10,7 +10,7 @@
 
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>
-#include <remote-app-type.h>
+#include <remote-webrtc-type.h>
 #include <libsoup/soup.h>
 #include <json-glib/json-glib.h>
 

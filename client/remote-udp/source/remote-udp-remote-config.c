@@ -1,5 +1,5 @@
 /**
- * @file remote-app-remote-config.c
+ * @file remote-udp-remote-config.c
  * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
  * @brief 
  * @version 1.0
@@ -8,9 +8,9 @@
  * @copyright Copyright (c) 2021
  * 
  */
-#include <remote-app-remote-config.h>
-#include <remote-app-type.h>
-#include <remote-app-pipeline.h>
+#include <remote-udp-remote-config.h>
+#include <remote-udp-type.h>
+#include <remote-udp-pipeline.h>
 
 #include <qoe.h>
 

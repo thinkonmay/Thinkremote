@@ -1,5 +1,5 @@
 /**
- * @file remote-app-type.h
+ * @file remote-udp-type.h
  * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
  * @brief 
  * @version 1.0

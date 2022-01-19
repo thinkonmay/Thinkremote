@@ -2,7 +2,7 @@
 #define __REMOTE_APP_INPUT_H__
 #include <glib-2.0/glib.h>
 #include <gst/gst.h>
-#include <remote-app-type.h>
+#include <remote-webrtc-type.h>
 
 
 

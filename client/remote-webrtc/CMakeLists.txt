@@ -14,15 +14,15 @@ pkg_check_modules(VIDEO REQUIRED gstreamer-video-1.0)
 
 
 
-file(GLOB SOURCE_LIST ${CMAKE_SOURCE_DIR}/client/remote-app/source/*.c)
-add_executable(remote-app ${SOURCE_LIST} ${SHARED_SOURCE})
+file(GLOB SOURCE_LIST ${CMAKE_SOURCE_DIR}/client/remote-webrtc/source/*.c)
+add_executable(remote-webrtc ${SOURCE_LIST} ${SHARED_SOURCE})
 
 
 
 
-target_include_directories(remote-app 
+target_include_directories(remote-webrtc 
 PUBLIC
-    ${CMAKE_SOURCE_DIR}/client/remote-app/include
+    ${CMAKE_SOURCE_DIR}/client/remote-webrtc/include
     ${SHARED_HEADER}
     ${LIBSOUP_INCLUDE_DIRS}
     ${GLIB_INCLUDE_DIRS} 
@@ -36,22 +36,22 @@ PUBLIC
     ${VIDEO_INCLUDE_DIRS})
 
 
-set_target_properties(remote-app PROPERTIES 
+set_target_properties(remote-webrtc PROPERTIES 
  RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
-target_compile_options(remote-app PUBLIC ${GLIB_CFLAGS})
-target_compile_options(remote-app PUBLIC ${GIO_CFLAGS})
-target_compile_options(remote-app PUBLIC ${GOBJECT_CFLAGS})
-target_compile_options(remote-app PUBLIC ${SDP_CFLAGS})
-target_compile_options(remote-app PUBLIC ${GST_CFLAGS})
-target_compile_options(remote-app PUBLIC ${JSON_GLIB_CFLAGS})
-target_compile_options(remote-app PUBLIC ${WEBRTC_CFLAGS})
-target_compile_options(remote-app PUBLIC ${CONTROLLER_CFLAGS})
-target_compile_options(remote-app PUBLIC ${VIDEO_CFLAGS})
+target_compile_options(remote-webrtc PUBLIC ${GLIB_CFLAGS})
+target_compile_options(remote-webrtc PUBLIC ${GIO_CFLAGS})
+target_compile_options(remote-webrtc PUBLIC ${GOBJECT_CFLAGS})
+target_compile_options(remote-webrtc PUBLIC ${SDP_CFLAGS})
+target_compile_options(remote-webrtc PUBLIC ${GST_CFLAGS})
+target_compile_options(remote-webrtc PUBLIC ${JSON_GLIB_CFLAGS})
+target_compile_options(remote-webrtc PUBLIC ${WEBRTC_CFLAGS})
+target_compile_options(remote-webrtc PUBLIC ${CONTROLLER_CFLAGS})
+target_compile_options(remote-webrtc PUBLIC ${VIDEO_CFLAGS})
 
-target_link_directories(remote-app PUBLIC ${INCLUDE_LIBRARY} )    
+target_link_directories(remote-webrtc PUBLIC ${INCLUDE_LIBRARY} )    
 
-target_link_libraries(remote-app 
+target_link_libraries(remote-webrtc 
     ${LIBSOUP_LIBRARIES}
     ${GLIB_LIBRARIES} 
     ${GIO_LIBRARIES} 

@@ -1,5 +1,5 @@
 /**
- * @file remote-app-signalling.h
+ * @file remote-webrtc-signalling.h
  * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
  * @brief 
  * @version 1.0
@@ -11,9 +11,9 @@
 #ifndef __REMOTE_APP_SIGNALLING_H__
 #define __REMOTE_APP_SIGNALLING_H__
 
-#include "remote-app-type.h"
-#include "remote-app.h"
-#include "remote-app-type.h"
+#include "remote-webrtc-type.h"
+#include "remote-webrtc.h"
+#include "remote-webrtc-type.h"
 
 
 #include <message-form.h>

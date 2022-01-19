@@ -1,8 +1,8 @@
-#include <remote-app-type.h>
-#include "remote-app.h"
+#include <remote-webrtc-type.h>
+#include "remote-webrtc.h"
 
 #include <glib.h>
-#include "remote-app-type.h"
+#include "remote-webrtc-type.h"
 #include <gst/webrtc/webrtc_fwd.h>
 
 /**

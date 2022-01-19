@@ -1,5 +1,5 @@
 /**
- * @file remote-app-gui.h
+ * @file remote-udp-gui.h
  * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
  * @brief 
  * @version 1.0
@@ -10,8 +10,8 @@
  */
 #ifndef __REMOTE_APP_GUI_H__
 #define __REMOTE_APP_GUI_H__
-#include <remote-app.h>
-#include <remote-app-type.h>
+#include <remote-udp.h>
+#include <remote-udp-type.h>
 
 
 #include <gst/gst.h>

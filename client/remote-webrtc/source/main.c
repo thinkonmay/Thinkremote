@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2021
  * 
  */
-#include <remote-app.h>
-#include <remote-app-type.h>
+#include <remote-webrtc.h>
+#include <remote-webrtc-type.h>
 
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>

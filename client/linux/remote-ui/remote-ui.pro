@@ -26,7 +26,7 @@ HEADERS += \
 
 
 INCLUDEPATH += \
-    ../remote-app/include \
+    ../remote-webrtc/include \
     ../shared-items/include
 
 

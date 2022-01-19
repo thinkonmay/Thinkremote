@@ -1,7 +1,7 @@
 {
     "files.associations": {
         "xlib.h": "c",
-        "remote-app-remote-config.h": "c",
+        "remote-webrtc-remote-config.h": "c",
         "navigation.h": "c",
         "agent-type.h": "c",
         "agent-win32-server.h": "c",

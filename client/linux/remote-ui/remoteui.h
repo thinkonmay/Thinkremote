@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <GEventLogger.h>
-#include <../remote-app/include/remote-app.h>
+#include <../remote-webrtc/include/remote-webrtc.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class RemoteUI; }

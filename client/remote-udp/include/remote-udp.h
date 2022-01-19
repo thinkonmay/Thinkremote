@@ -1,5 +1,5 @@
 /**
- * @file remote-app.h
+ * @file remote-udp.h
  * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
  * @brief 
  * @version 1.0
@@ -11,7 +11,7 @@
 #ifndef __REMOTE_APP_H__
 #define __REMOTE_APP_H__
 
-#include <remote-app-type.h>
+#include <remote-udp-type.h>
 #include <message-form.h>
 
 
@@ -31,7 +31,7 @@ RemoteApp*		remote_app_initialize				(gchar* remote_token);
 
 /**
  * @brief 
- * reset remote-app-stream
+ * reset remote-udp-stream
  * @param self 
  */
 void 			remote_app_reset					(RemoteApp* self);

@@ -1,9 +1,9 @@
-#include <remote-app-data-channel.h>
-#include <remote-app.h>
-#include <remote-app-type.h>
-#include <remote-app-pipeline.h>
-#include <remote-app-remote-config.h>
-#include <remote-app-signalling.h>
+#include <remote-webrtc-data-channel.h>
+#include <remote-webrtc.h>
+#include <remote-webrtc-type.h>
+#include <remote-webrtc-pipeline.h>
+#include <remote-webrtc-remote-config.h>
+#include <remote-webrtc-signalling.h>
 
 
 #include <human-interface-opcode.h>

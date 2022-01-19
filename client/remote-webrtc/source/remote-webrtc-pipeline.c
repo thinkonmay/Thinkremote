@@ -1,5 +1,5 @@
 ﻿/**
- * @file remote-app-pipeline.c
+ * @file remote-webrtc-pipeline.c
  * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
  * @brief 
  * @version 1.0
@@ -8,14 +8,14 @@
  * @copyright Copyright (c) 2021
  * 
  */
-#include <remote-app-pipeline.h>
-#include <remote-app-type.h>
-#include <remote-app-data-channel.h>
-#include <remote-app-signalling.h>
-#include <remote-app-remote-config.h>
-#include <remote-app-pipeline.h>
-#include <remote-app-gui.h>
-#include <remote-app-input.h>
+#include <remote-webrtc-pipeline.h>
+#include <remote-webrtc-type.h>
+#include <remote-webrtc-data-channel.h>
+#include <remote-webrtc-signalling.h>
+#include <remote-webrtc-remote-config.h>
+#include <remote-webrtc-pipeline.h>
+#include <remote-webrtc-gui.h>
+#include <remote-webrtc-input.h>
 
 #include <qoe.h>
 

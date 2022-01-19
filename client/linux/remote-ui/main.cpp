@@ -1,4 +1,4 @@
-#include <remote-app-type.h>
+#include <remote-webrtc-type.h>
 #include "remoteui.h"
 #include <QApplication>
 
