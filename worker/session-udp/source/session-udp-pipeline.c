@@ -10,7 +10,7 @@
  */
 #include <session-udp-pipeline.h>
 #include <session-udp-type.h>
-#include <session-udp-data-channel.h>
+#include <session-udp-human-interface.h>
 #include <session-udp-remote-config.h>
 
 

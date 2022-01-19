@@ -81,6 +81,7 @@ struct _Win32Server
 
 Win32Server*
 init_window_server(ServerMessageHandle handle,
+                   gchar* port,
                    gpointer data)
 {
     Win32Server* server = ALLOC_MEM(sizeof(Win32Server));
@@ -90,7 +91,7 @@ init_window_server(ServerMessageHandle handle,
     HTTPAPI_VERSION api_version = HTTPAPI_VERSION_1;
 
     GString* string = g_string_new("http://localhost:");
-    g_string_append(string,AGENT_PORT);
+    g_string_append(string,port);
     g_string_append(string,"/");
     gchar* utf8 = g_string_free(string,FALSE);
     PCWSTR url = g_utf8_to_utf16(utf8,strlen(utf8),NULL,NULL,NULL);

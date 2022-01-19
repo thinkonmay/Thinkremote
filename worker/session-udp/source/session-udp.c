@@ -10,7 +10,7 @@
  */
 #include <session-udp-remote-config.h>
 #include <session-udp-pipeline.h>
-#include <session-udp-data-channel.h>
+#include <session-udp-human-interface.h>
 #include <session-udp.h>
 #include <session-udp-type.h>
 
@@ -266,24 +266,14 @@ handle_message_server(gchar* path,
                       gchar* response_body,
                       gpointer data)
 {
-	AgentServer* agent = (AgentServer*) data;
+	SessionUdp* agent = (SessionUdp*) data;
 
-	if(!g_strcmp0(path,"/ping"))
+	if(!g_strcmp0(path,"/hid/mouse"))
 		return TRUE;
-	
-
-
-	if(!g_strcmp0(path,"/Initialize")) {
-		if(!validate_token(token))
-			return FALSE;
-		return session_initialize(agent);
-	} else if(!g_strcmp0(path,"/Terminate")) {
-		if(!validate_token(token))
-			return FALSE;
-		return session_terminate(data);
-	} else if(!g_strcmp0(path,"/Shell")) {
-		return initialize_shell_session_from_byte(agent,request_body,response_body);
-	} 
+	if(!g_strcmp0(path,"/hid/keyboard"))
+		return TRUE;
+	if(!g_strcmp0(path,"/hid/other"))
+		return TRUE;
 }
 
 #else
@@ -403,7 +393,7 @@ session_core_initialize()
 	core->server = 				init_session_core_server(core);
 #else
 	core->server = 				init_window_server(
-									(ServerMessageHandle)handle_message_server,core);
+									(ServerMessageHandle)handle_message_server,"4000",core);
 #endif
 	core->hub =					webrtchub_initialize();
 	core->qoe =					qoe_initialize();

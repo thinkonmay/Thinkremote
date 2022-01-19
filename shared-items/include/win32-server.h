@@ -27,6 +27,7 @@ typedef gboolean    (*ServerMessageHandle)  (gchar* path,
                                              gpointer data);
 
 Win32Server* init_window_server             (ServerMessageHandle handle,
+                                             gchar* port,
                                              gpointer data);
 
 
