@@ -23,7 +23,7 @@
  * initialize StreamConfig for the stream
  * @return StreamConfig* 
  */
-StreamConfig*			qoe_initialize						();
+StreamConfig*	qoe_initialize						();
 
 /**
  * @brief 

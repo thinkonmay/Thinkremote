@@ -22,6 +22,7 @@
 #include <token-validate.h>
 #include <development.h>
 #include <human-interface-opcode.h>
+#include <win32-server.h>
 
 
 #include <glib.h>
@@ -36,11 +37,19 @@
 
 struct _SessionUdp
 {
+#ifndef G_OS_WIN32
 	/**
 	 * @brief 
 	 * Soup server for receiving ping from cluster manager
 	 */
 	SoupServer* server;
+#else
+	/**
+	 * @brief 
+	 * 
+	 */
+	Win32Server* server;
+#endif
 
 	/**
 	 * @brief 
@@ -249,8 +258,35 @@ session_core_setup_session(SessionUdp* self)
 
 
 
+#ifdef G_OS_WIN32
+gboolean    
+handle_message_server(gchar* path,
+					  gchar* token,
+                      GBytes* request_body,
+                      gchar* response_body,
+                      gpointer data)
+{
+	AgentServer* agent = (AgentServer*) data;
+
+	if(!g_strcmp0(path,"/ping"))
+		return TRUE;
+	
 
 
+	if(!g_strcmp0(path,"/Initialize")) {
+		if(!validate_token(token))
+			return FALSE;
+		return session_initialize(agent);
+	} else if(!g_strcmp0(path,"/Terminate")) {
+		if(!validate_token(token))
+			return FALSE;
+		return session_terminate(data);
+	} else if(!g_strcmp0(path,"/Shell")) {
+		return initialize_shell_session_from_byte(agent,request_body,response_body);
+	} 
+}
+
+#else
 /**
  * @brief 
  * initialize session core with message handler
@@ -309,6 +345,7 @@ server_callback (SoupServer        *server,
 		}
 	}
 }
+#endif
 
 
 gpointer
@@ -362,7 +399,12 @@ session_core_initialize()
 	worker_log_output("Session core process started");
 	SessionUdp* core = malloc(sizeof(SessionUdp));
 
+#ifndef G_OS_WIN32
 	core->server = 				init_session_core_server(core);
+#else
+	core->server = 				init_window_server(
+									(ServerMessageHandle)handle_message_server,core);
+#endif
 	core->hub =					webrtchub_initialize();
 	core->qoe =					qoe_initialize();
 	core->pipe =				pipeline_initialize();

@@ -57,7 +57,7 @@ Pipeline*		session_core_get_pipeline				(SessionUdp* self);
  * @param self session core
  * @return HumanInterface*  pointer to webrtc
  */
-HumanInterface*		session_core_get_rtc_hub				(SessionUdp* self);
+HumanInterface*	session_core_get_rtc_hub			(SessionUdp* self);
 
 /**
  * @brief 

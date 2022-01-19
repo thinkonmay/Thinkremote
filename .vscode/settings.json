@@ -12,7 +12,8 @@
         "global-var.h": "c",
         "charconv": "c",
         "chrono": "c",
-        "xlocnum": "c"
+        "xlocnum": "c",
+        "win32-server.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
