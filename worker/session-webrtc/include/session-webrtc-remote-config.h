@@ -1,5 +1,5 @@
 /// <summary>
-/// @file session-core-remote-config.h
+/// @file session-webrtc-remote-config.h
 /// @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
 /// </summary>
 /// @version 1.0
@@ -9,8 +9,8 @@
 /// 
 #ifndef __SESSION_CORE_REMOTE_CONFIG_H__
 #define __SESSION_CORE_REMOTE_CONFIG_H__
-#include "session-core-type.h"
-#include "session-core.h"
+#include "session-webrtc-type.h"
+#include "session-webrtc.h"
 #include <gst/gst.h>
 #include <qoe.h>
 

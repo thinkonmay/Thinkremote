@@ -374,9 +374,9 @@
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
-    <ROW File="sessioncore.pdb" Component_="sessioncore.exe" FileName="SESSIO~1.PDB|session-core.pdb" Attributes="0" SourcePath="..\bin\session-core.pdb" SelfReg="false"/>
+    <ROW File="sessioncore.pdb" Component_="sessioncore.exe" FileName="SESSIO~1.PDB|session-webrtc.pdb" Attributes="0" SourcePath="..\bin\session-webrtc.pdb" SelfReg="false"/>
     <ROW File="agent.exe" Component_="agent.exe_1" FileName="agent.exe" Attributes="0" SourcePath="..\bin\agent.exe" SelfReg="false" DigSign="true"/>
-    <ROW File="sessioncore.exe" Component_="sessioncore.exe" FileName="SESSIO~1.EXE|session-core.exe" Attributes="0" SourcePath="..\bin\session-core.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="sessioncore.exe" Component_="sessioncore.exe" FileName="SESSIO~1.EXE|session-webrtc.exe" Attributes="0" SourcePath="..\bin\session-webrtc.exe" SelfReg="false" DigSign="true"/>
     <ROW File="remoteapp.exe" Component_="remoteapp.exe_2" FileName="REMOTE~1.EXE|remote-app.exe" Attributes="0" SourcePath="..\bin\remote-app.exe" SelfReg="false" DigSign="true"/>
     <ROW File="videotesting.exe" Component_="videotesting.exe_1" FileName="VIDEOT~1.EXE|videotesting.exe" Attributes="0" SourcePath="..\bin\videotesting.exe" SelfReg="false" DigSign="true"/>
     <ROW File="welcome.exe" Component_="welcome.exe_1" FileName="welcome.exe" Attributes="0" SourcePath="..\bin\welcome.exe" SelfReg="false" DigSign="true"/>

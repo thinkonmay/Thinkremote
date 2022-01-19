@@ -9,8 +9,7 @@
  * 
  */
 #include <glib.h>
-#include <agent-type.h>
-#include <agent-win32-server.h>
+#include <win32-server.h>
 #include <global-var.h>
 
 #ifdef G_OS_WIN32
@@ -71,7 +70,7 @@ DWORD           HandleHttpRequestWithoutBody     ( Win32Server* server,
 
 struct _Win32Server
 {
-    AgentServer* server;
+    gpointer data;
 
     HANDLE hReqQueue;
 
@@ -82,10 +81,10 @@ struct _Win32Server
 
 Win32Server*
 init_window_server(ServerMessageHandle handle,
-                   AgentServer* agent)
+                   gpointer data)
 {
     Win32Server* server = ALLOC_MEM(sizeof(Win32Server));
-    server->server = agent;
+    server->data = data;
     server->handle = handle;
 
     HTTPAPI_VERSION api_version = HTTPAPI_VERSION_1;
@@ -286,7 +285,7 @@ HandleHttpRequestWithBody( Win32Server* server,
                 memset(response_buffer,0,8192);
                 gchar* request_token = pRequest->Headers.KnownHeaders[HttpHeaderAuthorization].pRawValue;
                 GBytes* byte = g_bytes_new(buffer,TotalBytesRead);
-                if((*(server->handle))(pRequest->pRawUrl, request_token,byte,response_buffer,server->server))
+                if((*(server->handle))(pRequest->pRawUrl, request_token,byte,response_buffer,server->data))
                 {
                     INITIALIZE_HTTP_RESPONSE(&response, 200, "OK");
                 }
@@ -400,7 +399,7 @@ HandleHttpRequestWithoutBody(Win32Server* server,
     gchar response_buffer[8192] = {0};
     memset(response_buffer,0,8192);
     gchar* request_token = pRequest->Headers.KnownHeaders[HttpHeaderAuthorization].pRawValue;
-    if((*(server->handle))(pRequest->pRawUrl, request_token,NULL,response_buffer,server->server))
+    if((*(server->handle))(pRequest->pRawUrl, request_token,NULL,response_buffer,server->data))
     {
         INITIALIZE_HTTP_RESPONSE(&response, 200, "OK");
     }

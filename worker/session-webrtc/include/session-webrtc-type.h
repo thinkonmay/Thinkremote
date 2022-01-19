@@ -1,5 +1,5 @@
 /// <summary>
-/// @file session-core-type.h
+/// @file session-webrtc-type.h
 /// @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
 /// </summary>
 /// @version 1.0

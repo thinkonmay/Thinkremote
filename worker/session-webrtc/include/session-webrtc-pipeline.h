@@ -1,5 +1,5 @@
 /// <summary>
-/// @file session-core-pipeline.h
+/// @file session-webrtc-pipeline.h
 /// @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
 /// </summary>
 /// @version 1.0
@@ -7,10 +7,10 @@
 /// 
 /// @copyright Copyright (c) 2021
 /// 
-#include <session-core-type.h>
+#include <session-webrtc-type.h>
 #include <gst/gst.h>
 
-#include <session-core-type.h>
+#include <session-webrtc-type.h>
 #include <qoe.h>
 
 

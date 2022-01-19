@@ -34,7 +34,7 @@
             "name": "session core",
             "type": "cppvsdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/bin/session-core.exe",
+            "program": "${workspaceFolder}/bin/session-webrtc.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",

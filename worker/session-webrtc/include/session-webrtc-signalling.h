@@ -1,5 +1,5 @@
                 /// <summary>
-/// @file session-core-signalling.h
+/// @file session-webrtc-signalling.h
 /// @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
 /// </summary>
 /// @version 1.0
@@ -10,9 +10,9 @@
 #ifndef __SESSION_CORE_SIGNALLING_H__
 #define __SESSION_CORE_SIGNALLING_H__
 
-#include "session-core-type.h"
-#include "session-core.h"
-#include "session-core-type.h"
+#include "session-webrtc-type.h"
+#include "session-webrtc.h"
+#include "session-webrtc-type.h"
 
 
 #include <message-form.h>

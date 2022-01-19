@@ -54,19 +54,9 @@ typedef struct _ShellSession        ShellSession;
  */
 typedef struct _RemoteSession       RemoteSession;
 
-/**
- * @brief 
- * 
- */
-typedef struct _Win32Server         Win32Server;
 
 
 
-typedef gboolean    (*ServerMessageHandle)  (gchar* path,
-                                             gchar* token,
-                                             GBytes* request_body,
-                                             gchar* response_body,
-                                             gpointer data);
 
 /**
  * @brief 

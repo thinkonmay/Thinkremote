@@ -1,5 +1,5 @@
 /**
- * @file session-core-signalling.c
+ * @file session-webrtc-signalling.c
  * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
  * @brief 
  * @version 1.0
@@ -9,10 +9,10 @@
  * 
  */
 
-#include <session-core-signalling.h>
-#include <session-core.h>
-#include <session-core-pipeline.h>
-#include <session-core-type.h>
+#include <session-webrtc-signalling.h>
+#include <session-webrtc.h>
+#include <session-webrtc-pipeline.h>
+#include <session-webrtc-type.h>
 
 #include <logging.h>
 #include <signalling-message.h>
@@ -21,7 +21,7 @@
 
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>
-#include <session-core-type.h>
+#include <session-webrtc-type.h>
 #include <libsoup/soup.h>
 #include <json-glib/json-glib.h>
 

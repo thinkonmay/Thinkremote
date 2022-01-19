@@ -16,7 +16,7 @@
 #include <agent-shell-session.h>
 #include <agent-device.h>
 #include <agent-child-process.h>
-#include <agent-win32-server.h>
+#include <win32-server.h>
 #include <agent-port-forward.h>
 
 

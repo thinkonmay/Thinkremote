@@ -1,8 +1,8 @@
-#include <session-core-type.h>
-#include "session-core.h"
+#include <session-webrtc-type.h>
+#include "session-webrtc.h"
 
 #include <glib.h>
-#include "session-core-type.h"
+#include "session-webrtc-type.h"
 #include <gst/webrtc/webrtc_fwd.h>
 
 

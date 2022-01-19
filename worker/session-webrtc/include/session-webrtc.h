@@ -1,5 +1,5 @@
 /// <summary>
-/// @file session-core.h
+/// @file session-webrtc.h
 /// @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
 /// </summary>
 /// @version 1.0
@@ -10,7 +10,7 @@
 #ifndef __SESSION_CORE_H__
 #define __SESSION_CORE_H__
 
-#include <session-core-type.h>
+#include <session-webrtc-type.h>
 #include <message-form.h>
 #include <human-interface-opcode.h>
 

@@ -1,8 +1,8 @@
 
-#include <session-core-type.h>
-#include <session-core.h>
-#include <session-core-pipeline.h>
-#include <session-core-data-channel.h>
+#include <session-webrtc-type.h>
+#include <session-webrtc.h>
+#include <session-webrtc-pipeline.h>
+#include <session-webrtc-data-channel.h>
 
 #include <gst/gst.h>
 #include <gst/webrtc/webrtc.h>

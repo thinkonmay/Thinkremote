@@ -1,5 +1,5 @@
-#include <session-core.h>
-#include <session-core-type.h>
+#include <session-webrtc.h>
+#include <session-webrtc-type.h>
 
 #include <development.h>
 

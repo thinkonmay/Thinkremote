@@ -15,16 +15,16 @@ pkg_check_modules(CONTROLLER REQUIRED gstreamer-controller-1.0)
 
 
 file(GLOB SOURCE_LIST 
-${CMAKE_SOURCE_DIR}/worker/session-core/source/*.c
+${CMAKE_SOURCE_DIR}/worker/session-webrtc/source/*.c
 ${CMAKE_SOURCE_DIR}/shared-items/source/*.c)
 
-add_executable(session-core ${SOURCE_LIST})
+add_executable(session-webrtc ${SOURCE_LIST})
 
 
 
 
-target_include_directories(session-core PUBLIC
-    ${CMAKE_SOURCE_DIR}/worker/session-core/include
+target_include_directories(session-webrtc PUBLIC
+    ${CMAKE_SOURCE_DIR}/worker/session-webrtc/include
     ${SHARED_HEADER}
     ${LIBSOUP_INCLUDE_DIRS}
     ${GLIB_INCLUDE_DIRS} 
@@ -37,21 +37,21 @@ target_include_directories(session-core PUBLIC
     ${CONTROLLER_INCLUDE_DIRS})
 
 
-set_target_properties(session-core PROPERTIES 
+set_target_properties(session-webrtc PROPERTIES 
  RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
-target_compile_options(session-core PUBLIC ${GLIB_CFLAGS})
-target_compile_options(session-core PUBLIC ${GIO_CFLAGS})
-target_compile_options(session-core PUBLIC ${GOBJECT_CFLAGS})
-target_compile_options(session-core PUBLIC ${SDP_CFLAGS})
-target_compile_options(session-core PUBLIC ${GST_CFLAGS})
-target_compile_options(session-core PUBLIC ${JSON_GLIB_CFLAGS})
-target_compile_options(session-core PUBLIC ${WEBRTC_CFLAGS})
-target_compile_options(session-core PUBLIC ${CONTROLLER_CFLAGS})
+target_compile_options(session-webrtc PUBLIC ${GLIB_CFLAGS})
+target_compile_options(session-webrtc PUBLIC ${GIO_CFLAGS})
+target_compile_options(session-webrtc PUBLIC ${GOBJECT_CFLAGS})
+target_compile_options(session-webrtc PUBLIC ${SDP_CFLAGS})
+target_compile_options(session-webrtc PUBLIC ${GST_CFLAGS})
+target_compile_options(session-webrtc PUBLIC ${JSON_GLIB_CFLAGS})
+target_compile_options(session-webrtc PUBLIC ${WEBRTC_CFLAGS})
+target_compile_options(session-webrtc PUBLIC ${CONTROLLER_CFLAGS})
 
-target_link_directories(session-core PUBLIC ${INCLUDE_LIBRARY} )    
+target_link_directories(session-webrtc PUBLIC ${INCLUDE_LIBRARY} )    
 
-target_link_libraries(session-core PUBLIC 
+target_link_libraries(session-webrtc PUBLIC 
     ${LIBSOUP_LIBRARIES}
     ${GLIB_LIBRARIES} 
     ${GIO_LIBRARIES} 
@@ -70,11 +70,11 @@ if(MSVC)
 else()
     pkg_check_modules(X11 REQUIRED x11)
 
-    target_link_libraries(session-core PUBLIC  ${X11_LIBRARIES})
-    target_compile_options(session-core PUBLIC ${X11_CFLAGS})
+    target_link_libraries(session-webrtc PUBLIC  ${X11_LIBRARIES})
+    target_compile_options(session-webrtc PUBLIC ${X11_CFLAGS})
 
     # this is due to the missing of include path of x11 module in pkg-config and should not consider as a good example
-    target_include_directories(session-core PUBLIC "/usr/include/X11" ) 
+    target_include_directories(session-webrtc PUBLIC "/usr/include/X11" ) 
 endif()
 
 

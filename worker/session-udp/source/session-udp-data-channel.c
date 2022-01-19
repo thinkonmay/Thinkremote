@@ -1,5 +1,5 @@
 /**
- * @file session-core-data-channel.c
+ * @file session-udp-data-channel.c
  * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
  * @brief 
  * @version 1.0
@@ -9,11 +9,11 @@
  * 
  */
 
-#include <session-core-data-channel.h>
-#include <session-core.h>
-#include <session-core-type.h>
-#include <session-core-pipeline.h>
-#include <session-core-remote-config.h>
+#include <session-udp-data-channel.h>
+#include <session-udp.h>
+#include <session-udp-type.h>
+#include <session-udp-pipeline.h>
+#include <session-udp-remote-config.h>
 
 
 #include <logging.h>
@@ -461,35 +461,6 @@ stimulate_mouse_event(SessionCore* core)
 
 
 
-/**
- * @brief 
- * ignore binary message
- * @param datachannel 
- * @param byte 
- * @param core 
- */
-static void
-control_channel_on_message_data(GObject* datachannel,
-    GBytes* byte,
-    SessionCore* core)
-{
-    return;
-}
-
-/**
- * @brief 
- * ignore binary message
- * @param datachannel 
- * @param data 
- * @param core 
- */
-static void
-hid_channel_on_message_data(GObject* datachannel,
-    GBytes* data,
-    SessionCore* core)
-{
-    return;
-}
 
 
 /**
@@ -541,50 +512,6 @@ hid_channel_on_message_string(GObject* dc,
 
 
 
-/**
- * @brief 
- * handle control data channel
- * @param dc 
- * @param message 
- * @param core 
- */
-static void
-control_channel_on_message_string(GObject* dc,
-                                  gchar* message,
-                                  SessionCore* core)
-{
-    WebRTCHub* hub = session_core_get_rtc_hub(core);
-    g_signal_emit_by_name(dc,"send-string",message,NULL);
-}
-
-
-/**
- * @brief 
- * handle datachannel open signal
- * @param dc 
- * @param core 
- */
-static void
-channel_on_open(GObject* dc,
-                SessionCore* core)
-{
-    return;
-}
-
-
-/**
- * @brief 
- * handle datachannel close and error signal
- * @param dc 
- * @param core 
- */
-static void
-channel_on_close_and_error(GObject* dc,
-    SessionCore* core)
-{
-    return;
-}
-
 
 
 
@@ -593,47 +520,12 @@ channel_on_close_and_error(GObject* dc,
 
 
 gboolean
-connect_data_channel_signals(SessionCore* core)
+on_human_interface_signal(SessionCore* core)
 {
     WebRTCHub* hub = session_core_get_rtc_hub(core);
-    Pipeline* pipe = session_core_get_pipeline(core);
-    GstElement* webrtcbin = pipeline_get_webrtc_bin(pipe);
-
 
     // connect data channel source
-    g_signal_emit_by_name(webrtcbin, "create-data-channel", "Control", 
-        NULL, &hub->control);
-    g_signal_emit_by_name(webrtcbin, "create-data-channel", "HID", 
-        NULL, &hub->hid);
-    
-    g_signal_connect(hub->hid, "on-error",
-        G_CALLBACK(channel_on_close_and_error), core);
-    g_signal_connect(hub->hid, "on-open",
-        G_CALLBACK(channel_on_open), core);
-    g_signal_connect(hub->hid, "on-close",
-        G_CALLBACK(channel_on_close_and_error), core);
     g_signal_connect(hub->hid, "on-message-string",
         G_CALLBACK(hid_channel_on_message_string), core);
-    g_signal_connect(hub->hid, "on-message-data",
-        G_CALLBACK(hid_channel_on_message_data), core);
-
-    g_signal_connect(hub->control, "on-error",
-        G_CALLBACK(channel_on_close_and_error), core);
-    g_signal_connect(hub->control, "on-open",
-        G_CALLBACK(channel_on_open), core);
-    g_signal_connect(hub->control, "on-close",
-        G_CALLBACK(channel_on_close_and_error), core);
-    g_signal_connect(hub->control, "on-message-string",
-        G_CALLBACK(control_channel_on_message_string), core);
-    g_signal_connect(hub->control, "on-message-data",
-        G_CALLBACK(control_channel_on_message_data), core);
     return TRUE;
-}
-
-
-
-GstWebRTCDataChannel*
-webrtc_hub_get_control_data_channel(WebRTCHub* hub)
-{
-    return hub->control;
 }

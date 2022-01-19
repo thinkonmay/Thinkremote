@@ -1,5 +1,5 @@
 /**
- * @file session-core.c
+ * @file session-udp.c
  * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
  * @brief 
  * @version 1.0
@@ -8,13 +8,11 @@
  * @copyright Copyright (c) 2021
  * 
  */
-#include <session-core-signalling.h>
-#include <session-core-remote-config.h>
-#include <session-core-pipeline.h>
-#include <session-core-data-channel.h>
-#include <session-core.h>
-#include <session-core-type.h>
-#include <session-core-qos.h>
+#include <session-udp-remote-config.h>
+#include <session-udp-pipeline.h>
+#include <session-udp-data-channel.h>
+#include <session-udp.h>
+#include <session-udp-type.h>
 
 #include <module-code.h>
 #include <opcode.h>
@@ -179,11 +177,6 @@ session_core_setup_session(SessionCore* self)
 
 	if (DEVELOPMENT_ENVIRONMENT)
 	{
-		signalling_hub_setup(self->signalling,
-			DEFAULT_TURN,
-			DEVELOPMENT_SIGNALLING_URL,
-			NULL,
-			remote_token);
 
 		qoe_setup(self->qoe,
 					1920,
@@ -223,11 +216,9 @@ session_core_setup_session(SessionCore* self)
 			JsonObject* json_infor = get_json_object_from_string(infor_message->response_body->data,error,parser);
 
 
-			signalling_hub_setup(self->signalling,
-				json_object_get_string_member(json_infor,"turn"),
-				json_object_get_string_member(json_infor,"signallingurl"),
-				json_object_get_array_member(json_infor,"stuns"),
-				remote_token);
+			json_object_get_string_member(json_infor,"turn");
+			json_object_get_string_member(json_infor,"signallingurl");
+			json_object_get_array_member(json_infor,"stuns");
 
 			qoe_setup(self->qoe,
 						json_object_get_int_member(json_infor,"screenwidth"),
@@ -373,13 +364,11 @@ session_core_initialize()
 
 	core->server = 				init_session_core_server(core);
 	core->hub =					webrtchub_initialize();
-	core->signalling =			signalling_hub_initialize(core);
 	core->qoe =					qoe_initialize();
 	core->pipe =				pipeline_initialize();
 	core->loop =				g_main_loop_new(NULL, FALSE);
 
 	session_core_setup_session(core);
-	signalling_connect(core);
 
 	g_thread_new("Sync",(GThreadFunc)
 		session_core_sync_state_with_cluster,core);

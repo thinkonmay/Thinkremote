@@ -70,8 +70,8 @@ Test instruction
 * Host signalling test server
   * `cd test/Signalling`
   * `dotnet run .`
-* Run session-core and remote-app binary
-  * `worker/bin/session-core.exe`
+* Run session-webrtc and remote-app binary
+  * `worker/bin/session-webrtc.exe`
   * `client/bin/remote-app.exe`
 
 

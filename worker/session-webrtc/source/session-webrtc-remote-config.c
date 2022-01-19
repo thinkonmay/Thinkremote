@@ -1,5 +1,5 @@
 /**
- * @file session-core-remote-config.c
+ * @file session-webrtc-remote-config.c
  * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
  * @brief 
  * @version 1.0
@@ -8,9 +8,9 @@
  * @copyright Copyright (c) 2021
  * 
  */
-#include <session-core-remote-config.h>
-#include <session-core-type.h>
-#include <session-core-pipeline.h>
+#include <session-webrtc-remote-config.h>
+#include <session-webrtc-type.h>
+#include <session-webrtc-pipeline.h>
 
 #include <opcode.h>
 #include <qoe.h>
