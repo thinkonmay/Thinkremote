@@ -154,7 +154,7 @@ start_pipeline(GstElement* pipeline)
 
 
 static void
-setup_element_factory(SessionCore* core,
+setup_element_factory(SessionUdp* core,
                       Codec video, 
                       Codec audio)
 {
@@ -349,7 +349,7 @@ device_foreach(GstDevice* device,
  * @param core 
  */
 static void
-setup_element_property(SessionCore* core)
+setup_element_property(SessionUdp* core)
 {
     Pipeline* pipe = session_core_get_pipeline(core);
     SignallingHub* hub = session_core_get_signalling_hub(core);
@@ -417,7 +417,7 @@ setup_element_property(SessionCore* core)
 
 
 void
-toggle_pointer(gboolean toggle, SessionCore* core)
+toggle_pointer(gboolean toggle, SessionUdp* core)
 {
     Pipeline* pipe = session_core_get_pipeline(core);
     if (pipe->video_element[SCREEN_CAPTURE]) 
@@ -430,7 +430,7 @@ toggle_pointer(gboolean toggle, SessionCore* core)
 
 
 void
-setup_pipeline(SessionCore* core)
+setup_pipeline(SessionUdp* core)
 {
     SignallingHub* signalling = session_core_get_signalling_hub(core);
     Pipeline* pipe = session_core_get_pipeline(core);

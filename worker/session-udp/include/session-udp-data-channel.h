@@ -14,16 +14,16 @@
  * @param core 
  * @return gboolean 
  */
-gboolean                on_human_interface_signal                (SessionCore* core);
+gboolean                on_human_interface_signal                (SessionUdp* core);
 
 
 
 /**
  * @brief 
  * initialize webrtchub with default member
- * @return WebRTCHub* 
+ * @return HumanInterface* 
  */
-WebRTCHub*				webrtchub_initialize						();
+HumanInterface*				webrtchub_initialize						();
 
 
 

@@ -34,7 +34,7 @@
 #endif
 
 
-struct _SessionCore
+struct _SessionUdp
 {
 	/**
 	 * @brief 
@@ -52,7 +52,7 @@ struct _SessionCore
 	 * @brief 
 	 * webrtchub to communicate with client
 	 */
-	WebRTCHub* hub;
+	HumanInterface* hub;
 
 	/**
 	 * @brief 
@@ -121,7 +121,7 @@ server_callback (SoupServer        *server,
  * @param self session core
  */
 static void
-session_core_setup_session(SessionCore* self)
+session_core_setup_session(SessionUdp* self)
 {
 	JsonParser* token_parser = json_parser_new();
 	gchar* remote_token;
@@ -258,7 +258,7 @@ session_core_setup_session(SessionCore* self)
  * @return SoupServer* 
  */
 static SoupServer*
-init_session_core_server(SessionCore* core)
+init_session_core_server(SessionUdp* core)
 {
 	GError* error = NULL;
 	SoupServer* server = soup_server_new(NULL);
@@ -285,7 +285,7 @@ server_callback (SoupServer        *server,
 	SoupMessageHeadersIter iter;
 	SoupMessageBody *request_body;
 	const char *name, *value;
-	SessionCore* core = (SessionCore*) user_data;
+	SessionUdp* core = (SessionUdp*) user_data;
 	SoupURI* uri = soup_message_get_uri(msg);
 	if(!g_strcmp0(uri->path,"/ping"))
 	{
@@ -321,7 +321,7 @@ session_core_sync_state_with_cluster(gpointer user_data)
 #else
         sleep(3000);
 #endif
-	SessionCore* core = (SessionCore*)user_data;
+	SessionUdp* core = (SessionUdp*)user_data;
 	const char* https_aliases[] = { "https", NULL };
 	SoupSession* https_session = soup_session_new_with_options(
 			SOUP_SESSION_SSL_STRICT, FALSE,
@@ -356,11 +356,11 @@ session_core_sync_state_with_cluster(gpointer user_data)
 }
 
 
-SessionCore*
+SessionUdp*
 session_core_initialize()
 {
 	worker_log_output("Session core process started");
-	SessionCore* core = malloc(sizeof(SessionCore));
+	SessionUdp* core = malloc(sizeof(SessionUdp));
 
 	core->server = 				init_session_core_server(core);
 	core->hub =					webrtchub_initialize();
@@ -388,7 +388,7 @@ session_core_initialize()
 
 
 void
-session_core_finalize(SessionCore* self, 
+session_core_finalize(SessionUdp* self, 
 					  GError* error)
 {
 	if(error)
@@ -415,46 +415,46 @@ session_core_finalize(SessionCore* self,
 
 
 Pipeline*
-session_core_get_pipeline(SessionCore* self)
+session_core_get_pipeline(SessionUdp* self)
 {
 	return self->pipe;
 }
 
-WebRTCHub*
-session_core_get_rtc_hub(SessionCore* self)
+HumanInterface*
+session_core_get_rtc_hub(SessionUdp* self)
 {
 	return self->hub;
 }
 
 
 StreamConfig*
-session_core_get_qoe(SessionCore* self)
+session_core_get_qoe(SessionUdp* self)
 {
 	return self->qoe;
 }
 
 
 SignallingHub*
-session_core_get_signalling_hub(SessionCore* core)
+session_core_get_signalling_hub(SessionUdp* core)
 {
 	return core->signalling;
 }
 
 DeviceType		
-session_core_get_client_device(SessionCore* self)
+session_core_get_client_device(SessionUdp* self)
 {
 	return self->peer_device;
 }
 
 CoreEngine
-session_core_get_client_engine(SessionCore* self)
+session_core_get_client_engine(SessionUdp* self)
 {
 	return self->peer_engine;
 }
 
 #ifndef G_OS_WIN32
 Display*
-session_core_display_interface(SessionCore* self)
+session_core_display_interface(SessionUdp* self)
 {
 	return self->x_display;
 

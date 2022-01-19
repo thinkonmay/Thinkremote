@@ -36,7 +36,7 @@
 
 
 
-struct _WebRTCHub
+struct _HumanInterface
 {
     /**
      * @brief 
@@ -57,23 +57,23 @@ struct _WebRTCHub
     gboolean relative_mouse;
 };
 
-WebRTCHub* 
+HumanInterface* 
 webrtchub_initialize()
 {
-    WebRTCHub* hub = malloc(sizeof(WebRTCHub));
+    HumanInterface* hub = malloc(sizeof(HumanInterface));
     hub->relative_mouse = FALSE;
     return hub;
 }
 
 
 void            handle_input_win32              (gchar* message,  
-                                                SessionCore* core);
+                                                SessionUdp* core);
 
 void            handle_input_gtk                 (gchar* message,  
-                                                SessionCore* core);
+                                                SessionUdp* core);
 
 void            handle_input_javascript         (gchar* message, 
-                                                SessionCore* core);
+                                                SessionUdp* core);
 
 
 #ifdef G_OS_WIN32
@@ -88,7 +88,7 @@ void            handle_input_javascript         (gchar* message,
  */
 void
 handle_input_win32(gchar* message,  
-                    SessionCore* core);
+                    SessionUdp* core);
 
 /**
  * @brief 
@@ -100,10 +100,10 @@ handle_input_win32(gchar* message,
 static void
 convert_mouse_input(INPUT* input, 
                     JsonObject* message,
-                    SessionCore* core)
+                    SessionUdp* core)
 {
     StreamConfig* qoe = session_core_get_qoe(core);
-    WebRTCHub* hub = session_core_get_rtc_hub(core);
+    HumanInterface* hub = session_core_get_rtc_hub(core);
 
     static gfloat screenwidth, screenheight; 
     screenwidth =   qoe_get_screen_width(qoe);
@@ -154,14 +154,14 @@ convert_mouse_code(gint input)
 }
 void
 handle_input_javascript(gchar* message, 
-                        SessionCore* core)
+                        SessionUdp* core)
 {
     GError* error = NULL;
     JsonParser* parser = json_parser_new();
     JsonObject* object = get_json_object_from_string(message,&error,parser);
 	if(!error == NULL || object == NULL) {return;}
 
-    WebRTCHub* hub = session_core_get_rtc_hub(core); 
+    HumanInterface* hub = session_core_get_rtc_hub(core); 
     JavaScriptOpcode opcode = json_object_get_int_member(object, "Opcode");
 
     if (opcode == MOUSE_UP)
@@ -309,14 +309,14 @@ handle_input_javascript(gchar* message,
 
 void
 handle_input_win32(gchar* message,  
-                    SessionCore* core)
+                    SessionUdp* core)
 {
     GError* error = NULL;
     JsonParser* parser = json_parser_new();
     JsonObject* object = get_json_object_from_string(message,&error,parser);
 	if(!error == NULL || object == NULL) {return;}
 
-    WebRTCHub* hub = session_core_get_rtc_hub(core); 
+    HumanInterface* hub = session_core_get_rtc_hub(core); 
     Win32Opcode opcode = json_object_get_int_member(object, "Opcode");
 
     switch (opcode)
@@ -360,7 +360,7 @@ handle_input_win32(gchar* message,
 }
 void            
 handle_input_gtk(gchar* message,  
-                SessionCore* core)
+                SessionUdp* core)
 {
 
 }
@@ -370,14 +370,14 @@ handle_input_gtk(gchar* message,
 
 void            
 handle_input_win32(gchar* message,  
-                   SessionCore* core)
+                   SessionUdp* core)
 {
     GError* error = NULL;
     JsonParser* parser = json_parser_new();
     JsonObject* object = get_json_object_from_string(message,&error,parser);
 	if(!error == NULL || object == NULL) {return;}
 
-    WebRTCHub* hub = session_core_get_rtc_hub(core); 
+    HumanInterface* hub = session_core_get_rtc_hub(core); 
     Win32Opcode opcode = json_object_get_int_member(object, "Opcode");
 
 }
@@ -385,14 +385,14 @@ handle_input_win32(gchar* message,
 
 void            
 handle_input_javascript(gchar* message, 
-                        SessionCore* core)
+                        SessionUdp* core)
 {
     GError* error = NULL;
     JsonParser* parser = json_parser_new();
     JsonObject* object = get_json_object_from_string(message,&error,parser);
 	if(!error == NULL || object == NULL) {return;}
 
-    WebRTCHub* hub = session_core_get_rtc_hub(core); 
+    HumanInterface* hub = session_core_get_rtc_hub(core); 
     JavaScriptOpcode opcode = json_object_get_int_member(object, "Opcode");
 }
 #include <keysym.h>
@@ -433,7 +433,7 @@ createKeyEvent(Display *display,
 
 
 void
-stimulate_mouse_event(SessionCore* core)
+stimulate_mouse_event(SessionUdp* core)
 {
     Display* display = session_core_display_interface(core);
 
@@ -473,7 +473,7 @@ stimulate_mouse_event(SessionCore* core)
 static void
 hid_channel_on_message_string(GObject* dc,
                             gchar* message,
-                            SessionCore* core)
+                            SessionUdp* core)
 {
     gchar* package = malloc(1000);
     memset(package,0,1000);
@@ -520,9 +520,9 @@ hid_channel_on_message_string(GObject* dc,
 
 
 gboolean
-on_human_interface_signal(SessionCore* core)
+on_human_interface_signal(SessionUdp* core)
 {
-    WebRTCHub* hub = session_core_get_rtc_hub(core);
+    HumanInterface* hub = session_core_get_rtc_hub(core);
 
     // connect data channel source
     g_signal_connect(hub->hid, "on-message-string",

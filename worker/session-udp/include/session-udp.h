@@ -27,9 +27,9 @@
  * initialization of session core do not need any input parameter, 
  * instead, session will automatically their required parameter from global-var.h
  * all operation needed to establishing a remote connection is already called inside session core initialize
- * @return SessionCore* pointer to session core instance
+ * @return SessionUdp* pointer to session core instance
  */
-SessionCore*	session_core_initialize					();
+SessionUdp*	session_core_initialize					();
 
 
 
@@ -40,7 +40,7 @@ SessionCore*	session_core_initialize					();
  * @param self 
  * @param error 
  */
-void			session_core_finalize					(SessionCore* self,
+void			session_core_finalize					(SessionUdp* self,
 														GError* error);
 
 /**
@@ -49,15 +49,15 @@ void			session_core_finalize					(SessionCore* self,
  * @param self session core
  * @return Pipeline* pointer to pipeline
  */
-Pipeline*		session_core_get_pipeline				(SessionCore* self);
+Pipeline*		session_core_get_pipeline				(SessionUdp* self);
 
 /**
  * @brief 
  * get webrtc hub from session core
  * @param self session core
- * @return WebRTCHub*  pointer to webrtc
+ * @return HumanInterface*  pointer to webrtc
  */
-WebRTCHub*		session_core_get_rtc_hub				(SessionCore* self);
+HumanInterface*		session_core_get_rtc_hub				(SessionUdp* self);
 
 /**
  * @brief 
@@ -65,7 +65,7 @@ WebRTCHub*		session_core_get_rtc_hub				(SessionCore* self);
  * @param self session core
  * @return StreamConfig* qoe
  */
-StreamConfig*	session_core_get_qoe					(SessionCore* self);
+StreamConfig*	session_core_get_qoe					(SessionUdp* self);
 
 
 
@@ -75,7 +75,7 @@ StreamConfig*	session_core_get_qoe					(SessionCore* self);
  * @param self session core
  * @return SignallingHub* 
  */
-SignallingHub*	session_core_get_signalling_hub			(SessionCore* self);
+SignallingHub*	session_core_get_signalling_hub			(SessionUdp* self);
 
 
 /**
@@ -84,7 +84,7 @@ SignallingHub*	session_core_get_signalling_hub			(SessionCore* self);
  * @param self session core
  * @return gchar* remote token get from cluster
  */
-gchar*			session_core_get_remote_token			(SessionCore* self);
+gchar*			session_core_get_remote_token			(SessionUdp* self);
 
 
 
@@ -95,7 +95,7 @@ gchar*			session_core_get_remote_token			(SessionCore* self);
  * @param app 
  * @return DeviceType 
  */
-DeviceType		session_core_get_client_device			(SessionCore* self);
+DeviceType		session_core_get_client_device			(SessionUdp* self);
 
 /**
  * @brief 
@@ -103,12 +103,12 @@ DeviceType		session_core_get_client_device			(SessionCore* self);
  * @param self 
  * @return CoreEngine 
  */
-CoreEngine 		session_core_get_client_engine			(SessionCore* self);
+CoreEngine 		session_core_get_client_engine			(SessionUdp* self);
 
 #ifndef G_OS_WIN32
 #include <Xlib.h>
 
-Display* 		session_core_display_interface			(SessionCore* self);
+Display* 		session_core_display_interface			(SessionUdp* self);
 #endif
 
 #endif 

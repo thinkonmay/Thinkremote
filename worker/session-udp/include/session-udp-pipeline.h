@@ -22,7 +22,7 @@
  * this function wrap around element creating is property setup procedure
  * @param core 
  */
-void                setup_pipeline					(SessionCore* core);
+void                setup_pipeline					(SessionUdp* core);
 
 
 /**
@@ -40,4 +40,4 @@ Pipeline*			pipeline_initialize				();
  * @param core 
  */
 void                toggle_pointer                  (gboolean toggle, 
-                                                     SessionCore* core);
+                                                     SessionUdp* core);

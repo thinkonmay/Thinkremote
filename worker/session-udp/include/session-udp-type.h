@@ -27,9 +27,9 @@ typedef struct 			_Pipeline 				                Pipeline;
 
 /**
  * @brief 
- * SessionCore is a data structure that wrap outside the session core module
+ * SessionUdp is a data structure that wrap outside the session core module
  */
-typedef struct 			_SessionCore 			                SessionCore;
+typedef struct 			_SessionUdp 			                SessionUdp;
 
 /**
  * @brief 
@@ -40,9 +40,9 @@ typedef struct 			_StreamConfig					        StreamConfig;
 
 /**
  * @brief 
- * WebRTCHub is a module that wrap around communication method with client module
+ * HumanInterface is a module that wrap around communication method with client module
  */
-typedef struct			_WebRTCHub				                WebRTCHub;
+typedef struct			_HumanInterface				            HumanInterface;
 
 /**
  * @brief 
