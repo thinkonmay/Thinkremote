@@ -51,4 +51,8 @@ worker_log_output(gchar* text)
 
         soup_session_send_async(session,message,NULL,NULL,NULL);    
     }
+    else
+    {
+        g_print("%s\n",text);
+    }
 }                  

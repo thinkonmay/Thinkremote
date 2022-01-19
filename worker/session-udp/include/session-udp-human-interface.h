@@ -8,24 +8,21 @@
 
 
 
-/**
- * @brief 
- * connect datachannel signal with corresponding message handler
- * @param core 
- * @return gboolean 
- */
-gboolean                on_human_interface_signal                (SessionUdp* core);
-
-
 
 /**
  * @brief 
  * initialize webrtchub with default member
  * @return HumanInterface* 
  */
-HumanInterface*				webrtchub_initialize						();
+HumanInterface*				human_interface_initialize						();
 
 
+/**
+ * @brief 
+ * 
+ */
+void                        on_human_interface_message                  (gchar* message,
+                                                                         SessionUdp* core);
 
 
 

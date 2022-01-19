@@ -27,6 +27,12 @@ typedef struct 			_Pipeline 				                Pipeline;
 
 /**
  * @brief 
+ * 
+ */
+typedef struct          _UdpEndpoint                            UdpEndpoint;
+
+/**
+ * @brief 
  * SessionUdp is a data structure that wrap outside the session core module
  */
 typedef struct 			_SessionUdp 			                SessionUdp;

@@ -69,6 +69,18 @@ enum
 };
 
 
+struct _UdpEndpoint
+{
+    gchar audio_target_port[20];
+
+    gchar video_target_port[20];
+
+    gchar video_target_ip[20];
+
+    gchar audio_target_ip[20];
+};
+
+
 struct _Pipeline
 {
     /**
@@ -86,6 +98,12 @@ struct _Pipeline
 
     GstElement* video_element[VIDEO_ELEMENT_LAST];
     GstElement* audio_element[AUDIO_ELEMENT_LAST];
+
+    /**
+     * @brief 
+     * 
+     */
+    UdpEndpoint endpoint;
 };
 
 static gchar sound_capture_device_id[1000]  = {0};
@@ -134,13 +152,8 @@ static gboolean
 start_pipeline(GstElement* pipeline)
 {
     GstStateChangeReturn ret;
-    ret = GST_IS_ELEMENT(pipeline);    
     ret = gst_element_set_state(GST_ELEMENT(pipeline), GST_STATE_PLAYING);
-    if (ret == GST_STATE_CHANGE_FAILURE)
-        worker_log_output("Fail to start pipeline, this may due to pipeline setup failure");
-
-    worker_log_output("Starting pipeline");
-    return TRUE;
+    return (ret != GST_STATE_CHANGE_FAILURE);
 }
 
 #ifdef G_OS_WIN32
@@ -174,17 +187,17 @@ setup_element_factory(SessionUdp* core,
                     "mfh264enc name=videoencoder ! "                           QUEUE
                     "rtph264pay name=rtp ! "                                   QUEUE
                     RTP_CAPS_VIDEO "H264 ! "                                   QUEUE
-                    "udpsink", &error);
+                    "udpsink name=udp", &error);
 
             pipe->audio_pipeline = 
                 gst_parse_launch(
-                    "wasapi2src loopback=true name=audiocapsrc !"              QUEUE
+                    "wasapi2src name=audiocapsrc !"                            QUEUE
                     "audioconvert ! "                                          QUEUE 
                     "audioresample ! "                                         QUEUE 
                     "opusenc name=audioencoder ! "                             QUEUE 
                     "rtpopuspay ! "                                            QUEUE 
                     RTP_CAPS_AUDIO "OPUS ! "                                   QUEUE
-                    "udpsink", &error);
+                    "udpsink name=udp", &error);
 #else
             pipe->pipeline =
                 gst_parse_launch(
@@ -193,7 +206,7 @@ setup_element_factory(SessionUdp* core,
                     "x264enc name=videoencoder ! "                             QUEUE
                     "rtph264pay name=rtp ! "                                   QUEUE
                     RTP_CAPS_VIDEO "H264 ! sendrecv. "
-                    "udpsink", &error);
+                    "udpsink name=udp", &error);
 
             pipe->audio_pipeline = 
                 gst_parse_launch(
@@ -203,7 +216,7 @@ setup_element_factory(SessionUdp* core,
                     "opusenc name=audioencoder ! "                             QUEUE 
                     "rtpopuspay ! "                                            QUEUE 
                     RTP_CAPS_AUDIO "OPUS ! "
-                    "udpsink", &error);
+                    "udpsink name=udp", &error);
 #endif
         }
     }
@@ -220,17 +233,17 @@ setup_element_factory(SessionUdp* core,
                     "mfh265enc name=videoencoder ! "                           QUEUE
                     "rtph265pay name=rtp ! "                                   QUEUE
                     RTP_CAPS_VIDEO "H265 ! "                                   QUEUE
-                    "udpsink", &error);
+                    "udpsink name=udp", &error);
 
             pipe->audio_pipeline = 
                 gst_parse_launch(
-                    "wasapi2src loopback=true name=audiocapsrc !"              QUEUE
+                    "wasapi2src name=audiocapsrc !"                            QUEUE
                     "audioconvert ! "                                          QUEUE 
                     "audioresample ! "                                         QUEUE 
                     "opusenc name=audioencoder ! "                             QUEUE 
                     "rtpopuspay ! "                                            QUEUE 
                     RTP_CAPS_AUDIO "OPUS ! "                                   QUEUE
-                    "udpsink", &error);
+                    "udpsink name=udp", &error);
 #else
             pipe->pipeline =
                 gst_parse_launch("webrtcbin bundle-poricy=max-bundle name=sendrecv "
@@ -241,7 +254,7 @@ setup_element_factory(SessionUdp* core,
                     "rtph265pay name=rtp ! "                                    QUEUE 
                     RTP_CAPS_VIDEO "H265 ! sendrecv. "
 
-                    "pulsesrc loopback=true name=audiocapsrc ! "                QUEUE 
+                    "pulsesrc name=audiocapsrc ! "                              QUEUE 
                     "audioconvert ! "                                           QUEUE 
                     "audioresample ! "                                          QUEUE 
                     "opusenc name=audioencoder ! "                              QUEUE 
@@ -259,6 +272,8 @@ setup_element_factory(SessionUdp* core,
         gst_bin_get_by_name(GST_BIN(pipe->audio_pipeline), "audiocapsrc");
     pipe->audio_element[SOUND_ENCODER] = 
         gst_bin_get_by_name(GST_BIN(pipe->audio_pipeline), "audioencoder");
+    pipe->video_element[UDP_AUDIO_SINK] = 
+        gst_bin_get_by_name(GST_BIN(pipe->audio_pipeline), "udp");
 
     pipe->video_element[VIDEO_ENCODER] = 
         gst_bin_get_by_name(GST_BIN(pipe->video_pipeline), "videoencoder");
@@ -266,6 +281,10 @@ setup_element_factory(SessionUdp* core,
         gst_bin_get_by_name(GST_BIN(pipe->video_pipeline), "rtp");
     pipe->video_element[SCREEN_CAPTURE] = 
         gst_bin_get_by_name(GST_BIN(pipe->video_pipeline), "screencap");
+    pipe->video_element[UDP_VIDEO_SINK] = 
+        gst_bin_get_by_name(GST_BIN(pipe->video_pipeline), "udp");
+
+    
 }
 
 
@@ -355,46 +374,59 @@ setup_element_property(SessionUdp* core)
     SignallingHub* hub = session_core_get_signalling_hub(core);
     StreamConfig* qoe = session_core_get_qoe(core);
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#ifndef G_OS_WIN32
+    g_object_set(pipe->audio_element[SOUND_SOURCE], "provide-clock", TRUE, NULL);
+
+    g_object_set(pipe->audio_element[SOUND_SOURCE], "do-timestamp", TRUE, NULL);
+#else
+    g_object_set(pipe->audio_element[SOUND_SOURCE], "low-latency", TRUE, NULL);
+
+    g_object_set(pipe->audio_element[SOUND_SOURCE], "loopback", TRUE, NULL);
+
+    g_object_set(pipe->audio_element[SOUND_SOURCE], "device", sound_capture_device_id, NULL);
+#endif
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #ifdef G_OS_WIN32
-    if (pipe->video_element[SCREEN_CAPTURE]) { g_object_set(pipe->video_element[SCREEN_CAPTURE], "show-cursor", TRUE, NULL);}
+    g_object_set(pipe->video_element[SCREEN_CAPTURE], "show-cursor", TRUE, NULL);
 #else
-    if (pipe->video_element[SCREEN_CAPTURE]) { g_object_set(pipe->video_element[SCREEN_CAPTURE], "show-pointer", TRUE, NULL);}
+    g_object_set(pipe->video_element[SCREEN_CAPTURE], "show-pointer", TRUE, NULL);
 
-    if (pipe->video_element[SCREEN_CAPTURE]) { g_object_set(pipe->video_element[SCREEN_CAPTURE], "remote", TRUE, NULL);}
+    g_object_set(pipe->video_element[SCREEN_CAPTURE], "remote", TRUE, NULL);
 
-    if (pipe->video_element[SCREEN_CAPTURE]) { g_object_set(pipe->video_element[SCREEN_CAPTURE], "blocksize", 16384, NULL);}
+    g_object_set(pipe->video_element[SCREEN_CAPTURE], "blocksize", 16384, NULL);
     
-    if (pipe->video_element[SCREEN_CAPTURE]) { g_object_set(pipe->video_element[SCREEN_CAPTURE], "use-damage", FALSE, NULL);}
+    g_object_set(pipe->video_element[SCREEN_CAPTURE], "use-damage", FALSE, NULL);
 #endif
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #ifdef G_OS_WIN32
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "rc-mode", 0, NULL); }
+    g_object_set(pipe->video_element[VIDEO_ENCODER], "rc-mode", 0, NULL); 
 
-    if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "quality-vs-speed", 100, NULL); }
+    g_object_set(pipe->video_element[VIDEO_ENCODER], "quality-vs-speed", 100, NULL); 
 
-    if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "bitrate", qoe_get_video_bitrate(qoe), NULL); }
+    g_object_set(pipe->video_element[VIDEO_ENCODER], "bitrate", qoe_get_video_bitrate(qoe), NULL); 
 
-    if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "low-latency", TRUE, NULL); }
+    g_object_set(pipe->video_element[VIDEO_ENCODER], "low-latency", TRUE, NULL); 
 #else
-    if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "threads", 4, NULL);}
+    g_object_set(pipe->video_element[VIDEO_ENCODER], "threads", 4, NULL);
 
-    if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "bframes", 0, NULL);}
+    g_object_set(pipe->video_element[VIDEO_ENCODER], "bframes", 0, NULL);
 
-    if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "key-int-max", 0, NULL);}
+    g_object_set(pipe->video_element[VIDEO_ENCODER], "key-int-max", 0, NULL);
 
-    if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "byte-stream", TRUE, NULL);}
+    g_object_set(pipe->video_element[VIDEO_ENCODER], "byte-stream", TRUE, NULL);
 
-    if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "tune", "zerolatency", NULL);}
+    g_object_set(pipe->video_element[VIDEO_ENCODER], "tune", "zerolatency", NULL);
 
-    if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "speed-preset", "veryfast", NULL);}
+    g_object_set(pipe->video_element[VIDEO_ENCODER], "speed-preset", "veryfast", NULL);
 
-    if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "pass", "pass1", NULL);}
+    g_object_set(pipe->video_element[VIDEO_ENCODER], "pass", "pass1", NULL);
 
-    if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "bitrate", qoe_get_video_bitrate(qoe), NULL); }
+    g_object_set(pipe->video_element[VIDEO_ENCODER], "bitrate", qoe_get_video_bitrate(qoe), NULL); 
 #endif
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
@@ -402,16 +434,16 @@ setup_element_property(SessionUdp* core)
     if (pipe->video_element[RTP_VIDEO_PAYLOAD]) { g_object_set(pipe->video_element[RTP_VIDEO_PAYLOAD], "aggregate-mode", 1, NULL);}
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#ifndef G_OS_WIN32
-    if (pipe->audio_element[SOUND_SOURCE]) { g_object_set(pipe->audio_element[SOUND_SOURCE], "provide-clock", TRUE, NULL);}
 
-    if (pipe->audio_element[SOUND_SOURCE]) { g_object_set(pipe->audio_element[SOUND_SOURCE], "do-timestamp", TRUE, NULL);}
-#else
-    if (pipe->audio_element[SOUND_SOURCE]) { g_object_set(pipe->audio_element[SOUND_SOURCE], "low-latency", TRUE, NULL);}
 
-    if (pipe->audio_element[SOUND_SOURCE]) { g_object_set(pipe->audio_element[SOUND_SOURCE], "device", sound_capture_device_id, NULL);}
-#endif
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    g_object_set(pipe->audio_element[UDP_VIDEO_SINK], "host", pipe->endpoint.video_target_ip, NULL);
+
+    g_object_set(pipe->audio_element[UDP_VIDEO_SINK], "port", pipe->endpoint.video_target_port, NULL);
+
+    g_object_set(pipe->audio_element[UDP_AUDIO_SINK], "host", pipe->endpoint.audio_target_ip, NULL);
+
+    g_object_set(pipe->audio_element[UDP_AUDIO_SINK], "port", pipe->endpoint.audio_target_port, NULL);
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
@@ -445,8 +477,15 @@ setup_pipeline(SessionUdp* core)
     
     setup_element_property(core);
 
-    start_pipeline(pipe->video_pipeline);
-    start_pipeline(pipe->audio_pipeline);
+    if(start_pipeline(pipe->video_pipeline))
+        worker_log_output("Starting pipeline");
+    else
+        worker_log_output("Fail to start pipeline, this may due to pipeline setup failure");
+
+    if(start_pipeline(pipe->audio_pipeline))
+        worker_log_output("Starting pipeline");
+    else
+        worker_log_output("Fail to start pipeline, this may due to pipeline setup failure");
 }
 
 

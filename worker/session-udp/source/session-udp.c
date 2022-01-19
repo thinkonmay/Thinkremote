@@ -191,7 +191,7 @@ session_core_setup_session(SessionUdp* self)
 					1920,
 					1080,
 					OPUS_ENC,
-					CODEC_H264,
+					CODEC_H265,
 					DEVELOPMENT_DEFAULT_BITRATE);
 		
 		self->peer_device = WINDOW_APP;
@@ -268,11 +268,8 @@ handle_message_server(gchar* path,
 {
 	SessionUdp* agent = (SessionUdp*) data;
 
-	if(!g_strcmp0(path,"/hid/mouse"))
-		return TRUE;
-	if(!g_strcmp0(path,"/hid/keyboard"))
-		return TRUE;
-	if(!g_strcmp0(path,"/hid/other"))
+	if(!g_strcmp0(path,"/hid"))
+		on_human_interface_message(request_body,agent);
 		return TRUE;
 }
 
@@ -341,8 +338,6 @@ server_callback (SoupServer        *server,
 gpointer
 session_core_sync_state_with_cluster(gpointer user_data)
 {
-	if(DEVELOPMENT_ENVIRONMENT)
-		return;
 #ifdef G_OS_WIN32
         Sleep(3000);
 #else
@@ -392,19 +387,20 @@ session_core_initialize()
 #ifndef G_OS_WIN32
 	core->server = 				init_session_core_server(core);
 #else
-	core->server = 				init_window_server(
-									(ServerMessageHandle)handle_message_server,"4000",core);
+	core->server = 				init_window_server((ServerMessageHandle)handle_message_server,"4000",core);
 #endif
-	core->hub =					webrtchub_initialize();
+
+	core->hub =					human_interface_initialize();
 	core->qoe =					qoe_initialize();
 	core->pipe =				pipeline_initialize();
 	core->loop =				g_main_loop_new(NULL, FALSE);
 
 	session_core_setup_session(core);
 
-	g_thread_new("Sync",(GThreadFunc)
-		session_core_sync_state_with_cluster,core);
+	if(!DEVELOPMENT_ENVIRONMENT)
+		g_thread_new("Sync",(GThreadFunc) session_core_sync_state_with_cluster,core);
 
+	setup_pipeline(core);
 	g_main_loop_run(core->loop);
 	return core;	
 }

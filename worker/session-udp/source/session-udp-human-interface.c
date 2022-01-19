@@ -58,7 +58,7 @@ struct _HumanInterface
 };
 
 HumanInterface* 
-webrtchub_initialize()
+human_interface_initialize()
 {
     HumanInterface* hub = malloc(sizeof(HumanInterface));
     hub->relative_mouse = FALSE;
@@ -470,41 +470,24 @@ stimulate_mouse_event(SessionUdp* core)
  * @param message 
  * @param core 
  */
-static void
-hid_channel_on_message_string(GObject* dc,
-                            gchar* message,
-                            SessionUdp* core)
+void
+on_human_interface_message(gchar* message,
+                           SessionUdp* core)
 {
-    gchar* package = malloc(1000);
-    memset(package,0,1000);
-    memcpy(package,message,strlen(message));
-
-
     CoreEngine engine = session_core_get_client_engine(core);
     DeviceType device = session_core_get_client_device(core);
 
     if(DEVELOPMENT_ENVIRONMENT)
-    {
         g_print("%s\n",message);
-    }
-
 
     if(engine == CHROME)
-    {
-        handle_input_javascript(package,core);
-    }
-    else if (engine == GSTREAMER)
-    {
-        if(device == WINDOW_APP)
-        {
-            handle_input_win32(package,core);
-        }
-        else if(device == LINUX_APP)
-        {
-            handle_input_gtk(package,core);
-        }
-    }
-    free(package);
+        handle_input_javascript(message,core);
+    
+    if(device == WINDOW_APP)
+        handle_input_win32(message,core);
+
+    if(device == LINUX_APP)
+        handle_input_gtk(message,core);
 }
 
 
@@ -514,18 +497,3 @@ hid_channel_on_message_string(GObject* dc,
 
 
 
-
-
-
-
-
-gboolean
-on_human_interface_signal(SessionUdp* core)
-{
-    HumanInterface* hub = session_core_get_rtc_hub(core);
-
-    // connect data channel source
-    g_signal_connect(hub->hid, "on-message-string",
-        G_CALLBACK(hid_channel_on_message_string), core);
-    return TRUE;
-}
