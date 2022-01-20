@@ -6,6 +6,7 @@
     "configurations": [
 
 
+
     
         {
             "name": ".NET Core Attach",
@@ -65,10 +66,21 @@
             "console": "externalTerminal"
         },
         {
-            "name": "remote app",
+            "name": "remote webrtc",
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/remote-webrtc.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "console": "externalTerminal"
+        },
+        {
+            "name": "remote udp",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/remote-udp.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",

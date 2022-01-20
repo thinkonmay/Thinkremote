@@ -20,9 +20,9 @@
 /**
  * @brief 
  * initialize qoe metric collection
- * @return QoE* 
+ * @return RemoteConfig* 
  */
-QoE*			qoe_initialize						();
+RemoteConfig*			qoe_initialize						();
 
 /**
  * @brief 
@@ -31,7 +31,7 @@ QoE*			qoe_initialize						();
  * @param audio_codec 
  * @param video_codec 
  */
-void			qoe_setup							(QoE* qoe,
+void			qoe_setup							(RemoteConfig* qoe,
 		  											Codec audio_codec,
 		  											Codec video_codec);
 
@@ -49,7 +49,7 @@ void			qoe_setup							(QoE* qoe,
  * @param bandwidth 
  * @param packets_lost 
  */
-void			qoe_update_quality					(RemoteApp* core,
+void			qoe_update_quality					(RemoteUdp* core,
 													 gint time,
 													 gint framerate,
 													 gint audio_latency,
@@ -65,7 +65,7 @@ void			qoe_update_quality					(RemoteApp* core,
  * @param qoe 
  * @return Codec 
  */
-Codec			qoe_get_audio_codec					(QoE* qoe);
+Codec			qoe_get_audio_codec					(RemoteConfig* qoe);
 
 /**
  * @brief 
@@ -73,4 +73,4 @@ Codec			qoe_get_audio_codec					(QoE* qoe);
  * @param qoe 
  * @return Codec 
  */
-Codec			qoe_get_video_codec					(QoE* qoe);
+Codec			qoe_get_video_codec					(RemoteConfig* qoe);

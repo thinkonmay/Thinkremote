@@ -25,16 +25,16 @@
  * @brief 
  * initialize remote session
  * @param remote_token 
- * @return RemoteApp* 
+ * @return RemoteUdp* 
  */
-RemoteApp*		remote_app_initialize				(gchar* remote_token);
+RemoteUdp*		remote_app_initialize				(gchar* remote_token);
 
 /**
  * @brief 
  * reset remote-udp-stream
  * @param self 
  */
-void 			remote_app_reset					(RemoteApp* self);
+void 			remote_app_reset					(RemoteUdp* self);
 
 /**
  * @brief 
@@ -43,7 +43,7 @@ void 			remote_app_reset					(RemoteApp* self);
  * @param exit_code 
  * @param error 
  */
-void			remote_app_finalize					(RemoteApp* self,
+void			remote_app_finalize					(RemoteUdp* self,
 														GError* error);
 
 /**
@@ -52,33 +52,17 @@ void			remote_app_finalize					(RemoteApp* self,
  * @param self 
  * @return Pipeline* 
  */
-Pipeline*		remote_app_get_pipeline				(RemoteApp* self);
+Pipeline*		remote_app_get_pipeline				(RemoteUdp* self);
 
-/**
- * @brief 
- * get webrtc hub from remote app
- * @param self 
- * @return WebRTCHub* 
- */
-WebRTCHub*		remote_app_get_rtc_hub				(RemoteApp* self);
 
 /**
  * @brief 
  * get qoe object from remtoe app
  * @param self 
- * @return QoE* 
+ * @return RemoteConfig* 
  */
-QoE*			remote_app_get_qoe					(RemoteApp* self);
+RemoteConfig*			remote_app_get_qoe			(RemoteUdp* self);
 
-
-
-/**
- * @brief 
- * get signalling hub from remote app
- * @param core 
- * @return SignallingHub* signalling hub
- */
-SignallingHub*	remote_app_get_signalling_hub			(RemoteApp* core);
 
 
 /**
@@ -87,7 +71,7 @@ SignallingHub*	remote_app_get_signalling_hub			(RemoteApp* core);
  * @param self 
  * @param error message
  */
-void			report_remote_app_error				(RemoteApp* self,
+void			report_remote_app_error				(RemoteUdp* self,
 													gchar* error);
 
 /**
@@ -96,7 +80,7 @@ void			report_remote_app_error				(RemoteApp* self,
  * @param app 
  * @return HIDHandler* 
  */
-InputHandler* 	remote_app_get_hid_handler			(RemoteApp* app);
+InputHandler* 	remote_app_get_hid_handler			(RemoteUdp* app);
 
 
 /**
@@ -105,5 +89,5 @@ InputHandler* 	remote_app_get_hid_handler			(RemoteApp* app);
  * @param core 
  * @return GUI* 
  */
-GUI* 			remote_app_get_gui					(RemoteApp* core);
+GUI* 			remote_app_get_gui					(RemoteUdp* core);
 #endif 

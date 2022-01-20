@@ -8,10 +8,8 @@
  * @copyright Copyright (c) 2021
  * 
  */
-#include <remote-udp-signalling.h>
 #include <remote-udp-remote-config.h>
 #include <remote-udp-pipeline.h>
-#include <remote-udp-data-channel.h>
 #include <remote-udp.h>
 #include <remote-udp-gui.h>
 #include <remote-udp-type.h>
@@ -28,7 +26,7 @@
 #include <libsoup/soup.h>
 
 
-struct _RemoteApp
+struct _RemoteUdp
 {
 	/**
 	 * @brief 
@@ -40,19 +38,7 @@ struct _RemoteApp
 	 * @brief 
 	 * 
 	 */
-	WebRTCHub* hub;
-
-	/**
-	 * @brief 
-	 * 
-	 */
 	GMainLoop* loop;
-
-	/**
-	 * @brief 
-	 * 
-	 */
-	SignallingHub* signalling;
 
 	/**
 	 * @brief 
@@ -64,7 +50,7 @@ struct _RemoteApp
 	 * @brief 
 	 * 
 	 */
-	QoE* qoe;
+	RemoteConfig* qoe;
 
 	/**
 	 * @brief 
@@ -85,7 +71,7 @@ struct _RemoteApp
  * @param video_codec 
  */
 static void
-remote_app_setup_session(RemoteApp* self, 
+remote_app_setup_session(RemoteUdp* self, 
 						 gchar* remote_token)
 {    
 	if(!DEVELOPMENT_ENVIRONMENT)
@@ -113,12 +99,6 @@ remote_app_setup_session(RemoteApp* self,
 			JsonObject* json_infor = get_json_object_from_string(infor_message->response_body->data,error,parser);
 
 
-			signalling_hub_setup(self->signalling,
-				json_object_get_string_member(json_infor,"turn"),
-				json_object_get_string_member(json_infor,"signallingurl"),
-				json_object_get_array_member(json_infor,"stuns"),
-				remote_token);
-
 			qoe_setup(self->qoe,
 						json_object_get_int_member(json_infor,"audiocodec"),
 						json_object_get_int_member(json_infor,"videocodec"));
@@ -136,47 +116,43 @@ remote_app_setup_session(RemoteApp* self,
 	}
 	else
 	{
-		signalling_hub_setup(self->signalling,
-			NULL,
-			DEVELOPMENT_SIGNALLING_URL,
-			NULL,
-			remote_token);
-
 		qoe_setup(self->qoe,
 				OPUS_ENC,
 				CODEC_H265);
+		
+		setup_pipeline_startpoint(self->pipe,
+				6001,
+				6002);
+		
+		setup_input_endpoint(self->handler,
+				"192.168.1.6",
+				"6000");
 	}
 }
 
 
 
 
-RemoteApp*
+RemoteUdp*
 remote_app_initialize(gchar* remote_token)
 {
 	if(DEVELOPMENT_ENVIRONMENT)
-	{
 		g_print("Starting remote app with remote token %s\n",remote_token);
-	}
 	else
-	{
 		g_print("Initializing remote app, please wait ...\n");
-	}
 
 
-	RemoteApp* app= 		malloc(sizeof(RemoteApp));
+	RemoteUdp* app= 		malloc(sizeof(RemoteUdp));
 	app->loop =				g_main_loop_new(NULL, FALSE);
 	app->handler =			init_input_capture_system(app);
 	app->gui =				init_remote_app_gui(app);
-	app->hub =				webrtchub_initialize();
-	app->signalling =		signalling_hub_initialize(app);
 
 	app->qoe =				qoe_initialize();
-	app->pipe =				pipeline_initialize(app);
+	app->pipe =				pipeline_initialize();
 	 
 	remote_app_setup_session(app, remote_token);
-	signalling_connect(app);
 
+	setup_pipeline(app);
 	g_main_loop_run(app->loop);
 	return app;	
 }
@@ -201,22 +177,18 @@ remote_app_initialize(gchar* remote_token)
 
 
 void
-remote_app_reset(RemoteApp* self)
+remote_app_reset(RemoteUdp* self)
 {
-	stop_to_ping(self->hub);
-	signalling_close(self->signalling);
-	signalling_connect(self);
 }
 
 void
-remote_app_finalize(RemoteApp* self, 
+remote_app_finalize(RemoteUdp* self, 
 					  GError* error)
 {
 	if(error)
 		g_print(error->message);
 
 	gui_terminate(self->gui);
-	signalling_close(self->signalling);
 	g_main_loop_quit(self->loop);
 }
 
@@ -229,38 +201,27 @@ remote_app_finalize(RemoteApp* self,
 
 
 Pipeline*
-remote_app_get_pipeline(RemoteApp* self)
+remote_app_get_pipeline(RemoteUdp* self)
 {
 	return self->pipe;
 }
 
-WebRTCHub*
-remote_app_get_rtc_hub(RemoteApp* self)
-{
-	return self->hub;
-}
 
-
-QoE*
-remote_app_get_qoe(RemoteApp* self)
+RemoteConfig*
+remote_app_get_qoe(RemoteUdp* self)
 {
 	return self->qoe;
 }
 
 GUI*
-remote_app_get_gui(RemoteApp* core)
+remote_app_get_gui(RemoteUdp* core)
 {
 	return core->gui;
 }
 
-SignallingHub*
-remote_app_get_signalling_hub(RemoteApp* core)
-{
-	return core->signalling;
-}
 
 InputHandler*
-remote_app_get_hid_handler(RemoteApp* app)
+remote_app_get_hid_handler(RemoteUdp* app)
 {
 	return app->handler;
 }

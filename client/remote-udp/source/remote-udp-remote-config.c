@@ -23,7 +23,7 @@
 
 
 
-struct _QoE
+struct _RemoteConfig
 {
 	/*codec audio*/
 	Codec codec_audio;
@@ -32,18 +32,18 @@ struct _QoE
 };
 
 
-QoE*
+RemoteConfig*
 qoe_initialize()
 {
-	QoE* qoe = malloc(sizeof(QoE));
-    memset(qoe,0,sizeof(QoE));
+	RemoteConfig* qoe = malloc(sizeof(RemoteConfig));
+    memset(qoe,0,sizeof(RemoteConfig));
 	return qoe;
 }
 
 
 
 void
-qoe_setup(QoE* qoe,
+qoe_setup(RemoteConfig* qoe,
 		  Codec audio_codec,
 		  Codec video_codec)
 {
@@ -52,13 +52,13 @@ qoe_setup(QoE* qoe,
 }
 
 Codec
-qoe_get_audio_codec(QoE* qoe)
+qoe_get_audio_codec(RemoteConfig* qoe)
 {
 	return qoe->codec_audio;
 }
 
 Codec
-qoe_get_video_codec(QoE* qoe)
+qoe_get_video_codec(RemoteConfig* qoe)
 {
 	return qoe->codec_video;
 }

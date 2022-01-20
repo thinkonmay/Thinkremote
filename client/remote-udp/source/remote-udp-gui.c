@@ -30,7 +30,7 @@ struct _GUI
      * @brief 
      * reference to remote app
      */
-    RemoteApp *app;
+    RemoteUdp *app;
 
 #ifdef G_OS_WIN32
     /**
@@ -70,6 +70,8 @@ struct _GUI
      */
     GstElement* sink_element;
 
+    GstElement* pipeline;
+
     /**
      * @brief 
      * fullscreen mode on or off
@@ -96,7 +98,7 @@ void                        set_up_window           (GUI* gui);
 void                        handle_fullscreen_hotkey ();
 
 GUI*
-init_remote_app_gui(RemoteApp *app)
+init_remote_app_gui(RemoteUdp *app)
 {
     memset(&_gui,0,sizeof(GUI));
 
@@ -219,13 +221,28 @@ bus_msg (GstBus * bus,
         GstMessage * msg, 
         gpointer user_data)
 {
-  GstElement *pipeline = GST_ELEMENT (user_data);
-  switch (GST_MESSAGE_TYPE (msg)) {
-    case GST_MESSAGE_ASYNC_DONE:
-      break;
-  }
+    RemoteUdp * remote = (RemoteUdp*) user_data;    
+    GUI* gui = remote_app_get_gui(remote);
+    GstElement *pipeline = GST_ELEMENT (gui->pipeline);
 
-  return TRUE;
+    switch (GST_MESSAGE_TYPE (msg)) {
+        case GST_MESSAGE_ASYNC_DONE:
+            ShowWindow (gui->window, SW_SHOW);
+            gst_element_set_state (pipeline, GST_STATE_PLAYING);
+            break;
+        case GST_MESSAGE_NEED_CONTEXT:
+            // const gchar *context_type;
+            // GstContext *context = NULL;
+            // gst_message_parse_context_type (msg, &context_type);
+            // gst_element_set_context(gui->sink_element,context);
+            // if (context)
+            // {
+            //     gst_element_set_context (GST_ELEMENT (msg->src), context);
+            //     gst_context_unref (context);
+            // }
+            break;
+    }
+    return TRUE;
 }
 
 
@@ -233,22 +250,16 @@ bus_msg (GstBus * bus,
 
 gpointer
 setup_video_overlay(GstElement* videosink, 
-                    RemoteApp* app)
+                    GstElement* pipeline, 
+                    RemoteUdp* app)
 {
     GUI* gui = remote_app_get_gui(app);
-    Pipeline* pipeline = remote_app_get_pipeline(app);
-    GstElement* pipe_element = pipeline_get_pipeline_element(pipeline);
+    gui->sink_element = videosink;
+    gui->pipeline = pipeline;
 
     /* prepare the pipeline */
-    gst_object_ref_sink (videosink);
-    gst_bus_add_watch (GST_ELEMENT_BUS (pipe_element), bus_msg, pipe_element);
-
-    ShowWindow (_gui.window, SW_SHOW);
-
-    gst_video_overlay_set_window_handle (GST_VIDEO_OVERLAY (videosink),
-        (guintptr) _gui.window);
-
-    handle_fullscreen_hotkey();
+    gst_bus_add_watch (GST_ELEMENT_BUS (pipeline), bus_msg, app);
+    gst_video_overlay_set_window_handle (GST_VIDEO_OVERLAY (videosink), (guintptr) _gui.window);
 }
 
 
@@ -364,7 +375,7 @@ switch_fullscreen_mode(GUI* gui)
  * @return gboolean 
  */
 static gboolean
-adjust_video_position(RemoteApp* app, 
+adjust_video_position(RemoteUdp* app, 
                       gint x, 
                       gint y, 
                       gint width, 
@@ -507,15 +518,15 @@ window_proc(HWND hWnd,
         handle_user_shortcut();
         handle_message_window_proc(hWnd, message, wParam, lParam );
     }
-    else if (message == WM_MOUSEMOVE ||
-            message == WM_LBUTTONDOWN	||
-            message == WM_LBUTTONUP	||
-            message == WM_MBUTTONDOWN	||
-            message == WM_MBUTTONUP	||
-            message == WM_RBUTTONDOWN	||
-            message == WM_RBUTTONUP	||
-            message == WM_XBUTTONDOWN	||
-            message == WM_XBUTTONUP	)
+    else if (message == WM_MOUSEMOVE    ||
+             message == WM_LBUTTONDOWN	||
+             message == WM_LBUTTONUP	||
+             message == WM_MBUTTONDOWN	||
+             message == WM_MBUTTONUP	||
+             message == WM_RBUTTONDOWN	||
+             message == WM_RBUTTONUP	||
+             message == WM_XBUTTONDOWN	||
+             message == WM_XBUTTONUP)
     {
         gint x = LOWORD(lParam);
 		gint y = HIWORD(lParam);
@@ -534,9 +545,8 @@ window_proc(HWND hWnd,
 		gboolean up = (GET_WHEEL_DELTA_WPARAM(wParam) > 0);
 
         if(_gui.disable_client_cursor)
-        {
             center_mouse_position(&_gui);
-        }
+
         handle_window_wheel(up,_gui.app);
     }
     return DefWindowProc(hWnd, message, wParam, lParam);
@@ -589,12 +599,12 @@ gui_terminate(GUI* gui)
 }
 
 gpointer
-setup_video_overlay(GstElement* videosink, 
-                    RemoteApp* app)
+setup_video_overlay(GstElement* videosink,
+                    GstElement* pipeline, 
+                    RemoteUdp* app)
 {
     GUI* gui = remote_app_get_gui(app);
     Pipeline* pipeline = remote_app_get_pipeline(app);
-    GstElement* pipe_element = pipeline_get_pipeline_element(pipeline);
 
     /* prepare the pipeline */
     gst_object_ref_sink (videosink);

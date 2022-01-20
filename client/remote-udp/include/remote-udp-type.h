@@ -39,13 +39,13 @@ typedef struct 			_GUI 				                GUI;
  * @brief 
  * remote app is a data structure that wrap around all functionality of remote app
  */
-typedef struct 			_RemoteApp 			                RemoteApp;
+typedef struct 			_RemoteUdp 			                RemoteUdp;
 
 /**
  * @brief 
- * QoE is a datastructure that wrap around collection and management of streaming quality
+ * RemoteConfig is a datastructure that wrap around collection and management of streaming quality
  */
-typedef struct 			_QoE					                QoE;
+typedef struct 			_RemoteConfig					                RemoteConfig;
 
 /**
  * @brief 
@@ -53,11 +53,6 @@ typedef struct 			_QoE					                QoE;
  */
 typedef struct			_WebRTCHub				                WebRTCHub;
 
-/**
- * @brief 
- * Signalling hub is a datastructure that wrap around connection of remote app with signalling hub
- */
-typedef struct 			_SignallingHub			                SignallingHub;
 
 /**
  * @brief 

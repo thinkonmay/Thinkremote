@@ -10,15 +10,16 @@
  */
 #include <remote-udp-input.h>
 #include <remote-udp-type.h>
-#include <remote-udp-data-channel.h>
 #include <remote-udp-gui.h>
 
 
 #include <glib.h>
 #include <gst/gst.h>
+#include <libsoup/soup.h>
 
 #include <human-interface-opcode.h>
 #include <message-form.h>
+#include <development.h>
 
 
 #ifdef G_OS_WIN32
@@ -29,7 +30,11 @@
 #define WIN32_HID_CAPTURE
 #endif
 
-
+typedef struct _InputEndpoint
+{
+    gchar human_interface_port[10];
+    gchar human_interface_ip[10];
+}InputEndpoint;
 
 
 struct _InputHandler
@@ -38,12 +43,18 @@ struct _InputHandler
      * @brief 
      * reference to remote app
      */
-    RemoteApp* app;
+    RemoteUdp* app;
     /**
      * @brief 
      * handle gamepad event
      */
     GThread *gamepad_thread;
+
+    /**
+     * @brief 
+     * 
+     */
+    InputEndpoint endpoint;
 
 
     /**
@@ -56,12 +67,23 @@ struct _InputHandler
 static InputHandler HID_handler = {0}; 
 
 InputHandler*
-init_input_capture_system(RemoteApp* app)
+init_input_capture_system(RemoteUdp* app)
 {
     HID_handler.capturing = FALSE;
     HID_handler.app = app;
     return &HID_handler;
 }
+
+
+void
+setup_input_endpoint(InputHandler* handler,
+                     gchar* input_ip,
+                     gchar* input_port)
+{
+    memcpy(handler->endpoint.human_interface_ip,input_ip,strlen(input_ip));
+    memcpy(handler->endpoint.human_interface_port,input_port,strlen(input_port));
+}
+
 
 /**
  * @brief 
@@ -76,7 +98,7 @@ gpointer            gamepad_thread_func             (gpointer data);
 
 
 void
-trigger_capture_input_event(RemoteApp* app)
+trigger_capture_input_event(RemoteUdp* app)
 {
     InputHandler* handler = remote_app_get_hid_handler(app);
 
@@ -110,10 +132,42 @@ struct _HidInput
 };
 
 
+static void
+hid_data_channel_send(gchar* data,
+                      RemoteUdp* remote)
+{
+    static gchar hid_url[50] = {0};
+    static gboolean initialized = FALSE;
+    const gchar* http_aliases[] = { "http", NULL };
+    SoupSession* session = soup_session_new_with_options(
+            SOUP_SESSION_SSL_STRICT, FALSE,
+            SOUP_SESSION_SSL_USE_SYSTEM_CA_FILE, TRUE,
+            SOUP_SESSION_HTTPS_ALIASES, http_aliases, NULL);
+
+    if(!initialized)
+    {
+        InputHandler* handler = remote_app_get_hid_handler(remote);
+        GString* url= g_string_new("http://");
+        g_string_append(url,handler->endpoint.human_interface_ip);
+        g_string_append(url,":");
+        g_string_append(url,handler->endpoint.human_interface_port);
+        g_string_append(url,"/hid");
+        memcpy(hid_url,url->str,url->len);
+    }
+
+    SoupMessage* message = soup_message_new(SOUP_METHOD_POST,hid_url);
+    soup_message_set_request(message,"application/json",SOUP_MEMORY_COPY,data,strlen(data));
+
+    if(!DEVELOPMENT_ENVIRONMENT)
+        soup_session_send_async(session,message,NULL,NULL,NULL);    
+    else
+        g_print("%s\n",data);
+}
+
 
 static void
 send_mouse_signal(HidInput* input,
-                         RemoteApp* core)
+                         RemoteUdp* core)
 {
     JsonObject* object = json_object_new();
     json_object_set_int_member(object,"Opcode",(gint)input->opcode);
@@ -133,7 +187,7 @@ send_mouse_signal(HidInput* input,
 
 static void
 send_mouse_wheel_signal(HidInput* input,
-                         RemoteApp* core)
+                         RemoteUdp* core)
 {
     JsonObject* object = json_object_new();
     json_object_set_int_member(object,"Opcode",(gint)input->opcode);
@@ -146,7 +200,7 @@ send_mouse_wheel_signal(HidInput* input,
 
 static void
 send_key_event(HidInput* input,
-            RemoteApp* core)
+            RemoteUdp* core)
 {
     JsonObject* object = json_object_new();
     json_object_set_int_member(object,"Opcode",(gint)input->opcode);
@@ -205,7 +259,7 @@ static gint reset_mouse_virtual_code[10] =
 };
 
 void
-reset_mouse(RemoteApp* app)
+reset_mouse(RemoteUdp* app)
 {
     gint i = 0;
     while (!reset_mouse_array[i])
@@ -226,7 +280,7 @@ reset_mouse(RemoteApp* app)
 
 static void
 send_gamepad_signal(HARDWAREINPUT input,
-                    RemoteApp* core)
+                    RemoteUdp* core)
 {
     JsonObject* object = json_object_new();
     json_object_set_int_member(object,"Opcode",GAMEPAD_IN);
@@ -244,7 +298,7 @@ static gint reset_key_array[10] =
 #endif
 
 void
-reset_key(RemoteApp* app)
+reset_key(RemoteUdp* app)
 {
     gint i = 0;
     while (!reset_key_array[i])
@@ -271,7 +325,7 @@ reset_key(RemoteApp* app)
 
 
 void
-toggle_key_capturing(RemoteApp* app, gboolean is_true)
+toggle_key_capturing(RemoteUdp* app, gboolean is_true)
 {
     InputHandler* handler = remote_app_get_hid_handler(app);
     handler->capturing = is_true;
@@ -289,7 +343,7 @@ toggle_key_capturing(RemoteApp* app, gboolean is_true)
  */
 static void
 parse_hid_event(HidInput* input, 
-                RemoteApp* core)
+                RemoteUdp* core)
 {
     switch((gint)input->opcode)
     {
@@ -316,7 +370,7 @@ parse_hid_event(HidInput* input,
 
 gboolean      
 handle_navigator(GstEvent *event, 
-                RemoteApp* core)
+                RemoteUdp* core)
 {
     HidInput* navigation = malloc(sizeof(HidInput));
     gint eventcode = gst_navigation_event_get_type(event);\
@@ -365,7 +419,7 @@ handle_navigator(GstEvent *event,
 static gpointer 
 gamepad_thread_func(gpointer data)
 {
-    RemoteApp* app = (RemoteApp*)data;
+    RemoteUdp* app = (RemoteUdp*)data;
 
     XINPUT_STATE state, prevstate;
     memset(&state, 0, sizeof(XINPUT_STATE));
@@ -461,7 +515,7 @@ void
 handle_window_mouse_relative(gint mouse_code,
                           gint delta_X,
                           gint delta_Y,
-                          RemoteApp* app)
+                          RemoteUdp* app)
 {
     // reduce mouse move signal by filter unactive mouse
     if(mouse_code == WM_MOUSEMOVE)
@@ -487,7 +541,7 @@ handle_window_mouse_relative(gint mouse_code,
 
 void
 handle_window_wheel(gint isup,
-                    RemoteApp* app)
+                    RemoteUdp* app)
 {
     HidInput* navigation = malloc(sizeof(HidInput));
     memset(navigation,0,sizeof(HidInput));

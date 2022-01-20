@@ -18,7 +18,7 @@
  * @param app 
  */
 void                handle_window_wheel             (gint isup,
-                                                     RemoteApp* app);
+                                                     RemoteUdp* app);
 
 
 
@@ -40,14 +40,14 @@ void                handle_message_window_proc      (HWND hwnd,
  * 
  * @param app 
  */
-void                trigger_capture_input_event     (RemoteApp* app);
+void                trigger_capture_input_event     (RemoteUdp* app);
 
 /**
  * @brief 
  * 
  * @return InputHandler* 
  */
-InputHandler*       init_input_capture_system       (RemoteApp* app);
+InputHandler*       init_input_capture_system       (RemoteUdp* app);
 
 
 
@@ -56,18 +56,25 @@ InputHandler*       init_input_capture_system       (RemoteApp* app);
  * 
  * @param app 
  */
-void                reset_key                       (RemoteApp* app);
+void                reset_key                       (RemoteUdp* app);
 
 /**
  * @brief 
  * 
  * @param app 
  */
-void                reset_mouse                     (RemoteApp* app);
+void                reset_mouse                     (RemoteUdp* app);
 
 
 
 
+/**
+ * @brief 
+ * 
+ */
+void                setup_input_endpoint            (InputHandler* handler,
+                                                    gchar* input_ip,
+                                                    gchar* input_port);
 
 
 
@@ -82,14 +89,14 @@ void                reset_mouse                     (RemoteApp* app);
 void                handle_window_mouse_relative    (gint mouse_code,
                                                     gint delta_X,
                                                     gint delta_Y,
-                                                    RemoteApp* app);
+                                                    RemoteUdp* app);
 
 
 /**
  * @brief 
  * enable or disable key capture 
  */
-void                toggle_key_capturing            (RemoteApp* app, 
+void                toggle_key_capturing            (RemoteUdp* app, 
                                                     gboolean is_true);
 #else
 
@@ -101,7 +108,7 @@ void                toggle_key_capturing            (RemoteApp* app,
  * @return gboolean 
  */
 gboolean            handle_navigator                (GstEvent *event,
-                                                     RemoteApp* core);
+                                                     RemoteUdp* core);
 
 #endif
 #endif

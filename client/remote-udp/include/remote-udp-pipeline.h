@@ -25,18 +25,9 @@
  * @param core 
  * @return gpointer 
  */
-gpointer			setup_pipeline					(RemoteApp* core);
+gpointer			setup_pipeline					(RemoteUdp* core);
 
 
-
-
-/**
- * @brief 
- * get webrtcbin from pipeline
- * @param pipeline 
- * @return GstElement* webrtcbin
- */
-GstElement*			pipeline_get_webrtc_bin			(Pipeline* pipeline);
 
 /**
  * @brief 
@@ -44,14 +35,19 @@ GstElement*			pipeline_get_webrtc_bin			(Pipeline* pipeline);
  * @param core 
  * @return Pipeline* newly created pipeline
  */
-Pipeline*			pipeline_initialize				(RemoteApp* core);
+Pipeline*			pipeline_initialize				();
 
 
 /**
- * @brief 
+ * @brief Set the up pipeline startpoint object
  * 
  * @param pipeline 
- * @return GstElement* 
+ * @param audio_port 
+ * @param video_port 
  */
-GstElement*         pipeline_get_pipeline_element   (Pipeline* pipeline);
+void                setup_pipeline_startpoint       (Pipeline* pipeline,
+                                                    gchar* audio_port,
+                                                    gchar* video_port);
+
+
 #endif

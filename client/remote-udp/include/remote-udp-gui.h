@@ -36,7 +36,7 @@ void                switch_fullscreen_mode                  (GUI* gui);
  * 
  * @param gui 
  */
-GUI*                init_remote_app_gui                     (RemoteApp *app);
+GUI*                init_remote_app_gui                     (RemoteUdp *app);
 
 
 /**
@@ -55,7 +55,8 @@ void                gui_terminate                           (GUI* gui);
  * @return gpointer 
  */
 gpointer            setup_video_overlay                     (GstElement* videosink, 
-                                                            RemoteApp* app);
+                                                            GstElement* pipeline, 
+                                                            RemoteUdp* app);
 
 /**
  * @brief 
