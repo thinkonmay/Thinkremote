@@ -248,7 +248,6 @@ setup_video_overlay(GstElement* videosink,
     gst_video_overlay_set_window_handle (GST_VIDEO_OVERLAY (videosink),
         (guintptr) _gui.window);
 
-    handle_fullscreen_hotkey();
 }
 
 

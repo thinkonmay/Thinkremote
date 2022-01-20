@@ -196,19 +196,14 @@ handle_video_stream (GstPad * pad,
 {
     Pipeline* pipeline = remote_app_get_pipeline(core);
 
-    pipeline->video_element[VIDEO_CONVERT] = gst_element_factory_make ("videoconvert", NULL);
     pipeline->video_element[VIDEO_SINK] = gst_element_factory_make ("d3d11videosink", NULL);
 
     gst_bin_add_many (GST_BIN (pipeline->pipeline),
-        pipeline->video_element[VIDEO_CONVERT], 
         pipeline->video_element[VIDEO_SINK], NULL);
 
-    gst_element_sync_state_with_parent (pipeline->video_element[VIDEO_CONVERT]);
     gst_element_sync_state_with_parent (pipeline->video_element[VIDEO_SINK]);
 
     gst_element_link_many ( 
-        pipeline->video_element[VIDEO_QUEUE_CONVERT], 
-        pipeline->video_element[VIDEO_CONVERT], 
         pipeline->video_element[VIDEO_QUEUE_SINK], 
         pipeline->video_element[VIDEO_SINK], NULL);
 
@@ -216,7 +211,7 @@ handle_video_stream (GstPad * pad,
     setup_video_sink_navigator(core);
 #endif
     
-    GstPad* queue_pad = gst_element_get_static_pad (pipeline->video_element[VIDEO_QUEUE_CONVERT], "sink");
+    GstPad* queue_pad = gst_element_get_static_pad (pipeline->video_element[VIDEO_QUEUE_SINK], "sink");
     GstPadLinkReturn ret = gst_pad_link (pad, queue_pad);
     g_assert_cmphex (ret, ==, GST_PAD_LINK_OK);
 
@@ -265,6 +260,39 @@ on_incoming_decodebin_stream (GstElement * decodebin,
     }
 }
 
+gint
+autoplug_select_callback (GstElement * bin,
+                          GstPad * pad,
+                          GstCaps * caps,
+                          GstElementFactory * factory,
+                          gpointer udata)
+{
+    gint i = 0;
+    gboolean select = FALSE; 
+    gchar** keys;
+    keys = gst_element_factory_get_metadata_keys (factory);
+    g_print("Querying a new device\n");
+    while (keys[i]) {
+        gchar * value = gst_element_factory_get_metadata (factory,keys[i]);
+        g_print("%s : %s\n",keys[i],value);
+        if (g_str_has_prefix(value,"RTP H264") ||
+            g_str_has_prefix(value,"RTP H265")) {
+            select = TRUE;
+        } else if (g_str_has_prefix(value,"H.264 parser") || 
+                   g_str_has_prefix(value,"H.265 parser")) {
+            select = TRUE;
+        } else if (g_str_has_prefix(value,"Direct3D11")) {
+            select = TRUE;
+        }
+        i++;
+    }
+
+    g_print("\n\n");
+    if(!select)
+        return 2;
+    else
+        return 0;
+}
 
 
 /**
@@ -309,8 +337,11 @@ on_incoming_stream (GstElement * webrtc,
         !g_strcmp0("H264",encoding)))
     {
         pipeline->video_element[VIDEO_DECODER] = gst_element_factory_make ("decodebin", "videodecoder");
+
         g_signal_connect (pipeline->video_element[VIDEO_DECODER], "pad-added",
             G_CALLBACK (on_incoming_decodebin_stream), core);
+        g_signal_connect (pipeline->video_element[VIDEO_DECODER], "autoplug-select",
+            G_CALLBACK (autoplug_select_callback), core);
         gst_bin_add (GST_BIN (pipeline->pipeline), pipeline->video_element[VIDEO_DECODER]);
 
         gst_element_sync_state_with_parent (pipeline->video_element[VIDEO_DECODER]);
@@ -405,7 +436,7 @@ setup_pipeline(RemoteApp* core)
 
     GError* error = NULL;
 
-    pipe->pipeline = gst_parse_launch("webrtcbin name=webrtcbin  bundle-policy=max-bundle audiotestsrc is-live=true wave=red-noise ! audioconvert ! audioresample ! queue ! opusenc ! rtpopuspay ! queue ! application/x-rtp,media=audio,payload=96,encoding-name=97 ! webrtcbin",&error);
+    pipe->pipeline = gst_parse_launch("webrtcbin name=webrtcbin bundle-policy=max-bundle audiotestsrc is-live=true wave=red-noise ! audioconvert ! audioresample ! queue ! opusenc ! rtpopuspay ! queue ! application/x-rtp,media=audio,payload=96,encoding-name=97 ! webrtcbin",&error);
     pipe->webrtcbin =  gst_bin_get_by_name(GST_BIN(pipe->pipeline),"webrtcbin");
     g_object_set(pipe->webrtcbin, "latency", 0, NULL);
 

@@ -281,7 +281,7 @@ setup_element_factory(RemoteUdp* core,
                     "udpsrc name=udp ! "                                       QUEUE
                     "rtph265depay ! "                                          QUEUE
                     "h265parse ! "                                             QUEUE
-                    "avdec_h265 name=videoencoder ! "                        QUEUE
+                    "d3d11h265dec ! "                                          QUEUE
                     "d3d11videosink name=sink", &error);
 #else
             pipe->video_pipeline =

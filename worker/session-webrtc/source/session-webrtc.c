@@ -189,7 +189,7 @@ session_core_setup_session(SessionCore* self)
 					1920,
 					1080,
 					OPUS_ENC,
-					CODEC_H264,
+					CODEC_H265,
 					DEVELOPMENT_DEFAULT_BITRATE);
 		
 		self->peer_device = WINDOW_APP;
@@ -239,6 +239,7 @@ session_core_setup_session(SessionCore* self)
 
 			self->peer_device =	json_object_get_int_member(json_infor,"clientdevice");
 			self->peer_engine =	json_object_get_int_member(json_infor,"clientengine");
+			
 			g_object_unref(parser);
 		}
 		else 
