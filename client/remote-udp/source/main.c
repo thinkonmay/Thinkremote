@@ -69,7 +69,6 @@ main(int argc, char* argv[])
     }
     else
     {
-        g_print("Starting development client\n");
         memcpy(remote_token,DEFAULT_CLIENT_TOKEN,strlen(DEFAULT_CLIENT_TOKEN));
     }
 

@@ -94,13 +94,6 @@ enum
     AUDIO_DECODER,
     AUDIO_QUEUE_DECODER,
 
-    /**
-     * @brief 
-     * 
-     */
-    AUDIO_DEPAYLOAD,
-    AUDIO_QUEUE_DEPAYLOAD,
-
     AUDIO_ELEMENT_LAST
 };
 
@@ -207,10 +200,6 @@ handle_video_stream (GstPad * pad,
         pipeline->video_element[VIDEO_QUEUE_SINK], 
         pipeline->video_element[VIDEO_SINK], NULL);
 
-#ifndef G_OS_WIN32
-    setup_video_sink_navigator(core);
-#endif
-    
     GstPad* queue_pad = gst_element_get_static_pad (pipeline->video_element[VIDEO_QUEUE_SINK], "sink");
     GstPadLinkReturn ret = gst_pad_link (pad, queue_pad);
     g_assert_cmphex (ret, ==, GST_PAD_LINK_OK);
@@ -254,24 +243,20 @@ on_incoming_decodebin_stream (GstElement * decodebin,
     {
         handle_audio_stream(pad, core);
     } 
-    else 
-    {
-      g_printerr ("Unknown pad %s, ignoring", GST_PAD_NAME (pad));
-    }
 }
 
 gint
-autoplug_select_callback (GstElement * bin,
-                          GstPad * pad,
-                          GstCaps * caps,
-                          GstElementFactory * factory,
-                          gpointer udata)
+video_element_select(GstElement * bin,
+                    GstPad * pad,
+                    GstCaps * caps,
+                    GstElementFactory * factory,
+                    gpointer udata)
 {
     gint i = 0;
     gboolean select = FALSE; 
     gchar** keys;
     keys = gst_element_factory_get_metadata_keys (factory);
-    g_print("Querying a new device\n");
+    g_print("Querying a new video element\n");
     while (keys[i]) {
         gchar * value = gst_element_factory_get_metadata (factory,keys[i]);
         g_print("%s : %s\n",keys[i],value);
@@ -292,6 +277,27 @@ autoplug_select_callback (GstElement * bin,
         return 2;
     else
         return 0;
+}
+
+gint
+audio_element_select(GstElement * bin,
+                    GstPad * pad,
+                    GstCaps * caps,
+                    GstElementFactory * factory,
+                    gpointer udata)
+{
+    gint i = 0;
+    gboolean select = FALSE; 
+    gchar** keys;
+    keys = gst_element_factory_get_metadata_keys (factory);
+    g_print("Querying a new audio element\n");
+    while (keys[i]) {
+        gchar * value = gst_element_factory_get_metadata (factory,keys[i]);
+        g_print("%s : %s\n",keys[i],value);
+        i++;
+    }
+
+    return 0;
 }
 
 
@@ -323,6 +329,8 @@ on_incoming_stream (GstElement * webrtc,
         pipeline->audio_element[AUDIO_DECODER] = gst_element_factory_make ("decodebin", "audiodecoder");
         g_signal_connect (pipeline->audio_element[AUDIO_DECODER], "pad-added",
             G_CALLBACK (on_incoming_decodebin_stream), core);
+        g_signal_connect (pipeline->audio_element[AUDIO_DECODER], "autoplug-select",
+            G_CALLBACK (audio_element_select), core);
         gst_bin_add (GST_BIN (pipeline->pipeline), pipeline->audio_element[AUDIO_DECODER]);
 
         gst_element_sync_state_with_parent (pipeline->audio_element[AUDIO_DECODER]);
@@ -341,7 +349,7 @@ on_incoming_stream (GstElement * webrtc,
         g_signal_connect (pipeline->video_element[VIDEO_DECODER], "pad-added",
             G_CALLBACK (on_incoming_decodebin_stream), core);
         g_signal_connect (pipeline->video_element[VIDEO_DECODER], "autoplug-select",
-            G_CALLBACK (autoplug_select_callback), core);
+            G_CALLBACK (video_element_select), core);
         gst_bin_add (GST_BIN (pipeline->pipeline), pipeline->video_element[VIDEO_DECODER]);
 
         gst_element_sync_state_with_parent (pipeline->video_element[VIDEO_DECODER]);
@@ -414,7 +422,6 @@ setup_pipeline_queue(Pipeline* pipeline)
     pipeline->audio_element[AUDIO_QUEUE_RESAMPLE] =         queue_array[1];
     pipeline->audio_element[AUDIO_QUEUE_CONVERT] =          queue_array[2];
     pipeline->audio_element[AUDIO_QUEUE_DECODER] =          queue_array[3];
-    pipeline->audio_element[AUDIO_QUEUE_DEPAYLOAD] =        queue_array[4];
 
     pipeline->video_element[VIDEO_QUEUE_SINK] =             queue_array[5];
     pipeline->video_element[VIDEO_QUEUE_CONVERT] =          queue_array[6];
@@ -423,6 +430,7 @@ setup_pipeline_queue(Pipeline* pipeline)
 }
 
 
+#define RTP_CAPS_AUDIO "application/x-rtp,media=audio,payload=96,encoding-name="
 gpointer
 setup_pipeline(RemoteApp* core)
 {
@@ -436,7 +444,9 @@ setup_pipeline(RemoteApp* core)
 
     GError* error = NULL;
 
-    pipe->pipeline = gst_parse_launch("webrtcbin name=webrtcbin bundle-policy=max-bundle audiotestsrc is-live=true wave=red-noise ! audioconvert ! audioresample ! queue ! opusenc ! rtpopuspay ! queue ! application/x-rtp,media=audio,payload=96,encoding-name=97 ! webrtcbin",&error);
+    pipe->pipeline = gst_parse_launch(
+        "webrtcbin name=webrtcbin bundle-policy=max-bundle audiotestsrc ! "
+        "audioconvert ! opusenc ! rtpopuspay ! "RTP_CAPS_AUDIO" ! webrtcbin",&error);
     pipe->webrtcbin =  gst_bin_get_by_name(GST_BIN(pipe->pipeline),"webrtcbin");
     g_object_set(pipe->webrtcbin, "latency", 0, NULL);
 

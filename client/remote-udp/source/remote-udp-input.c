@@ -32,8 +32,8 @@
 
 typedef struct _InputEndpoint
 {
-    gchar human_interface_port[10];
-    gchar human_interface_ip[10];
+    gchar human_interface_port[20];
+    gchar human_interface_ip[20];
 }InputEndpoint;
 
 
@@ -157,10 +157,9 @@ hid_data_channel_send(gchar* data,
 
     SoupMessage* message = soup_message_new(SOUP_METHOD_POST,hid_url);
     soup_message_set_request(message,"application/json",SOUP_MEMORY_COPY,data,strlen(data));
+    soup_session_send_async(session,message,NULL,NULL,NULL);
 
-    if(!DEVELOPMENT_ENVIRONMENT)
-        soup_session_send_async(session,message,NULL,NULL,NULL);    
-    else
+    if(DEVELOPMENT_ENVIRONMENT)
         g_print("%s\n",data);
 }
 

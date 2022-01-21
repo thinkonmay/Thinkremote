@@ -16,6 +16,20 @@
 
 
 
+/**
+ * @brief 
+ * 
+ */
+typedef struct _UdpEndpoint
+{
+    gint audio_target_port;
+
+    gint video_target_port;
+
+    gchar video_target_ip[20];
+
+    gchar audio_target_ip[20];
+}UdpEndpoint;
 
 
 /**
@@ -25,11 +39,6 @@
  */
 typedef struct 			_Pipeline 				                Pipeline;
 
-/**
- * @brief 
- * 
- */
-typedef struct          _UdpEndpoint                            UdpEndpoint;
 
 /**
  * @brief 
@@ -61,5 +70,6 @@ typedef struct 			_SignallingHub			                SignallingHub;
 
 
 #endif // ! __SESSION_CORE_TYPE_H__
+
 
 

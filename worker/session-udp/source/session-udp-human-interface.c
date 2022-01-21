@@ -477,8 +477,10 @@ on_human_interface_message(gchar* message,
     CoreEngine engine = session_core_get_client_engine(core);
     DeviceType device = session_core_get_client_device(core);
 
-    if(DEVELOPMENT_ENVIRONMENT)
+    if(DEVELOPMENT_ENVIRONMENT) {
         g_print("%s\n",message);
+        return;
+    }
 
     if(engine == CHROME)
         handle_input_javascript(message,core);

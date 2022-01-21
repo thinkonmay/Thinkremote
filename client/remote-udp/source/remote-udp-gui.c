@@ -188,7 +188,6 @@ set_up_window(GUI* gui)
                           gui->wr.bottom - gui->wr.top, 
                           (HWND)NULL, (HMENU)NULL,
                           hinstance, NULL);
-    ShowWindow (gui->window, SW_SHOW);
     gui->msg_io_channel = g_io_channel_win32_new_messages (0);
     g_io_add_watch (gui->msg_io_channel, G_IO_IN, msg_cb, NULL);
 
@@ -229,17 +228,6 @@ bus_msg (GstBus * bus,
     switch (GST_MESSAGE_TYPE (msg)) {
         case GST_MESSAGE_ASYNC_DONE:
             break;
-        case GST_MESSAGE_NEED_CONTEXT:
-            const gchar *context_type;
-            GstContext *context = NULL;
-            gst_message_parse_context_type (msg, &context_type);
-            // context = gst_element_get_context(gui->sink_element,context_type);
-            // if (context)
-            // {
-            //     gst_element_set_context (GST_ELEMENT (msg->src), context);
-            //     gst_context_unref (context);
-            // }
-            break;
     }
     return TRUE;
 }
@@ -260,6 +248,7 @@ setup_video_overlay(GstElement* videosink,
     gst_bus_add_watch (GST_ELEMENT_BUS (pipeline), bus_msg, app);
     gst_video_overlay_set_window_handle (GST_VIDEO_OVERLAY (gui->sink_element), 
         (guintptr) gui->window);
+    ShowWindow (gui->window, SW_SHOW);
 }
 
 

@@ -48,10 +48,11 @@ enum
     VIDEO_ELEMENT_LAST
 };
 
-/// <summary>
-/// gstreamer audio element enumaration,
-/// the order of element in enum must follow the 
-/// </summary>
+/**
+ * @brief 
+ * gstreamer audio element enumaration,
+ * the order of element in enum must follow the 
+ */
 enum
 {
     /*audio capture source*/
@@ -69,16 +70,6 @@ enum
 };
 
 
-struct _UdpEndpoint
-{
-    gchar audio_target_port[20];
-
-    gchar video_target_port[20];
-
-    gchar video_target_ip[20];
-
-    gchar audio_target_ip[20];
-};
 
 
 struct _Pipeline
@@ -272,7 +263,7 @@ setup_element_factory(SessionUdp* core,
         gst_bin_get_by_name(GST_BIN(pipe->audio_pipeline), "audiocapsrc");
     pipe->audio_element[SOUND_ENCODER] = 
         gst_bin_get_by_name(GST_BIN(pipe->audio_pipeline), "audioencoder");
-    pipe->video_element[UDP_AUDIO_SINK] = 
+    pipe->audio_element[UDP_AUDIO_SINK] = 
         gst_bin_get_by_name(GST_BIN(pipe->audio_pipeline), "udp");
 
     pipe->video_element[VIDEO_ENCODER] = 
@@ -437,13 +428,13 @@ setup_element_property(SessionUdp* core)
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    g_object_set(pipe->audio_element[UDP_VIDEO_SINK], "host", pipe->endpoint.video_target_ip, NULL);
-
-    g_object_set(pipe->audio_element[UDP_VIDEO_SINK], "port", pipe->endpoint.video_target_port, NULL);
-
     g_object_set(pipe->audio_element[UDP_AUDIO_SINK], "host", pipe->endpoint.audio_target_ip, NULL);
 
+    g_object_set(pipe->video_element[UDP_VIDEO_SINK], "host", pipe->endpoint.video_target_ip, NULL);
+
     g_object_set(pipe->audio_element[UDP_AUDIO_SINK], "port", pipe->endpoint.audio_target_port, NULL);
+
+    g_object_set(pipe->video_element[UDP_VIDEO_SINK], "port", pipe->endpoint.video_target_port, NULL);
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
@@ -462,7 +453,8 @@ toggle_pointer(gboolean toggle, SessionUdp* core)
 
 
 void
-setup_pipeline(SessionUdp* core)
+setup_pipeline(SessionUdp* core,
+               UdpEndpoint endpoint)
 {
     SignallingHub* signalling = session_core_get_signalling_hub(core);
     Pipeline* pipe = session_core_get_pipeline(core);
@@ -475,6 +467,7 @@ setup_pipeline(SessionUdp* core)
         qoe_get_video_codec(qoe),
         qoe_get_audio_codec(qoe));
     
+    pipe->endpoint = endpoint;
     setup_element_property(core);
 
     if(start_pipeline(pipe->video_pipeline))

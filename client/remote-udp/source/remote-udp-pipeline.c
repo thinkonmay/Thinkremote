@@ -35,24 +35,14 @@ enum
      * 
      */
     VIDEO_SINK,
+    VIDEO_QUEUE_SINK,
 
     /**
      * @brief 
      * 
      */
     VIDEO_DECODER,
-
-    /**
-     * @brief 
-     * 
-     */
-    VIDEO_CODEC_PARSER,
-
-    /**
-     * @brief 
-     * 
-     */
-    VIDEO_DEPAYLOAD,
+    VIDEO_QUEUE_DECODER,
 
     /**
      * @brief 
@@ -74,27 +64,27 @@ enum
      * 
      */
     AUDIO_SINK,
+    AUDIO_QUEUE_SINK,
+
     /**
      * @brief 
      * 
      */
     AUDIO_RESAMPLE,
+    AUDIO_QUEUE_RESAMPLE,
     /**
      * @brief 
      * 
      */
     AUDIO_CONVERT,
+    AUDIO_QUEUE_CONVERT,
+
     /**
      * @brief 
      * 
      */
     AUDIO_DECODER,
-    /**
-     * @brief 
-     * 
-     */
-    AUDIO_DEPAYLOAD,
-
+    AUDIO_QUEUE_DECODER,
 
     /**
      * @brief 
@@ -188,6 +178,64 @@ start_pipeline(GstElement* pipeline)
 }
 
 
+static void
+handle_video_stream (GstElement* decodebin, 
+                     GstPad* pad,
+                     gpointer data)
+{
+    RemoteUdp* core = (RemoteUdp*) data; 
+    Pipeline* pipeline = remote_app_get_pipeline(core);
+
+    pipeline->video_element[VIDEO_SINK] = gst_element_factory_make ("d3d11videosink", NULL);
+
+    gst_bin_add_many (GST_BIN (pipeline->video_pipeline), pipeline->video_element[VIDEO_SINK], NULL);
+
+    gst_element_sync_state_with_parent (pipeline->video_element[VIDEO_SINK]);
+
+    GstPad* queue_pad = gst_element_get_static_pad (pipeline->video_element[VIDEO_SINK], "sink");
+    GstPadLinkReturn ret = gst_pad_link (pad, queue_pad);
+    g_assert_cmphex (ret, ==, GST_PAD_LINK_OK);
+
+    trigger_capture_input_event(core);
+    setup_video_overlay(pipeline->video_element[VIDEO_SINK],pipeline->video_pipeline,core);
+}
+
+static void
+handle_audio_stream(GstElement* decodebin, 
+                     GstPad* pad,
+                     gpointer data)
+{
+    RemoteUdp* core = (RemoteUdp*) data;
+    Pipeline* pipeline = remote_app_get_pipeline(core);
+
+    pipeline->audio_element[AUDIO_CONVERT] = gst_element_factory_make ("audioconvert", NULL);
+    pipeline->audio_element[AUDIO_RESAMPLE]= gst_element_factory_make ("audioresample", NULL);
+    pipeline->audio_element[AUDIO_SINK] =    gst_element_factory_make ("autoaudiosink", NULL);
+
+    /* Might also need to resample, so add it just in case.
+    * Will be a no-op if it's not required. */
+    gst_bin_add_many (GST_BIN (pipeline->audio_pipeline), 
+        pipeline->audio_element[AUDIO_CONVERT], 
+        pipeline->audio_element[AUDIO_RESAMPLE], 
+        pipeline->audio_element[AUDIO_SINK], NULL);
+
+    gst_element_sync_state_with_parent (pipeline->audio_element[AUDIO_CONVERT]);
+    gst_element_sync_state_with_parent (pipeline->audio_element[AUDIO_RESAMPLE]);
+    gst_element_sync_state_with_parent (pipeline->audio_element[AUDIO_SINK]);
+
+    gst_element_link_many ( 
+        pipeline->audio_element[AUDIO_QUEUE_CONVERT], 
+        pipeline->audio_element[AUDIO_CONVERT], 
+        pipeline->audio_element[AUDIO_QUEUE_RESAMPLE],
+        pipeline->audio_element[AUDIO_RESAMPLE],
+        pipeline->audio_element[AUDIO_QUEUE_SINK],
+        pipeline->audio_element[AUDIO_SINK], NULL);
+
+    GstPad* queue_pad = gst_element_get_static_pad (pipeline->audio_element[AUDIO_QUEUE_CONVERT], "sink");
+    GstPadLinkReturn ret = gst_pad_link (pad, queue_pad);
+    g_assert_cmphex (ret, ==, GST_PAD_LINK_OK);
+}
+
 
 
 #ifndef G_OS_WIN32
@@ -241,84 +289,49 @@ setup_element_factory(RemoteUdp* core,
     {
         if (audio == OPUS_ENC) 
         {
-#ifdef G_OS_WIN32
             pipe->video_pipeline =
                 gst_parse_launch(
-                    "udpsrc name=udp ! "                                       
-                    "application/x-rtp,media=video,encoding-name=H264"         QUEUE
+                    "udpsrc name=udp ! "RTP_CAPS_VIDEO"H264 ! "                QUEUE
                     "rtph264depay ! "                                          QUEUE
-                    "h264parse ! "                                             QUEUE
-                    "d3d11h264dec name=videoencoder ! "                        QUEUE
-                    "d3d11videosink name=sink", &error);
-#else
-            pipe->video_pipeline =
-                gst_parse_launch(
-                    "udpsrc name=udp ! "                                       QUEUE
-                    "rtph264depay ! "                                          QUEUE
-                    "h264parse ! "                                             QUEUE
-                    "avdec_h264 name=videoencoder ! "                          QUEUE
-                    "autovideosink name=sink", &error);
-#endif
-
+                    "decodebin name=decoder",&error);
             pipe->audio_pipeline = 
                 gst_parse_launch(
-                    "udpsrc name=udp !"                                        QUEUE
-                    "rtpopusdepay ! "                                          QUEUE 
-                    "opusparse ! "                                             QUEUE 
-                    "opusdec name=audioencoder ! "                             QUEUE 
-                    "audioconvert ! "                                          QUEUE 
-                    "audioresample ! "                                         QUEUE 
-                    "autoaudiosink ", &error);
+                    "udpsrc name=udp ! "RTP_CAPS_AUDIO"OPUS ! "                QUEUE
+                    "rtpopusdepay ! "                                          QUEUE
+                    "decodebin name=decoder",&error);
         }
     }
     else if (video == CODEC_H265)
     {
         if (audio == OPUS_ENC)
         {
-#ifdef G_OS_WIN32
             pipe->video_pipeline =
                 gst_parse_launch(
-                    "udpsrc name=udp ! "                                       QUEUE
+                    "udpsrc name=udp ! "RTP_CAPS_VIDEO"H265 ! "                QUEUE
                     "rtph265depay ! "                                          QUEUE
-                    "h265parse ! "                                             QUEUE
-                    "d3d11h265dec ! "                                          QUEUE
-                    "d3d11videosink name=sink", &error);
-#else
-            pipe->video_pipeline =
-                gst_parse_launch(
-                    "udpsrc name=udp ! "
-                    "application/x-rtp, media=video, encoding-name=H265"       QUEUE
-                    "rtph265depay ! "                                          QUEUE
-                    "h265parse ! "                                             QUEUE
-                    "avdec_h265 name=videoencoder ! "                          QUEUE
-                    "autovideosink name=sink", &error);
-
-#endif
+                    "decodebin name=decoder",&error);
             pipe->audio_pipeline = 
                 gst_parse_launch(
-                    "udpsrc name=udp !"                                        QUEUE
-                    "rtpopusdepay ! "                                          QUEUE 
-                    "opusparse ! "                                             QUEUE 
-                    "opusdec name=audioencoder ! "                             QUEUE 
-                    "audioconvert ! "                                          QUEUE 
-                    "audioresample ! "                                         QUEUE 
-                    "autoaudiosink ", &error);
+                    "udpsrc name=udp ! "RTP_CAPS_AUDIO"OPUS ! "                QUEUE
+                    "rtpopusdepay ! "                                          QUEUE
+                    "decodebin name=decoder",&error);
 
         }
     }
 
 
-    if (error) { return; }
+    if (error) 
+        return; 
 
     pipe->audio_element[UDP_AUDIO_SOURCE] = 
         gst_bin_get_by_name(GST_BIN(pipe->audio_pipeline), "udp");
+    pipe->audio_element[AUDIO_DECODER] = 
+        gst_bin_get_by_name(GST_BIN(pipe->audio_pipeline), "decoder");
 
     pipe->video_element[UDP_VIDEO_SOURCE] = 
         gst_bin_get_by_name(GST_BIN(pipe->video_pipeline), "udp");
-    pipe->video_element[VIDEO_SINK] = 
-        gst_bin_get_by_name(GST_BIN(pipe->video_pipeline), "sink");
-
-    
+    pipe->video_element[VIDEO_DECODER] = 
+        gst_bin_get_by_name(GST_BIN(pipe->video_pipeline), "decoder");
 }
 
 /**
@@ -349,19 +362,6 @@ setup_element_property(RemoteUdp* core)
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #ifdef G_OS_WIN32
 #else
-    g_object_set(pipe->video_element[VIDEO_ENCODER], "threads", 4, NULL);
-
-    g_object_set(pipe->video_element[VIDEO_ENCODER], "bframes", 0, NULL);
-
-    g_object_set(pipe->video_element[VIDEO_ENCODER], "key-int-max", 0, NULL);
-
-    g_object_set(pipe->video_element[VIDEO_ENCODER], "byte-stream", TRUE, NULL);
-
-    g_object_set(pipe->video_element[VIDEO_ENCODER], "tune", "zerolatency", NULL);
-
-    g_object_set(pipe->video_element[VIDEO_ENCODER], "speed-preset", "veryfast", NULL);
-
-    g_object_set(pipe->video_element[VIDEO_ENCODER], "pass", "pass1", NULL);
 #endif
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
@@ -373,8 +373,94 @@ setup_element_property(RemoteUdp* core)
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
+static gint
+handle_audio_element(GstElement * bin,
+                     GstPad * pad,
+                     GstCaps * caps,
+                     GstElementFactory * factory,
+                     gpointer udata)
+{
+    gint i = 0;
+    gboolean select = FALSE; 
+    gchar** keys;
+    keys = gst_element_factory_get_metadata_keys (factory);
+    g_print("Querying new audio element\n");
+    while (keys[i]) {
+        gchar * value = gst_element_factory_get_metadata (factory,keys[i]);
+        g_print("%s : %s\n",keys[i],value);
+        i++;
+    }
+
+    g_print("\n\n");
+    return 0;
+}
 
 
+static gint
+handle_video_element(GstElement * bin,
+                     GstPad * pad,
+                     GstCaps * caps,
+                     GstElementFactory * factory,
+                     gpointer udata)
+{
+    gint i = 0;
+    gboolean select = FALSE; 
+    gchar** keys;
+    keys = gst_element_factory_get_metadata_keys (factory);
+    g_print("Querying new video element\n");
+    while (keys[i]) {
+        gchar * value = gst_element_factory_get_metadata (factory,keys[i]);
+        g_print("%s : %s\n",keys[i],value);
+        if (g_str_has_prefix(value,"RTP H264") ||
+            g_str_has_prefix(value,"RTP H265")) {
+            select = TRUE;
+        } else if (g_str_has_prefix(value,"H.264 parser") || 
+                   g_str_has_prefix(value,"H.265 parser")) {
+            select = TRUE;
+        } else if (g_str_has_prefix(value,"Direct3D11")) {
+            select = TRUE;
+        }
+        i++;
+    }
+
+    g_print("\n\n");
+    if(!select)
+        return 2;
+    else
+        return 0;
+}
+
+static void
+setup_pipeline_queue(Pipeline* pipeline)
+{
+    GstElement* audio_queue_array[4],* video_queue_array[4];
+    for (gint i = 0; i < 4; i++)
+    {
+        audio_queue_array[i] = gst_element_factory_make ("queue", NULL);
+        g_object_set(audio_queue_array[i], "max-size-time", 0, NULL);
+        g_object_set(audio_queue_array[i], "max-size-bytes", 0, NULL);
+        g_object_set(audio_queue_array[i], "max-size-buffers", 3, NULL);
+
+        gst_bin_add(GST_BIN(pipeline->audio_pipeline),audio_queue_array[i]);
+        gst_element_sync_state_with_parent(audio_queue_array[i]);
+
+        video_queue_array[i] = gst_element_factory_make ("queue", NULL);
+        g_object_set(video_queue_array[i], "max-size-time", 0, NULL);
+        g_object_set(video_queue_array[i], "max-size-bytes", 0, NULL);
+        g_object_set(video_queue_array[i], "max-size-buffers", 3, NULL);
+
+        gst_bin_add(GST_BIN(pipeline->video_pipeline),video_queue_array[i]);
+        gst_element_sync_state_with_parent(video_queue_array[i]);
+    }
+
+    pipeline->audio_element[AUDIO_QUEUE_SINK] =             audio_queue_array[0];
+    pipeline->audio_element[AUDIO_QUEUE_RESAMPLE] =         audio_queue_array[1];
+    pipeline->audio_element[AUDIO_QUEUE_CONVERT] =          audio_queue_array[2];
+    pipeline->audio_element[AUDIO_QUEUE_DECODER] =          audio_queue_array[3];
+
+    pipeline->video_element[VIDEO_QUEUE_SINK] =             video_queue_array[5];
+    pipeline->video_element[VIDEO_QUEUE_DECODER] =          video_queue_array[7];
+}
 
 gpointer
 setup_pipeline(RemoteUdp* core)
@@ -389,12 +475,18 @@ setup_pipeline(RemoteUdp* core)
     setup_element_factory(core,
         qoe_get_video_codec(config),
         qoe_get_audio_codec(config));
-
+    setup_pipeline_queue(pipe);
     setup_element_property(core);
 
-    setup_video_overlay(
-        pipe->video_element[VIDEO_SINK],
-        pipe->video_pipeline,core);
+    g_signal_connect (pipe->video_element[VIDEO_DECODER], "pad-added",
+        G_CALLBACK (handle_video_stream), core);
+    g_signal_connect (pipe->audio_element[AUDIO_DECODER], "pad-added",
+        G_CALLBACK (handle_audio_stream), core);
+    g_signal_connect (pipe->video_element[VIDEO_DECODER], "autoplug-select",
+        G_CALLBACK (handle_video_element), core);
+    g_signal_connect (pipe->audio_element[AUDIO_DECODER], "autoplug-select",
+        G_CALLBACK (handle_audio_element), core);
+
 
     if(start_pipeline(pipe->video_pipeline))
         worker_log_output("Starting pipeline");

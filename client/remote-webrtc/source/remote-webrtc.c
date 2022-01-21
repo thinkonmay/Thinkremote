@@ -155,13 +155,9 @@ RemoteApp*
 remote_app_initialize(gchar* remote_token)
 {
 	if(DEVELOPMENT_ENVIRONMENT)
-	{
-		g_print("Starting remote app with remote token %s\n",remote_token);
-	}
+		g_print("Starting remote app in development environment \n");
 	else
-	{
 		g_print("Initializing remote app, please wait ...\n");
-	}
 
 
 	RemoteApp* app= 		malloc(sizeof(RemoteApp));

@@ -224,11 +224,6 @@ session_core_setup_session(SessionUdp* self)
 			JsonParser* parser = json_parser_new();
 			JsonObject* json_infor = get_json_object_from_string(infor_message->response_body->data,error,parser);
 
-
-			json_object_get_string_member(json_infor,"turn");
-			json_object_get_string_member(json_infor,"signallingurl");
-			json_object_get_array_member(json_infor,"stuns");
-
 			qoe_setup(self->qoe,
 						json_object_get_int_member(json_infor,"screenwidth"),
 						json_object_get_int_member(json_infor,"screenheight"),
@@ -267,10 +262,12 @@ handle_message_server(gchar* path,
                       gpointer data)
 {
 	SessionUdp* agent = (SessionUdp*) data;
-
-	if(!g_strcmp0(path,"/hid"))
-		on_human_interface_message(request_body,agent);
+	if(!g_strcmp0(path,"/hid")) {
+		gchar* text = g_bytes_get_data(request_body,NULL);
+		on_human_interface_message(text,agent);
 		return TRUE;
+	}
+	return TRUE;
 }
 
 #else
@@ -377,17 +374,64 @@ session_core_sync_state_with_cluster(gpointer user_data)
 	}
 }
 
+void
+server_callback (SoupServer        *server,
+                 SoupMessage	   *msg,
+		 		 const char        *path,
+                 GHashTable        *query,
+				 SoupClientContext *ctx,
+		 		 gpointer           user_data)
+{
+	char *file_path;
+	SoupMessageHeadersIter iter;
+	SoupMessageBody *request_body;
+	const char *name, *value;
+	SoupURI* uri = soup_message_get_uri(msg);
+	if(!g_strcmp0(uri->path,"/ping"))
+	{
+		soup_message_set_response(msg, "application/json",SOUP_MEMORY_STATIC,"null",4);
+		msg->status_code = SOUP_STATUS_OK;
+		return;
+	} else if(!g_strcmp0(uri->path,"/hid"))
+	{
+		on_human_interface_message(msg->request_body->data,user_data);
+		msg->status_code = SOUP_STATUS_OK;
+	}
+}
+
+
+
+/**
+ * @brief 
+ * initialize session core with message handler
+ * @param core 
+ * @return SoupServer* 
+ */
+static SoupServer*
+init_session_core_server(SessionUdp* core)
+{
+	GError* error = NULL;
+	SoupServer* server = soup_server_new(NULL);
+
+	soup_server_add_handler(server,
+		"/",server_callback,core,NULL);
+
+	soup_server_listen_all(server,6003,0,&error);
+	if(error){g_printerr(error->message); return;}
+	return server;
+}
 
 SessionUdp*
 session_core_initialize()
 {
+	UdpEndpoint endpoint = {6001,6002,"192.168.1.6","192.168.1.6"};
 	worker_log_output("Session core process started");
 	SessionUdp* core = malloc(sizeof(SessionUdp));
 
-#ifndef G_OS_WIN32
+#ifndef USE_LIBSOUP 
 	core->server = 				init_session_core_server(core);
 #else
-	core->server = 				init_window_server((ServerMessageHandle)handle_message_server,"4000",core);
+	core->server = 				init_window_server((ServerMessageHandle)handle_message_server,"6003",core);
 #endif
 
 	core->hub =					human_interface_initialize();
@@ -400,7 +444,7 @@ session_core_initialize()
 	if(!DEVELOPMENT_ENVIRONMENT)
 		g_thread_new("Sync",(GThreadFunc) session_core_sync_state_with_cluster,core);
 
-	setup_pipeline(core);
+	setup_pipeline(core,endpoint);
 	g_main_loop_run(core->loop);
 	return core;	
 }

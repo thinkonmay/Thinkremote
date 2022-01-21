@@ -22,7 +22,8 @@
  * this function wrap around element creating is property setup procedure
  * @param core 
  */
-void                setup_pipeline					(SessionUdp* core);
+void                setup_pipeline					(SessionUdp* core,
+                                                     UdpEndpoint endpoint);
 
 
 /**
