@@ -146,18 +146,13 @@ start_portforward(AgentServer* agent)
 {
     PortForward* port = agent_get_portforward(agent);
 
+#ifdef G_OS_WIN32
+    SetEnvironmentVariable("port", TEXT(AGENT_PORT));
+    SetEnvironmentVariable("clustertoken", TEXT(CLUSTER_TOKEN));
+#endif
+
     // return false if session core is running before the initialization
-    GString* core_script = g_string_new(PORT_FORWARD_BINARY);
-    g_string_append(core_script," ");
-    g_string_append(core_script,CLUSTER_TOKEN);
-    g_string_append(core_script," ");
-    g_string_append(core_script,AGENT_PORT);
-    g_string_append(core_script," ");
-    g_string_append(core_script,port->agent_instance_port);
-
-    gchar* process_path = g_string_free(core_script,FALSE);
-
-    port->process = create_new_child_process(process_path,
+    port->process = create_new_child_process(PORT_FORWARD_BINARY,
         (ChildStdErrHandle)handle_portfoward_error,
         (ChildStdOutHandle)handle_portforward_output,
         (ChildStateHandle)handle_portforward_disconnected, agent,NULL);

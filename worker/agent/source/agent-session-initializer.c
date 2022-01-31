@@ -86,6 +86,12 @@ session_initialize(AgentServer* agent)
 {
     RemoteSession* session = agent_get_remote_session(agent);
 
+#ifdef G_OS_WIN32
+    SetEnvironmentVariable("clustertoken", TEXT(CLUSTER_TOKEN));
+    SetEnvironmentVariable("cluster_ip", TEXT(CLUSTER_URL));
+#else
+#endif
+
     // return false if session core is running before the initialization
     GString* core_script = g_string_new(SESSION_CORE_BINARY);
     g_string_append(core_script," --token=");
