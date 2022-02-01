@@ -29,6 +29,18 @@
 #include <Windows.h>
 #endif
 
+typedef enum _ReturnCode 
+{
+    PORT_FORWARD_OK = 100,
+    ERROR_GET_ENV,
+    ERROR_FETCH_INSTANCE_INFOR,
+    ERROR_INIT_SSH_CLIENT,
+    ERROR_CONNECT_TO_INSTANCE,
+    ERROR_PORTFORWARD,
+    ERROR_HANDLE_SSH_CONNECTION,
+    ERROR_DOTNET_ENVIRONMENT = 131,
+}ReturnCode;
+
 struct _PortForward
 {
     ChildProcess* process;
@@ -96,11 +108,6 @@ init_portforward_service()
     itoa(agent_instance_port,port->agent_instance_port,10);
     memcpy(AGENT_PORT,port->agent_instance_port,10);
 
-
-
-
-
-
     return port;
 }
 
@@ -113,12 +120,46 @@ handle_portforward_disconnected(ChildProcess* proc,
 {
     PortForward* port = agent_get_portforward(agent);
     memset(port->agent_instance_port,0,20);  
+    gint exit_code = childprocess_get_exit_code(proc);
+
+    switch (exit_code)
+    {
+        case PORT_FORWARD_OK :
+            worker_log_output("Portforward session ended");
+            break;
+        case ERROR_GET_ENV:
+            worker_log_output("Error get environment variable");
+            break;
+        case ERROR_FETCH_INSTANCE_INFOR:
+            worker_log_output("Error fetch instance infor");
+            break;
+        case ERROR_INIT_SSH_CLIENT:
+            worker_log_output("Error init SSH client");
+            break;
+        case ERROR_CONNECT_TO_INSTANCE:
+            worker_log_output("Error establish instance SSH connection");
+            break;
+        case ERROR_PORTFORWARD:
+            worker_log_output("Error start portforward");
+            break;
+        case ERROR_HANDLE_SSH_CONNECTION:
+            worker_log_output("Error handle SSH connection");
+            break;
+        case ERROR_DOTNET_ENVIRONMENT :
+            worker_log_output("Dotnet environment is missing");
+            break;
+        default:
+            worker_log_output("Unknown error while portforward");
+            break;
+    }
+
+
     while (!start_portforward(agent))
     {
 #ifdef G_OS_WIN32
-        Sleep(10000);
+        Sleep(1000);
 #else
-        sleep(10000);
+        sleep(1000);
 #endif
     }
 }

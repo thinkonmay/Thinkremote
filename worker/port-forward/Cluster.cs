@@ -40,5 +40,6 @@ namespace port_forward
         ERROR_PORTFORWARD,
         ERROR_HANDLE_SSH_CONNECTION,
 
+        ERROR_DOTNET_ENVIRONMENT = 131,
     }
 }

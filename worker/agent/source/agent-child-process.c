@@ -220,3 +220,8 @@ create_new_child_process(gchar* process_name,
 }
 
 
+gint 
+childprocess_get_exit_code(ChildProcess* proc)
+{
+    return proc->exit_code;
+}

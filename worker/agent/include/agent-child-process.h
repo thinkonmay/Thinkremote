@@ -66,4 +66,12 @@ void 				childprocess_force_exit						(ChildProcess* proc);
  * @param proc 
  */
 void 				clean_childprocess							(ChildProcess* proc);
+
+/**
+ * @brief 
+ * 
+ * @param proc 
+ * @return gint 
+ */
+gint 				childprocess_get_exit_code					(ChildProcess* proc);
 #endif
