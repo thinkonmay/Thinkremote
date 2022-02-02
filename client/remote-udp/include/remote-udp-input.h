@@ -6,6 +6,13 @@
 
 
 
+/**
+ * @brief 
+ * 
+ */
+void                setup_input_endpoint            (InputHandler* handler,
+                                                    gchar* input_ip,
+                                                    gchar* input_port);
 
 
 #ifdef G_OS_WIN32
@@ -68,13 +75,6 @@ void                reset_mouse                     (RemoteUdp* app);
 
 
 
-/**
- * @brief 
- * 
- */
-void                setup_input_endpoint            (InputHandler* handler,
-                                                    gchar* input_ip,
-                                                    gchar* input_port);
 
 
 

@@ -33,7 +33,11 @@ webrtcbin_get_qos(GstElement* webrtcbin)
         GstStructure* structure = gst_promise_get_reply(promise);
         gchar* name = gst_structure_get_name(structure);
 
+#ifdef G_OS_WIN32
         gchar* output = gst_structure_serialize(structure,GST_SERIALIZE_FLAG_NONE);
+#else
+        gchar* output = gst_structure_to_string(structure);
+#endif
         worker_log_output(output);
     }
     gst_promise_unref(promise);

@@ -264,9 +264,9 @@ void
 setup_video_sink_navigator(RemoteUdp* core)
 {
     Pipeline* pipeline = remote_app_get_pipeline(core);
-    GstPad* pad = gst_element_get_static_pad(pipeline->video_element[VIDEO_CONVERT],"src");
+    // GstPad* pad = gst_element_get_static_pad(pipeline->video_element[VIDEO_CONVERT],"src");
 
-    gst_pad_set_event_function_full(pad,handle_event,core,NULL);
+    // gst_pad_set_event_function_full(pad,handle_event,core,NULL);
 }
 #endif
 

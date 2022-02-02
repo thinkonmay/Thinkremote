@@ -12,6 +12,11 @@ pkg_check_modules(CONTROLLER REQUIRED gstreamer-controller-1.0)
 pkg_check_modules(VIDEO REQUIRED gstreamer-video-1.0)
 
 
+if(MSVC)
+else()
+    pkg_check_modules(GTK REQUIRED gtkmm-3.0)
+endif()
+
 
 
 file(GLOB SOURCE_LIST ${CMAKE_SOURCE_DIR}/client/remote-udp/source/*.c)
@@ -32,6 +37,7 @@ PUBLIC
     ${GST_INCLUDE_DIRS}
     ${JSON_GLIB_INCLUDE_DIRS}
     ${WEBRTC_INCLUDE_DIRS}
+    ${GTK_INCLUDE_DIRS}
     ${CONTROLLER_INCLUDE_DIRS}
     ${VIDEO_INCLUDE_DIRS})
 
@@ -48,6 +54,7 @@ target_compile_options(remote-udp PUBLIC ${JSON_GLIB_CFLAGS})
 target_compile_options(remote-udp PUBLIC ${WEBRTC_CFLAGS})
 target_compile_options(remote-udp PUBLIC ${CONTROLLER_CFLAGS})
 target_compile_options(remote-udp PUBLIC ${VIDEO_CFLAGS})
+target_compile_options(remote-udp PUBLIC ${GTK_CFLAGS})
 
 target_link_directories(remote-udp PUBLIC ${INCLUDE_LIBRARY} )    
 
@@ -62,6 +69,7 @@ target_link_libraries(remote-udp
     ${WEBRTC_LIBRARIES}
     ${CONTROLLER_LIBRARIES}
     ${VIDEO_LIBRARIES}
+    ${GTK_LIBRARIES}
 )
 
 

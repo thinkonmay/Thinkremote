@@ -32,8 +32,17 @@
 
 typedef struct _InputEndpoint
 {
-    gchar human_interface_port[20];
-    gchar human_interface_ip[20];
+    /**
+     * @brief 
+     * 
+     */
+    gchar human_interface_port[50];
+    
+    /**
+     * @brief 
+     * 
+     */
+    gchar human_interface_ip[50];
 }InputEndpoint;
 
 
@@ -44,6 +53,7 @@ struct _InputHandler
      * reference to remote app
      */
     RemoteUdp* app;
+
     /**
      * @brief 
      * handle gamepad event
@@ -64,14 +74,13 @@ struct _InputHandler
     gboolean capturing;
 };
 
-static InputHandler HID_handler = {0}; 
 
 InputHandler*
 init_input_capture_system(RemoteUdp* app)
 {
-    HID_handler.capturing = FALSE;
-    HID_handler.app = app;
-    return &HID_handler;
+    InputHandler* handler = malloc(sizeof(InputHandler));
+    memset(handler,0,sizeof(InputHandler));
+    return handler;
 }
 
 
@@ -80,8 +89,8 @@ setup_input_endpoint(InputHandler* handler,
                      gchar* input_ip,
                      gchar* input_port)
 {
-    memcpy(handler->endpoint.human_interface_ip,input_ip,strlen(input_ip));
-    memcpy(handler->endpoint.human_interface_port,input_port,strlen(input_port));
+    // memcpy(handler->endpoint.human_interface_ip,    input_ip,   strlen(input_ip));
+    // memcpy(handler->endpoint.human_interface_port,  input_port, strlen(input_port));
 }
 
 
@@ -102,8 +111,10 @@ trigger_capture_input_event(RemoteUdp* app)
 {
     InputHandler* handler = remote_app_get_hid_handler(app);
 
+#ifdef G_OS_WIN32
     handler->gamepad_thread = g_thread_new("gamepad thread", 
         (GThreadFunc)gamepad_thread_func, app);
+#endif
 }
 
 
@@ -388,10 +399,10 @@ handle_navigator(GstEvent *event,
             gst_navigation_event_parse_mouse_move_event(event,&(navigation->x_pos),&(navigation->y_pos));
             navigation->opcode = MOUSE_MOVE;
             break; 
-        case GST_NAVIGATION_EVENT_MOUSE_SCROLL: 
-            gst_navigation_event_parse_mouse_scroll_event(event,&(navigation->x_pos),&(navigation->y_pos),&(navigation->delta_x),&(navigation->delta_y));
-            navigation->opcode = MOUSE_WHEEL;
-            break; 
+        // case GST_NAVIGATION_EVENT_MOUSE_SCROLL: 
+        //     gst_navigation_event_parse_mouse_scroll_event(event,&(navigation->x_pos),&(navigation->y_pos),&(navigation->delta_x),&(navigation->delta_y));
+        //     navigation->opcode = MOUSE_WHEEL;
+        //     break; 
         case GST_NAVIGATION_EVENT_MOUSE_BUTTON_PRESS: 
             gst_navigation_event_parse_mouse_button_event(event,&(navigation->mouse_code),&(navigation->x_pos),&(navigation->y_pos));
             navigation->opcode = MOUSE_DOWN;

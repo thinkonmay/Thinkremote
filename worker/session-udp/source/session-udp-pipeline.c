@@ -190,7 +190,7 @@ setup_element_factory(SessionUdp* core,
                     RTP_CAPS_AUDIO "OPUS ! "                                   QUEUE
                     "udpsink name=udp", &error);
 #else
-            pipe->pipeline =
+            pipe->video_pipeline =
                 gst_parse_launch(
                     "ximagesrc name=screencap ! "                              QUEUE
                     "videoconvert ! "                                          QUEUE
@@ -236,21 +236,24 @@ setup_element_factory(SessionUdp* core,
                     RTP_CAPS_AUDIO "OPUS ! "                                   QUEUE
                     "udpsink name=udp", &error);
 #else
-            pipe->pipeline =
-                gst_parse_launch("webrtcbin bundle-poricy=max-bundle name=sendrecv "
+            pipe->video_pipeline =
+                gst_parse_launch(
+                    "d3d11desktopdupsrc name=screencap ! "                     QUEUE
+                    "d3d11convert ! "                                          QUEUE
+                    "mfh265enc name=videoencoder ! "                           QUEUE
+                    "rtph265pay name=rtp ! "                                   QUEUE
+                    RTP_CAPS_VIDEO "H265 ! "                                   QUEUE
+                    "udpsink name=udp", &error);
 
-                    "ximagesrc name=screencap ! "                               QUEUE
-                    "videoconvert name=videoencoder ! "                         QUEUE
-                    "x265enc name=videoencoder ! "                              QUEUE
-                    "rtph265pay name=rtp ! "                                    QUEUE 
-                    RTP_CAPS_VIDEO "H265 ! sendrecv. "
-
-                    "pulsesrc name=audiocapsrc ! "                              QUEUE 
-                    "audioconvert ! "                                           QUEUE 
-                    "audioresample ! "                                          QUEUE 
-                    "opusenc name=audioencoder ! "                              QUEUE 
-                    "rtpopuspay ! "                                             QUEUE 
-                    RTP_CAPS_AUDIO"OPUS ! sendrecv. ", &error);
+            pipe->audio_pipeline = 
+                gst_parse_launch(
+                    "wasapi2src name=audiocapsrc !"                            QUEUE
+                    "audioconvert ! "                                          QUEUE 
+                    "audioresample ! "                                         QUEUE 
+                    "opusenc name=audioencoder ! "                             QUEUE 
+                    "rtpopuspay ! "                                            QUEUE 
+                    RTP_CAPS_AUDIO "OPUS ! "                                   QUEUE
+                    "udpsink name=udp", &error);
 
 #endif
         }

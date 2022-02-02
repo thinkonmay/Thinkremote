@@ -110,7 +110,9 @@ agent_new(gboolean self_host)
 	if(!agent->server){return;}
 
 	if(self_host) {
+#ifdef G_OS_WIN32
 		register_with_selfhosted_cluster(agent,self_host);
+#endif
 	} else {
 		PortForward* port = start_portforward(agent);
 

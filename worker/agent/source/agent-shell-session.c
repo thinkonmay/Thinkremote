@@ -98,7 +98,7 @@ initialize_shell_session_from_byte(AgentServer* agent,
     guint32 random_int = g_rand_int(random);
 
     gchar random_string[100] = {0};
-    _itoa(random_int,random_string,10);
+    itoa(random_int,random_string,10);
 
     GString * input_file_path = g_string_new(g_get_current_dir());
     GString * output_file_path = g_string_new(g_get_current_dir());
@@ -175,7 +175,7 @@ initialize_shell_session(AgentServer* agent,
     gchar* random_string = malloc(100);
     memset(random_string,0,100);
 
-    _itoa(random_int,random_string,10);
+    itoa(random_int,random_string,10);
 
     GString * input_file_path = g_string_new(g_get_current_dir());
     GString * output_file_path = g_string_new(g_get_current_dir());

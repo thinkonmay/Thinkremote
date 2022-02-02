@@ -4,7 +4,7 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C://gstreamer/1.0/msvc_x86_64/**"
+                "/usr/**"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

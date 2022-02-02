@@ -80,8 +80,10 @@ trigger_capture_input_event(RemoteApp* app)
 {
     InputHandler* handler = remote_app_get_hid_handler(app);
 
+#ifdef G_OS_WIN32
     handler->gamepad_thread = g_thread_new("gamepad thread", 
         (GThreadFunc)gamepad_thread_func, app);
+#endif
 }
 
 
@@ -335,10 +337,10 @@ handle_navigator(GstEvent *event,
             gst_navigation_event_parse_mouse_move_event(event,&(navigation->x_pos),&(navigation->y_pos));
             navigation->opcode = MOUSE_MOVE;
             break; 
-        case GST_NAVIGATION_EVENT_MOUSE_SCROLL: 
-            gst_navigation_event_parse_mouse_scroll_event(event,&(navigation->x_pos),&(navigation->y_pos),&(navigation->delta_x),&(navigation->delta_y));
-            navigation->opcode = MOUSE_WHEEL;
-            break; 
+        // case GST_NAVIGATION_EVENT_MOUSE_SCROLL: 
+        //     gst_navigation_event_parse_mouse_scroll_event(event,&(navigation->x_pos),&(navigation->y_pos),&(navigation->delta_x),&(navigation->delta_y));
+        //     navigation->opcode = MOUSE_WHEEL;
+        //     break; 
         case GST_NAVIGATION_EVENT_MOUSE_BUTTON_PRESS: 
             gst_navigation_event_parse_mouse_button_event(event,&(navigation->mouse_code),&(navigation->x_pos),&(navigation->y_pos));
             navigation->opcode = MOUSE_DOWN;

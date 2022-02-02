@@ -46,8 +46,8 @@ Pipeline*			pipeline_initialize				();
  * @param video_port 
  */
 void                setup_pipeline_startpoint       (Pipeline* pipeline,
-                                                    gchar* audio_port,
-                                                    gchar* video_port);
+                                                    gint audio_port,
+                                                    gint video_port);
 
 
 #endif

@@ -13,7 +13,8 @@
         "charconv": "c",
         "chrono": "c",
         "xlocnum": "c",
-        "win32-server.h": "c"
+        "win32-server.h": "c",
+        "remote-udp-input.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

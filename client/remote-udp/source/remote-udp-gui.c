@@ -21,6 +21,13 @@
 #include <glib-2.0/glib.h>
 #include <gst/video/videooverlay.h>
 #include <gst/video/gstvideosink.h>
+#include <gst/video/videooverlay.h>
+
+#include <gtk/gtk.h>
+
+#ifdef GDK_WINDOWING_X11
+#include <gdk/gdkx.h>  // for GDK_WINDOW_XID
+#endif
 
 
 
@@ -62,6 +69,14 @@ struct _GUI
      * IO channel for remote app
      */
     GIOChannel *msg_io_channel;
+#else 
+    GtkApplication *gtk_app;
+
+    guintptr window_handle;
+
+    GtkWidget *video_window;
+
+    GtkWidget *app_window;
 #endif
 
     /**
@@ -89,26 +104,63 @@ static GUI _gui = {0};
  * 
  * @param gui 
  */
-void                        set_up_window           (GUI* gui);
+void                        set_up_window               (GUI* gui);
 
 /**
  * @brief 
  * 
  */
-void                        handle_fullscreen_hotkey ();
+void                        handle_fullscreen_hotkey    ();
+
+#ifndef G_OS_WIN32
+/**
+ * @brief 
+ * 
+ */
+static void                 video_widget_realize_cb     (GtkWidget * widget, 
+                                                         gpointer data);
+#endif
+
+static void
+activate (GtkApplication* app,
+          gpointer        user_data)
+{
+    GUI* gui = (GUI*) user_data;
+
+    gui->app_window = gtk_application_window_new (app);
+    gtk_window_set_title (GTK_WINDOW (gui->app_window), "Window");
+    gtk_window_set_default_size (GTK_WINDOW (gui->app_window), 200, 200);
+
+    gui->video_window = gtk_drawing_area_new();
+    g_signal_connect(gui->video_window,"realize",G_CALLBACK(video_widget_realize_cb),gui);
+
+    gtk_widget_set_double_buffered (gui->video_window, FALSE);
+    gtk_container_add (GTK_CONTAINER (gui->app_window), gui->video_window);
+    gtk_widget_show_all (gui->app_window);
+
+    gtk_widget_realize (gui->video_window);
+}
+
+gpointer
+run_application(gpointer data)
+{
+    gint status;
+    status = g_application_run (G_APPLICATION (data), 0, NULL);
+    g_object_unref (data);
+}
 
 GUI*
 init_remote_app_gui(RemoteUdp *app)
 {
     memset(&_gui,0,sizeof(GUI));
-
-
     _gui.app = app;
 #ifdef G_OS_WIN32
-    RECT wr = { 0, 0, 320, 240 };
-    _gui.wr = wr;
-
+    _gui.wr = { 0, 0, 320, 240 };
     set_up_window(&_gui);
+#else
+    GtkApplication* gtk_app = gtk_application_new ("org.gtk.example", G_APPLICATION_FLAGS_NONE);
+    g_signal_connect (gtk_app, "activate", G_CALLBACK (activate), &_gui);
+    g_thread_new("gui",run_application,gtk_app);
 #endif
     return &_gui;
 }
@@ -570,7 +622,6 @@ enable_client_cursor()
 }
 
 
-
 void
 gui_terminate(GUI* gui)
 {
@@ -580,25 +631,63 @@ gui_terminate(GUI* gui)
 
 #else
 
-
-
-void
-gui_terminate(GUI* gui)
+static GstBusSyncReply
+bus_sync_handler (GstBus * bus, 
+                  GstMessage * message, 
+                  gpointer user_data)
 {
+    RemoteUdp* udp = (RemoteUdp*) user_data;
+    GUI* gui = remote_app_get_gui(udp);
+
+    // ignore anything but 'prepare-window-handle' element messages
+    if (!gst_is_video_overlay_prepare_window_handle_message (message))
+        return GST_BUS_PASS;
+
+    if (gui->window_handle != 0) 
+    {
+        GstVideoOverlay *overlay;
+        // GST_MESSAGE_SRC (message) will be the video sink element
+        overlay = GST_VIDEO_OVERLAY (GST_MESSAGE_SRC (message));
+        gst_video_overlay_set_window_handle (overlay, gui->window_handle);
+    } 
+    else 
+    {
+        g_warning ("Should have obtained video_window_handle by now!");
+    }
+
+    gst_message_unref (message);
+    return GST_BUS_DROP;
 }
+
+static void
+video_widget_realize_cb (GtkWidget * widget, 
+                         gpointer data)
+{
+    GUI* gui = (GUI*)data;
+    gulong xid = GDK_WINDOW_XID (gtk_widget_get_window (gui->video_window));
+    gui->window_handle = xid;
+}
+
+
 
 gpointer
 setup_video_overlay(GstElement* videosink,
                     GstElement* pipeline, 
                     RemoteUdp* app)
 {
+    GstBus* bus;
     GUI* gui = remote_app_get_gui(app);
-    Pipeline* pipeline = remote_app_get_pipeline(app);
 
     /* prepare the pipeline */
     gst_object_ref_sink (videosink);
 
+    bus = gst_pipeline_get_bus (GST_PIPELINE (pipeline));
+    gst_bus_set_sync_handler (bus, (GstBusSyncHandler) bus_sync_handler, NULL, NULL);
+    gst_object_unref (bus);
+}
 
-
+void
+gui_terminate(GUI* gui)
+{
 }
 #endif

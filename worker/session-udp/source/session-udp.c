@@ -293,42 +293,6 @@ init_session_core_server(SessionUdp* core)
 
 
 
-void
-server_callback (SoupServer        *server,
-                 SoupMessage	   *msg,
-		 		 const char        *path,
-                 GHashTable        *query,
-				 SoupClientContext *ctx,
-		 		 gpointer           user_data)
-{
-	char *file_path;
-	SoupMessageHeadersIter iter;
-	SoupMessageBody *request_body;
-	const char *name, *value;
-	SessionUdp* core = (SessionUdp*) user_data;
-	SoupURI* uri = soup_message_get_uri(msg);
-	if(!g_strcmp0(uri->path,"/ping"))
-	{
-		gchar* response = "ping";
-		soup_message_set_response(msg,
-			"application/json",SOUP_MEMORY_COPY,response,strlen(response));
-		msg->status_code = SOUP_STATUS_OK;
-		return;
-	}
-
-	soup_message_headers_iter_init (&iter, msg->request_headers);
-	while (soup_message_headers_iter_next (&iter, &name, &value))
-	{
-		if(!g_strcmp0(name,"Authorization"))
-		{ 
-			if(!validate_token(value))
-			{
-				msg->status_code = SOUP_STATUS_UNAUTHORIZED;
-				return;
-			}
-		}
-	}
-}
 #endif
 
 
@@ -397,28 +361,6 @@ server_callback (SoupServer        *server,
 		on_human_interface_message(msg->request_body->data,user_data);
 		msg->status_code = SOUP_STATUS_OK;
 	}
-}
-
-
-
-/**
- * @brief 
- * initialize session core with message handler
- * @param core 
- * @return SoupServer* 
- */
-static SoupServer*
-init_session_core_server(SessionUdp* core)
-{
-	GError* error = NULL;
-	SoupServer* server = soup_server_new(NULL);
-
-	soup_server_add_handler(server,
-		"/",server_callback,core,NULL);
-
-	soup_server_listen_all(server,6003,0,&error);
-	if(error){g_printerr(error->message); return;}
-	return server;
 }
 
 SessionUdp*

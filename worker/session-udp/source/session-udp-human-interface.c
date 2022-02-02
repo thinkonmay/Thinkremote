@@ -358,13 +358,13 @@ handle_input_win32(gchar* message,
 
     g_object_unref(parser);
 }
+#else
 void            
 handle_input_gtk(gchar* message,  
                 SessionUdp* core)
 {
 
 }
-#else
 
 #include <Xlib.h>
 

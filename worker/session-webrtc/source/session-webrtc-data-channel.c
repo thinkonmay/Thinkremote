@@ -358,13 +358,13 @@ handle_input_win32(gchar* message,
 
     g_object_unref(parser);
 }
+#else
 void            
 handle_input_gtk(gchar* message,  
                 SessionCore* core)
 {
 
 }
-#else
 
 #include <Xlib.h>
 
@@ -632,7 +632,7 @@ connect_data_channel_signals(SessionCore* core)
 
 
 
-GstWebRTCDataChannel*
+GObject*
 webrtc_hub_get_control_data_channel(WebRTCHub* hub)
 {
     return hub->control;
