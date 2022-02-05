@@ -57,9 +57,6 @@ portforward_get_agent_instance_port(PortForward *port)
     return port->agent_instance_port;
 }
 
-#define PORT_RELEASE_URL "https://host.thinkmay.net/Port/Release?InstancePort="
-#define PORT_OBTAIN_URL  "https://host.thinkmay.net/Port/Request"
-
 PortForward*
 init_portforward_service()
 {
@@ -72,9 +69,6 @@ init_portforward_service()
             SOUP_SESSION_SSL_STRICT, FALSE,
             SOUP_SESSION_SSL_USE_SYSTEM_CA_FILE, TRUE,
             SOUP_SESSION_HTTPS_ALIASES, https_aliases, NULL);
-
-
-
 
 
     gint agent_instance_port;

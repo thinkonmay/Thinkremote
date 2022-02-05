@@ -27,12 +27,12 @@ static GOptionEntry entries[] = {
 int
 main(int argc, char* argv[])
 {
-    default_var();
+    remote_application_init();
     GOptionContext *context;
     GError *error = NULL;
 
 
-    context = g_option_context_new ("- thinkmay agent ");
+    context = g_option_context_new ("- thinkshare");
     g_option_context_add_main_entries (context, entries, NULL);
     g_option_context_add_group (context, gst_init_get_option_group ());
     if (!g_option_context_parse (context, &argc, &argv, &error)) {

@@ -13,7 +13,7 @@
 
 
 void
-default_var()
+remote_application_init()
 {
     AGENT_PORT = malloc(10);
     CLUSTER_URL = malloc(200);

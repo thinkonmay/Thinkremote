@@ -179,7 +179,7 @@ set_up_window(GUI* gui)
 
     AdjustWindowRect (&(gui->wr), WS_OVERLAPPEDWINDOW, FALSE);
     gui->window = CreateWindowEx(0, wc.lpszClassName,
-                          "Thinkmay remote control",
+                          "Thinkremote",
                           WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_OVERLAPPEDWINDOW,
                           CW_USEDEFAULT, CW_USEDEFAULT,
                           gui->wr.right  - gui->wr.left, 

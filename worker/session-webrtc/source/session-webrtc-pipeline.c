@@ -47,10 +47,13 @@ enum
     VIDEO_ELEMENT_LAST
 };
 
-/// <summary>
-/// gstreamer audio element enumaration,
-/// the order of element in enum must follow the 
-/// </summary>
+
+/**
+ * @brief 
+ * 
+ * gstreamer audio element enumaration,
+ * the order of element in enum must follow the 
+ */
 enum
 {
     /*audio capture source*/

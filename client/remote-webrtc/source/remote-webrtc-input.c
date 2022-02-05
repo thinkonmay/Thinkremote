@@ -285,7 +285,7 @@ toggle_key_capturing(RemoteApp* app, gboolean is_true)
 
 /**
  * @brief 
- * parse human interface event and convert to thinkmay standard
+ * parse human interface event 
  * @param input Hid structure to parse
  * @param core remote app
  */

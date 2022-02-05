@@ -84,7 +84,7 @@ const gchar*                      cluster_token ;
  * @brief 
  * setup defaul value
  */
-void            default_var                 ();
+void            remote_application_init     ();
 
 
 #endif

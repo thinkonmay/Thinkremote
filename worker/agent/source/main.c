@@ -17,13 +17,12 @@
 #include <glib-2.0/glib.h>
 #include <libsoup/soup.h>
 #include <message-form.h>
+
+#include <development.h>
 #include <stdio.h>
 
 #define GST_DEBUG               4
 
-#define    THINKMAY_ACCOUNT_URL              "https://host.thinkmay.net/Account/Login"
-#define    THINKMAY_CLUSTER_URL              "https://host.thinkmay.net/Cluster/Token"
-#define    THINKMAY_CLUSTER_INFOR            "https://host.thinkmay.net/Cluster/Infor"
 
 
 
@@ -43,11 +42,11 @@ static GOptionEntry entries[] = {
 int
 main(int argc, char* argv[])
 {
-    default_var();
+    remote_application_init();
     GOptionContext *context;
     GError *error = NULL;
 
-    context = g_option_context_new ("- thinkmay agent ");
+    context = g_option_context_new ("- thinkshare");
     g_option_context_add_main_entries (context, entries, NULL);
     if (!g_option_context_parse (context, &argc, &argv, &error)) {
         g_printerr ("Error initializing: %s\n", error->message);

@@ -186,7 +186,11 @@ handle_video_stream (GstElement* decodebin,
     RemoteUdp* core = (RemoteUdp*) data; 
     Pipeline* pipeline = remote_app_get_pipeline(core);
 
+#ifdef G_OS_WIN32
     pipeline->video_element[VIDEO_SINK] = gst_element_factory_make ("d3d11videosink", NULL);
+#else
+    pipeline->video_element[VIDEO_SINK] = gst_element_factory_make ("ximagesink", NULL);
+#endif
 
     gst_bin_add_many (GST_BIN (pipeline->video_pipeline), pipeline->video_element[VIDEO_SINK], NULL);
 
@@ -417,9 +421,15 @@ handle_video_element(GstElement * bin,
         } else if (g_str_has_prefix(value,"H.264 parser") || 
                    g_str_has_prefix(value,"H.265 parser")) {
             select = TRUE;
+#ifdef G_OS_WIN32
         } else if (g_str_has_prefix(value,"Direct3D11")) {
             select = TRUE;
+#else
+        } else if (g_str_has_prefix(value,"libav")) {
+            select = TRUE;
+#endif 
         }
+
         i++;
     }
 
@@ -497,13 +507,4 @@ setup_pipeline(RemoteUdp* core)
         worker_log_output("Starting pipeline");
     else
         worker_log_output("Fail to start pipeline, this may due to pipeline setup failure");
-
 }
-
-
-
-
-
-
-
-

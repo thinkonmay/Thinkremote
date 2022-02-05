@@ -39,7 +39,7 @@ main(int argc, char* argv[])
     GOptionContext *context;
     GError *error = NULL;
 
-    context = g_option_context_new ("- thinkmay gstreamer client");
+    context = g_option_context_new ("- thinkremote");
     g_option_context_add_main_entries (context, entries, NULL);
     g_option_context_add_group (context, gst_init_get_option_group ());
     if (!g_option_context_parse (context, &argc, &argv, &error)) {
