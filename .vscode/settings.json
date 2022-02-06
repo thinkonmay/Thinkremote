@@ -14,7 +14,9 @@
         "chrono": "c",
         "xlocnum": "c",
         "win32-server.h": "c",
-        "remote-udp-input.h": "c"
+        "remote-udp-input.h": "c",
+        "session-webrtc-pipeline.h": "c",
+        "libloaderapi.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

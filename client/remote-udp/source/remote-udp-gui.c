@@ -16,17 +16,18 @@
 
 #include <glib.h>
 
-#include <gst/video/videooverlay.h>
-#include <gst/video/gstvideosink.h>
 #include <glib-2.0/glib.h>
 #include <gst/video/videooverlay.h>
 #include <gst/video/gstvideosink.h>
-#include <gst/video/videooverlay.h>
+
+#ifndef G_OS_WIN32
 
 #include <gtk/gtk.h>
 
 #ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>  // for GDK_WINDOW_XID
+#endif
+
 #endif
 
 
@@ -119,7 +120,6 @@ void                        handle_fullscreen_hotkey    ();
  */
 static void                 video_widget_realize_cb     (GtkWidget * widget, 
                                                          gpointer data);
-#endif
 
 static void
 activate (GtkApplication* app,
@@ -148,6 +148,8 @@ run_application(gpointer data)
     status = g_application_run (G_APPLICATION (data), 0, NULL);
     g_object_unref (data);
 }
+#endif
+
 
 GUI*
 init_remote_app_gui(RemoteUdp *app)
@@ -155,7 +157,9 @@ init_remote_app_gui(RemoteUdp *app)
     memset(&_gui,0,sizeof(GUI));
     _gui.app = app;
 #ifdef G_OS_WIN32
-    _gui.wr = { 0, 0, 320, 240 };
+    _gui.wr.right = 1920;
+    _gui.wr.bottom = 1080;
+
     set_up_window(&_gui);
 #else
     GtkApplication* gtk_app = gtk_application_new ("org.gtk.example", G_APPLICATION_FLAGS_NONE);

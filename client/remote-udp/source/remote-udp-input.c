@@ -24,7 +24,6 @@
 
 #ifdef G_OS_WIN32
 #pragma comment(lib, "XInput.lib")
-#include <windows.h>
 #include <Xinput.h>
 #include <Windows.h>
 #define WIN32_HID_CAPTURE
@@ -74,6 +73,9 @@ struct _InputHandler
     gboolean capturing;
 };
 
+static InputHandler HID_handler = {0}; 
+
+
 
 InputHandler*
 init_input_capture_system(RemoteUdp* app)
@@ -89,8 +91,8 @@ setup_input_endpoint(InputHandler* handler,
                      gchar* input_ip,
                      gchar* input_port)
 {
-    // memcpy(handler->endpoint.human_interface_ip,    input_ip,   strlen(input_ip));
-    // memcpy(handler->endpoint.human_interface_port,  input_port, strlen(input_port));
+    memcpy(handler->endpoint.human_interface_ip,    input_ip,   strlen(input_ip));
+    memcpy(handler->endpoint.human_interface_port,  input_port, strlen(input_port));
 }
 
 

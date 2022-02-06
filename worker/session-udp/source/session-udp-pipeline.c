@@ -172,7 +172,7 @@ setup_element_factory(SessionUdp* core,
 #ifdef G_OS_WIN32
             pipe->video_pipeline =
                 gst_parse_launch(
-                    "d3d11desktopdupsrc name=screencap ! "                     QUEUE
+                    "d3d11screencapturesrc name=screencap ! "                     QUEUE
                     DIRECTX_PAD",framerate=60/1 ! "                            QUEUE
                     "d3d11convert ! "DIRECTX_PAD",format=NV12 ! "              QUEUE
                     "mfh264enc name=videoencoder ! "                           QUEUE
@@ -218,7 +218,7 @@ setup_element_factory(SessionUdp* core,
 #ifdef G_OS_WIN32
             pipe->video_pipeline =
                 gst_parse_launch(
-                    "d3d11desktopdupsrc name=screencap ! "                     QUEUE
+                    "d3d11screencapturesrc name=screencap ! "                     QUEUE
                     DIRECTX_PAD",framerate=60/1 ! "                            QUEUE
                     "d3d11convert ! "DIRECTX_PAD",format=NV12 ! "              QUEUE
                     "mfh265enc name=videoencoder ! "                           QUEUE
@@ -238,7 +238,7 @@ setup_element_factory(SessionUdp* core,
 #else
             pipe->video_pipeline =
                 gst_parse_launch(
-                    "d3d11desktopdupsrc name=screencap ! "                     QUEUE
+                    "d3d11screencapturesrc name=screencap ! "                     QUEUE
                     "d3d11convert ! "                                          QUEUE
                     "mfh265enc name=videoencoder ! "                           QUEUE
                     "rtph265pay name=rtp ! "                                   QUEUE

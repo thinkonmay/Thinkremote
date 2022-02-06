@@ -170,7 +170,7 @@ setup_element_factory(SessionCore* core,
             pipe->pipeline =
                 gst_parse_launch("webrtcbin bundle-policy=max-bundle name=sendrecv "
 
-                    "d3d11desktopdupsrc name=screencap ! "
+                    "d3d11screencapturesrc name=screencap ! "
                     DIRECTX_PAD",framerate=60/1 ! "                            QUEUE
                     "d3d11convert ! "DIRECTX_PAD",format=NV12 ! "              QUEUE
                     "mfh264enc name=videoencoder ! "                           QUEUE
@@ -211,8 +211,8 @@ setup_element_factory(SessionCore* core,
             pipe->pipeline =
                 gst_parse_launch("webrtcbin bundle-policy=max-bundle name=sendrecv "
 
-                    "d3d11desktopdupsrc name=screencap ! "
-                    DIRECTX_PAD",framerate=60/1 ! "                             QUEUE
+                    "d3d11screencapturesrc name=screencap ! "
+                    DIRECTX_PAD",framerate=120/1 ! "                             QUEUE
                     "d3d11convert ! "DIRECTX_PAD",format=NV12 ! "               QUEUE
                     "mfh265enc name=videoencoder ! "                            QUEUE
                     "rtph265pay name=rtp ! "                                    QUEUE 
@@ -226,7 +226,7 @@ setup_element_factory(SessionCore* core,
                     RTP_CAPS_AUDIO "OPUS ! sendrecv. ", &error);
 #else
             pipe->pipeline =
-                gst_parse_launch("webrtcbin bundle-policy=max-bundle name=sendrecv "
+                gst_parse_launch("webrtcbin bundle-policy=max-bundle name=sendrecv"
 
                     "ximagesrc name=screencap ! "                               QUEUE
                     "videoconvert name=videoencoder ! "                         QUEUE
@@ -252,7 +252,7 @@ setup_element_factory(SessionCore* core,
             pipe->pipeline =
                 gst_parse_launch("webrtcbin bundle-policy=max-bundle name=sendrecv "
 
-                    "d3d11desktopdupsrc name=screencap ! "
+                    "d3d11screencapturesrc name=screencap ! "
                     DIRECTX_PAD",framerate=60/1 ! "                             QUEUE
                     "d3d11convert ! "                                           QUEUE
                     "rtpvp9enc name=rtp ! "                                     QUEUE 

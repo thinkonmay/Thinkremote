@@ -359,12 +359,6 @@ handle_input_win32(gchar* message,
     g_object_unref(parser);
 }
 #else
-void            
-handle_input_gtk(gchar* message,  
-                SessionCore* core)
-{
-
-}
 
 #include <Xlib.h>
 
@@ -458,6 +452,12 @@ stimulate_mouse_event(SessionCore* core)
 
 
 
+void            
+handle_input_gtk(gchar* message,  
+                SessionCore* core)
+{
+
+}
 
 
 

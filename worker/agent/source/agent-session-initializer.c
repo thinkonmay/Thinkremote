@@ -21,6 +21,10 @@
 #include <gmodule.h>
 #include <stdio.h>
 
+#ifdef G_OS_WIN32
+#include <Windows.h>
+#endif
+
 #define BUFFER_SIZE 10000
 
 

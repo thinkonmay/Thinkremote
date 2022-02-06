@@ -270,7 +270,9 @@ handle_message_server(gchar* path,
 	return TRUE;
 }
 
-#else
+
+#endif
+
 /**
  * @brief 
  * initialize session core with message handler
@@ -292,8 +294,6 @@ init_session_core_server(SessionUdp* core)
 }
 
 
-
-#endif
 
 
 gpointer
