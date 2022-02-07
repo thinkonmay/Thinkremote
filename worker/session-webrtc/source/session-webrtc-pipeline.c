@@ -15,6 +15,7 @@
 #include <session-webrtc-remote-config.h>
 
 
+#include <development.h>
 #include <logging.h>
 #include <qoe.h>
 
@@ -226,7 +227,7 @@ setup_element_factory(SessionCore* core,
                     RTP_CAPS_AUDIO "OPUS ! sendrecv. ", &error);
 #else
             pipe->pipeline =
-                gst_parse_launch("webrtcbin bundle-policy=max-bundle name=sendrecv"
+                gst_parse_launch("webrtcbin bundle-policy=max-bundle name=sendrecv "
 
                     "ximagesrc name=screencap ! "                               QUEUE
                     "videoconvert name=videoencoder ! "                         QUEUE
@@ -484,6 +485,10 @@ setup_pipeline(SessionCore* core)
     connect_signalling_handler(core);
     setup_element_property(core);
 
+    #ifdef DEFAULT_TURN
+    if(DEVELOPMENT_ENVIRONMENT)
+        g_object_set(pipe->webrtcbin,"ice-transport-policy",1,NULL);
+    #endif
 
     GstStateChangeReturn result = gst_element_change_state(pipe->pipeline, GST_STATE_READY);
     if (result == GST_STATE_CHANGE_FAILURE)

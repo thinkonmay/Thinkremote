@@ -180,7 +180,11 @@ session_core_setup_session(SessionCore* self)
 	if (DEVELOPMENT_ENVIRONMENT)
 	{
 		signalling_hub_setup(self->signalling,
-			DEFAULT_TURN,
+#ifdef DEFAULT_TURN
+        	DEFAULT_TURN,
+#else
+			NULL,
+#endif
 			DEVELOPMENT_SIGNALLING_URL,
 			NULL,
 			remote_token);

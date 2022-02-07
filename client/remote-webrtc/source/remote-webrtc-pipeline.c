@@ -18,10 +18,12 @@
 #include <remote-webrtc-input.h>
 
 #include <qoe.h>
+#include <development.h>
 
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>
 #include <gst/webrtc/webrtc.h>
+
 
 
 
@@ -449,6 +451,11 @@ setup_pipeline(RemoteApp* core)
         "audioconvert ! opusenc ! rtpopuspay ! "RTP_CAPS_AUDIO" ! webrtcbin",&error);
     pipe->webrtcbin =  gst_bin_get_by_name(GST_BIN(pipe->pipeline),"webrtcbin");
     g_object_set(pipe->webrtcbin, "latency", 0, NULL);
+
+    #ifdef DEFAULT_TURN
+    if(DEVELOPMENT_ENVIRONMENT)
+        g_object_set(pipe->webrtcbin,"ice-transport-policy",1,NULL);
+    #endif
 
     setup_pipeline_queue(pipe);
 

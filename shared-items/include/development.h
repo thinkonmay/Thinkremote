@@ -64,7 +64,10 @@
  * @brief 
  * 
  */
-#define DEFAULT_TURN                            "turn://coturnuser:coturnpassword@turn:18.138.254.172:3478"
+// #define DEFAULT_TURN                            "turn://username:password@52.221.241.142:3478"
+// #define DEFAULT_TURN                            "turn://username:password@192.168.1.15:3478"
+// #define DEFAULT_TURN                            "turn://735294345:1280127181@18.141.207.246:3478"
+// #define DEFAULT_TURN                            "turn://1234567890:1234567890@52.221.241.142:3478"
 
 /**
  * @brief 
