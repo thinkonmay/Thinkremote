@@ -183,7 +183,7 @@ session_core_setup_session(SessionCore* self)
 #ifdef DEFAULT_TURN
         	DEFAULT_TURN,
 #else
-			NULL,
+			" ",
 #endif
 			DEVELOPMENT_SIGNALLING_URL,
 			NULL,

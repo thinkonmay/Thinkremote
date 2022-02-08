@@ -137,7 +137,11 @@ remote_app_setup_session(RemoteApp* self,
 	else
 	{
 		signalling_hub_setup(self->signalling,
-			NULL,
+#ifdef DEFAULT_TURN
+			DEFAULT_TURN,
+#else
+			" ",
+#endif
 			DEVELOPMENT_SIGNALLING_URL,
 			NULL,
 			remote_token);
