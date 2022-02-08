@@ -1,7 +1,7 @@
 @model RemoteViewModel
 <script>
 
-fetch("https://host.thinkmay.net/Session/Setting?token=@Model.token", {
+fetch("@Model.infor_url?token=@Model.token", {
     method: "GET",
     }).then(async res => {
         var sessionInfor = await (res).json();

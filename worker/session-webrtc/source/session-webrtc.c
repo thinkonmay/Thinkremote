@@ -209,7 +209,7 @@ session_core_setup_session(SessionCore* self)
 				SOUP_SESSION_SSL_USE_SYSTEM_CA_FILE, TRUE,
 				SOUP_SESSION_HTTPS_ALIASES, https_aliases, NULL);
 
-		GString* infor_url = g_string_new(SESSION_INFOR_VALIDATE_URL);
+		GString* infor_url = g_string_new(SESSION_URL);
 		g_string_append(infor_url,	"?token=");
 		g_string_append(infor_url,	remote_token);
 

@@ -21,8 +21,7 @@ RUN dotnet build "remote.csproj" -c Release -o /app/build
 FROM build AS publish 
 RUN dotnet publish "remote.csproj" -c Release -o /app/publish
 
-ENV ENVIRONMENT=PROD
-FROM base AS prod
+ENV URL=https://host.thinkmay.net/Session/Setting
 
 WORKDIR /app
 COPY --from=publish /app/publish .

@@ -86,7 +86,7 @@ main(int argc, char* argv[])
     gchar* login_body = get_string_from_json_object(login);
 
 
-    SoupMessage* message = soup_message_new(SOUP_METHOD_POST,THINKMAY_ACCOUNT_URL);
+    SoupMessage* message = soup_message_new(SOUP_METHOD_POST,ACCOUNT_URL);
     soup_message_set_request(message,"application/json",SOUP_MEMORY_COPY,login_body,strlen(login_body));
     soup_session_send_message(session,message);
 
@@ -106,7 +106,7 @@ main(int argc, char* argv[])
 
 
 
-    GString* string = g_string_new(THINKMAY_CLUSTER_URL);
+    GString* string = g_string_new(CLUSTER_URL);
     g_string_append(string,"?ClusterName=");
     g_string_append(string,CLUSTER_NAME);
     gchar* cluster_token_url = g_string_free(string,FALSE);
@@ -124,7 +124,7 @@ main(int argc, char* argv[])
 
 
 
-    SoupMessage* cluster_infor_message = soup_message_new(SOUP_METHOD_GET,THINKMAY_CLUSTER_INFOR);
+    SoupMessage* cluster_infor_message = soup_message_new(SOUP_METHOD_GET,CLUSTER_INFOR);
     soup_message_headers_append(cluster_infor_message->request_headers, "Authorization",cluster_token);
     soup_session_send_message(session,cluster_infor_message);
 
