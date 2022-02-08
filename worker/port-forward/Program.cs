@@ -16,6 +16,7 @@ namespace port_forward
         {
             var port = Environment.GetEnvironmentVariable("port");
             var token = Environment.GetEnvironmentVariable("clustertoken");
+            var infor_url = Environment.GetEnvironmentVariable("clustertoken");
 
             if(port == null || token == null)
             {
@@ -23,11 +24,12 @@ namespace port_forward
                 return;
             }
 
-            ReversePortForward(token, int.Parse(port)).Wait();
+            ReversePortForward(token, int.Parse(port), infor_url).Wait();
             Quit(ReturnCode.PORT_FORWARD_OK);
         }
         static async Task ReversePortForward(string cluster_token,
-                                             int port)
+                                             int port,
+                                             string infor_url)
         {
             SshClient client = null;
             ClusterInstance instance = null;
@@ -35,7 +37,7 @@ namespace port_forward
 
             try
             {
-                var request = new RestRequest("https://host.thinkmay.net/Cluster/Infor", Method.GET)
+                var request = new RestRequest(infor_url, Method.GET)
                     .AddHeader("Authorization",cluster_token);
                 var instanceResult = (await (new RestClient()).ExecuteAsync(request));
 

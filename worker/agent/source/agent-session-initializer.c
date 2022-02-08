@@ -13,11 +13,13 @@
 #include <agent-type.h>
 #include <agent-child-process.h>
 
+#include <development.h>
 #include <message-form.h>
 #include <general-constant.h>
 #include <global-var.h>
 #include <logging.h>
 
+#include <glib-2.0/glib.h>
 #include <gmodule.h>
 #include <stdio.h>
 
@@ -93,7 +95,7 @@ session_initialize(AgentServer* agent)
 #ifdef G_OS_WIN32
     SetEnvironmentVariable("clustertoken", TEXT(CLUSTER_TOKEN));
     SetEnvironmentVariable("cluster_ip", TEXT(CLUSTER_URL));
-#else
+    SetEnvironmentVariable("cluster_infor_url", TEXT(THINKMAY_CLUSTER_INFOR));
 #endif
 
     // return false if session core is running before the initialization

@@ -15,25 +15,45 @@
  * @brief 
  * 
  */
-#define DEVELOPMENT_ENVIRONMENT                 TRUE
+#define DEVELOPMENT_ENVIRONMENT                 FALSE
 
 /**
  * @brief 
  * 
  */
-#define    THINKMAY_ACCOUNT_URL              "https://host.thinkmay.net/Account/Login"
+#define DEFAULT_TURN                            "turn://649569102:1526088566@54.255.195.146:3478"
 
 /**
  * @brief 
  * 
  */
-#define    THINKMAY_CLUSTER_URL              "https://host.thinkmay.net/Cluster/Token"
+#define THINKMAY_ACCOUNT_URL                 "https://host.thinkmay.net/Account/Login"
 
 /**
  * @brief 
  * 
  */
-#define    THINKMAY_CLUSTER_INFOR            "https://host.thinkmay.net/Cluster/Infor"
+#define THINKMAY_CLUSTER_URL                 "https://host.thinkmay.net/Cluster/Token"
+
+/**
+ * @brief 
+ * 
+ */
+#define THINKMAY_CLUSTER_INFOR               "https://host.thinkmay.net/Cluster/Infor"
+
+/**
+ * @brief 
+ * 
+ */
+#define SESSION_INFOR_VALIDATE_URL              "https://host.thinkmay.net/Session/Setting"
+
+/**
+ * @brief 
+ * 
+ */
+#define PORT_OBTAIN_URL                         "https://host.thinkmay.net/Port/Request"
+
+
 
 
 /**
@@ -48,11 +68,6 @@
  */
 #define DEFAULT_CORE_TOKEN                      "TestingCoreModuleToken"
 
-/**
- * @brief 
- * 
- */
-#define SESSION_INFOR_VALIDATE_URL              "https://host.thinkmay.net/Session/Setting"
 
 /**
  * @brief 
@@ -60,14 +75,6 @@
  */
 #define DEVELOPMENT_SIGNALLING_URL              "ws://localhost:5000/Handshake"
 
-/**
- * @brief 
- * 
- */
-// #define DEFAULT_TURN                            "turn://username:password@52.221.241.142:3478"
-// #define DEFAULT_TURN                            "turn://username:password@192.168.1.15:3478"
-// #define DEFAULT_TURN                            "turn://735294345:1280127181@18.141.207.246:3478"
-// #define DEFAULT_TURN                            "turn://542253397:1100043507@54.255.206.250:3478"
 
 /**
  * @brief 
@@ -75,10 +82,5 @@
  */
 #define PORT_RELEASE_URL                        "https://host.thinkmay.net/Port/Release?InstancePort="
 
-/**
- * @brief 
- * 
- */
-#define PORT_OBTAIN_URL                         "https://host.thinkmay.net/Port/Request"
 
 #endif
