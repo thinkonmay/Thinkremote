@@ -21,12 +21,15 @@
 
 
 
+
 /**
  * @brief Get the registration message object
  * this function wrap around process of getting worker information
+ * 
+ * @param port_forward 
+ * @param agent_instance_port 
  * @return gchar* registration message string 
  */
 gchar*                  get_registration_message        (gboolean port_forward, 
-						                                 gchar* agent_instance_port, 
-						                                 gchar* core_instance_port);
+						                                 gchar* agent_instance_port);
 #endif

@@ -34,8 +34,6 @@
 struct _Socket
 {
     SoupSession* session;
-    
-	gchar cluster_url[50];
 };
 
 
@@ -51,7 +49,7 @@ send_message_to_cluster(AgentServer* object,
                         gchar* message)
 {
     Socket* socket = agent_get_socket(object);
-    GString* messsage_url = g_string_new(socket->cluster_url);
+    GString* messsage_url = g_string_new(CLUSTER_URL);
     g_string_append(messsage_url,endpoint);
     gchar* url = g_string_free(messsage_url,FALSE);
 
@@ -74,12 +72,12 @@ send_message_to_cluster(AgentServer* object,
 
 void
 register_with_managed_cluster(AgentServer* agent, 
-                              gchar* agent_instance_port,
-                              gchar* core_instance_port)
+                              PortForward* port)
 {
     Socket* socket = agent_get_socket(agent);
-    gchar* package = get_registration_message(TRUE,agent_instance_port,core_instance_port);
-    GString* register_url = g_string_new(socket->cluster_url);
+    gchar* package = get_registration_message(TRUE,
+        portforward_get_agent_instance_port(port));
+    GString* register_url = g_string_new(CLUSTER_URL);
     g_string_append(register_url,"/worker/register");
     gchar* final_url = g_string_free(register_url,FALSE);
 
@@ -105,16 +103,6 @@ register_with_managed_cluster(AgentServer* agent,
         memcpy(DEVICE_TOKEN,token_result,strlen(token_result));
         g_object_unref(parser); 
 
-        if(WRITE_TOKEN_TO_FILE)
-        {
-            GFile* file = g_file_new_for_path("./remote-token");
-            g_file_delete(file,NULL,NULL);
-            file = g_file_new_for_path("./remote-token");
-            GFileOutputStream* stream = g_file_append_to(file,G_FILE_CREATE_REPLACE_DESTINATION,NULL,NULL);
-            GOutputStream* output_Stream = (GOutputStream*)stream;
-            g_output_stream_write_all(output_Stream,DEVICE_TOKEN,strlen(DEVICE_TOKEN), NULL,NULL,NULL);
-        }
-
         g_print("Register successfully with cluster manager and got worker token\n");
         return FALSE; 
     }
@@ -128,7 +116,7 @@ register_with_selfhosted_cluster(AgentServer* agent)
     Socket* socket = agent_get_socket(agent);
 
     gchar* package = get_registration_message(FALSE,NULL,NULL);
-    GString* register_url = g_string_new(socket->cluster_url);
+    GString* register_url = g_string_new(CLUSTER_URL);
     g_string_append(register_url,"/worker/register");
     gchar* final_url = g_string_free(register_url,FALSE);
 
@@ -152,16 +140,6 @@ register_with_selfhosted_cluster(AgentServer* agent)
         memcpy(DEVICE_TOKEN,token_result,strlen(token_result));
         g_object_unref(parser); 
 
-        if(WRITE_TOKEN_TO_FILE)
-        {
-            GFile* file = g_file_new_for_path("./remote-token");
-            g_file_delete(file,NULL,NULL);
-            file = g_file_new_for_path("./remote-token");
-            GFileOutputStream* stream = g_file_append_to(file,G_FILE_CREATE_REPLACE_DESTINATION,NULL,NULL);
-            GOutputStream* output_Stream = (GOutputStream*)stream;
-            g_output_stream_write_all(output_Stream,DEVICE_TOKEN,strlen(DEVICE_TOKEN), NULL,NULL,NULL);
-        }
-
         g_print("Register successfully with cluster manager and got worker token\n");
     }
 }
@@ -179,7 +157,6 @@ initialize_socket()
     memset(socket,0,sizeof(Socket)); 
     const gchar* http_aliases[] = { "http", NULL };
 
-    memcpy( socket->cluster_url,CLUSTER_URL,strlen(CLUSTER_URL)); 
     socket->session = soup_session_new_with_options(
             SOUP_SESSION_SSL_STRICT, FALSE,
             SOUP_SESSION_SSL_USE_SYSTEM_CA_FILE, TRUE,

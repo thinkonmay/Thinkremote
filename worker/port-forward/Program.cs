@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Net;
 using System.Linq;
+using System.Threading;
 
 namespace port_forward
 {
@@ -16,9 +17,9 @@ namespace port_forward
         {
             var port = Environment.GetEnvironmentVariable("port");
             var token = Environment.GetEnvironmentVariable("clustertoken");
-            var infor_url = Environment.GetEnvironmentVariable("clustertoken");
+            var infor_url = Environment.GetEnvironmentVariable("clusterinfor");
 
-            if(port == null || token == null)
+            if(port == null || token == null || infor_url == null)
             {
                 Quit(ReturnCode.ERROR_GET_ENV); 
                 return;
@@ -46,7 +47,6 @@ namespace port_forward
                    instanceResult.ContentLength == 0)
                 {
                     Quit(ReturnCode.ERROR_FETCH_INSTANCE_INFOR);
-                    return;
                 }
 
                 instance =  JsonConvert.DeserializeObject<GlobalCluster>(instanceResult.Content).instance;
@@ -54,7 +54,6 @@ namespace port_forward
             catch (Exception ex) 
             { 
                 Quit(ReturnCode.ERROR_GET_ENV);
-                return; 
             }
 
 
@@ -79,7 +78,6 @@ namespace port_forward
             if(client == null || reverse == null)
             {
                 Quit(ReturnCode.ERROR_INIT_SSH_CLIENT);
-                return;
             }
 
 
@@ -103,11 +101,15 @@ namespace port_forward
 
                 if(!reverse.IsStarted)
                     throw new Exception();
+
             }
             catch (Exception ex)
             {
                 Quit(ReturnCode.ERROR_PORTFORWARD);
             }
+
+            while (true) { Thread.Sleep(TimeSpan.FromDays(1)); }
+            return;
         }
         static void Quit(ReturnCode ret)
         {

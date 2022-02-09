@@ -15,7 +15,6 @@
 void
 remote_application_init()
 {
-    AGENT_PORT = malloc(10);
     CLUSTER_URL = malloc(200);
     CLUSTER_NAME = malloc(200);
 
@@ -36,6 +35,4 @@ remote_application_init()
 
     memset(USER,0,100);
     memset(PASSWORD,0,100);
-
-    memset(AGENT_PORT,0,10);
 }

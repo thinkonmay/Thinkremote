@@ -106,7 +106,7 @@ main(int argc, char* argv[])
 
 
 
-    GString* string = g_string_new(CLUSTER_URL);
+    GString* string = g_string_new(CLUSTER_TOKEN_URL);
     g_string_append(string,"?ClusterName=");
     g_string_append(string,CLUSTER_NAME);
     gchar* cluster_token_url = g_string_free(string,FALSE);
@@ -114,6 +114,9 @@ main(int argc, char* argv[])
     SoupMessage* cluster_message = soup_message_new(SOUP_METHOD_GET,cluster_token_url);
     soup_message_headers_append(cluster_message->request_headers, "Authorization",TOKEN);
     soup_session_send_message(session,cluster_message);
+
+    if(cluster_message->status_code == 401)
+        g_printerr("User have evelvated to cluster manager yet");
 
     JsonParser* cluster_parser = json_parser_new();
     JsonObject* cluster_request_result = get_json_object_from_string(cluster_message->response_body->data,&error,cluster_parser);
