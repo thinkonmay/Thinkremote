@@ -486,8 +486,7 @@ setup_pipeline(SessionCore* core)
     setup_element_property(core);
 
     #ifdef DEFAULT_TURN
-    if(DEVELOPMENT_ENVIRONMENT)
-        g_object_set(pipe->webrtcbin,"ice-transport-policy",1,NULL);
+    g_object_set(pipe->webrtcbin,"ice-transport-policy",1,NULL);
     #endif
 
     GstStateChangeReturn result = gst_element_change_state(pipe->pipeline, GST_STATE_READY);

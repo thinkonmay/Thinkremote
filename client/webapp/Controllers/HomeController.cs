@@ -20,19 +20,23 @@ namespace remote.Controllers
 
 
         [Route("/Remote")]
-        public IActionResult Remote(string token)
+        public IActionResult Remote(string token, string ice)
         {
             return View(new RemoteViewModel
             { 
                 token = token,
-                InforURL = Environment.GetEnvironmentVariable("URL")
+                InforURL = Environment.GetEnvironmentVariable("URL"),
+                icePolicy = ice
             });
         }
 
-        [Route("/Local")]
+        [Route("/Development")]
         public IActionResult Development(string ip, string port)
         {
-            return View(new DevelopmentViewModel{});
+            return View(new DevelopmentViewModel
+            {
+                Signalling = $"http://{ip}:{port}/Handshake"
+            });
         }
     }
 }

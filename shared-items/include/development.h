@@ -21,7 +21,7 @@
  * @brief 
  * 
  */
-#define DEFAULT_TURN                       "turn://649569102:1526088566@54.255.195.146:3478"
+#define DEFAULT_TURN                       "turn://359549596:2000860796@13.214.177.108:3478"
 
 /**
  * @brief 

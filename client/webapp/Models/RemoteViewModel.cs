@@ -8,5 +8,7 @@ namespace remote.Models
         public string token {get;set;}
 
         public string InforURL {get;set;}
+
+        public string icePolicy {get;set;}
     }
 }

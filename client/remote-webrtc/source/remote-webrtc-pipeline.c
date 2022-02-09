@@ -453,8 +453,7 @@ setup_pipeline(RemoteApp* core)
     g_object_set(pipe->webrtcbin, "latency", 0, NULL);
 
     #ifdef DEFAULT_TURN
-    if(DEVELOPMENT_ENVIRONMENT)
-        g_object_set(pipe->webrtcbin,"ice-transport-policy",1,NULL);
+    g_object_set(pipe->webrtcbin,"ice-transport-policy",1,NULL);
     #endif
 
     setup_pipeline_queue(pipe);
