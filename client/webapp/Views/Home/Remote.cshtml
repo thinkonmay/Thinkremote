@@ -1,7 +1,7 @@
 @model RemoteViewModel
 <script>
 
-fetch("@Model.I?token=@Model.token", {
+fetch("@Model.InforURL?token=@Model.token", {
     method: "GET",
     }).then(async res => {
         var sessionInfor = await (res).json();
