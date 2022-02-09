@@ -4,6 +4,8 @@ namespace remote.Models
 {
     public class DevelopmentViewModel 
     {
-        public string Signalling {get;set;}
+        public string icePolicy {get;set;}
+
+        public SessionClient session { get; set; } 
     }
 }

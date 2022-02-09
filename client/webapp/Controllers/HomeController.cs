@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using RestSharp;
+using Newtonsoft.Json;
 using remote.Models;
 
 namespace remote.Controllers
@@ -20,22 +22,40 @@ namespace remote.Controllers
 
 
         [Route("/Remote")]
-        public IActionResult Remote(string token, string ice)
+        public async Task<IActionResult> Remote(string token, string ice)
         {
+            var domain = Environment.GetEnvironmentVariable("URL");
+
+            var result = JsonConvert.DeserializeObject<SessionClient>((
+                await (new RestClient().ExecuteAsync(
+                    new RestRequest($"https://{domain}/Session/Setting",Method.Get)
+                    .AddQueryParameter("token",token)))).Content);
+
             return View(new RemoteViewModel
             { 
                 token = token,
-                InforURL = Environment.GetEnvironmentVariable("URL"),
-                icePolicy = ice
+                InforURL = $"https://{domain}/Session/Setting",
+                icePolicy = ice,
+                session = result
             });
         }
 
         [Route("/Development")]
-        public IActionResult Development(string ip, string port)
+        public IActionResult Development(string ip, string port, string ice)
         {
+            var session = new SessionClient
+            {
+                signallingurl = $"http://{ip}:{port}/Handshake",
+                turnip =         "turn:13.214.177.108:3478",
+                turnuser =       "359549596",
+                turnpassword =   "2000860796",
+                audiocodec = Codec.CODEC_H265,
+                videocodec = Codec.OPUS_ENC,
+            };
             return View(new DevelopmentViewModel
             {
-                Signalling = $"http://{ip}:{port}/Handshake"
+                icePolicy = ice,
+                session = session
             });
         }
     }
