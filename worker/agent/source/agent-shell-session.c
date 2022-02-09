@@ -122,7 +122,9 @@ initialize_shell_session_from_byte(AgentServer* agent,
     g_file_set_contents(input_file__path_char,
         g_bytes_get_data(input,NULL),
         g_bytes_get_size(input),&error);
-    if(error){return;}
+
+    if(error)
+        return;
 
 
     GString* string = g_string_new("powershell ");
@@ -147,11 +149,10 @@ initialize_shell_session_from_byte(AgentServer* agent,
     gsize file_size;
     g_file_get_contents(output_file__path_char,&buffer,&file_size,&error);
 
-    if(file_size < 8192) {
+    if(file_size < 8192) 
         memcpy(output,buffer,file_size);
-    } else {
+    else 
         memcpy(output,buffer,8191);
-    }
 
     g_file_delete(session.input_file,NULL,NULL);
     g_file_delete(session.output_file,NULL,NULL);
@@ -192,18 +193,17 @@ initialize_shell_session(AgentServer* agent,
     session.input_file = g_file_new_for_path(input_file__path_char);
     session.output_file = g_file_new_for_path(output_file__path_char);
 
-
     message->status_code = SOUP_STATUS_OK;
-    if(!session.input_file || 
-       !session.output_file)
-    {
+
+    if(!session.input_file || !session.output_file)
         return;
-    }
 
     g_file_set_contents(input_file__path_char,
         message->request_body->data,
         message->request_body->length,&error);
-    if(error){return;}
+
+    if(error)
+        return;
 
 
     GString* string = g_string_new("powershell ");
@@ -227,15 +227,9 @@ initialize_shell_session(AgentServer* agent,
     gchar* buffer;
     gsize file_size;
     g_file_get_contents(output_file__path_char,&buffer,&file_size,&error);
+
     if(buffer)
-    {
-        soup_message_set_response(session.message,
-            "application/json",SOUP_MEMORY_COPY,buffer,strlen(buffer));
-    }
-
-
-    
-
+        soup_message_set_response(session.message, "application/json",SOUP_MEMORY_COPY,buffer,strlen(buffer));
 
     free(random_string);
     g_file_delete(session.input_file,NULL,NULL);

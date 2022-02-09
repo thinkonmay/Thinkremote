@@ -55,16 +55,6 @@ server_callback (SoupServer        *server,
 	SoupURI* uri = soup_message_get_uri(msg);
 	gchar* request_token;
 
-	if(!g_strcmp0(uri->path,"/PortDescribe")) {
-		JsonObject* object = json_object_new();
-		json_object_set_string_member(object,"token",CLUSTER_TOKEN);
-		json_object_set_string_member(object,"agent_port",portforward_get_agent_instance_port(agent_get_portforward(agent)));
-		gchar* res = get_string_from_json_object(object);
-		soup_message_set_response(msg, "application/json",SOUP_MEMORY_COPY,res,strlen(res));
-		soup_message_set_status(msg,SOUP_STATUS_OK);
-		return;
-	}
-
 
 	soup_message_headers_iter_init (&iter, msg->request_headers);
 	while (soup_message_headers_iter_next (&iter, &name, &value))
@@ -108,7 +98,7 @@ init_agent_server(AgentServer* agent,
 		(SoupServerCallback)server_ping,agent,NULL);
 
 
-	gint port = atoi(AGENT_PORT);
+	gint port = atoi(portforward_get_agent_instance_port(agent_get_portforward(agent)));
 	if(self_host) {
 		soup_server_listen_all(server,port,0,&error);
 	} else {

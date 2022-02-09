@@ -15,19 +15,19 @@
  * @brief 
  * 
  */
-#define DEVELOPMENT_ENVIRONMENT                 FALSE
+#define DEVELOPMENT_ENVIRONMENT            FALSE
 
 /**
  * @brief 
  * 
  */
-#define DEFAULT_TURN                         "turn://649569102:1526088566@54.255.195.146:3478"
+#define DEFAULT_TURN                       "turn://649569102:1526088566@54.255.195.146:3478"
 
 /**
  * @brief 
  * 
  */
-#define THINKMAY_DOMAIN                    "host.thinkmay.net" 
+#define THINKMAY_DOMAIN                    "development.thinkmay.net" 
 
 /**
  * @brief 
@@ -39,7 +39,7 @@
  * @brief 
  * 
  */
-#define CLUSTER_URL                         "https://"THINKMAY_DOMAIN"/Cluster/Token"
+#define CLUSTER_TOKEN_URL                   "https://"THINKMAY_DOMAIN"/Cluster/Token"
 
 /**
  * @brief 
@@ -63,6 +63,12 @@
  * @brief 
  * 
  */
+#define PORT_RELEASE_URL                     "https://"THINKMAY_DOMAIN"/Port/Release?InstancePort="
+
+/**
+ * @brief 
+ * 
+ */
 #define DEFAULT_CLIENT_TOKEN                 "TestingClientModuleToken"
 
 /**
@@ -79,11 +85,6 @@
 #define DEVELOPMENT_SIGNALLING_URL           "ws://localhost:5000/Handshake"
 
 
-/**
- * @brief 
- * 
- */
-#define PORT_RELEASE_URL                     "https://"THINKMAY_DOMAIN"/Port/Release?InstancePort="
 
 
 #endif

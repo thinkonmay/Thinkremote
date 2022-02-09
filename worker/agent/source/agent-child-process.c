@@ -116,6 +116,7 @@ handle_child_process_state(gpointer data)
         g_input_stream_read_bytes_async(proc->process_stdout,BUFSIZE,G_PRIORITY_LOW,NULL,
             (GAsyncReadyCallback)handle_child_process_stdout,proc);
 #else
+    
         Sleep(100);
         GetExitCodeProcess(proc->process, &(proc->exit_code));
         if(proc->exit_code != STILL_ACTIVE){
@@ -135,6 +136,7 @@ clean_childprocess(ChildProcess* proc)
     g_input_stream_close(proc->process_stderr,NULL,NULL);
     g_input_stream_close(proc->process_stdout,NULL,NULL);
 #endif
+    g_thread_unref(proc->statehdl);
     free(proc);
 }
 
@@ -150,6 +152,7 @@ childprocess_force_exit(ChildProcess* proc)
 {
 #ifdef G_OS_WIN32
     TerminateProcess(proc->process, 1);
+    g_thread_join(proc->statehdl);
 #else
     g_subprocess_force_exit(proc->process);
 

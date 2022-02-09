@@ -281,14 +281,15 @@ on_ice_gathering_state_notify(GstElement* webrtcbin,
 
 
 
-/// <summary>
-/// close
-/// </summary>
-/// <param name="G_GNUC_UNUSED"></param>
-/// <param name="G_GNUC_UNUSED"></param>
+/**
+ * @brief 
+ * 
+ * @param G_GNUC_UNUSED 
+ * @param G_GNUC_UNUSED 
+ */
 void
 on_server_closed(SoupWebsocketConnection* conn G_GNUC_UNUSED,
-    SessionCore* core G_GNUC_UNUSED)
+                 SessionCore* core G_GNUC_UNUSED)
 {
     SignallingHub* hub = session_core_get_signalling_hub(core);
     hub->connection = NULL;
@@ -579,7 +580,8 @@ on_server_connected(SoupSession* session,
 
     
     hub->connection = soup_session_websocket_connect_finish(session, res, &error);
-    if (!error == NULL || hub->connection == NULL) { session_core_finalize(core, error); }
+    if (!error == NULL || hub->connection == NULL) 
+        session_core_finalize(core, error); 
 
     worker_log_output("connected with signalling server");
     g_signal_connect(hub->connection, "closed", G_CALLBACK(on_server_closed), core);

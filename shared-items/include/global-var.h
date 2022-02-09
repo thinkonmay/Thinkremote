@@ -14,7 +14,6 @@
 #include <glib-2.0/glib.h>
 
 
-const gchar*                      agent_port ;
 const gchar*                      cluster_ip ; 
 const gchar*                      cluster_name ; 
 const gchar*                      token ;
@@ -25,11 +24,6 @@ const gchar*                      device_token ;
 const gchar*                      cluster_token ; 
 
 
-/**
- * @brief 
- * agent to expose to session core and cluster manager
- */
-#define			AGENT_PORT 					agent_port
 
 /**
  * @brief 

@@ -101,10 +101,11 @@ agent_new(gboolean self_host)
 	agent->remote_session = intialize_remote_session_service();
 	agent->socket = initialize_socket();
 
-#ifndef G_OS_WIN32
+#ifdef G_OS_WIN32
 	agent->server = init_agent_server(agent,self_host);
 #else
-	agent->server = init_window_server(handle_message_server,AGENT_PORT,agent);
+	agent->server = init_window_server(handle_message_server,
+		portforward_get_agent_instance_port(agent->portforward),agent);
 #endif
 
 	if(!agent->server){return;}
@@ -115,9 +116,7 @@ agent_new(gboolean self_host)
 #endif
 	} else {
 		PortForward* port = start_portforward(agent);
-
-		register_with_managed_cluster(agent,
-			portforward_get_agent_instance_port(port), NULL);
+		register_with_managed_cluster(agent, port);
 	}
 
 	
