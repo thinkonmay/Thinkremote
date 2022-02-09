@@ -103,7 +103,8 @@ var app = new Vue({
             RTPconfig:   
             {
                 "iceServers":[ ],
-                "bundle-policy":"max-compat"
+                "bundle-policy":"max-compat",
+                "iceTransportPolicy" : "relay"
             },
 
 
