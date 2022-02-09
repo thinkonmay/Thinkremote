@@ -29,7 +29,7 @@ namespace remote.Controllers
             });
         }
 
-        [Route("/Local")]
+        [Route("/Development")]
         public IActionResult Development(string ip, string port)
         {
             return View(new DevelopmentViewModel{});
