@@ -6,6 +6,6 @@ cd build && cmake .. && msbuild ALL_BUILD.vcxproj && cd ..
 
 robocopy deployment/lib bin /E
 
-@REM powershell Invoke-WebRequest -Uri https://gstreamer.freedesktop.org/data/pkg/windows/1.20.0/msvc/gstreamer-1.0-msvc-x86_64-1.20.0-merge-modules.zip -OutFile deployment/gstreamer.zip && cd deployment && powershell Expand-Archive gstreamer.zip -DestinationPath modules && cd ..
+powershell Invoke-WebRequest -Uri https://gstreamer.freedesktop.org/data/pkg/windows/1.20.0/msvc/gstreamer-1.0-msvc-x86_64-1.20.0-merge-modules.zip -OutFile deployment/gstreamer.zip && cd deployment && powershell Expand-Archive gstreamer.zip -DestinationPath modules && cd ..
 
 cd client/window/electron && npm run make && robocopy  out/ThinkMay-win32-x64 ../../../bin /E && cd ../../../

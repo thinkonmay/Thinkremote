@@ -22,7 +22,7 @@ namespace remote.Controllers
 
 
         [Route("/Remote")]
-        public async Task<IActionResult> Remote(string token, string ice)
+        public async Task<IActionResult> Remote(string token)
         {
             var domain = Environment.GetEnvironmentVariable("URL");
 
@@ -35,13 +35,13 @@ namespace remote.Controllers
             { 
                 token = token,
                 InforURL = $"https://{domain}/Session/Setting",
-                icePolicy = ice,
+                icePolicy = "all",
                 session = result
             });
         }
 
         [Route("/Development")]
-        public IActionResult Development(string ip, string port, string ice)
+        public IActionResult Development(string ip, string port)
         {
             var session = new SessionClient
             {
@@ -54,7 +54,7 @@ namespace remote.Controllers
             };
             return View(new DevelopmentViewModel
             {
-                icePolicy = ice,
+                icePolicy = "all",
                 session = session
             });
         }

@@ -111,7 +111,9 @@ var app = new Vue({
                         username:   "@Model.session.turnuser",
                         credential: "@Model.session.turnpassword"
                     },
-                    urls: JSON.parse('@Html.Raw(Model.session.stuns)')
+                    {
+                        urls: ["stun:stun.l.google.com:19302"]
+                    }
                 ],
                 "bundle-policy":"max-compat"
                 "iceTransportPolicy" : "@Model.icePolicy"
