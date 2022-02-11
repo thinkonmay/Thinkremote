@@ -26,15 +26,41 @@
 
 
 
+
+/**
+ * @brief 
+ * cluster owner username 
+ */
+const gchar* user; 
+
+/**
+ * @brief 
+ * cluster owner password
+ */
+const gchar* password; 
+
+
+/**
+ * @brief 
+ * 
+ */
+const gchar* cluster_name ; 
+
+/**
+ * @brief 
+ * user token to communication with other module
+ */
+const gchar* token;
+
 static GOptionEntry entries[] = {
-  {"token", 0, 0, G_OPTION_ARG_STRING, &TOKEN,
+  {"token", 0, 0, G_OPTION_ARG_STRING, &token,
       "token register with worker manager", "TOKEN"},
-  {"cluster", 0, 0, G_OPTION_ARG_STRING, &CLUSTER_NAME,
-      "Signalling server to connect to", "URL"},
-  {"user", 0, 0, G_OPTION_ARG_STRING, &USER,
-      "thinkmay manager username", "URL"},
-  {"password", 0, 0, G_OPTION_ARG_STRING, &PASSWORD,
-      "thinkmay manager password", "URL"},
+  {"cluster", 0, 0, G_OPTION_ARG_STRING, &cluster_name,
+      "Signalling server to connect to", "NAME"},
+  {"user", 0, 0, G_OPTION_ARG_STRING, &user,
+      "thinkmay manager username", "USERNAME"},
+  {"password", 0, 0, G_OPTION_ARG_STRING, &password,
+      "thinkmay manager password", "PASSWORD"},
   {NULL},
 };
 
@@ -42,7 +68,19 @@ static GOptionEntry entries[] = {
 int
 main(int argc, char* argv[])
 {
-    remote_application_init();
+    user = malloc(100);
+    password = malloc(100);
+    token = malloc(500);
+    cluster_name = malloc(100);
+    memset(user,0,100);
+    memset(password,0,100);
+    memset(cluster_name,0,100);
+    memset(token,0,500);
+
+    if(DEVELOPMENT_ENVIRONMENT)
+        g_printerr("Cannot start agent in development environment\naborting...");
+
+    thinkremote_application_init();
     GOptionContext *context;
     GError *error = NULL;
 
@@ -59,20 +97,20 @@ main(int argc, char* argv[])
             SOUP_SESSION_SSL_USE_SYSTEM_CA_FILE, TRUE,
             SOUP_SESSION_HTTPS_ALIASES, http_aliases, NULL);
 
-    if(!strlen(USER))
+    if(!strlen(user))
     {
         g_print("Enter your thinkmay manager username:\n[USERNAME]: ");
-        scanf("%s", USER);
+        scanf("%s", user);
     }
-    if(!strlen(PASSWORD))
+    if(!strlen(password))
     {
         g_print("Enter your thinkmay manager password:\n[PASSWORD]: ");
-        scanf("%s", PASSWORD);
+        scanf("%s", password);
     }
-    if(!strlen(CLUSTER_NAME))
+    if(!strlen(cluster_name))
     {
         g_print("thinkmay cluster manager NAME:\n[NAME]: ");
-        scanf("%s", CLUSTER_NAME);
+        scanf("%s", cluster_name);
     }
 
 
@@ -81,8 +119,8 @@ main(int argc, char* argv[])
 
 
     JsonObject* login = json_object_new();
-    json_object_set_string_member(login,"UserName",USER);
-    json_object_set_string_member(login,"Password",PASSWORD);
+    json_object_set_string_member(login,"UserName",user);
+    json_object_set_string_member(login,"Password",password);
     gchar* login_body = get_string_from_json_object(login);
 
 
@@ -93,7 +131,7 @@ main(int argc, char* argv[])
     JsonParser* user_parser = json_parser_new();
     JsonObject* user_request_result = get_json_object_from_string(message->response_body->data,&error,user_parser);
     gchar* user_token = json_object_get_string_member(user_request_result,"token");
-    memcpy(TOKEN,user_token,strlen(user_token));
+    memcpy(token,user_token,strlen(user_token));
     g_object_unref(user_parser); 
     if(!user_token) {
         g_printerr("fail to login, retry\n");
@@ -108,11 +146,11 @@ main(int argc, char* argv[])
 
     GString* string = g_string_new(CLUSTER_TOKEN_URL);
     g_string_append(string,"?ClusterName=");
-    g_string_append(string,CLUSTER_NAME);
+    g_string_append(string,cluster_name);
     gchar* cluster_token_url = g_string_free(string,FALSE);
 
     SoupMessage* cluster_message = soup_message_new(SOUP_METHOD_GET,cluster_token_url);
-    soup_message_headers_append(cluster_message->request_headers, "Authorization",TOKEN);
+    soup_message_headers_append(cluster_message->request_headers, "Authorization",token);
     soup_session_send_message(session,cluster_message);
 
     if(cluster_message->status_code == 401)
@@ -156,7 +194,7 @@ main(int argc, char* argv[])
 
 
     g_object_unref(cluster_infor_parser); 
-    agent_new(self_host);
+    agent_new(self_host,token);
     return;
 }
 

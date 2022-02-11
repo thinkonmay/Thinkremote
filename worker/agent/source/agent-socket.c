@@ -82,7 +82,7 @@ register_with_managed_cluster(AgentServer* agent,
     gchar* final_url = g_string_free(register_url,FALSE);
 
     SoupMessage* soupMessage = soup_message_new(SOUP_METHOD_POST,final_url);
-    soup_message_headers_append(soupMessage->request_headers,"Authorization",TOKEN);
+    soup_message_headers_append(soupMessage->request_headers,"Authorization",token);
     soup_message_set_request(soupMessage,"application/json", SOUP_MEMORY_COPY, package,strlen(package));
 
     worker_log_output("Registering with host");
@@ -90,7 +90,7 @@ register_with_managed_cluster(AgentServer* agent,
 
     if(soupMessage->status_code != SOUP_STATUS_OK)
     {
-        g_printerr("Fail to register device and get worker token\n");
+        g_printerr("Fail to register device\n");
         agent_finalize(agent);
         return;
     }
@@ -110,7 +110,8 @@ register_with_managed_cluster(AgentServer* agent,
 
 
 void
-register_with_selfhosted_cluster(AgentServer* agent)
+register_with_selfhosted_cluster(AgentServer* agent, 
+                                 gchar* token)
 {
     GError* error = NULL;
     Socket* socket = agent_get_socket(agent);
@@ -121,7 +122,7 @@ register_with_selfhosted_cluster(AgentServer* agent)
     gchar* final_url = g_string_free(register_url,FALSE);
 
     SoupMessage* soupMessage = soup_message_new(SOUP_METHOD_POST,final_url);
-    soup_message_headers_append(soupMessage->request_headers,"Authorization",TOKEN);
+    soup_message_headers_append(soupMessage->request_headers,"Authorization", token);
     soup_message_set_request(soupMessage,"application/json", SOUP_MEMORY_COPY, package,strlen(package));
 
     worker_log_output("Registering with host");

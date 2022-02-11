@@ -90,7 +90,8 @@ handle_message_server(gchar* path,
 
 
 AgentServer*
-agent_new(gboolean self_host)
+agent_new(gboolean self_host,
+		  gchar* token)
 {	
 	GError* error = NULL;
 	AgentServer* agent = malloc(sizeof(AgentServer));
@@ -112,11 +113,11 @@ agent_new(gboolean self_host)
 
 	if(self_host) {
 #ifdef G_OS_WIN32
-		register_with_selfhosted_cluster(agent,self_host);
+		register_with_selfhosted_cluster(agent,self_host,token);
 #endif
 	} else {
 		PortForward* port = start_portforward(agent);
-		register_with_managed_cluster(agent, port);
+		register_with_managed_cluster(agent, port, token);
 	}
 
 	

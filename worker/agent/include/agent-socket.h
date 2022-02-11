@@ -33,7 +33,8 @@
  * 
  * @param agent 
  */
-void 									register_with_selfhosted_cluster	(AgentServer* agent);
+void 									register_with_selfhosted_cluster	(AgentServer* agent,
+																			 gchar* token);
 
 /**
  * @brief 
@@ -42,7 +43,8 @@ void 									register_with_selfhosted_cluster	(AgentServer* agent);
  * @param port
  */
 void 									register_with_managed_cluster		(AgentServer* agent, 
-                              												 PortForward* port);
+                              												 PortForward* port,
+																			 gchar* token);
 /**
  * @brief 
  * send message to cluster at a specific endpoint

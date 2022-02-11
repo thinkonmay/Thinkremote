@@ -27,7 +27,7 @@ static GOptionEntry entries[] = {
 int
 main(int argc, char* argv[])
 {
-    remote_application_init();
+    thinkremote_application_init();
     GOptionContext *context;
     GError *error = NULL;
 
