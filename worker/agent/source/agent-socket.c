@@ -103,7 +103,7 @@ register_with_managed_cluster(AgentServer* agent,
         memcpy(DEVICE_TOKEN,token_result,strlen(token_result));
         g_object_unref(parser); 
 
-        g_print("Register successfully with cluster manager and got worker token\n");
+        g_print("Worker is registered...\n");
         return FALSE; 
     }
 }
@@ -140,7 +140,7 @@ register_with_selfhosted_cluster(AgentServer* agent)
         memcpy(DEVICE_TOKEN,token_result,strlen(token_result));
         g_object_unref(parser); 
 
-        g_print("Register successfully with cluster manager and got worker token\n");
+        g_print("Worker is registered...\n");
     }
 }
 

@@ -247,6 +247,23 @@ on_incoming_decodebin_stream (GstElement * decodebin,
     } 
 }
 
+
+gboolean
+is_d3d11_capable()
+{
+    static gboolean result;
+    static gboolean initialize = FALSE;
+    if(!initialize)
+    {
+        GstElementFactory* factory = gst_element_factory_find("d3d11h265dec");
+        result = factory ? TRUE : FALSE;
+        initialize = TRUE;
+    }
+    return result;
+}
+
+
+
 gint
 video_element_select(GstElement * bin,
                     GstPad * pad,
@@ -258,27 +275,42 @@ video_element_select(GstElement * bin,
     gboolean select = FALSE; 
     gchar** keys;
     keys = gst_element_factory_get_metadata_keys (factory);
-    g_print("Querying a new video element\n");
+
+    if(DEVELOPMENT_ENVIRONMENT)
+        g_print("\n\nQuerying a new video element\n");
+
     while (keys[i]) {
         gchar * value = gst_element_factory_get_metadata (factory,keys[i]);
-        g_print("%s : %s\n",keys[i],value);
+
+        if(DEVELOPMENT_ENVIRONMENT) 
+            g_print("%s : %s\n",keys[i],value);
+
         if (g_str_has_prefix(value,"RTP H264") ||
-            g_str_has_prefix(value,"RTP H265")) {
+            g_str_has_prefix(value,"RTP H265")) 
             select = TRUE;
-        } else if (g_str_has_prefix(value,"H.264 parser") || 
-                   g_str_has_prefix(value,"H.265 parser")) {
+        
+        if (g_str_has_prefix(value,"H.264 parser") || 
+            g_str_has_prefix(value,"H.265 parser")) 
             select = TRUE;
-        } else if (g_str_has_prefix(value,"Direct3D11")) {
-            select = TRUE;
+
+        
+        if (g_str_has_prefix(value,"Codec/Decoder/Video")) 
+        {
+            gboolean d3d11 = is_d3d11_capable();
+            gchar* des = gst_element_factory_get_metadata (factory,"description");
+            if (g_str_has_prefix(des,"Direct3D11") && d3d11) 
+                select = TRUE;
+
+            if (g_str_has_prefix(des,"libav") && !d3d11) 
+                select = TRUE;
+            
+            if(select)
+                g_print("Staring with %s",des);
         }
         i++;
     }
 
-    g_print("\n\n");
-    if(!select)
-        return 2;
-    else
-        return 0;
+    return select ? 0 : 2;
 }
 
 gint
@@ -292,10 +324,15 @@ audio_element_select(GstElement * bin,
     gboolean select = FALSE; 
     gchar** keys;
     keys = gst_element_factory_get_metadata_keys (factory);
-    g_print("Querying a new audio element\n");
+
+    if(DEVELOPMENT_ENVIRONMENT)
+        g_print("Querying a new audio element\n");
+        
     while (keys[i]) {
         gchar * value = gst_element_factory_get_metadata (factory,keys[i]);
-        g_print("%s : %s\n",keys[i],value);
+        if(DEVELOPMENT_ENVIRONMENT)
+            g_print("%s : %s\n",keys[i],value);
+
         i++;
     }
 

@@ -83,7 +83,6 @@ session_terminate(AgentServer* agent)
     clean_childprocess(session->process);
     session->process = NULL;
 
-    // return true 
     return TRUE;
 }
 

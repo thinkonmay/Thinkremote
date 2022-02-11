@@ -111,7 +111,9 @@ signalling_hub_setup(SignallingHub* hub,
                      JsonArray* stun_array,
                      gchar* remote_token)
 {
-    g_print("starting remote session with turn server\n%s\n",turn);
+    if(DEVELOPMENT_ENVIRONMENT)
+        g_print("starting remote session with turn server\n%s\n",turn);
+        
     memcpy(hub->turn, turn,strlen(turn));
 
     memcpy(hub->remote_token, remote_token,strlen(remote_token));

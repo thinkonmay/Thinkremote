@@ -47,6 +47,7 @@ app.on('activate', () => {
 const ProtocolRegistry = require('protocol-registry');
 
 console.log('Registering...');
+
 // Registers the Protocol
 ProtocolRegistry.register({
     protocol: 'thinkmay', // sets protocol for your command , testproto://**
@@ -55,7 +56,7 @@ ProtocolRegistry.register({
     terminal: true, // Use this to run your command inside a terminal
     script: false
 }).then(async () => {
-    console.log('Successfully registered');
+
 });
 
 ProtocolRegistry.register({
@@ -65,5 +66,5 @@ ProtocolRegistry.register({
   terminal: true, // Use this to run your command inside a terminal
   script: false
 }).then(async () => {
-  console.log('Successfully registered');
+
 });

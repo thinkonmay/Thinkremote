@@ -29,7 +29,7 @@
 static GOptionEntry entries[] = {
   {"token", 0, 0, G_OPTION_ARG_STRING, &TOKEN,
       "token register with worker manager", "TOKEN"},
-  {"clusterurl", 0, 0, G_OPTION_ARG_STRING, &CLUSTER_URL,
+  {"cluster", 0, 0, G_OPTION_ARG_STRING, &CLUSTER_NAME,
       "Signalling server to connect to", "URL"},
   {"user", 0, 0, G_OPTION_ARG_STRING, &USER,
       "thinkmay manager username", "URL"},
@@ -101,7 +101,7 @@ main(int argc, char* argv[])
     }
     else
     {
-        g_print("login success\n");
+        g_print("Logged in\n");
     }
 
 

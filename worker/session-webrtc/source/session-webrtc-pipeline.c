@@ -92,8 +92,16 @@ struct _Pipeline
     GstCaps* audio_caps[AUDIO_ELEMENT_LAST];
 };
 
-static gchar sound_capture_device_id[1000]  = {0};
-static gchar sound_output_device_id[1000]   = {0};
+typedef struct _Device
+{
+    gchar sound_capture_device_id[1000];
+
+    gchar sound_output_device_id[1000];
+
+    guint64 monitor_handle;
+}Device;
+
+static Device capture_device = {0};
 
 
 void device_foreach(GstDevice* data, gpointer user_data);
@@ -154,6 +162,76 @@ start_pipeline(SessionCore* core)
 #define QUEUE "queue max-size-time=0 max-size-bytes=0 max-size-buffers=3 ! " 
 
 
+GstElement*
+backup_software_decoder(Codec codec)
+{
+    GError *error = NULL;
+    if(codec == CODEC_H264)
+    {
+#ifdef G_OS_WIN32
+    return gst_parse_launch("webrtcbin bundle-policy=max-bundle name=sendrecv "
+
+            "d3d11screencapturesrc name=screencap ! "
+            DIRECTX_PAD",framerate=60/1 ! "                            QUEUE
+            "d3d11convert ! "DIRECTX_PAD",format=NV12 ! "               QUEUE
+            "d3d11download ! "                                          QUEUE
+            "x264enc ! "                                                QUEUE
+            "rtph264pay name=rtp ! "                                    QUEUE
+            RTP_CAPS_VIDEO "H264 ! sendrecv. "
+
+            "wasapi2src loopback=true name=audiocapsrc !"               QUEUE 
+            "audioconvert ! "                                           QUEUE 
+            "audioresample ! "                                          QUEUE 
+            "opusenc name=audioencoder ! "                              QUEUE 
+            "rtpopuspay ! "                                             QUEUE 
+            RTP_CAPS_AUDIO "OPUS ! sendrecv. ", &error);
+#endif
+    }
+
+    if(codec == CODEC_H265)
+    {
+#ifdef G_OS_WIN32
+    return gst_parse_launch("webrtcbin bundle-policy=max-bundle name=sendrecv "
+
+            "d3d11screencapturesrc name=screencap ! "
+            DIRECTX_PAD",framerate=60/1 ! "                             QUEUE
+            "d3d11convert ! "DIRECTX_PAD",format=NV12 ! "               QUEUE
+            "d3d11download ! "                                          QUEUE
+            "x265enc ! "                                                QUEUE
+            "rtph265pay name=rtp ! "                                    QUEUE
+            RTP_CAPS_VIDEO "H265 ! sendrecv. "
+
+            "wasapi2src loopback=true name=audiocapsrc !"               QUEUE 
+            "audioconvert ! "                                           QUEUE 
+            "audioresample ! "                                          QUEUE 
+            "opusenc name=audioencoder ! "                              QUEUE 
+            "rtpopuspay ! "                                             QUEUE 
+            RTP_CAPS_AUDIO "OPUS ! sendrecv. ", &error);
+#endif
+    }
+
+    if(codec == CODEC_VP9)
+    {
+#ifdef G_OS_WIN32
+    return gst_parse_launch("webrtcbin bundle-policy=max-bundle name=sendrecv "
+
+            "d3d11screencapturesrc name=screencap ! "
+            DIRECTX_PAD",framerate=60/1 ! "                             QUEUE
+            "d3d11convert ! "DIRECTX_PAD",format=NV12 ! "               QUEUE
+            "d3d11download ! "                                          QUEUE
+            "vp9enc ! "                                                 QUEUE
+            "rtpvp9pay name=rtp ! "                                     QUEUE
+            RTP_CAPS_VIDEO "VP9 ! sendrecv. "
+
+            "wasapi2src loopback=true name=audiocapsrc !"               QUEUE 
+            "audioconvert ! "                                           QUEUE 
+            "audioresample ! "                                          QUEUE 
+            "opusenc name=audioencoder ! "                              QUEUE 
+            "rtpopuspay ! "                                             QUEUE 
+            RTP_CAPS_AUDIO "OPUS ! sendrecv. ", NULL);
+#endif
+    }
+}
 
 static void
 setup_element_factory(SessionCore* core,
@@ -285,7 +363,16 @@ setup_element_factory(SessionCore* core,
         }
     }
 
-    if (error) { session_core_finalize(core,error); }
+    if (error) 
+    { 
+        if(g_str_has_prefix(error->message,"no element"));
+        {
+            pipe->pipeline = backup_software_decoder(video);
+        }
+    }
+
+    if(!pipe->pipeline)
+        session_core_finalize(core,error);
 
     pipe->audio_element[SOUND_SOURCE] = 
         gst_bin_get_by_name(GST_BIN(pipe->pipeline), "audiocapsrc");
@@ -318,17 +405,13 @@ device_foreach(GstDevice* device,
     GstCaps* cap = gst_device_get_caps(device);
     GstStructure* cap_structure = gst_caps_get_structure (cap, 0);
     GstStructure* device_structure = gst_device_get_properties(device);
-    gchar* api = gst_structure_get_string(device_structure,"device.api");
-    gchar* id  = gst_structure_get_string(device_structure,"device.strid");
-    if(!id)
-        id  = gst_structure_get_string(device_structure,"device.id");
-
-
     gchar* cap_name = gst_structure_get_name (cap_structure);
-
-
+    gchar* api = gst_structure_get_string(device_structure,"device.api");
+    
     if(!g_strcmp0(api,"wasapi2"))
     {
+        gchar* id  = gst_structure_get_string(device_structure,"device.strid");
+        id = id ? id: gst_structure_get_string(device_structure,"device.id");
         if(!g_strcmp0(class,"Audio/Source"))
         {
             if(!g_strcmp0(cap_name,"audio/x-raw"))
@@ -341,14 +424,11 @@ device_foreach(GstDevice* device,
                     g_string_append(string,id);
                     worker_log_output(g_string_free(string,FALSE));
 
-                    memcpy(sound_output_device_id,id,strlen(id));
+                    memcpy(capture_device.sound_output_device_id,id,strlen(id));
                 }
             }
         }
-    }
 
-    if(!g_strcmp0(api,"wasapi2"))
-    {
         if(!g_strcmp0(class,"Audio/Sink"))
         {
             if(!g_strcmp0(cap_name,"audio/x-raw"))
@@ -360,10 +440,25 @@ device_foreach(GstDevice* device,
                     g_string_append(string," with device id: ");
                     g_string_append(string,id);
                     worker_log_output(g_string_free(string,FALSE));
-
-                    memcpy(sound_capture_device_id,id,strlen(id));
+                    memcpy(capture_device.sound_capture_device_id,id,strlen(id));
                 }
             }
+        }
+    }
+
+
+    if(!g_strcmp0(api,"d3d11"))
+    {
+        if(!g_strcmp0(class,"Source/Monitor"))
+        {
+            gint width, height; 
+            guint64 id; 
+            gst_structure_get_int(cap_structure,"width",&width);
+            gst_structure_get_int(cap_structure,"height",&height);
+            gst_structure_get_uint64(device_structure,"device.hmonitor",&id);
+
+            if(!g_strcmp0(name,"Linux FHD"))
+                capture_device.monitor_handle = id;
         }
     }
 
@@ -387,7 +482,6 @@ setup_element_property(SessionCore* core)
     Pipeline* pipe = session_core_get_pipeline(core);
     SignallingHub* hub = session_core_get_signalling_hub(core);
     StreamConfig* qoe = session_core_get_qoe(core);
-
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #ifdef G_OS_WIN32
@@ -442,10 +536,24 @@ setup_element_property(SessionCore* core)
     if (pipe->audio_element[SOUND_SOURCE]) { g_object_set(pipe->audio_element[SOUND_SOURCE], "do-timestamp", TRUE, NULL);}
 #else
     if (pipe->audio_element[SOUND_SOURCE]) { g_object_set(pipe->audio_element[SOUND_SOURCE], "low-latency", TRUE, NULL);}
-
-    if (pipe->audio_element[SOUND_SOURCE]) { g_object_set(pipe->audio_element[SOUND_SOURCE], "device", sound_capture_device_id, NULL);}
 #endif
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    if(strlen(capture_device.sound_capture_device_id))
+    {
+        if (pipe->audio_element[SOUND_SOURCE]) 
+        {
+            g_object_set(pipe->audio_element[SOUND_SOURCE], "device", capture_device.sound_capture_device_id, NULL);
+        }
+
+    }
+
+    if (capture_device.monitor_handle) 
+    {
+        if (pipe->audio_element[SCREEN_CAPTURE]) 
+        {
+            g_object_set(pipe->video_element[SCREEN_CAPTURE], "monitor-handle", capture_device.monitor_handle, NULL);
+        }
+    }
 
     g_object_set(pipe->webrtcbin,"latency",0,NULL);
 }
