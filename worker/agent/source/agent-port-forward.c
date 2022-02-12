@@ -122,10 +122,7 @@ init_portforward_service()
     
 
     gchar *buffer = GetEnvironmentVariableWithKey("AGENT_PORT");
-    memcpy(port->port,buffer,strlen(buffer));
-    free(buffer);
-
-    if(!strlen(port))
+    if(!buffer)
     {
         SoupMessage* agent_request = soup_message_new(SOUP_METHOD_GET,PORT_OBTAIN_URL);
         soup_message_headers_append(agent_request->request_headers,"Authorization",CLUSTER_TOKEN);
@@ -146,6 +143,11 @@ init_portforward_service()
         itoa(instancePort,port->port,10);
         SetPermanentEnvironmentVariable("AGENT_PORT",port->port);
         g_object_unref(parser);
+    }
+    else
+    {
+        memcpy(port->port,buffer,strlen(buffer));
+        free(buffer);
     }
 
     return port;
