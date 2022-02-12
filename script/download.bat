@@ -1,0 +1,1 @@
+powershell Invoke-WebRequest -Uri https://gstreamer.freedesktop.org/data/pkg/windows/1.20.0/msvc/gstreamer-1.0-msvc-x86_64-1.20.0-merge-modules.zip -OutFile deployment/gstreamer.zip && cd deployment && powershell Expand-Archive gstreamer.zip -DestinationPath modules && cd ..
