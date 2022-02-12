@@ -56,11 +56,10 @@ GetEnvironmentVariableWithKey(gchar* key)
     gchar* value = malloc(100);
     memset(value,0,100);
 
-    LPTSTR lpszVariable; 
     LPTCH lpvEnv; 
+    LPTSTR lpszVariable; 
  
     lpvEnv = GetEnvironmentStrings();
-    
     lpszVariable = (LPTSTR) lpvEnv;
     while (*lpszVariable)
     {
@@ -75,6 +74,11 @@ GetEnvironmentVariableWithKey(gchar* key)
         lpszVariable += lstrlen(lpszVariable) + 1;
     }
     FreeEnvironmentStrings(lpvEnv);
+    if(!strlen(value))
+    {
+        free(value);
+        return NULL;
+    }
 }
 #endif
 
