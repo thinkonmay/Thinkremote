@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="18.7" version="19.1" Modules="simple" RootPath="." Language="en" Id="{2A5C92AA-D552-4956-925C-F691049E0804}">
+<DOCUMENT Type="Advanced Installer" CreateVersion="18.7" version="18.7" Modules="simple" RootPath="." Language="en" Id="{2A5C92AA-D552-4956-925C-F691049E0804}">
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
     <ROW Property="AI_CURRENT_YEAR" Value="2022" ValueLocId="-"/>
@@ -15,7 +15,7 @@
     <ROW Property="Manufacturer" Value="Thinkmay"/>
     <ROW Property="ProductCode" Value="1033:{E84FCB80-C61B-43B8-9580-185F318F2359} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
-    <ROW Property="ProductName" Value="Thinkremote"/>
+    <ROW Property="ProductName" Value="personal-cloud-computing"/>
     <ROW Property="ProductVersion" Value="2.0.0" Type="32"/>
     <ROW Property="RUNAPPLICATION" Value="1" Type="4"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
@@ -189,8 +189,6 @@
     <ROW Directory="utils_1_Dir" Directory_Parent="src_2_Dir" DefaultDir="utils"/>
     <ROW Directory="utils_Dir" Directory_Parent="lib_7_Dir" DefaultDir="utils"/>
     <ROW Directory="validation_Dir" Directory_Parent="src_2_Dir" DefaultDir="VALIDA~1|validation"/>
-    <ROW Directory="virtualAudio_Dir" Directory_Parent="bin_4_Dir" DefaultDir="VIRTUA~1|virtualAudio"/>
-    <ROW Directory="virtualDisplay_Dir" Directory_Parent="bin_4_Dir" DefaultDir="VIRTUA~2|virtualDisplay"/>
     <ROW Directory="windows_Dir" Directory_Parent="src_2_Dir" DefaultDir="windows"/>
     <ROW Directory="winreg_Dir" Directory_Parent="node_modules_Dir" DefaultDir="winreg"/>
     <ROW Directory="without_basedir_Dir" Directory_Parent="resolver_Dir" DefaultDir="WITHOU~1|without_basedir"/>
@@ -209,7 +207,6 @@
     <ROW Component="CHANGELOG.md" ComponentId="{7BC480FA-FE51-4897-B1CE-BDCF4D8783E8}" Directory_="colorconvert_Dir" Attributes="0" KeyPath="CHANGELOG.md_2" Type="0"/>
     <ROW Component="CHANGELOG.md_1" ComponentId="{F45D7EA9-5479-4E65-88A3-588D46454A8E}" Directory_="shelljs_Dir" Attributes="0" KeyPath="CHANGELOG.md_3" Type="0"/>
     <ROW Component="FUNDING.yml" ComponentId="{2C5A3A10-657C-422A-A042-1049FD15194D}" Directory_="github_Dir" Attributes="0" KeyPath="FUNDING.yml" Type="0"/>
-    <ROW Component="IddSampleDriver.dll" ComponentId="{A9775359-6178-43BB-8388-535321AEAD66}" Directory_="virtualDisplay_Dir" Attributes="256" KeyPath="IddSampleDriver.dll"/>
     <ROW Component="LICENSE" ComponentId="{69FC646E-D14E-420D-902F-E964E9C707D1}" Directory_="minimatch_Dir" Attributes="0" KeyPath="LICENSE_24" Type="0"/>
     <ROW Component="LICENSE.md" ComponentId="{397A94B2-289F-4F31-BF08-6AAFBFF2BDB7}" Directory_="hoek_Dir" Attributes="0" KeyPath="LICENSE.md" Type="0"/>
     <ROW Component="LICENSE.md_1" ComponentId="{605E63EF-35F3-4F69-A320-C4F2DADC47EA}" Directory_="topo_Dir" Attributes="0" KeyPath="LICENSE.md_1" Type="0"/>
@@ -392,9 +389,6 @@
     <ROW Component="System.Xml.dll" ComponentId="{809FD095-ED8A-4A8B-9E5F-A363999A85DD}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Xml.dll"/>
     <ROW Component="System.dll" ComponentId="{ED123E45-9F2F-4604-BB07-369A19295B05}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.dll"/>
     <ROW Component="ThinkMay.exe" ComponentId="{D2FF74D3-3F26-489D-9EC6-DD052D777F16}" Directory_="bin_4_Dir" Attributes="256" KeyPath="ThinkMay.exe"/>
-    <ROW Component="VBCABLE_ControlPanel.exe" ComponentId="{38CE3AE1-C476-416E-A4AE-7CD9BCF3237A}" Directory_="virtualAudio_Dir" Attributes="0" KeyPath="VBCABLE_ControlPanel.exe"/>
-    <ROW Component="VBCABLE_Setup.exe" ComponentId="{771BA43F-2FF1-4972-87E8-8A834F191692}" Directory_="virtualAudio_Dir" Attributes="0" KeyPath="VBCABLE_Setup.exe"/>
-    <ROW Component="VBCABLE_Setup_x64.exe" ComponentId="{9E832E44-59A9-4E7B-B7B1-A8A563367BE1}" Directory_="virtualAudio_Dir" Attributes="256" KeyPath="VBCABLE_Setup_x64.exe"/>
     <ROW Component="WindowsBase.dll" ComponentId="{5F74CABC-2087-492D-B54F-79CD154598A3}" Directory_="bin_4_Dir" Attributes="0" KeyPath="WindowsBase.dll"/>
     <ROW Component="a.js" ComponentId="{90BEC6F5-49E8-4748-A856-ED3F0E79322C}" Directory_="browser_field_Dir" Attributes="0" KeyPath="a.js" Type="0"/>
     <ROW Component="aaa.js" ComponentId="{7F51DB2F-9037-4D8D-B481-5B2A97231F9C}" Directory_="precedence_Dir" Attributes="0" KeyPath="aaa.js" Type="0"/>
@@ -457,7 +451,6 @@
     <ROW Component="browser.js_1" ComponentId="{C4CD9279-CE3F-4805-BF37-1BD451825248}" Directory_="supportscolor_Dir" Attributes="0" KeyPath="browser.js_1" Type="0"/>
     <ROW Component="build.js" ComponentId="{9145EA04-F08D-4A1F-BC53-94394416AC91}" Directory_="lib_9_Dir" Attributes="0" KeyPath="build.js" Type="0"/>
     <ROW Component="cat.js" ComponentId="{345055A0-08E2-4653-9F81-5B89FD4A581E}" Directory_="src_3_Dir" Attributes="0" KeyPath="cat.js" Type="0"/>
-    <ROW Component="certmgr.exe" ComponentId="{38943E04-A045-41F7-8837-B0788E26B98A}" Directory_="virtualDisplay_Dir" Attributes="0" KeyPath="certmgr.exe"/>
     <ROW Component="chrome_100_percent.pak" ComponentId="{A3341A59-7FED-4AD7-9CDB-64F159E2CDED}" Directory_="bin_4_Dir" Attributes="0" KeyPath="chrome_100_percent.pak" Type="0"/>
     <ROW Component="cli.js" ComponentId="{42948F1E-9781-47EB-BB40-0FEB4E6D96F3}" Directory_="bin_Dir" Attributes="0" KeyPath="cli.js" Type="0"/>
     <ROW Component="cli.js_1" ComponentId="{EDB6A246-2FC6-4CF1-8234-AD3AD857958B}" Directory_="isdocker_Dir" Attributes="0" KeyPath="cli.js_1" Type="0"/>
@@ -499,7 +492,6 @@
     <ROW Component="gitkeep_1" ComponentId="{A8054ACF-96EC-4053-9AC9-2E83618190A4}" Directory_="symlink_target_Dir" Attributes="0" KeyPath="gitkeep_1" Type="0"/>
     <ROW Component="hostfxr.dll" ComponentId="{D47A2857-0048-43C5-A0B4-5EDCD4D90648}" Directory_="bin_4_Dir" Attributes="256" KeyPath="hostfxr.dll"/>
     <ROW Component="hostpolicy.dll" ComponentId="{3DC46914-500F-43C7-A948-8693ED3691C4}" Directory_="bin_4_Dir" Attributes="256" KeyPath="hostpolicy.dll"/>
-    <ROW Component="iddsampledriver.cat" ComponentId="{7AED06E7-8EE2-421D-949F-0CCFD37979D5}" Directory_="virtualDisplay_Dir" Attributes="0" KeyPath="iddsampledriver.cat" Type="0"/>
     <ROW Component="index.d.ts" ComponentId="{76A73925-2742-44B5-852E-FDEB29CFD64A}" Directory_="lib_1_Dir" Attributes="0" KeyPath="index.d.ts_1" Type="0"/>
     <ROW Component="index.d.ts_1" ComponentId="{6C29B577-5897-46EB-B04A-34B0336E0663}" Directory_="lib_3_Dir" Attributes="0" KeyPath="index.d.ts_3" Type="0"/>
     <ROW Component="index.d.ts_2" ComponentId="{3381CF6B-898B-4ABB-912F-B737D3AAB166}" Directory_="lib_4_Dir" Attributes="0" KeyPath="index.d.ts_4" Type="0"/>
@@ -576,7 +568,6 @@
     <ROW Component="otherlib.js" ComponentId="{E11B2D9E-6ECA-40DB-A47E-337138F48FD0}" Directory_="lib_12_Dir" Attributes="0" KeyPath="otherlib.js" Type="0"/>
     <ROW Component="package.json" ComponentId="{AC41EF9C-F545-4D55-92E2-3D8072089BAF}" Directory_="invalid_main_Dir" Attributes="0" KeyPath="package.json_48" Type="0"/>
     <ROW Component="packagelock.json" ComponentId="{866C37E0-3557-453B-A1B8-823CB127B19A}" Directory_="node_modules_Dir" Attributes="0" KeyPath="packagelock.json" Type="0"/>
-    <ROW Component="pin_in.ico" ComponentId="{289BC3D2-FAD6-42DB-B30F-718B75B49B38}" Directory_="virtualAudio_Dir" Attributes="0" KeyPath="pin_in.ico" Type="0"/>
     <ROW Component="plistbuild.js" ComponentId="{1C88D0EC-EF90-48AD-A7D9-45ACFF94160D}" Directory_="dist_1_Dir" Attributes="0" KeyPath="plistbuild.js" Type="0"/>
     <ROW Component="portforward.dll" ComponentId="{925A818E-6B4C-4F7C-960A-1FADE7083597}" Directory_="bin_4_Dir" Attributes="256" KeyPath="portforward.dll"/>
     <ROW Component="portforward.dll_1" ComponentId="{7F98259C-981C-402E-B90F-8692C6DA64F4}" Directory_="ref_Dir" Attributes="256" KeyPath="portforward.dll_1"/>
@@ -1489,46 +1480,12 @@
     <ROW File="welcome.pdb_1" Component_="welcome.pdb" FileName="welcome.pdb" Attributes="0" SourcePath="..\bin\resources\app\welcome.pdb" SelfReg="false"/>
     <ROW File="libEGL.dll_1" Component_="libEGL.dll_1" FileName="libEGL.dll" Attributes="0" SourcePath="..\bin\swiftshader\libEGL.dll" SelfReg="false"/>
     <ROW File="libGLESv2.dll_1" Component_="libGLESv2.dll_1" FileName="LIBGLE~1.DLL|libGLESv2.dll" Attributes="0" SourcePath="..\bin\swiftshader\libGLESv2.dll" SelfReg="false"/>
-    <ROW File="pin_in.ico" Component_="pin_in.ico" FileName="pin_in.ico" Attributes="0" SourcePath="..\bin\virtualAudio\pin_in.ico" SelfReg="false"/>
-    <ROW File="pin_out.ico" Component_="pin_in.ico" FileName="pin_out.ico" Attributes="0" SourcePath="..\bin\virtualAudio\pin_out.ico" SelfReg="false"/>
-    <ROW File="readme.txt" Component_="pin_in.ico" FileName="readme.txt" Attributes="0" SourcePath="..\bin\virtualAudio\readme.txt" SelfReg="false"/>
-    <ROW File="vbaudio_cable64_2003.cat" Component_="pin_in.ico" FileName="VBAUDI~1.CAT|vbaudio_cable64_2003.cat" Attributes="0" SourcePath="..\bin\virtualAudio\vbaudio_cable64_2003.cat" SelfReg="false"/>
-    <ROW File="vbaudio_cable64_2003.sys" Component_="pin_in.ico" FileName="VBAUDI~1.SYS|vbaudio_cable64_2003.sys" Attributes="0" SourcePath="..\bin\virtualAudio\vbaudio_cable64_2003.sys" SelfReg="false"/>
-    <ROW File="vbaudio_cable64_vista.cat" Component_="pin_in.ico" FileName="VBAUDI~2.CAT|vbaudio_cable64_vista.cat" Attributes="0" SourcePath="..\bin\virtualAudio\vbaudio_cable64_vista.cat" SelfReg="false"/>
-    <ROW File="vbaudio_cable64_vista.sys" Component_="pin_in.ico" FileName="VBAUDI~2.SYS|vbaudio_cable64_vista.sys" Attributes="0" SourcePath="..\bin\virtualAudio\vbaudio_cable64_vista.sys" SelfReg="false"/>
-    <ROW File="vbaudio_cable64_win7.cat" Component_="pin_in.ico" FileName="VBAUDI~3.CAT|vbaudio_cable64_win7.cat" Attributes="0" SourcePath="..\bin\virtualAudio\vbaudio_cable64_win7.cat" SelfReg="false"/>
-    <ROW File="vbaudio_cable64_win7.sys" Component_="pin_in.ico" FileName="VBAUDI~3.SYS|vbaudio_cable64_win7.sys" Attributes="0" SourcePath="..\bin\virtualAudio\vbaudio_cable64_win7.sys" SelfReg="false"/>
-    <ROW File="vbaudio_cable_2003.cat" Component_="pin_in.ico" FileName="VBAUDI~4.CAT|vbaudio_cable_2003.cat" Attributes="0" SourcePath="..\bin\virtualAudio\vbaudio_cable_2003.cat" SelfReg="false"/>
-    <ROW File="vbaudio_cable_2003.sys" Component_="pin_in.ico" FileName="VBAUDI~4.SYS|vbaudio_cable_2003.sys" Attributes="0" SourcePath="..\bin\virtualAudio\vbaudio_cable_2003.sys" SelfReg="false"/>
-    <ROW File="vbaudio_cable_vista.cat" Component_="pin_in.ico" FileName="VBAUDI~5.CAT|vbaudio_cable_vista.cat" Attributes="0" SourcePath="..\bin\virtualAudio\vbaudio_cable_vista.cat" SelfReg="false"/>
-    <ROW File="vbaudio_cable_vista.sys" Component_="pin_in.ico" FileName="VBAUDI~5.SYS|vbaudio_cable_vista.sys" Attributes="0" SourcePath="..\bin\virtualAudio\vbaudio_cable_vista.sys" SelfReg="false"/>
-    <ROW File="vbaudio_cable_win7.cat" Component_="pin_in.ico" FileName="VBAUDI~6.CAT|vbaudio_cable_win7.cat" Attributes="0" SourcePath="..\bin\virtualAudio\vbaudio_cable_win7.cat" SelfReg="false"/>
-    <ROW File="vbaudio_cable_win7.sys" Component_="pin_in.ico" FileName="VBAUDI~6.SYS|vbaudio_cable_win7.sys" Attributes="0" SourcePath="..\bin\virtualAudio\vbaudio_cable_win7.sys" SelfReg="false"/>
-    <ROW File="vbaudio_cable_xp.cat" Component_="pin_in.ico" FileName="VBAUDI~7.CAT|vbaudio_cable_xp.cat" Attributes="0" SourcePath="..\bin\virtualAudio\vbaudio_cable_xp.cat" SelfReg="false"/>
-    <ROW File="vbaudio_cable_xp.sys" Component_="pin_in.ico" FileName="VBAUDI~7.SYS|vbaudio_cable_xp.sys" Attributes="0" SourcePath="..\bin\virtualAudio\vbaudio_cable_xp.sys" SelfReg="false"/>
-    <ROW File="VBCABLE_ControlPanel.exe" Component_="VBCABLE_ControlPanel.exe" FileName="VBCABL~1.EXE|VBCABLE_ControlPanel.exe" Attributes="0" SourcePath="..\bin\virtualAudio\VBCABLE_ControlPanel.exe" SelfReg="false"/>
-    <ROW File="VBCABLE_Setup.exe" Component_="VBCABLE_Setup.exe" FileName="VBCABL~2.EXE|VBCABLE_Setup.exe" Attributes="0" SourcePath="..\bin\virtualAudio\VBCABLE_Setup.exe" SelfReg="false"/>
-    <ROW File="VBCABLE_Setup_x64.exe" Component_="VBCABLE_Setup_x64.exe" FileName="VBCABL~3.EXE|VBCABLE_Setup_x64.exe" Attributes="0" SourcePath="..\bin\virtualAudio\VBCABLE_Setup_x64.exe" SelfReg="false"/>
-    <ROW File="vbMmeCable64_2003.inf" Component_="pin_in.ico" FileName="VBMMEC~1.INF|vbMmeCable64_2003.inf" Attributes="0" SourcePath="..\bin\virtualAudio\vbMmeCable64_2003.inf" SelfReg="false"/>
-    <ROW File="vbMmeCable64_vista.inf" Component_="pin_in.ico" FileName="VBMMEC~2.INF|vbMmeCable64_vista.inf" Attributes="0" SourcePath="..\bin\virtualAudio\vbMmeCable64_vista.inf" SelfReg="false"/>
-    <ROW File="vbMmeCable64_win7.inf" Component_="pin_in.ico" FileName="VBMMEC~3.INF|vbMmeCable64_win7.inf" Attributes="0" SourcePath="..\bin\virtualAudio\vbMmeCable64_win7.inf" SelfReg="false"/>
-    <ROW File="vbMmeCable_2003.inf" Component_="pin_in.ico" FileName="VBMMEC~4.INF|vbMmeCable_2003.inf" Attributes="0" SourcePath="..\bin\virtualAudio\vbMmeCable_2003.inf" SelfReg="false"/>
-    <ROW File="vbMmeCable_vista.inf" Component_="pin_in.ico" FileName="VBMMEC~5.INF|vbMmeCable_vista.inf" Attributes="0" SourcePath="..\bin\virtualAudio\vbMmeCable_vista.inf" SelfReg="false"/>
-    <ROW File="vbMmeCable_win7.inf" Component_="pin_in.ico" FileName="VBMMEC~6.INF|vbMmeCable_win7.inf" Attributes="0" SourcePath="..\bin\virtualAudio\vbMmeCable_win7.inf" SelfReg="false"/>
-    <ROW File="vbMmeCable_xp.inf" Component_="pin_in.ico" FileName="VBMMEC~7.INF|vbMmeCable_xp.inf" Attributes="0" SourcePath="..\bin\virtualAudio\vbMmeCable_xp.inf" SelfReg="false"/>
-    <ROW File="certmgr.exe" Component_="certmgr.exe" FileName="certmgr.exe" Attributes="0" SourcePath="..\bin\virtualDisplay\certmgr.exe" SelfReg="false"/>
-    <ROW File="iddsampledriver.cat" Component_="iddsampledriver.cat" FileName="IDDSAM~1.CAT|iddsampledriver.cat" Attributes="0" SourcePath="..\bin\virtualDisplay\iddsampledriver.cat" SelfReg="false"/>
-    <ROW File="IddSampleDriver.cer" Component_="iddsampledriver.cat" FileName="IDDSAM~1.CER|IddSampleDriver.cer" Attributes="0" SourcePath="..\bin\virtualDisplay\IddSampleDriver.cer" SelfReg="false"/>
-    <ROW File="IddSampleDriver.dll" Component_="IddSampleDriver.dll" FileName="IDDSAM~1.DLL|IddSampleDriver.dll" Attributes="0" SourcePath="..\bin\virtualDisplay\IddSampleDriver.dll" SelfReg="false"/>
-    <ROW File="IddSampleDriver.inf" Component_="iddsampledriver.cat" FileName="IDDSAM~1.INF|IddSampleDriver.inf" Attributes="0" SourcePath="..\bin\virtualDisplay\IddSampleDriver.inf" SelfReg="false"/>
-    <ROW File="installCert.bat" Component_="iddsampledriver.cat" FileName="INSTAL~1.BAT|installCert.bat" Attributes="0" SourcePath="..\bin\virtualDisplay\installCert.bat" SelfReg="false"/>
-    <ROW File="option.txt" Component_="iddsampledriver.cat" FileName="option.txt" Attributes="0" SourcePath="..\bin\virtualDisplay\option.txt" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
-    <ROW BuildKey="x64_Release" BuildName="x64_Release" BuildOrder="1" BuildType="0" PackageFolder="." PackageFileName="Thinkremote" Languages="en" InstallationType="4" UseLargeSchema="true" MsiPackageType="x64"/>
+    <ROW BuildKey="x64_Release" BuildName="x64_Release" BuildOrder="1" BuildType="0" PackageFolder="." PackageFileName="PersonalCloudComputing" Languages="en" InstallationType="4" UseLargeSchema="true" MsiPackageType="x64"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
     <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
@@ -1543,7 +1500,6 @@
     <ROW Fragment="Sequences.aip" Path="&lt;AI_FRAGS&gt;Sequences.aip"/>
     <ROW Fragment="SetupTypeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\SetupTypeDlg.aip"/>
     <ROW Fragment="StaticUIStrings.aip" Path="&lt;AI_FRAGS&gt;StaticUIStrings.aip"/>
-    <ROW Fragment="Themes.aip" Path="&lt;AI_FRAGS&gt;Themes.aip"/>
     <ROW Fragment="UI.aip" Path="&lt;AI_THEMES&gt;classic\fragments\UI.aip"/>
     <ROW Fragment="Validation.aip" Path="&lt;AI_FRAGS&gt;Validation.aip"/>
     <ROW Fragment="VerifyRemoveDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRemoveDlg.aip"/>
@@ -1998,13 +1954,6 @@
     <ROW Feature_="MainFeature" Component_="welcome.pdb"/>
     <ROW Feature_="MainFeature" Component_="libEGL.dll_1"/>
     <ROW Feature_="MainFeature" Component_="libGLESv2.dll_1"/>
-    <ROW Feature_="MainFeature" Component_="pin_in.ico"/>
-    <ROW Feature_="MainFeature" Component_="VBCABLE_ControlPanel.exe"/>
-    <ROW Feature_="MainFeature" Component_="VBCABLE_Setup.exe"/>
-    <ROW Feature_="MainFeature" Component_="VBCABLE_Setup_x64.exe"/>
-    <ROW Feature_="MainFeature" Component_="certmgr.exe"/>
-    <ROW Feature_="MainFeature" Component_="iddsampledriver.cat"/>
-    <ROW Feature_="MainFeature" Component_="IddSampleDriver.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="logo.exe" SourcePath="..\client\window\electron\assets\logo.ico" Index="0"/>
