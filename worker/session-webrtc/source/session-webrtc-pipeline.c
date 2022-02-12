@@ -544,7 +544,6 @@ setup_element_property(SessionCore* core)
         {
             g_object_set(pipe->audio_element[SOUND_SOURCE], "device", capture_device.sound_capture_device_id, NULL);
         }
-
     }
 
     if (capture_device.monitor_handle) 
@@ -560,7 +559,8 @@ setup_element_property(SessionCore* core)
 
 
 void
-toggle_pointer(gboolean toggle, SessionCore* core)
+toggle_pointer(gboolean toggle, 
+               SessionCore* core)
 {
     Pipeline* pipe = session_core_get_pipeline(core);
     if (pipe->video_element[SCREEN_CAPTURE]) 
