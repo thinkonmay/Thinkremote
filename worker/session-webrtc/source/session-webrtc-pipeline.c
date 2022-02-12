@@ -548,7 +548,7 @@ setup_element_property(SessionCore* core)
 
     if (capture_device.monitor_handle) 
     {
-        if (pipe->audio_element[SCREEN_CAPTURE]) 
+        if (pipe->video_element[SCREEN_CAPTURE]) 
         {
             g_object_set(pipe->video_element[SCREEN_CAPTURE], "monitor-handle", capture_device.monitor_handle, NULL);
         }
