@@ -451,6 +451,7 @@ requestKeyboardLock()
         "MetaLeft",
         "MetaRight"
     ];
+    
     console.log("requesting keyboard lock");
     Navigator.keyboard.lock(keys).then(
         () => {

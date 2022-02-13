@@ -21,6 +21,8 @@ RUN dotnet build "remote.csproj" -c Release -o /app/build
 FROM build AS publish 
 RUN dotnet publish "remote.csproj" -c Release -o /app/publish
 
+FROM base AS prod
+
 ENV URL=host.thinkmay.net
 
 WORKDIR /app

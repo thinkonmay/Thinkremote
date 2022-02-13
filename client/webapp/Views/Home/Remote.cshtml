@@ -160,15 +160,6 @@ var app = new Vue({
             this.setDebug("Connecting to server");
             SignallingConnect();
         },
-        ///show debug key, only functional in debug mode
-        showDrawer(newValue){
-            if(newValue) {
-                DetachEvent();
-            }
-            else{
-                AttachEvent();
-            }        
-        },
         onClipboard(Data)
         {
             if (this.clipboardStatus === 'enabled') 
