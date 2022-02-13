@@ -7,7 +7,7 @@ on:
 
 
 jobs:
-  build-service:
+  build-remote:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
@@ -23,7 +23,7 @@ jobs:
       id: date
       run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
-    - name: ServicePage 
+    - name: RemotePage
       uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
       with:
         context: client/webapp
