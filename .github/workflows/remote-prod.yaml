@@ -2,13 +2,7 @@ name: WEBAPP_PRODUCTION
 
 on:
   push:
-    branches: [ master ]
-    paths: 
-    - 'Client/website/**'
   pull_request:
-    branches: [ master ]
-    paths: 
-    - 'Client/website/**'
   workflow_dispatch:
 
 
