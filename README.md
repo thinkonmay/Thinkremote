@@ -1,6 +1,6 @@
-Personal cloud computing
+Thinkremote
 ===================================
-Personal cloud computing is the technology stack allow you to access other computer remotely
+Thinkremote is the technology stack allow you to access your computer remotely
 
 **Demo**
 
@@ -78,13 +78,13 @@ Test instruction
 
 How to use
 -----------
-Personal cloud computing github repository is managed by Thinkmay, we also provide the infrastructure you needed to use personal cloud computing  
+Thinkremote github repository is managed by Thinkmay, we also provide the infrastructure you needed to use personal cloud computing  
 
 - Request a demo by email us: contact@thinkmay.net
 
 Licensing
 -----------
-Thinkmay streaming is distributed uner GNU General Public License v3
+Thinkremote is distributed uner GNU General Public License v3
 
 Contributing
 -----------
