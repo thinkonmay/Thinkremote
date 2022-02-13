@@ -16,7 +16,7 @@
 #include <agent-shell-session.h>
 #include <agent-device.h>
 #include <agent-child-process.h>
-#include <agent-win32-server.h>
+#include <win32-server.h>
 #include <agent-port-forward.h>
 
 
@@ -90,7 +90,8 @@ handle_message_server(gchar* path,
 
 
 AgentServer*
-agent_new(gboolean self_host)
+agent_new(gboolean self_host,
+		  gchar* token)
 {	
 	GError* error = NULL;
 	AgentServer* agent = malloc(sizeof(AgentServer));
@@ -101,21 +102,22 @@ agent_new(gboolean self_host)
 	agent->remote_session = intialize_remote_session_service();
 	agent->socket = initialize_socket();
 
-#ifndef G_OS_WIN32
+#ifdef G_OS_WIN32
 	agent->server = init_agent_server(agent,self_host);
 #else
-	agent->server = init_window_server(handle_message_server,agent);
+	agent->server = init_window_server(handle_message_server,
+		portforward_get_agent_instance_port(agent->portforward),agent);
 #endif
 
 	if(!agent->server){return;}
 
 	if(self_host) {
-		register_with_selfhosted_cluster(agent,self_host);
+#ifdef G_OS_WIN32
+		register_with_selfhosted_cluster(agent,self_host,token);
+#endif
 	} else {
 		PortForward* port = start_portforward(agent);
-
-		register_with_managed_cluster(agent,
-			portforward_get_agent_instance_port(port), NULL);
+		register_with_managed_cluster(agent, port, token);
 	}
 
 	

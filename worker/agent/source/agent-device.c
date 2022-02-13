@@ -238,8 +238,7 @@ get_device_information()
 
 gchar*
 get_registration_message(gboolean port_forward, 
-						 gchar* agent_instance_port, 
-						 gchar* core_instance_port)
+						 gchar* port)
 {
 	DeviceInformation* infor = get_device_information();
 	JsonObject* information = json_object_new();
@@ -260,7 +259,7 @@ get_registration_message(gboolean port_forward,
 
 		g_string_append(agent_url_string, ":");
 
-		g_string_append(agent_url_string, AGENT_PORT 		);
+		g_string_append(agent_url_string, port);
 	}
 	else
 	{
@@ -268,7 +267,7 @@ get_registration_message(gboolean port_forward,
 
 		g_string_append(agent_url_string, ":");
 
-		g_string_append(agent_url_string, agent_instance_port);
+		g_string_append(agent_url_string, port);
 	}
 	
 	json_object_set_string_member(information,	"AgentUrl", g_string_free(agent_url_string,FALSE));

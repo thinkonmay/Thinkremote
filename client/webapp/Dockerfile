@@ -23,6 +23,8 @@ RUN dotnet publish "remote.csproj" -c Release -o /app/publish
 
 FROM base AS prod
 
+ENV URL=host.thinkmay.net
+
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "remote.dll"]

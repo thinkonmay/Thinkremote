@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Net;
 using System.Linq;
+using System.Threading;
 
 namespace port_forward
 {
@@ -14,60 +15,105 @@ namespace port_forward
     {
         static void Main(string[] args)
         {
+            var port = Environment.GetEnvironmentVariable("port");
+            var token = Environment.GetEnvironmentVariable("clustertoken");
+            var infor_url = Environment.GetEnvironmentVariable("clusterinfor");
+
+            if(port == null || token == null || infor_url == null)
+            {
+                Quit(ReturnCode.ERROR_GET_ENV); 
+                return;
+            }
+
+            ReversePortForward(token, int.Parse(port), infor_url).Wait();
+            Quit(ReturnCode.PORT_FORWARD_OK);
+        }
+        static async Task ReversePortForward(string cluster_token,
+                                             int port,
+                                             string infor_url)
+        {
+            SshClient client = null;
+            ClusterInstance instance = null;
+            ForwardedPortRemote reverse = null;
+
             try
             {
+                var request = new RestRequest(infor_url, Method.GET)
+                    .AddHeader("Authorization",cluster_token);
+                var instanceResult = (await (new RestClient()).ExecuteAsync(request));
 
-                var port = Environment.GetEnvironmentVariable("port");
-                var token = Environment.GetEnvironmentVariable("cluster_token");
+                if(instanceResult.StatusCode != HttpStatusCode.OK ||
+                   instanceResult.Content == null ||
+                   instanceResult.ContentLength == 0)
+                {
+                    Quit(ReturnCode.ERROR_FETCH_INSTANCE_INFOR);
+                }
 
-                MainAsync(token, int.Parse(port), int.Parse(port)).Wait();
+                instance =  JsonConvert.DeserializeObject<GlobalCluster>(instanceResult.Content).instance;
+            }
+            catch (Exception ex) 
+            { 
+                Quit(ReturnCode.ERROR_GET_ENV);
+            }
+
+
+            try
+            {
+                MemoryStream keyStream = new MemoryStream(Encoding.UTF8.GetBytes(instance.keyPair.PrivateKey));
+                var keyFiles = new[] { new PrivateKeyFile(keyStream) };
+
+                var methods = new List<AuthenticationMethod>();
+                methods.Add(new PrivateKeyAuthenticationMethod("ubuntu", keyFiles));
+
+                var con = new ConnectionInfo(instance.IPAdress, 22, "ubuntu", methods.ToArray());
+                client = new SshClient(con);
+                reverse = new ForwardedPortRemote((uint)port, "localhost", (uint)port);
+
             }
             catch (Exception ex)
             {
-
+                Quit(ReturnCode.ERROR_INIT_SSH_CLIENT);
             }
-        }
-        static async Task MainAsync(string cluster_token,
-                                    int agent_port, 
-                                    int agent_instance_port)
-        {
-            ClusterInstance instance = null;
-            try
+
+            if(client == null || reverse == null)
             {
-                var request = new RestRequest("https://host.thinkmay.net/Cluster/Infor", Method.GET)
-                    .AddHeader("Authorization",cluster_token);
-
-                var instanceResult = (await (new RestClient()).ExecuteAsync(request));
-                instance =  JsonConvert.DeserializeObject<GlobalCluster>(instanceResult.Content).instance;
+                Quit(ReturnCode.ERROR_INIT_SSH_CLIENT);
             }
-            catch (Exception ex) { return; }
-
-
-            MemoryStream keyStream = new MemoryStream(Encoding.UTF8.GetBytes(instance.keyPair.PrivateKey));
-            var keyFiles = new[] { new PrivateKeyFile(keyStream) };
-
-            var methods = new List<AuthenticationMethod>();
-            methods.Add(new PrivateKeyAuthenticationMethod("ubuntu", keyFiles));
-
-            var con = new ConnectionInfo(instance.IPAdress, 22, "ubuntu", methods.ToArray());
-            var client = new SshClient(con);
-            var agent = new ForwardedPortRemote((uint)agent_instance_port, "localhost", (uint)agent_port);
 
 
             try
             {
                 client.Connect();
-                client.AddForwardedPort(agent);
-                agent.Start();
-
-                { while (true) { Thread.Sleep(10000); } }
-
-                agent.Stop();
-                client.Disconnect();            
+                if (!client.IsConnected)
+                    Quit(ReturnCode.ERROR_CONNECT_TO_INSTANCE);
             }
             catch (Exception ex)
             {
+                Quit(ReturnCode.ERROR_HANDLE_SSH_CONNECTION);
             }
+
+
+
+            try
+            {
+                client.AddForwardedPort(reverse);
+                reverse.Start();
+
+                if(!reverse.IsStarted)
+                    throw new Exception();
+
+            }
+            catch (Exception ex)
+            {
+                Quit(ReturnCode.ERROR_PORTFORWARD);
+            }
+
+            while (true) { Thread.Sleep(TimeSpan.FromDays(1)); }
+            return;
+        }
+        static void Quit(ReturnCode ret)
+        {
+            Environment.Exit((int)ret);
         }
     }
 }

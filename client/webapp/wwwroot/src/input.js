@@ -16,6 +16,14 @@ connectionDone()
 function 
 mouseButtonUp(event) 
 {
+    for (let index = 0; index < app.pressedKey.mouse.length; index++) {
+        const element = app.pressedKey.mouse[index];
+        if(event.code === element)
+        {
+            app.pressedKey.mouse.splice(index,1);
+        }
+    }
+
     if(app.Mouse.relativeMouse)
     {        
         var INPUT =
@@ -25,7 +33,8 @@ mouseButtonUp(event)
         }
     
         app.HidDC.send(JSON.stringify(INPUT));
-    }else
+    }
+    else
     {
         var mousePosition_X = clientToServerX(event.clientX);
         var mousePosition_Y = clientToServerY(event.clientY);
@@ -50,6 +59,8 @@ mouseButtonUp(event)
 function 
 mouseButtonDown(event) 
 {
+    app.pressedKey.mouse.push(event.button);
+
     if(app.Mouse.relativeMouse)
     {        
         var INPUT =
@@ -133,9 +144,8 @@ reset_mouse()
     var mousePosition_X = clientToServerX(0);
     var mousePosition_Y = clientToServerY(0);              
 
-    var array = [0,1,2]; 
 
-    array.forEach(element => {
+    app.pressedKey.mouse.forEach(element => {
         var INPUT =
         {
             "Opcode":HidOpcode.MOUSE_UP,
@@ -143,25 +153,27 @@ reset_mouse()
             "dX":mousePosition_X,
             "dY":mousePosition_Y,
         }
-
         app.HidDC.send(JSON.stringify(INPUT));
     });
+    app.pressedKey.mouse = [];
 }
 
 function 
 reset_keyboard()
 {
-    var array = [
-            "ControlLeft",
-            "ShiftLeft",
-            "AltLeft",
-            "Home",
-            "MetaLeft",
-            "KeyF",
-            "KeyM",
-            "Escape"
-        ]; 
-    array.forEach(element => {
+    // var array = [
+    //         "ControlLeft",
+    //         "ShiftLeft",
+    //         "AltLeft",
+    //         "Home",
+    //         "MetaLeft",
+    //         "KeyF",
+    //         "KeyM",
+    //         "Escape"
+    //     ]; 
+
+
+    app.pressedKey.keyboard.forEach(element => {
         var INPUT = 
         {
             "Opcode":HidOpcode.KEYUP,
@@ -169,6 +181,7 @@ reset_keyboard()
         }
         app.HidDC.send(JSON.stringify(INPUT));
     });
+    app.pressedKey.keyboard = [];
 }
 
 
@@ -181,6 +194,14 @@ contextMenu(event)
 
 function keyup(event) 
 {  
+    for (let index = 0; index < app.pressedKey.keyboard.length; index++) {
+        const element = app.pressedKey.keyboard[index];
+        if(event.code === element)
+        {
+            app.pressedKey.keyboard.splice(index,1);
+        }
+    }
+
     var Keyboard =
     {
         "Opcode":HidOpcode.KEYUP,
@@ -190,22 +211,22 @@ function keyup(event)
     app.HidDC.send(JSON.stringify(Keyboard));
 
     // disable problematic browser shortcuts
-    if (event.code === 'F5' && event.ctrlKey ||
-        event.code === 'Tab' ||
-        event.code === 'KeyI' && event.ctrlKey && event.shiftKey ||
-        event.code === 'KeyW' && event.ctrlKey ||
-        event.code === 'F11') {
-        return;
-    }
-
-    event.preventDefault();
-
+    if ((event.code === 'F5' && event.ctrlKey)||
+        (event.code === 'Tab')||
+        (event.code === 'KeyI' && event.ctrlKey && event.shiftKey)||
+        (event.code === 'KeyW' && event.ctrlKey)||
+        (event.code === 'F11') )
+    {
+        event.preventDefault();
+    } 
 }
 
 
 function 
 keydown(event) 
 {
+    app.pressedKey.keyboard.push(event.code);
+
     if (event.code === 'KeyP' && event.ctrlKey && event.shiftKey) {
         if(!document.pointerLockElement)
         {
@@ -237,14 +258,13 @@ keydown(event)
     }
 
     app.HidDC.send(JSON.stringify(Keyboard));
-    event.preventDefault();
 
     // disable problematic browser shortcuts
-    if (event.code === 'F5' && event.ctrlKey ||
-        event.code === 'Tab' ||
-        event.code === 'KeyI' && event.ctrlKey && event.shiftKey ||
-        event.code === 'KeyW' && event.ctrlKey ||
-        event.code === 'F11') {
+    if ((event.code === 'F5' && event.ctrlKey) ||
+        (event.code === 'Tab') ||
+        (event.code === 'KeyI' && event.ctrlKey && event.shiftKey) ||
+        (event.code === 'KeyW' && event.ctrlKey) ||
+        (event.code === 'F11')) {
         event.preventDefault();
         return;
     }
@@ -431,6 +451,7 @@ requestKeyboardLock()
         "MetaLeft",
         "MetaRight"
     ];
+    
     console.log("requesting keyboard lock");
     Navigator.keyboard.lock(keys).then(
         () => {

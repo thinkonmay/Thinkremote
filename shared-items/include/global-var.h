@@ -14,40 +14,18 @@
 #include <glib-2.0/glib.h>
 
 
-const gchar*                      agent_port ;
-const gchar*                      cluster_ip ; 
-const gchar*                      cluster_name ; 
 const gchar*                      token ;
-const gchar*                      turn ; 
-const gchar*                      user ; 
-const gchar*                      password ; 
+const gchar*                      cluster_ip ; 
 const gchar*                      device_token ; 
 const gchar*                      cluster_token ; 
 
 
-/**
- * @brief 
- * agent to expose to session core and cluster manager
- */
-#define			AGENT_PORT 					agent_port
 
 /**
  * @brief 
  * clueter manager ip address
  */
 #define			CLUSTER_URL 				cluster_ip 
-
-/**
- * @brief 
- * 
- */
-#define			CLUSTER_NAME 				cluster_name
-
-/**
- * @brief 
- * user token to communication with other module
- */
-#define			TOKEN 						token
 
 /**
  * @brief 
@@ -63,28 +41,9 @@ const gchar*                      cluster_token ;
 
 /**
  * @brief 
- * default turn connection 
- */
-#define			TURN						turn
-
-/**
- * @brief 
- * cluster owner username 
- */
-#define         USER                        user 
-
-/**
- * @brief 
- * cluster owner password
- */
-#define         PASSWORD                    password 
-
-
-/**
- * @brief 
  * setup defaul value
  */
-void            default_var                 ();
+void            thinkremote_application_init   ();
 
 
 #endif

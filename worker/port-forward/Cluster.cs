@@ -29,4 +29,17 @@ namespace port_forward
 
         public int  InstancePort {get;set;}
     }
+
+    public enum ReturnCode 
+    {
+        PORT_FORWARD_OK = 100,
+        ERROR_GET_ENV,
+        ERROR_FETCH_INSTANCE_INFOR,
+        ERROR_INIT_SSH_CLIENT,
+        ERROR_CONNECT_TO_INSTANCE,
+        ERROR_PORTFORWARD,
+        ERROR_HANDLE_SSH_CONNECTION,
+
+        ERROR_DOTNET_ENVIRONMENT = 131,
+    }
 }

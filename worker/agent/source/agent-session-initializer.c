@@ -13,13 +13,19 @@
 #include <agent-type.h>
 #include <agent-child-process.h>
 
+#include <development.h>
 #include <message-form.h>
 #include <general-constant.h>
 #include <global-var.h>
 #include <logging.h>
 
+#include <glib-2.0/glib.h>
 #include <gmodule.h>
 #include <stdio.h>
+
+#ifdef G_OS_WIN32
+#include <Windows.h>
+#endif
 
 #define BUFFER_SIZE 10000
 
@@ -77,7 +83,6 @@ session_terminate(AgentServer* agent)
     clean_childprocess(session->process);
     session->process = NULL;
 
-    // return true 
     return TRUE;
 }
 
@@ -85,6 +90,12 @@ gboolean
 session_initialize(AgentServer* agent)
 {
     RemoteSession* session = agent_get_remote_session(agent);
+
+#ifdef G_OS_WIN32
+    SetEnvironmentVariable("clustertoken", TEXT(CLUSTER_TOKEN));
+    SetEnvironmentVariable("clusterurl", TEXT(CLUSTER_URL));
+    SetEnvironmentVariable("clusterinfor", TEXT(CLUSTER_INFOR));
+#endif
 
     // return false if session core is running before the initialization
     GString* core_script = g_string_new(SESSION_CORE_BINARY);
