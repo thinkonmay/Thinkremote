@@ -8,6 +8,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.Linq;
 using System.Threading;
+using Renci.SshNet.Common;
 
 namespace port_forward
 {
@@ -108,7 +109,13 @@ namespace port_forward
                 Quit(ReturnCode.ERROR_PORTFORWARD);
             }
 
-            while (true) { Thread.Sleep(TimeSpan.FromDays(1)); }
+            while (true)
+            {
+                if(!client.IsConnected)
+                {
+                    Quit(ReturnCode.ERROR_HANDLE_SSH_CONNECTION);
+                }
+            }
             return;
         }
         static void Quit(ReturnCode ret)

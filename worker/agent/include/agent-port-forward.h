@@ -21,7 +21,7 @@
  * @param agent 
  * @return gpointer 
  */
-PortForward*            start_portforward                       (AgentServer* agent);
+gboolean                start_portforward                       (AgentServer* agent);
 
 
 /**

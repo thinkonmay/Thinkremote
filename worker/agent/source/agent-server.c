@@ -111,13 +111,24 @@ agent_new(gboolean self_host,
 
 	if(!agent->server){return;}
 
-	if(self_host) {
+	if(self_host) 
+	{
 #ifdef G_OS_WIN32
 		register_with_selfhosted_cluster(agent,self_host,token);
 #endif
-	} else {
-		PortForward* port = start_portforward(agent);
-		register_with_managed_cluster(agent, port, token);
+	} 
+	else 
+	{
+		gboolean success = start_portforward(agent);
+		if(!success)
+		{
+			worker_log_output("Fail to start port-forward to cluster");
+			return NULL;
+		}
+		else
+		{
+			register_with_managed_cluster(agent, agent->portforward, token);
+		}
 	}
 
 	

@@ -14,7 +14,7 @@ const createWindow = () => {
   mainWindow.setTitle(require('./package.json').name);
   mainWindow.maximize();
   mainWindow.show();
-  mainWindow.loadURL("http://svcdev.thinkmay.net/dashboard")
+  mainWindow.loadURL("http://service.thinkmay.net/dashboard")
 };
 
 // This method will be called when Electron has finished
