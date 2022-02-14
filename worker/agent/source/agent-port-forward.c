@@ -200,13 +200,16 @@ handle_portforward_disconnected(ChildProcess* proc,
     }
 
 
-    while (!start_portforward(agent))
+    gboolean success = FALSE;
+    while (!success)
     {
 #ifdef G_OS_WIN32
         Sleep(1000);
 #else
         sleep(1000);
 #endif
+        success = start_portforward(agent);
+        worker_log_output("Re-establishing port-forward connection to cluster");
     }
 }
 
@@ -228,14 +231,13 @@ handle_portforward_output(GBytes* buffer,
 }
 
 
-PortForward*
+gboolean
 start_portforward(AgentServer* agent)
 {
     PortForward* port = agent_get_portforward(agent);
-    gchar* agent_port = portforward_get_agent_instance_port(port);
 
 #ifdef G_OS_WIN32
-    SetEnvironmentVariable("port", TEXT(agent_port));
+    SetEnvironmentVariable("port", TEXT(port->port));
     SetEnvironmentVariable("clustertoken", TEXT(CLUSTER_TOKEN));
     SetEnvironmentVariable("clusterinfor", TEXT(CLUSTER_INFOR));
 #endif
@@ -246,7 +248,7 @@ start_portforward(AgentServer* agent)
         (ChildStdOutHandle)handle_portforward_output,
         (ChildStateHandle)handle_portforward_disconnected, agent,NULL);
 
-    return port->process ? port : NULL;
+    return port->process ? TRUE : FALSE;
 }
 
 
