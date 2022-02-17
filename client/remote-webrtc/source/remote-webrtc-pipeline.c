@@ -18,6 +18,7 @@
 #include <remote-webrtc-input.h>
 
 #include <qoe.h>
+#include <global-var.h>
 #include <development.h>
 
 #include <gst/gst.h>

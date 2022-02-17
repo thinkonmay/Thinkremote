@@ -15,18 +15,23 @@
 #include <glib-2.0/glib.h>
 #include <development.h>
 #include <string-manipulate.h>
+#include <global-var.h>
 
 #define GST_USE_UNSTABLE_API
 
-static gchar connection_string[500] = {0};
+
 static gchar remote_token[500] = {0};
 
+/**
+ * @brief 
+ * 
+ */
+const gchar* environment;
 
-#define GST_DEBUG               4
 
 static GOptionEntry entries[] = {
-    {"url", 0, 0, G_OPTION_ARG_STRING, &connection_string,
-        "url run by electron app to initialize remote app", "codec"},
+    {"environment", 0, 0, G_OPTION_ARG_STRING, &environment,
+        "environment (dev = development, default = production)", "ENV"},
     {NULL},
 };
 
@@ -36,6 +41,9 @@ static GOptionEntry entries[] = {
 int
 main(int argc, char* argv[])
 {
+    environment = malloc(100);
+    memset(environment,0,100);
+
     GOptionContext *context;
     GError *error = NULL;
 
@@ -47,6 +55,10 @@ main(int argc, char* argv[])
         return -1;
     }
 
+    thinkremote_application_init(environment,
+                                NULL,
+                                NULL,
+                                NULL);
 
     if(!DEVELOPMENT_ENVIRONMENT)
     {

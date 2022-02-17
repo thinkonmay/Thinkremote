@@ -40,12 +40,6 @@ struct _SessionCore
 {
 	/**
 	 * @brief 
-	 * Soup server for receiving ping from cluster manager
-	 */
-	SoupServer* server;
-
-	/**
-	 * @brief 
 	 * pipeline of the stream
 	 */
 	Pipeline* pipe;
@@ -95,26 +89,6 @@ struct _SessionCore
 
 
 
-/**
- * @brief 
- * callback function used to handle soup message from client,
- * those message will only come from agent and cluster manager 
- * @param server session core soup server
- * @param msg message that need to handle
- * @param path 
- * @param query 
- * @param user_data pointer to session core
- */
-void
-server_callback (SoupServer        *server,
-                 SoupMessage	   *msg,
-		 		 const char        *path,
-                 GHashTable        *query,
-				 SoupClientContext *ctx,
-		 		 gpointer           user_data);
-
-
-
 
 
 /**
@@ -156,8 +130,7 @@ session_core_setup_session(SessionCore* self)
 		worker_log_output("registering with device token\n");
 		worker_log_output(DEVICE_TOKEN);
 
-		soup_message_headers_append(token_message->request_headers,
-			"Authorization",DEVICE_TOKEN);
+		soup_message_headers_append(token_message->request_headers, "Authorization",DEVICE_TOKEN);
 		soup_session_send_message(http_session,token_message);
 
 		if(token_message->status_code == SOUP_STATUS_OK )
@@ -265,64 +238,6 @@ session_core_setup_session(SessionCore* self)
 
 
 
-/**
- * @brief 
- * initialize session core with message handler
- * @param core 
- * @return SoupServer* 
- */
-static SoupServer*
-init_session_core_server(SessionCore* core)
-{
-	GError* error = NULL;
-	SoupServer* server = soup_server_new(NULL);
-
-	soup_server_add_handler(server,
-		"/",server_callback,core,NULL);
-
-	soup_server_listen_all(server,2250,0,&error);
-	if(error){g_printerr(error->message); return;}
-	return server;
-}
-
-
-
-void
-server_callback (SoupServer        *server,
-                 SoupMessage	   *msg,
-		 		 const char        *path,
-                 GHashTable        *query,
-				 SoupClientContext *ctx,
-		 		 gpointer           user_data)
-{
-	char *file_path;
-	SoupMessageHeadersIter iter;
-	SoupMessageBody *request_body;
-	const char *name, *value;
-	SessionCore* core = (SessionCore*) user_data;
-	SoupURI* uri = soup_message_get_uri(msg);
-	if(!g_strcmp0(uri->path,"/ping"))
-	{
-		gchar* response = "ping";
-		soup_message_set_response(msg,
-			"application/json",SOUP_MEMORY_COPY,response,strlen(response));
-		msg->status_code = SOUP_STATUS_OK;
-		return;
-	}
-
-	soup_message_headers_iter_init (&iter, msg->request_headers);
-	while (soup_message_headers_iter_next (&iter, &name, &value))
-	{
-		if(!g_strcmp0(name,"Authorization"))
-		{ 
-			if(!validate_token(value))
-			{
-				msg->status_code = SOUP_STATUS_UNAUTHORIZED;
-				return;
-			}
-		}
-	}
-}
 
 
 gpointer
@@ -376,7 +291,6 @@ session_core_initialize()
 	worker_log_output("Session core process started");
 	SessionCore* core = malloc(sizeof(SessionCore));
 
-	core->server = 				init_session_core_server(core);
 	core->hub =					webrtchub_initialize();
 	core->signalling =			signalling_hub_initialize(core);
 	core->qoe =					qoe_initialize();

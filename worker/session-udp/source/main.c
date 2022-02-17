@@ -9,30 +9,30 @@
 
 #define GST_USE_UNSTABLE_API
 
-#define GST_DEBUG       4
 
 
-static gchar remote_token[500] = {0};
+/**
+ * @brief 
+ * 
+ */
+const gchar* environment;
 
 
 
 static GOptionEntry entries[] = {
-  {"clusterip", 0, 0, G_OPTION_ARG_STRING, &CLUSTER_URL,
-      "Signalling server to connect to", "URL"},
-  {"token", 0, 0, G_OPTION_ARG_STRING, &DEVICE_TOKEN,
-      "Signalling server to connect to", "URL"},
+    {"environment", 0, 0, G_OPTION_ARG_STRING, &environment,
+        "environment (dev = development, default = production)", "ENV"},
   {NULL},
 };
 
 int
 main(int argc, char* argv[])
 {
-    thinkremote_application_init();
-    GOptionContext *context;
+    environment = malloc(100);
+    memset(environment,0,100);
+
     GError *error = NULL;
-
-
-    context = g_option_context_new ("- thinkshare");
+    GOptionContext *context = g_option_context_new ("- thinkshare");
     g_option_context_add_main_entries (context, entries, NULL);
     g_option_context_add_group (context, gst_init_get_option_group ());
     if (!g_option_context_parse (context, &argc, &argv, &error)) {
@@ -41,6 +41,7 @@ main(int argc, char* argv[])
     }
 
 
+    thinkremote_application_init(environment,NULL,NULL,NULL);
     if(!DEVELOPMENT_ENVIRONMENT)
     {
         g_print("session core start with cluster manager url\n");

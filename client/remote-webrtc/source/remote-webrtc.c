@@ -19,6 +19,7 @@
 
 #include <module-code.h>
 #include <development.h>
+#include <global-var.h>
 
 
 #include <glib.h>

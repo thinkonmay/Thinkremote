@@ -26,6 +26,18 @@
 
 
 
+/**
+ * @brief 
+ * 
+ */
+const gchar* cluster_url; 
+
+
+/**
+ * @brief 
+ * 
+ */
+const gchar* cluster_token; 
 
 /**
  * @brief 
@@ -52,6 +64,12 @@ const gchar* cluster_name ;
  */
 const gchar* token;
 
+/**
+ * @brief 
+ * user token to communication with other module
+ */
+const gchar* environment;
+
 static GOptionEntry entries[] = {
   {"token", 0, 0, G_OPTION_ARG_STRING, &token,
       "token register with worker manager", "TOKEN"},
@@ -59,6 +77,8 @@ static GOptionEntry entries[] = {
       "Signalling server to connect to", "NAME"},
   {"user", 0, 0, G_OPTION_ARG_STRING, &user,
       "thinkmay manager username", "USERNAME"},
+  {"environment", 0, 0, G_OPTION_ARG_STRING, &environment,
+      "environment (dev = development, default = production)", "ENV"},
   {"password", 0, 0, G_OPTION_ARG_STRING, &password,
       "thinkmay manager password", "PASSWORD"},
   {NULL},
@@ -68,19 +88,26 @@ static GOptionEntry entries[] = {
 int
 main(int argc, char* argv[])
 {
-    user = malloc(100);
-    password = malloc(100);
-    token = malloc(500);
-    cluster_name = malloc(100);
+    user =              malloc(100);
+    cluster_url =       malloc(100);
+    environment =       malloc(100);
+    password =          malloc(100);
+    cluster_name =      malloc(100);
+
+    cluster_token =     malloc(500);
+    token =             malloc(500);
+
     memset(user,0,100);
+    memset(cluster_url,0,100);
+    memset(environment,0,100);
     memset(password,0,100);
     memset(cluster_name,0,100);
+    
     memset(token,0,500);
+    memset(cluster_token,0,500);
 
-    if(DEVELOPMENT_ENVIRONMENT)
-        g_printerr("Cannot start agent in development environment\naborting...");
 
-    thinkremote_application_init();
+
     GOptionContext *context;
     GError *error = NULL;
 
@@ -89,6 +116,13 @@ main(int argc, char* argv[])
     if (!g_option_context_parse (context, &argc, &argv, &error)) {
         g_printerr ("Error initializing: %s\n", error->message);
         return -1;
+    }
+
+
+    if(DEVELOPMENT_ENVIRONMENT)
+    {
+        g_printerr("Cannot start agent in development environment\naborting...");
+        return;
     }
 
     const gchar* http_aliases[] = { "https", NULL };
@@ -118,64 +152,63 @@ main(int argc, char* argv[])
 
 
 
-    JsonObject* login = json_object_new();
-    json_object_set_string_member(login,"UserName",user);
-    json_object_set_string_member(login,"Password",password);
-    gchar* login_body = get_string_from_json_object(login);
+    {
+        JsonObject* login = json_object_new();
+        json_object_set_string_member(login,"UserName",user);
+        json_object_set_string_member(login,"Password",password);
+        gchar* login_body = get_string_from_json_object(login);
 
 
-    SoupMessage* message = soup_message_new(SOUP_METHOD_POST,ACCOUNT_URL);
-    soup_message_set_request(message,"application/json",SOUP_MEMORY_COPY,login_body,strlen(login_body));
-    soup_session_send_message(session,message);
+        SoupMessage* message = soup_message_new(SOUP_METHOD_POST,ACCOUNT_URL);
+        soup_message_set_request(message,"application/json",SOUP_MEMORY_COPY,login_body,strlen(login_body));
+        soup_session_send_message(session,message);
 
-    JsonParser* user_parser = json_parser_new();
-    JsonObject* user_request_result = get_json_object_from_string(message->response_body->data,&error,user_parser);
-    gchar* user_token = json_object_get_string_member(user_request_result,"token");
-    memcpy(token,user_token,strlen(user_token));
-    g_object_unref(user_parser); 
-    if(!user_token) {
-        g_printerr("fail to login, retry\n");
+        JsonParser* parser = json_parser_new();
+        JsonObject* result = get_json_object_from_string(message->response_body->data,&error,parser);
+        gchar* user_token = json_object_get_string_member(result,"token");
+
+        if(!user_token) 
+            g_printerr("fail to login, retry\n");
+        else
+            g_print("Logged in\n");
+
+        memcpy(token,user_token,strlen(user_token));
+        g_object_unref(parser); 
+    }
+
+
+    if(!token)
         return;
-    }
-    else
+
+
     {
-        g_print("Logged in\n");
+        GString* string = g_string_new(CLUSTER_TOKEN_URL);
+        g_string_append(string,"?ClusterName=");
+        g_string_append(string,cluster_name);
+        gchar* cluster_token_url = g_string_free(string,FALSE);
+
+        SoupMessage* message = soup_message_new(SOUP_METHOD_GET,cluster_token_url);
+        soup_message_headers_append(message->request_headers, "Authorization",token);
+        soup_session_send_message(session,message);
+
+        if(message->status_code == 401)
+            g_printerr("User have evelvated to cluster manager yet");
+
+        JsonParser* parser = json_parser_new();
+        JsonObject* result = get_json_object_from_string(message->response_body->data,&error,parser);
+        gchar* cluster_token_received = json_object_get_string_member(result,"token");
+        memcpy(cluster_token,cluster_token_received,strlen(cluster_token_received));
+        g_object_unref(parser); 
     }
 
 
-
-    GString* string = g_string_new(CLUSTER_TOKEN_URL);
-    g_string_append(string,"?ClusterName=");
-    g_string_append(string,cluster_name);
-    gchar* cluster_token_url = g_string_free(string,FALSE);
-
-    SoupMessage* cluster_message = soup_message_new(SOUP_METHOD_GET,cluster_token_url);
-    soup_message_headers_append(cluster_message->request_headers, "Authorization",token);
-    soup_session_send_message(session,cluster_message);
-
-    if(cluster_message->status_code == 401)
-        g_printerr("User have evelvated to cluster manager yet");
-
-    JsonParser* cluster_parser = json_parser_new();
-    JsonObject* cluster_request_result = get_json_object_from_string(cluster_message->response_body->data,&error,cluster_parser);
-    gchar* cluster_token_received = json_object_get_string_member(cluster_request_result,"token");
-    memcpy(CLUSTER_TOKEN,cluster_token_received,strlen(cluster_token_received));
-    g_object_unref(cluster_parser); 
-
-
-
-
-    SoupMessage* cluster_infor_message = soup_message_new(SOUP_METHOD_GET,CLUSTER_INFOR);
-    soup_message_headers_append(cluster_infor_message->request_headers, "Authorization",cluster_token);
-    soup_session_send_message(session,cluster_infor_message);
-
-    JsonParser* cluster_infor_parser = json_parser_new();
-    JsonObject* cluster_infor_result = get_json_object_from_string(cluster_infor_message->response_body->data,&error,cluster_infor_parser);
-
-    gboolean self_host = json_object_get_boolean_member(cluster_infor_result,"selfHost");
-    if(!self_host)
     {
-        JsonObject* instance = json_object_get_object_member(cluster_infor_result,"instance");
+        SoupMessage* message = soup_message_new(SOUP_METHOD_GET,INSTANCE_INFOR_URL);
+        soup_message_headers_append(message->request_headers, "Authorization",cluster_token);
+        soup_session_send_message(session,message);
+
+        JsonParser* parser = json_parser_new();
+        JsonObject* instance = get_json_object_from_string(message->response_body->data,&error,parser);
         gchar* ipAddress = json_object_get_string_member(instance,"ipAdress");
 
 
@@ -184,17 +217,16 @@ main(int argc, char* argv[])
         g_string_append(cluster_url_string,":5000");
         gchar* cluster_url_result = g_string_free(cluster_url_string,FALSE);
 
-        memcpy(CLUSTER_URL, cluster_url_result,strlen(cluster_url_result));
-    }
-    else
-    {
-        g_print("thinkmay cluster manager URL:\n[URL]: ");
-        scanf("%s", CLUSTER_URL);
+        memcpy(cluster_url, cluster_url_result,strlen(cluster_url_result));
+        g_object_unref(parser);
     }
 
+    thinkremote_application_init(environment,
+                                cluster_url,
+                                cluster_token,
+                                NULL);
 
-    g_object_unref(cluster_infor_parser); 
-    agent_new(self_host,token);
+    agent_new(FALSE,token);
     return;
 }
 

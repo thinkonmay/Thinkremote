@@ -19,6 +19,7 @@
 #include <logging.h>
 #include <human-interface-opcode.h>
 #include <key-convert.h>
+#include <global-var.h>
 #include <development.h>
 
 #include <gst/gst.h>

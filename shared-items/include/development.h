@@ -11,11 +11,12 @@
 #ifndef __DEVELOPMENT_H__
 #define __DEVELOPMENT_H__
 
-/**
- * @brief 
- * 
- */
-#define DEVELOPMENT_ENVIRONMENT            FALSE
+
+#include <glib.h>
+
+
+
+
 
 /**
  * @brief 
@@ -27,7 +28,7 @@
  * @brief 
  * 
  */
-#define THINKMAY_DOMAIN                    "host.thinkmay.net" 
+#define THINKMAY_DOMAIN                    "development.thinkmay.net" 
 
 /**
  * @brief 
@@ -45,7 +46,13 @@
  * @brief 
  * 
  */
-#define CLUSTER_INFOR                       "https://"THINKMAY_DOMAIN"/Cluster/Infor"
+#define CLUSTER_INFOR_URL                   "https://"THINKMAY_DOMAIN"/Cluster/Infor"
+
+/**
+ * @brief 
+ * 
+ */
+#define INSTANCE_INFOR_URL                  "https://"THINKMAY_DOMAIN"/Cluster/Instance"
 
 /**
  * @brief 

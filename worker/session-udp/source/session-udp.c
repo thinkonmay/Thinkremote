@@ -370,9 +370,7 @@ session_core_initialize()
 	worker_log_output("Session core process started");
 	SessionUdp* core = malloc(sizeof(SessionUdp));
 
-#ifndef USE_LIBSOUP 
-	core->server = 				init_session_core_server(core);
-#else
+#ifdef G_OS_WIN32
 	core->server = 				init_window_server((ServerMessageHandle)handle_message_server,"6003",core);
 #endif
 

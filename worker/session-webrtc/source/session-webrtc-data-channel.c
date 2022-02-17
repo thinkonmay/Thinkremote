@@ -20,6 +20,7 @@
 #include <human-interface-opcode.h>
 #include <key-convert.h>
 #include <development.h>
+#include <global-var.h>
 
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>

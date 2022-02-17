@@ -93,8 +93,7 @@ session_initialize(AgentServer* agent)
 
 #ifdef G_OS_WIN32
     SetEnvironmentVariable("clustertoken", TEXT(CLUSTER_TOKEN));
-    SetEnvironmentVariable("clusterurl", TEXT(CLUSTER_URL));
-    SetEnvironmentVariable("clusterinfor", TEXT(CLUSTER_INFOR));
+    SetEnvironmentVariable("domain", TEXT(THINKMAY_DOMAIN));
 #endif
 
     // return false if session core is running before the initialization

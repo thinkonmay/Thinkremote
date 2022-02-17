@@ -7,6 +7,7 @@
 #include <signalling-message.h>
 #include <development.h>
 #include <string-manipulate.h>
+#include <global-var.h>
 
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>

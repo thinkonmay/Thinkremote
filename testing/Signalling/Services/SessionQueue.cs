@@ -53,10 +53,10 @@ namespace Signalling.Services
             }
             catch (Exception ex)
             {
-                Serilog.Log.Information($"{ex.Message} : {ex.StackTrace}");
+                Console.WriteLine($"{ex.Message} : {ex.StackTrace}");
             }
 
-            Serilog.Log.Information("Connection closed");
+            Console.WriteLine("Connection closed");
             onlineList.TryRemove(accession,out var output);
         }
 
@@ -106,9 +106,9 @@ namespace Signalling.Services
             }
             catch (Exception ex)
             {
-                Serilog.Log.Information("Fail to handle handshake");                
-                Serilog.Log.Information(ex.Message);                
-                Serilog.Log.Information(ex.StackTrace);                
+                Console.WriteLine("Fail to handle handshake");                
+                Console.WriteLine(ex.Message);                
+                Console.WriteLine(ex.StackTrace);                
             }
         }
     }

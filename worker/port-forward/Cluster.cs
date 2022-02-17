@@ -5,11 +5,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace port_forward
 {
-    public class GlobalCluster
-    {
-        public ClusterInstance instance {get;set;}
-    }
-
     public class ClusterInstance
     {
         public string IPAdress { set; get; }

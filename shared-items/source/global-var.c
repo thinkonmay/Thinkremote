@@ -9,17 +9,59 @@
  * 
  */
 #include <global-var.h>
+#include <development.h>
+#include <glib.h>
 
+
+static gboolean env                  = FALSE;
+static gchar _cluster_url[500]       = {0}; 
+static gchar _device_token[500]      = {0}; 
+static gchar _cluster_token[500]     = {0}; 
 
 
 void
-thinkremote_application_init()
+thinkremote_application_init(gchar* environment,
+                             gchar* cluster_url,
+                             gchar* cluster_token,
+                             gchar* device_token)
 {
-    CLUSTER_URL = malloc(200);
-    DEVICE_TOKEN = malloc(500);
-    CLUSTER_TOKEN = malloc(500);
+    if(!g_strcmp0(environment,"development"))
+        env = TRUE;
 
-    memset(CLUSTER_URL,0,200);
-    memset(DEVICE_TOKEN,0,500);
-    memset(CLUSTER_TOKEN,0,500);
+    if(cluster_url)
+        memcpy(_cluster_url,cluster_url,strlen(cluster_url));
+
+    if(cluster_token)
+        memcpy(_cluster_token,cluster_token,strlen(cluster_token));
+
+    if(device_token)
+        memcpy(_device_token,device_token,strlen(device_token));
+}
+
+void            
+update_device_token(gchar* device_token)
+{
+    memcpy(_device_token,device_token,strlen(device_token));
+}
+
+gchar*                      
+get_thinkremote_cluster_ip() 
+{
+    return _cluster_url;
+}
+gchar* 
+get_thinkremote_device_token() 
+{
+    return _device_token;
+}
+gchar*                     
+get_thinkremote_cluster_token() 
+{
+    return _cluster_token;
+}
+
+gboolean 
+get_environment()
+{
+    return env;
 }

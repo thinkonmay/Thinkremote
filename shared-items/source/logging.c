@@ -24,7 +24,6 @@
 void
 worker_log_output(gchar* text)
 {
-
     if(!DEVELOPMENT_ENVIRONMENT && CLUSTER_URL)
     {
         const gchar* http_aliases[] = { "http", NULL };
@@ -46,9 +45,7 @@ worker_log_output(gchar* text)
         g_string_append(string,"\"");
         gchar* buffer = g_string_free(string,FALSE);
 
-        soup_message_set_request(message,"application/json",SOUP_MEMORY_COPY,
-            buffer,strlen(buffer));
-
+        soup_message_set_request(message,"application/json",SOUP_MEMORY_COPY, buffer,strlen(buffer));
         soup_session_send_async(session,message,NULL,NULL,NULL);    
     }
     else

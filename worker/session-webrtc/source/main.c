@@ -12,22 +12,47 @@
 #define GST_DEBUG       4
 
 
-static gchar remote_token[500] = {0};
 
+/**
+ * @brief 
+ * 
+ */
+const gchar* environment;
+
+/**
+ * @brief 
+ * 
+ */
+const gchar* cluster_url;
+
+/**
+ * @brief 
+ * 
+ */
+const gchar* device_token;
 
 
 static GOptionEntry entries[] = {
-  {"clusterip", 0, 0, G_OPTION_ARG_STRING, &CLUSTER_URL,
+  {"clusterip", 0, 0, G_OPTION_ARG_STRING, &cluster_url,
       "Signalling server to connect to", "URL"},
-  {"token", 0, 0, G_OPTION_ARG_STRING, &DEVICE_TOKEN,
+  {"token", 0, 0, G_OPTION_ARG_STRING, &device_token,
       "Signalling server to connect to", "URL"},
+  {"environment", 0, 0, G_OPTION_ARG_STRING, &environment,
+      "environment (dev = development, default = production)", "ENV"},
   {NULL},
 };
 
 int
 main(int argc, char* argv[])
 {
-    thinkremote_application_init();
+    environment = malloc(100);
+    cluster_url = malloc(100);
+    device_token = malloc(100);
+
+    memset(cluster_url,0,100);
+    memset(device_token,0,100);
+    memset(environment,0,100);
+
     GOptionContext *context;
     GError *error = NULL;
 
@@ -40,6 +65,10 @@ main(int argc, char* argv[])
         return -1;
     }
 
+    thinkremote_application_init(environment,
+                                cluster_url,
+                                NULL,
+                                device_token);
 
     if(!DEVELOPMENT_ENVIRONMENT)
     {

@@ -132,6 +132,8 @@ handle_child_process_state(gpointer data)
 void
 clean_childprocess(ChildProcess* proc)
 {
+    if(!proc)
+        return;
 #ifndef G_OS_WIN32
     g_input_stream_close(proc->process_stderr,NULL,NULL);
     g_input_stream_close(proc->process_stdout,NULL,NULL);
@@ -143,6 +145,8 @@ clean_childprocess(ChildProcess* proc)
 void
 wait_for_childproces(ChildProcess* process)
 {
+    if(!process)
+        return;
     g_thread_join(process->statehdl);
 }
 
@@ -150,6 +154,8 @@ wait_for_childproces(ChildProcess* process)
 void
 childprocess_force_exit(ChildProcess* proc)
 {
+    if(!proc)
+        return;
 #ifdef G_OS_WIN32
     TerminateProcess(proc->process, 1);
     g_thread_join(proc->statehdl);

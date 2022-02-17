@@ -17,7 +17,9 @@
         "remote-udp-input.h": "c",
         "session-webrtc-pipeline.h": "c",
         "libloaderapi.h": "c",
-        "cstdlib": "c"
+        "cstdlib": "c",
+        "development.h": "c",
+        "glib.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

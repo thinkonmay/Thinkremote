@@ -79,9 +79,7 @@ handle_message_server(gchar* path,
 		if(!validate_token(token))
 			return FALSE;
 		return session_terminate(data);
-	} else if(!g_strcmp0(path,"/Shell")) {
-		return initialize_shell_session_from_byte(agent,request_body,response_body);
-	} 
+	}
 }
 
 
@@ -102,36 +100,27 @@ agent_new(gboolean self_host,
 	agent->remote_session = intialize_remote_session_service();
 	agent->socket = initialize_socket();
 
-#ifdef G_OS_WIN32
+	// Always use window http server for window 
+	// (libsoup server yield a bad performance)
+#ifndef G_OS_WIN32
 	agent->server = init_agent_server(agent,self_host);
 #else
 	agent->server = init_window_server(handle_message_server,
 		portforward_get_agent_instance_port(agent->portforward),agent);
 #endif
 
-	if(!agent->server){return;}
+	if(!agent->server)
+		return NULL;
 
-	if(self_host) 
+	gboolean success = start_portforward(agent);
+	if(!success)
 	{
-#ifdef G_OS_WIN32
-		register_with_selfhosted_cluster(agent,self_host,token);
-#endif
-	} 
-	else 
-	{
-		gboolean success = start_portforward(agent);
-		if(!success)
-		{
-			worker_log_output("Fail to start port-forward to cluster");
-			return NULL;
-		}
-		else
-		{
-			register_with_managed_cluster(agent, agent->portforward, token);
-		}
+		worker_log_output("Fail to start port-forward to cluster");
+		return NULL;
 	}
 
 	
+	register_with_managed_cluster(agent, agent->portforward, token);
 	g_main_loop_run(agent->loop);
 	return agent;
 }

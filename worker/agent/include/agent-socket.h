@@ -28,13 +28,6 @@
 
 
 
-/**
- * @brief 
- * 
- * @param agent 
- */
-void 									register_with_selfhosted_cluster	(AgentServer* agent,
-																			 gchar* token);
 
 /**
  * @brief 

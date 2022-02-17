@@ -8,6 +8,7 @@
 
 #include <human-interface-opcode.h>
 #include <module-code.h>
+#include <global-var.h>
 #include <development.h>
 
 #include <gst/gst.h>

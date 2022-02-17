@@ -15,6 +15,7 @@
 
 #include <glib.h>
 #include <gst/gst.h>
+#include <global-var.h>
 #include <libsoup/soup.h>
 
 #include <human-interface-opcode.h>

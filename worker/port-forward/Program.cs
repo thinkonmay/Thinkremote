@@ -18,20 +18,20 @@ namespace port_forward
         {
             var port = Environment.GetEnvironmentVariable("port");
             var token = Environment.GetEnvironmentVariable("clustertoken");
-            var infor_url = Environment.GetEnvironmentVariable("clusterinfor");
+            var domain = Environment.GetEnvironmentVariable("domain");
 
-            if(port == null || token == null || infor_url == null)
+            if(port == null || token == null || domain == null)
             {
                 Quit(ReturnCode.ERROR_GET_ENV); 
                 return;
             }
 
-            ReversePortForward(token, int.Parse(port), infor_url).Wait();
+            ReversePortForward(token, int.Parse(port), domain).Wait();
             Quit(ReturnCode.PORT_FORWARD_OK);
         }
         static async Task ReversePortForward(string cluster_token,
                                              int port,
-                                             string infor_url)
+                                             string domain)
         {
             SshClient client = null;
             ClusterInstance instance = null;
@@ -39,7 +39,7 @@ namespace port_forward
 
             try
             {
-                var request = new RestRequest(infor_url, Method.GET)
+                var request = new RestRequest($"https://{domain}/Cluster/Instance", Method.GET)
                     .AddHeader("Authorization",cluster_token);
                 var instanceResult = (await (new RestClient()).ExecuteAsync(request));
 
@@ -50,7 +50,7 @@ namespace port_forward
                     Quit(ReturnCode.ERROR_FETCH_INSTANCE_INFOR);
                 }
 
-                instance =  JsonConvert.DeserializeObject<GlobalCluster>(instanceResult.Content).instance;
+                instance =  JsonConvert.DeserializeObject<ClusterInstance>(instanceResult.Content);
             }
             catch (Exception ex) 
             { 

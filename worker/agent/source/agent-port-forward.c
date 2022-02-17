@@ -237,9 +237,9 @@ start_portforward(AgentServer* agent)
     PortForward* port = agent_get_portforward(agent);
 
 #ifdef G_OS_WIN32
-    SetEnvironmentVariable("port", TEXT(port->port));
     SetEnvironmentVariable("clustertoken", TEXT(CLUSTER_TOKEN));
-    SetEnvironmentVariable("clusterinfor", TEXT(CLUSTER_INFOR));
+    SetEnvironmentVariable("domain", TEXT(THINKMAY_DOMAIN));
+    SetEnvironmentVariable("port", TEXT(port->port));
 #endif
 
     // return false if session core is running before the initialization
