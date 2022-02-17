@@ -28,7 +28,7 @@
  * @brief 
  * 
  */
-#define THINKMAY_DOMAIN                    "development.thinkmay.net" 
+#define THINKMAY_DOMAIN                     "host.thinkmay.net" 
 
 /**
  * @brief 

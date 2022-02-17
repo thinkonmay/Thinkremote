@@ -9,6 +9,7 @@ RMDIR /S /Q build && mkdir build
 
 cd build && cmake .. && msbuild ALL_BUILD.vcxproj && cd ..
 
+robocopy script bin /E
 robocopy deployment/lib bin /E
 robocopy deployment/virtualAudio bin/virtualAudio /E
 robocopy deployment/virtualDisplay bin/virtualDisplay /E

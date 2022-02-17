@@ -105,7 +105,7 @@ agent_new(gboolean self_host,
 #ifndef G_OS_WIN32
 	agent->server = init_agent_server(agent,self_host);
 #else
-	agent->server = init_window_server(handle_message_server,
+	agent->server = init_window_server((ServerMessageHandle)handle_message_server,
 		portforward_get_agent_instance_port(agent->portforward),agent);
 #endif
 

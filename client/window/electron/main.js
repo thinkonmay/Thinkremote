@@ -14,7 +14,7 @@ const createWindow = () => {
   mainWindow.setTitle(require('./package.json').name);
   mainWindow.maximize();
   mainWindow.show();
-  mainWindow.loadURL("http://svcdev.thinkmay.net/dashboard")
+  mainWindow.loadURL("http://service.thinkmay.net/dashboard")
 };
 
 // This method will be called when Electron has finished
@@ -50,14 +50,20 @@ console.log('Registering...');
 
 // Registers the Protocol
 ProtocolRegistry.register({
-    protocol: 'thinkmay', // sets protocol for your command , testproto://**
-    command: `powershell ./welcome.exe && powershell ./remote-webrtc.exe $_URL_ 2> temp.txt && exit`, // $_URL_ will the replaces by the url used to initiate it
-    override: true, // Use this with caution as it will destroy all previous Registrations on this protocol
-    terminal: true, // Use this to run your command inside a terminal
-    script: false
-}).then(async () => {
+  protocol: 'thinkmay', // sets protocol for your command , testproto://**
+  command: `powershell ./welcome.exe && powershell ./remote-webrtc.exe $_URL_ 2> temp.txt && exit`, // $_URL_ will the replaces by the url used to initiate it
+  override: true, // Use this with caution as it will destroy all previous Registrations on this protocol
+  terminal: true, // Use this to run your command inside a terminal
+  script: false
+}).then(async () => { });
 
-});
+ProtocolRegistry.register({
+  protocol: 'agentThinkmay', // sets protocol for your command , testproto://**
+  command: `powershell ./welcome.exe && powershell ./agent.exe && exit`, // $_URL_ will the replaces by the url used to initiate it
+  override: true, // Use this with caution as it will destroy all previous Registrations on this protocol
+  terminal: true, // Use this to run your command inside a terminal
+  script: false
+}).then(async () => { });
 
 ProtocolRegistry.register({
   protocol: 'loginThinkmay', // sets protocol for your command , testproto://**
@@ -65,6 +71,4 @@ ProtocolRegistry.register({
   override: true, // Use this with caution as it will destroy all previous Registrations on this protocol
   terminal: true, // Use this to run your command inside a terminal
   script: false
-}).then(async () => {
-
-});
+}).then(async () => { });

@@ -36,4 +36,3 @@ file(GLOB SHARED_SOURCE ${CMAKE_SOURCE_DIR}/shared-items/source/*.c)
 
 add_subdirectory(worker)
 add_subdirectory(client)
-add_subdirectory(testing)
