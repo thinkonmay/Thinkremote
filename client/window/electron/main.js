@@ -59,7 +59,7 @@ ProtocolRegistry.register({
 
 ProtocolRegistry.register({
   protocol: 'agentThinkmay', // sets protocol for your command , testproto://**
-  command: `powershell ./welcome.exe && powershell ./agent.exe && exit`, // $_URL_ will the replaces by the url used to initiate it
+  command: `powershell ./welcome.exe && powershell ./agent.exe $_URL_ && exit`, // $_URL_ will the replaces by the url used to initiate it
   override: true, // Use this with caution as it will destroy all previous Registrations on this protocol
   terminal: true, // Use this to run your command inside a terminal
   script: false

@@ -16,8 +16,7 @@
     <ROW Property="ProductCode" Value="1033:{E84FCB80-C61B-43B8-9580-185F318F2359} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Thinkremote"/>
-    <ROW Property="ProductVersion" Value="2.0.0" Type="32"/>
-    <ROW Property="RUNAPPLICATION" Value="1" Type="4"/>
+    <ROW Property="ProductVersion" Value="2.0.1" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{32E7DE1A-B618-4906-884C-E72C0687EC7E}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="x64_Release:Windows 9x/ME" ValueLocId="-"/>
@@ -231,6 +230,9 @@
     <ROW Component="Renci.SshNet.dll" ComponentId="{E3653F07-D53C-41DF-BE20-AE0AF5772264}" Directory_="bin_4_Dir" Attributes="0" KeyPath="Renci.SshNet.dll"/>
     <ROW Component="RestSharp.dll" ComponentId="{BEAFA515-CB20-4833-81B7-05DA53224CFD}" Directory_="bin_4_Dir" Attributes="0" KeyPath="RestSharp.dll"/>
     <ROW Component="SHORTCUTDIR" ComponentId="{956F3D3B-F17E-4CBE-BA9F-EA3DE28028D7}" Directory_="SHORTCUTDIR" Attributes="0"/>
+    <ROW Component="Signalling.dll" ComponentId="{54AF7CAC-8726-45C0-AABF-24BBBE72697D}" Directory_="ref_Dir" Attributes="0" KeyPath="Signalling.dll"/>
+    <ROW Component="Signalling.dll_1" ComponentId="{DFC7E26F-AE7F-4268-AD0C-3145E4E8C7EE}" Directory_="bin_4_Dir" Attributes="0" KeyPath="Signalling.dll_1"/>
+    <ROW Component="Signalling.exe" ComponentId="{480DD972-7FA8-437A-894C-AA44FA1F89AF}" Directory_="bin_4_Dir" Attributes="256" KeyPath="Signalling.exe"/>
     <ROW Component="Squirrel.exe" ComponentId="{E1BD1672-48E0-4568-BE30-56C0849EC8CB}" Directory_="bin_4_Dir" Attributes="0" KeyPath="Squirrel.exe"/>
     <ROW Component="SshNet.Security.Cryptography.dll" ComponentId="{780DA6C3-DB21-4526-8AE2-B1B0131FBA6F}" Directory_="bin_4_Dir" Attributes="0" KeyPath="SshNet.Security.Cryptography.dll"/>
     <ROW Component="System.AppContext.dll" ComponentId="{58919D18-AEE1-4973-BA23-70CAA75DF1D3}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.AppContext.dll"/>
@@ -597,7 +599,6 @@
     <ROW Component="ucrtbased.dll" ComponentId="{8AA13B19-7301-487A-AC60-69BBF7DAC8CB}" Directory_="bin_4_Dir" Attributes="256" KeyPath="ucrtbased.dll"/>
     <ROW Component="vcruntime140.dll" ComponentId="{FFE49479-BA8B-4741-8686-7140839270C5}" Directory_="bin_4_Dir" Attributes="256" KeyPath="vcruntime140.dll"/>
     <ROW Component="vcruntime140d.dll" ComponentId="{DB732908-27C5-481F-BB03-7B366F20B598}" Directory_="bin_4_Dir" Attributes="256" KeyPath="vcruntime140d.dll"/>
-    <ROW Component="videotesting.exe" ComponentId="{36C21B9E-BA74-4F95-907D-226319413394}" Directory_="bin_4_Dir" Attributes="256" KeyPath="videotesting.exe"/>
     <ROW Component="vk_swiftshader.dll" ComponentId="{9B5D3185-82E8-432D-84B7-4C27B444CE04}" Directory_="bin_4_Dir" Attributes="256" KeyPath="vk_swiftshader.dll"/>
     <ROW Component="vulkan1.dll" ComponentId="{1B655915-4D8A-44BE-B6AC-C7B907120874}" Directory_="bin_4_Dir" Attributes="256" KeyPath="vulkan1.dll"/>
     <ROW Component="welcome.exe" ComponentId="{DA376301-BF5C-48B1-9C1D-93062A83AA1D}" Directory_="bin_4_Dir" Attributes="256" KeyPath="welcome.exe"/>
@@ -864,8 +865,6 @@
     <ROW File="v8_context_snapshot.bin" Component_="chrome_100_percent.pak" FileName="V8_CON~1.BIN|v8_context_snapshot.bin" Attributes="0" SourcePath="..\bin\v8_context_snapshot.bin" SelfReg="false"/>
     <ROW File="vcruntime140d.dll" Component_="vcruntime140d.dll" FileName="VCRUNT~1.DLL|vcruntime140d.dll" Attributes="0" SourcePath="..\bin\vcruntime140d.dll" SelfReg="false"/>
     <ROW File="version" Component_="chrome_100_percent.pak" FileName="version" Attributes="0" SourcePath="..\bin\version" SelfReg="false"/>
-    <ROW File="videotesting.exe" Component_="videotesting.exe" FileName="VIDEOT~1.EXE|videotesting.exe" Attributes="0" SourcePath="..\bin\videotesting.exe" SelfReg="false" DigSign="true"/>
-    <ROW File="videotesting.pdb" Component_="videotesting.exe" FileName="VIDEOT~1.PDB|videotesting.pdb" Attributes="0" SourcePath="..\bin\videotesting.pdb" SelfReg="false"/>
     <ROW File="vk_swiftshader.dll" Component_="vk_swiftshader.dll" FileName="VK_SWI~1.DLL|vk_swiftshader.dll" Attributes="0" SourcePath="..\bin\vk_swiftshader.dll" SelfReg="false"/>
     <ROW File="vk_swiftshader_icd.json" Component_="chrome_100_percent.pak" FileName="VK_SWI~1.JSO|vk_swiftshader_icd.json" Attributes="0" SourcePath="..\bin\vk_swiftshader_icd.json" SelfReg="false"/>
     <ROW File="vulkan1.dll" Component_="vulkan1.dll" FileName="vulkan-1.dll" Attributes="0" SourcePath="..\bin\vulkan-1.dll" SelfReg="false"/>
@@ -1526,6 +1525,18 @@
     <ROW File="option.txt" Component_="iddsampledriver.cat" FileName="option.txt" Attributes="0" SourcePath="..\bin\virtualDisplay\option.txt" SelfReg="false"/>
     <ROW File="vcruntime140.dll" Component_="vcruntime140.dll" FileName="VCRUNT~2.DLL|vcruntime140.dll" Attributes="0" SourcePath="..\bin\vcruntime140.dll" SelfReg="false"/>
     <ROW File="temp.txt" Component_="main.js" FileName="temp.txt" Attributes="0" SourcePath="..\bin\resources\app\temp.txt" SelfReg="false"/>
+    <ROW File="build.bat" Component_="chrome_100_percent.pak" FileName="build.bat" Attributes="0" SourcePath="..\bin\build.bat" SelfReg="false"/>
+    <ROW File="download.bat" Component_="chrome_100_percent.pak" FileName="download.bat" Attributes="0" SourcePath="..\bin\download.bat" SelfReg="false"/>
+    <ROW File="package.bat" Component_="chrome_100_percent.pak" FileName="package.bat" Attributes="0" SourcePath="..\bin\package.bat" SelfReg="false"/>
+    <ROW File="Signalling.dll" Component_="Signalling.dll" FileName="SIGNAL~1.DLL|Signalling.dll" Attributes="0" SourcePath="..\bin\ref\Signalling.dll" SelfReg="false"/>
+    <ROW File="Signalling.deps.json" Component_="chrome_100_percent.pak" FileName="SIGNAL~1.JSO|Signalling.deps.json" Attributes="0" SourcePath="..\bin\Signalling.deps.json" SelfReg="false"/>
+    <ROW File="Signalling.dll_1" Component_="Signalling.dll_1" FileName="SIGNAL~1.DLL|Signalling.dll" Attributes="0" SourcePath="..\bin\Signalling.dll" SelfReg="false"/>
+    <ROW File="Signalling.exe" Component_="Signalling.exe" FileName="SIGNAL~1.EXE|Signalling.exe" Attributes="0" SourcePath="..\bin\Signalling.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="Signalling.pdb" Component_="Signalling.exe" FileName="SIGNAL~1.PDB|Signalling.pdb" Attributes="0" SourcePath="..\bin\Signalling.pdb" SelfReg="false"/>
+    <ROW File="Signalling.runtimeconfig.json" Component_="chrome_100_percent.pak" FileName="SIGNAL~2.JSO|Signalling.runtimeconfig.json" Attributes="0" SourcePath="..\bin\Signalling.runtimeconfig.json" SelfReg="false"/>
+    <ROW File="Signalling.staticwebassets.runtime.json" Component_="chrome_100_percent.pak" FileName="SIGNAL~3.JSO|Signalling.staticwebassets.runtime.json" Attributes="0" SourcePath="..\bin\Signalling.staticwebassets.runtime.json" SelfReg="false"/>
+    <ROW File="Signalling.xml" Component_="chrome_100_percent.pak" FileName="SIGNAL~1.XML|Signalling.xml" Attributes="0" SourcePath="..\bin\Signalling.xml" SelfReg="false"/>
+    <ROW File="test.bat" Component_="chrome_100_percent.pak" FileName="test.bat" Attributes="0" SourcePath="..\bin\test.bat" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
@@ -1600,7 +1611,7 @@
     <ROW Action="AI_DpiContentScale" Type="1" Source="aicustact.dll" Target="DpiContentScale"/>
     <ROW Action="AI_EnableDebugLog" Type="321" Source="aicustact.dll" Target="EnableDebugLog"/>
     <ROW Action="AI_InstallModeCheck" Type="1" Source="aicustact.dll" Target="UpdateInstallMode" WithoutSeq="true"/>
-    <ROW Action="AI_LaunchApp" Type="1" Source="aicustact.dll" Target="[#agent.exe]"/>
+    <ROW Action="AI_LaunchApp" Type="1" Source="aicustact.dll" Target="[#ThinkMay.exe][#test.bat]"/>
     <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
     <ROW Action="AI_RESTORE_LOCATION" Type="65" Source="aicustact.dll" Target="RestoreLocation"/>
     <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
@@ -1854,7 +1865,6 @@
     <ROW Feature_="MainFeature" Component_="ucrtbase.dll"/>
     <ROW Feature_="MainFeature" Component_="ucrtbased.dll"/>
     <ROW Feature_="MainFeature" Component_="vcruntime140d.dll"/>
-    <ROW Feature_="MainFeature" Component_="videotesting.exe"/>
     <ROW Feature_="MainFeature" Component_="vk_swiftshader.dll"/>
     <ROW Feature_="MainFeature" Component_="vulkan1.dll"/>
     <ROW Feature_="MainFeature" Component_="welcome.exe"/>
@@ -2009,6 +2019,9 @@
     <ROW Feature_="MainFeature" Component_="iddsampledriver.cat"/>
     <ROW Feature_="MainFeature" Component_="IddSampleDriver.dll"/>
     <ROW Feature_="MainFeature" Component_="vcruntime140.dll"/>
+    <ROW Feature_="MainFeature" Component_="Signalling.dll"/>
+    <ROW Feature_="MainFeature" Component_="Signalling.dll_1"/>
+    <ROW Feature_="MainFeature" Component_="Signalling.exe"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="logo.exe" SourcePath="..\client\window\electron\assets\logo.ico" Index="0"/>
