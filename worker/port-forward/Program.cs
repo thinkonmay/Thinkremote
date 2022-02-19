@@ -114,9 +114,9 @@ namespace port_forward
                 if(!client.IsConnected)
                 {
                     Quit(ReturnCode.ERROR_HANDLE_SSH_CONNECTION);
+                    Thread.Sleep(TimeSpan.FromSeconds(1));
                 }
             }
-            return;
         }
         static void Quit(ReturnCode ret)
         {

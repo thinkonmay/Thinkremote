@@ -34,6 +34,12 @@
  * @brief 
  * 
  */
+#define LOG_URL                             "https://"THINKMAY_DOMAIN"/Log/Worker"
+
+/**
+ * @brief 
+ * 
+ */
 #define ACCOUNT_URL                         "https://"THINKMAY_DOMAIN"/Account/Login"
 
 /**

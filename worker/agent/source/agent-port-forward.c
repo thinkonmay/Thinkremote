@@ -195,8 +195,7 @@ handle_portforward_disconnected(ChildProcess* proc,
             worker_log_output("Dotnet environment is missing");
             break;
         default:
-            worker_log_output("Unknown error while portforward");
-            break;
+            return;
     }
 
 

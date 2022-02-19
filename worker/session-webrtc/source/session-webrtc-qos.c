@@ -31,8 +31,6 @@ webrtcbin_get_qos(GstElement* webrtcbin)
     if(result = GST_PROMISE_RESULT_REPLIED)
     {
         GstStructure* structure = gst_promise_get_reply(promise);
-        gchar* name = gst_structure_get_name(structure);
-
 #ifdef G_OS_WIN32
         gchar* output = gst_structure_serialize(structure,GST_SERIALIZE_FLAG_NONE);
 #else
@@ -52,9 +50,13 @@ handle_webrtc_connection_thread(gpointer data)
     SessionCore* core = (SessionCore*) data;
     Pipeline* pipeline = session_core_get_pipeline(core);
 
-    while (TRUE)
+    while (GST_IS_ELEMENT(pipeline_get_webrtc_bin(pipeline)))
     {
-        GstWebRTCPeerConnectionState state = webrtcbin_get_qos(pipeline_get_webrtc_bin(pipeline));
+#ifdef G_OS_WIN32
+        Sleep(500);
+#endif
+        GstElement* webrtcbin = pipeline_get_webrtc_bin(pipeline);
+        GstWebRTCPeerConnectionState state = webrtcbin_get_qos(webrtcbin);
         if( state == GST_WEBRTC_PEER_CONNECTION_STATE_DISCONNECTED ||
             state == GST_WEBRTC_PEER_CONNECTION_STATE_FAILED ||
             state == GST_WEBRTC_PEER_CONNECTION_STATE_CLOSED )
@@ -62,9 +64,6 @@ handle_webrtc_connection_thread(gpointer data)
             worker_log_output("client closed, session stop");
             session_core_finalize(core,NULL);
         }
-#ifdef G_OS_WIN32
-        Sleep(500);
-#endif
     }
 }
 
