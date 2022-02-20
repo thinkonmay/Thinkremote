@@ -97,6 +97,7 @@ namespace port_forward
 
             try
             {
+                client.KeepAliveInterval = TimeSpan.FromMinutes(1);
                 client.AddForwardedPort(reverse);
                 reverse.Start();
 
