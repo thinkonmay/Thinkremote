@@ -17,7 +17,6 @@
 #include <string-manipulate.h>
 #include <global-var.h>
 
-#define GST_USE_UNSTABLE_API
 
 
 static gchar remote_token[500] = {0};

@@ -19,7 +19,6 @@
 
 #include <Windows.h>
 
-#define GST_USE_UNSTABLE_API
 
 const gchar* connection_string;
 static gchar remote_token[500] = {0};

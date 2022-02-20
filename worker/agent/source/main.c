@@ -21,7 +21,6 @@
 #include <development.h>
 #include <stdio.h>
 
-#define GST_DEBUG               4
 
 
 

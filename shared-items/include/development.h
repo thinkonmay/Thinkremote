@@ -10,8 +10,7 @@
  */
 #ifndef __DEVELOPMENT_H__
 #define __DEVELOPMENT_H__
-
-
+#define GST_USE_UNSTABLE_API
 #include <glib.h>
 
 

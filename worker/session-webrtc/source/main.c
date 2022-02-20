@@ -7,9 +7,7 @@
 #include <glib-2.0/glib.h>
 #include <global-var.h>
 
-#define GST_USE_UNSTABLE_API
 
-#define GST_DEBUG       4
 
 
 
