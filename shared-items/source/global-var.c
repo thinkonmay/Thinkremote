@@ -12,6 +12,10 @@
 #include <development.h>
 #include <glib.h>
 
+#ifdef G_OS_WIN32
+#include <Windows.h>
+#endif
+
 
 static gboolean env                  = FALSE;
 static gchar _cluster_url[500]       = {0}; 
@@ -25,6 +29,10 @@ thinkremote_application_init(gchar* environment,
                              gchar* cluster_token,
                              gchar* device_token)
 {
+#ifdef G_OS_WIN32
+    SetEnvironmentVariable("GST_DEBUG", TEXT("0"));
+#endif
+
     if(!g_strcmp0(environment,"development"))
         env = TRUE;
 

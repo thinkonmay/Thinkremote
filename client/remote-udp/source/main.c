@@ -17,6 +17,8 @@
 #include <global-var.h>
 #include <string-manipulate.h>
 
+#include <Windows.h>
+
 #define GST_USE_UNSTABLE_API
 
 const gchar* connection_string;
