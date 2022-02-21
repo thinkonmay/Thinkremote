@@ -20,6 +20,7 @@
 #include <json-glib/json-glib.h>
 
 
+#define IP "https://api.ipify.org?format=string"
 
 
 void
@@ -38,7 +39,7 @@ worker_log_output(gchar* text)
             SOUP_SESSION_SSL_USE_SYSTEM_CA_FILE, TRUE,
             SOUP_SESSION_HTTPS_ALIASES, http_aliases, NULL);
 
-        SoupMessage* message = soup_message_new(SOUP_METHOD_GET,"https://api.ipify.org?format=string");
+        SoupMessage* message = soup_message_new(SOUP_METHOD_GET,IP);
         soup_session_send_message(session,message);    
 
         JsonObject* object = json_object_new();
