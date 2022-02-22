@@ -12,10 +12,9 @@
 #include <remote-udp-type.h>
 #include <remote-udp-remote-config.h>
 #include <remote-udp-pipeline.h>
-#include <remote-udp-gui.h>
-#include <remote-udp-input.h>
 
 #include <qoe.h>
+#include <overlay-gui.h>
 
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>
@@ -185,6 +184,7 @@ handle_video_stream (GstElement* decodebin,
 {
     RemoteUdp* core = (RemoteUdp*) data; 
     Pipeline* pipeline = remote_app_get_pipeline(core);
+    GUI* gui = remote_app_get_gui(core);
 
 #ifdef G_OS_WIN32
     pipeline->video_element[VIDEO_SINK] = gst_element_factory_make ("d3d11videosink", NULL);
@@ -200,8 +200,7 @@ handle_video_stream (GstElement* decodebin,
     GstPadLinkReturn ret = gst_pad_link (pad, queue_pad);
     g_assert_cmphex (ret, ==, GST_PAD_LINK_OK);
 
-    trigger_capture_input_event(core);
-    setup_video_overlay(pipeline->video_element[VIDEO_SINK],pipeline->video_pipeline,core);
+    setup_video_overlay(gui,pipeline->video_element[VIDEO_SINK],pipeline->video_pipeline,core);
 }
 
 static void

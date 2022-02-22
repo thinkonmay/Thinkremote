@@ -29,11 +29,6 @@ typedef struct 			_Pipeline 				            Pipeline;
  */
 typedef struct          _InputHandler                         InputHandler;
 
-/**
- * @brief 
- * GUI is a datastructure wrap around creation of remote window and win32 input handling
- */
-typedef struct 			_GUI 				                GUI;
 
 /**
  * @brief 

@@ -20,7 +20,15 @@
         "cstdlib": "c",
         "development.h": "c",
         "glib.h": "c",
-        "environment.h": "c"
+        "environment.h": "c",
+        "capture_key.h": "c",
+        "json-glib.h": "c",
+        "capture-key.h": "c",
+        "system_error": "c",
+        "hidusage.h": "c",
+        "winuser.h": "c",
+        "gstvideosink.h": "c",
+        "videooverlay.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

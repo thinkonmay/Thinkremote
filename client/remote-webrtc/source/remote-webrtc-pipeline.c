@@ -14,8 +14,7 @@
 #include <remote-webrtc-signalling.h>
 #include <remote-webrtc-remote-config.h>
 #include <remote-webrtc-pipeline.h>
-#include <remote-webrtc-gui.h>
-#include <remote-webrtc-input.h>
+#include <overlay-gui.h>
 
 #include <qoe.h>
 #include <global-var.h>
@@ -207,7 +206,6 @@ handle_video_stream (GstPad * pad,
     GstPadLinkReturn ret = gst_pad_link (pad, queue_pad);
     g_assert_cmphex (ret, ==, GST_PAD_LINK_OK);
 
-    trigger_capture_input_event(core);
     setup_video_overlay(pipeline->video_element[VIDEO_SINK],core);
 }
 
@@ -236,7 +234,8 @@ on_incoming_decodebin_stream (GstElement * decodebin,
     }
 
     GstCaps* caps = gst_pad_get_current_caps (pad);
-    gchar*   name = gst_structure_get_name (gst_caps_get_structure (caps, 0));
+    GstStructure* structure = gst_caps_get_structure (caps, 0);
+    gchar*   name = gst_structure_get_name (structure);
 
     if (g_str_has_prefix (name, "video")) 
     {
@@ -359,9 +358,10 @@ on_incoming_stream (GstElement * webrtc,
 
     Pipeline* pipeline = remote_app_get_pipeline(core);
     
-    GstCaps* caps = gst_pad_get_current_caps(webrtcbin_pad);
-    gchar* encoding = gst_structure_get_string(gst_caps_get_structure(caps, 0), "encoding-name");
-    gchar* name = gst_structure_get_name(gst_caps_get_structure(caps, 0));
+    GstCaps* caps =             gst_pad_get_current_caps(webrtcbin_pad);
+    GstStructure* structure =   gst_caps_get_structure(caps, 0);
+    gchar* encoding =           gst_structure_get_string(structure, "encoding-name");
+    gchar* name =               gst_structure_get_name(structure);
 
     if(!g_strcmp0("application/x-rtp",name) &&
        !g_strcmp0("OPUS",encoding))

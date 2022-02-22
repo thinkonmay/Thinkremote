@@ -13,6 +13,7 @@
 
 #include <remote-udp-type.h>
 #include <message-form.h>
+#include <overlay-gui.h>
 
 
 
@@ -44,7 +45,7 @@ void 			remote_app_reset					(RemoteUdp* self);
  * @param error 
  */
 void			remote_app_finalize					(RemoteUdp* self,
-														GError* error);
+													GError* error);
 
 /**
  * @brief 

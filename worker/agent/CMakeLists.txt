@@ -11,6 +11,9 @@ file(GLOB SOURCE
 ${CMAKE_SOURCE_DIR}/worker/agent/source/*.c 
 ${CMAKE_SOURCE_DIR}/shared-items/source/*.c)
 
+list(FILTER SOURCE EXCLUDE REGEX ".capture-key.c")
+list(FILTER SOURCE EXCLUDE REGEX ".handle-key.c")
+list(FILTER SOURCE EXCLUDE REGEX ".overlay-gui.c")
 
 add_executable(agent ${SOURCE})
 

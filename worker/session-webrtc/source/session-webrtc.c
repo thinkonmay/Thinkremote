@@ -29,6 +29,7 @@
 
 
 #include <glib.h>
+#include <stdio.h>
 
 #ifdef G_OS_WIN32
 #include <Windows.h>
@@ -92,6 +93,19 @@ struct _SessionCore
 void
 session_development_setup(SessionCore* self)
 {
+	gchar* signalling = DEVELOPMENT_SIGNALLING_URL;
+	if(!signalling)
+	{
+		gchar ip [100] = {0};
+		g_print("target computer ip: ");
+		scanf("%s",ip);
+
+		GString* string = g_string_new("ws://");
+		g_string_append(string,ip);
+		g_string_append(string,":5000/Handshake");
+		signalling = g_string_free(string,NULL);
+	}
+
 	JsonArray* array = json_array_new();
 	json_array_add_string_element(array,DEFAULT_STUN);
 
@@ -102,8 +116,8 @@ session_development_setup(SessionCore* self)
 #endif
 
 	signalling_hub_setup(self->signalling,
-				DEVELOPMENT_SIGNALLING_URL,
 				turn,
+				signalling,
 				array,
 				DEFAULT_CORE_TOKEN);
 
@@ -111,8 +125,8 @@ session_development_setup(SessionCore* self)
 				1920,
 				1080,
 				OPUS_ENC,
-				CODEC_H264,
-				DEVELOPMENT_DEFAULT_BITRATE);
+				CODEC_H265,
+				ULTRA_HIGH_CONST);
 	
 	self->peer_device = WINDOW_APP;
 }

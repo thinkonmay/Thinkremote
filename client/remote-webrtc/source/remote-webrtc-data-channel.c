@@ -97,13 +97,9 @@ ping_thread(gpointer data)
 #endif
 
         if(ping)
-        {
             ping = FALSE;
-        }
         else
-        {
             remote_app_reset(app);
-        }
     }
 }
 

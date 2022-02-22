@@ -13,14 +13,14 @@
 #include <remote-webrtc-pipeline.h>
 #include <remote-webrtc-data-channel.h>
 #include <remote-webrtc.h>
-#include <remote-webrtc-gui.h>
 #include <remote-webrtc-type.h>
-#include <remote-webrtc-input.h>
 
 #include <module-code.h>
 #include <development.h>
 #include <environment.h>
 #include <global-var.h>
+#include <overlay-gui.h>
+#include <capture-key.h>
 
 
 #include <glib.h>
@@ -56,12 +56,6 @@ struct _RemoteApp
 	 * 
 	 */
 	SignallingHub* signalling;
-
-	/**
-	 * @brief 
-	 * 
-	 */
-	InputHandler* handler;
 
 	/**
 	 * @brief 
@@ -185,8 +179,7 @@ remote_app_initialize(gchar* remote_token)
 
 	RemoteApp* app= 		malloc(sizeof(RemoteApp));
 	app->loop =				g_main_loop_new(NULL, FALSE);
-	app->handler =			init_input_capture_system(app);
-	app->gui =				init_remote_app_gui(app);
+	app->gui =				init_remote_app_gui(app,remote_app_reset);
 	app->hub =				webrtchub_initialize();
 	app->signalling =		signalling_hub_initialize(app);
 
@@ -276,10 +269,4 @@ SignallingHub*
 remote_app_get_signalling_hub(RemoteApp* core)
 {
 	return core->signalling;
-}
-
-InputHandler*
-remote_app_get_hid_handler(RemoteApp* app)
-{
-	return app->handler;
 }

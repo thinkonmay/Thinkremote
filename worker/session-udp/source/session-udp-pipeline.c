@@ -10,7 +10,6 @@
  */
 #include <session-udp-pipeline.h>
 #include <session-udp-type.h>
-#include <session-udp-human-interface.h>
 #include <session-udp-remote-config.h>
 
 
@@ -442,15 +441,6 @@ setup_element_property(SessionUdp* core)
 }
 
 
-void
-toggle_pointer(gboolean toggle, SessionUdp* core)
-{
-    Pipeline* pipe = session_core_get_pipeline(core);
-    if (pipe->video_element[SCREEN_CAPTURE]) 
-    { 
-        g_object_set(pipe->video_element[SCREEN_CAPTURE], "show-cursor", toggle, NULL); 
-    }
-}
 
 
 
@@ -485,5 +475,9 @@ setup_pipeline(SessionUdp* core,
 }
 
 
-
+GstElement*
+pipeline_get_screen_capture_element(Pipeline* pipeline)
+{
+    return pipeline->video_element[SCREEN_CAPTURE];
+}
 

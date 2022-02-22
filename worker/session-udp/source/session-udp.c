@@ -10,7 +10,6 @@
  */
 #include <session-udp-remote-config.h>
 #include <session-udp-pipeline.h>
-#include <session-udp-human-interface.h>
 #include <session-udp.h>
 #include <session-udp-type.h>
 
@@ -192,7 +191,7 @@ session_core_setup_session(SessionUdp* self)
 					1080,
 					OPUS_ENC,
 					CODEC_H265,
-					DEVELOPMENT_DEFAULT_BITRATE);
+					ULTRA_HIGH_CONST);
 		
 		self->peer_device = WINDOW_APP;
 	}
@@ -250,6 +249,31 @@ session_core_setup_session(SessionUdp* self)
 }
 
 
+/**
+ * @brief 
+ * handle message from hid datachannel and send to window
+ * @param dc 
+ * @param message 
+ * @param core 
+ */
+static void
+on_hid_input(gchar* message,
+			 SessionUdp* udp)
+{
+    Pipeline* pipeline = session_core_get_pipeline(udp);
+    GstElement* capture = pipeline_get_screen_capture_element(pipeline);
+    if(DEVELOPMENT_ENVIRONMENT)
+        g_print("%s\n",message);
+
+
+    DeviceType device = session_core_get_client_device(udp);
+    if(device == WEB_APP)
+        handle_input_javascript(message,capture);
+    else if(device == WINDOW_APP)
+        handle_input_win32(message,capture);
+    else if(device == LINUX_APP)
+        handle_input_gtk(message,capture);
+}
 
 
 
@@ -264,8 +288,7 @@ handle_message_server(gchar* path,
 	SessionUdp* agent = (SessionUdp*) data;
 	if(!g_strcmp0(path,"/hid")) {
 		gchar* text = g_bytes_get_data(request_body,NULL);
-		on_human_interface_message(text,agent);
-		return TRUE;
+		on_hid_input(text,agent);
 	}
 	return TRUE;
 }
@@ -299,11 +322,6 @@ init_session_core_server(SessionUdp* core)
 gpointer
 session_core_sync_state_with_cluster(gpointer user_data)
 {
-#ifdef G_OS_WIN32
-        Sleep(3000);
-#else
-        sleep(3000);
-#endif
 	SessionUdp* core = (SessionUdp*)user_data;
 	const char* https_aliases[] = { "https", NULL };
 	SoupSession* https_session = soup_session_new_with_options(
@@ -323,20 +341,17 @@ session_core_sync_state_with_cluster(gpointer user_data)
 
 		soup_session_send_message(https_session,infor_message);
 
-		if(infor_message->status_code == SOUP_STATUS_OK)
-		{
-#ifdef G_OS_WIN32
-			Sleep(1000);
-#else
-			sleep(1000);
-#endif
-		}
-		else
-		{
+		if(infor_message->status_code != SOUP_STATUS_OK)
 			session_core_finalize(core,NULL);
-		}
+
+#ifdef G_OS_WIN32
+		Sleep(1000);
+#else
+		sleep(1000);
+#endif
 	}
 }
+
 
 void
 server_callback (SoupServer        *server,
@@ -358,7 +373,7 @@ server_callback (SoupServer        *server,
 		return;
 	} else if(!g_strcmp0(uri->path,"/hid"))
 	{
-		on_human_interface_message(msg->request_body->data,user_data);
+		on_hid_input(msg->request_body->data,user_data);
 		msg->status_code = SOUP_STATUS_OK;
 	}
 }
@@ -374,7 +389,6 @@ session_core_initialize()
 	core->server = 				init_window_server((ServerMessageHandle)handle_message_server,"6003",core);
 #endif
 
-	core->hub =					human_interface_initialize();
 	core->qoe =					qoe_initialize();
 	core->pipe =				pipeline_initialize();
 	core->loop =				g_main_loop_new(NULL, FALSE);
@@ -432,11 +446,6 @@ session_core_get_pipeline(SessionUdp* self)
 	return self->pipe;
 }
 
-HumanInterface*
-session_core_get_rtc_hub(SessionUdp* self)
-{
-	return self->hub;
-}
 
 
 StreamConfig*

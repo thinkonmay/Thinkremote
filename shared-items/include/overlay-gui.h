@@ -1,5 +1,5 @@
 /**
- * @file remote-udp-gui.h
+ * @file remote-webrtc-gui.h
  * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
  * @brief 
  * @version 1.0
@@ -10,10 +10,6 @@
  */
 #ifndef __REMOTE_APP_GUI_H__
 #define __REMOTE_APP_GUI_H__
-#include <remote-udp.h>
-#include <remote-udp-type.h>
-
-
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>
 
@@ -22,6 +18,17 @@
 
 
 
+/**
+ * @brief 
+ * GUI is a datastructure wrap around creation of remote window and win32 input handling
+ */
+typedef struct 			_GUI 				                GUI;
+
+/**
+ * @brief 
+ * 
+ */
+typedef void            (*ResetApplicationEvent)            (gpointer data);  
 
 /**
  * @brief 
@@ -36,7 +43,8 @@ void                switch_fullscreen_mode                  (GUI* gui);
  * 
  * @param gui 
  */
-GUI*                init_remote_app_gui                     (RemoteUdp *app);
+GUI*                init_remote_app_gui                     (gpointer app,
+                                                             ResetApplicationEvent event);
 
 
 /**
@@ -55,14 +63,8 @@ void                gui_terminate                           (GUI* gui);
  * @return gpointer 
  */
 gpointer            setup_video_overlay                     (GstElement* videosink, 
-                                                            GstElement* pipeline, 
-                                                            RemoteUdp* app);
+                                                            gpointer app);
 
-/**
- * @brief 
- * 
- */
-void                enable_client_cursor                    ();
 
 /**
  * @brief 

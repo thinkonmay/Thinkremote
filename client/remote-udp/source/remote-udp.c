@@ -11,9 +11,8 @@
 #include <remote-udp-remote-config.h>
 #include <remote-udp-pipeline.h>
 #include <remote-udp.h>
-#include <remote-udp-gui.h>
+#include <overlay-gui.h>
 #include <remote-udp-type.h>
-#include <remote-udp-input.h>
 
 #include <module-code.h>
 #include <development.h>
@@ -124,10 +123,6 @@ remote_app_setup_session(RemoteUdp* self,
 		setup_pipeline_startpoint(self->pipe,
 				6001,
 				6002);
-		
-		setup_input_endpoint(self->handler,
-				"192.168.1.6",
-				"6003");
 	}
 }
 
@@ -146,7 +141,7 @@ remote_app_initialize(gchar* remote_token)
 	RemoteUdp* app= 		malloc(sizeof(RemoteUdp));
 	app->loop =				g_main_loop_new(NULL, FALSE);
 	app->handler =			init_input_capture_system(app);
-	app->gui =				init_remote_app_gui(app);
+	app->gui =				init_remote_app_gui(app,remote_app_reset);
 
 	app->qoe =				qoe_initialize();
 	app->pipe =				pipeline_initialize();

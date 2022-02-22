@@ -36,9 +36,8 @@ Pipeline*			pipeline_initialize				();
 
 /**
  * @brief 
- * set worker pointer to on or off
- * @param toggle 
- * @param core 
+ * 
+ * @param pipeline 
+ * @return GstElement* 
  */
-void                toggle_pointer                  (gboolean toggle, 
-                                                     SessionUdp* core);
+GstElement*         pipeline_get_screen_capture_element (Pipeline* pipeline);

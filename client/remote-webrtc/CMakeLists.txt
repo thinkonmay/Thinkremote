@@ -71,6 +71,3 @@ target_link_libraries(remote-webrtc
     ${CONTROLLER_LIBRARIES}
     ${VIDEO_LIBRARIES}
 )
-
-
-

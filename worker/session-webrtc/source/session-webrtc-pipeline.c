@@ -472,16 +472,6 @@ setup_element_property(SessionCore* core)
 }
 
 
-void
-toggle_pointer(gboolean toggle, 
-               SessionCore* core)
-{
-    Pipeline* pipe = session_core_get_pipeline(core);
-    if (pipe->video_element[SCREEN_CAPTURE]) 
-    { 
-        g_object_set(pipe->video_element[SCREEN_CAPTURE], "show-cursor", toggle, NULL); 
-    }
-}
 
 
 
@@ -531,4 +521,10 @@ GstElement*
 pipeline_get_webrtc_bin(Pipeline* pipe)
 {
     return pipe->webrtcbin;
+}
+
+GstElement*
+pipeline_get_screen_capture_element(Pipeline* pipeline)
+{
+    return pipeline->video_element[SCREEN_CAPTURE];
 }

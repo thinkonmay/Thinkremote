@@ -8,17 +8,14 @@
  * @copyright Copyright (c) 2021
  * 
  */
-#include <remote-webrtc-gui.h>
-#include <remote-webrtc-type.h>
-#include <remote-webrtc-pipeline.h>
-#include <remote-webrtc-input.h>
-#include <remote-webrtc.h>
+#include <overlay-gui.h>
 
-#include <glib.h>
 
-#include <gst/video/videooverlay.h>
-#include <gst/video/gstvideosink.h>
+#include <virtual-key.h>
+#include <capture-key.h>
+
 #include <glib-2.0/glib.h>
+#include <gst/gst.h>
 #include <gst/video/videooverlay.h>
 #include <gst/video/gstvideosink.h>
 
@@ -30,7 +27,7 @@ struct _GUI
      * @brief 
      * reference to remote app
      */
-    RemoteApp *app;
+    gpointer app;
 
 #ifdef G_OS_WIN32
     /**
@@ -77,10 +74,25 @@ struct _GUI
     gboolean fullscreen;
 
 
+    /**
+     * @brief 
+     * 
+     */
     gboolean disable_client_cursor;
+
+    /**
+     * @brief 
+     * 
+     */
+    InputHandler* handler;
+
+    /**
+     * @brief 
+     * 
+     */
+    ResetApplicationEvent reset;  
 };
 
-static GUI _gui = {0};
 
 /**
  * @brief Set the up window object
@@ -95,20 +107,27 @@ void                        set_up_window           (GUI* gui);
  */
 void                        handle_fullscreen_hotkey ();
 
+/**
+ * @brief 
+ * 
+ */
+void                        toggle_client_cursor                    ();
+
+static GUI _gui = {0};
+
 GUI*
-init_remote_app_gui(RemoteApp *app)
+init_remote_app_gui(gpointer app,   
+                    ResetApplicationEvent reset)
 {
-    memset(&_gui,0,sizeof(GUI));
-
-
-    _gui.app = app;
+    GUI* gui = &_gui;
+    gui->handler =  init_input_capture_system(NULL,app);
+    gui->app = app;
+    gui->reset = reset;
 #ifdef G_OS_WIN32
-    RECT wr = { 0, 0, 320, 240 };
-    _gui.wr = wr;
-
-    set_up_window(&_gui);
+    gui->wr = (RECT) { 0, 0, 320, 240 };
+    set_up_window(gui);
 #endif
-    return &_gui;
+    return gui;
 }
 
 #ifdef G_OS_WIN32
@@ -194,7 +213,7 @@ set_up_window(GUI* gui)
 		devices[0].usUsagePage = HID_USAGE_PAGE_GENERIC;
 		devices[0].usUsage = HID_USAGE_GENERIC_KEYBOARD;
 		devices[0].dwFlags = RIDEV_NOLEGACY | RIDEV_NOHOTKEYS;
-		devices[0].hwndTarget = _gui.window;
+		devices[0].hwndTarget = gui->window;
 
 		BOOL registered = RegisterRawInputDevices(devices, ARRAYSIZE(devices),
 			sizeof(RAWINPUTDEVICE));
@@ -232,21 +251,18 @@ bus_msg (GstBus * bus,
 
 
 gpointer
-setup_video_overlay(GstElement* videosink, 
-                    RemoteApp* app)
+setup_video_overlay(GUI* gui,
+                    GstElement* videosink, 
+                    GstElement* pipeline)
 {
-    GUI* gui = remote_app_get_gui(app);
-    Pipeline* pipeline = remote_app_get_pipeline(app);
-    GstElement* pipe_element = pipeline_get_pipeline_element(pipeline);
-
     /* prepare the pipeline */
     gst_object_ref_sink (videosink);
-    gst_bus_add_watch (GST_ELEMENT_BUS (pipe_element), bus_msg, pipe_element);
+    gst_bus_add_watch (GST_ELEMENT_BUS (pipeline), bus_msg, pipeline);
 
-    ShowWindow (_gui.window, SW_SHOW);
+    ShowWindow (gui->window, SW_SHOW);
 
     gst_video_overlay_set_window_handle (GST_VIDEO_OVERLAY (videosink),
-        (guintptr) _gui.window);
+        (guintptr) gui->window);
 
 }
 
@@ -363,13 +379,12 @@ switch_fullscreen_mode(GUI* gui)
  * @return gboolean 
  */
 static gboolean
-adjust_video_position(RemoteApp* app, 
+adjust_video_position(GUI* gui, 
                       gint x, 
                       gint y, 
                       gint width, 
                       gint height)
 {
-    GUI* gui = remote_app_get_gui(app);
     gst_video_overlay_set_render_rectangle(GST_VIDEO_OVERLAY(gui->sink_element), 
                                             x, 
                                             y, 
@@ -417,10 +432,6 @@ center_mouse_position(GUI* gui)
 }
 
 
-#define F_KEY  0x50
-#define W_KEY  0x57
-
-
 
 /**
  * @brief 
@@ -429,24 +440,21 @@ center_mouse_position(GUI* gui)
 void
 handle_fullscreen_hotkey()
 {
-    if(_gui.disable_client_cursor)
-    {
-        enable_client_cursor();
-        toggle_key_capturing(_gui.app,FALSE);
-        switch_fullscreen_mode(&_gui);
-    }
-    else
-    {
-        disable_client_cursor();
-        switch_fullscreen_mode(&_gui);
-        toggle_key_capturing(_gui.app,TRUE);
+    GUI* gui = &_gui;
+    switch_fullscreen_mode(gui);
+    toggle_client_cursor(gui);
 
-        /**
-         * @brief 
-         * reset mouse and keyboard to prevent key stuck
-         */
-        reset_key(_gui.app);
-        reset_mouse(_gui.app);
+    HIDHandleFunction function = !gui->disable_client_cursor ? NULL : NULL;
+    set_hid_handle_function(function);
+
+    /**
+     * @brief 
+     * reset mouse and keyboard to prevent key stuck
+     */
+    if(gui->disable_client_cursor)
+    {
+        reset_keyboard();
+        reset_mouse();
     }
 }
 
@@ -459,6 +467,7 @@ handle_fullscreen_hotkey()
 gboolean
 handle_user_shortcut()
 {
+    GUI* gui = &_gui;
     if (_keydown(VK_SHIFT))
     {
         if (_keydown(VK_MENU))
@@ -479,9 +488,28 @@ handle_user_shortcut()
                  * @brief 
                  * handle reset video stream 
                  */
-                if (_keydown(W_KEY))
+                else if (_keydown(W_KEY))
                 {
-                    remote_app_reset(_gui.app);
+                    gui->reset(gui->app);
+                    return TRUE;
+                }
+
+                /**
+                 * @brief 
+                 * handle reset video stream 
+                 */
+                else if (_keydown(VK_OEM_PLUS))
+                {
+                    return TRUE;
+                }
+
+
+                /**
+                 * @brief 
+                 * handle reset video stream 
+                 */
+                else if (_keydown(VK_OEM_MINUS))
+                {
                     return TRUE;
                 }
             }
@@ -505,11 +533,12 @@ window_proc(HWND hWnd,
             WPARAM wParam, 
             LPARAM lParam)
 {
+    GUI* gui = &_gui;
+
     if (message == WM_DESTROY) 
-    {
-        remote_app_finalize(_gui.app,NULL);
-    } 
-    else if (message == WM_INPUT)
+        g_assert_nonnull(NULL);
+
+    if (message == WM_INPUT)
     {
         if(!handle_user_shortcut())
             handle_message_window_proc(hWnd, message, wParam, lParam );
@@ -524,28 +553,21 @@ window_proc(HWND hWnd,
              message == WM_XBUTTONDOWN	||
              message == WM_XBUTTONUP	)
     {
+        if(!gui->disable_client_cursor)
+            goto end;
+
         gint x = LOWORD(lParam);
 		gint y = HIWORD(lParam);
-
-        if(_gui.disable_client_cursor)
-        {
-            POINT pt = center_mouse_position(&_gui);
-            handle_window_mouse_relative(message,
-                x-pt.x,
-                y-pt.y,
-                _gui.app);
-        }
+        POINT pt = center_mouse_position(gui);
+        handle_window_mouse_relative(message, x-pt.x, y-pt.y);
     }
     else if (message == WM_MOUSEWHEEL)
     {		
 		gboolean up = (GET_WHEEL_DELTA_WPARAM(wParam) > 0);
-
-        if(_gui.disable_client_cursor)
-        {
-            center_mouse_position(&_gui);
-        }
-        handle_window_wheel(up,_gui.app);
+        handle_window_wheel(up);
     }
+
+end:
     return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
@@ -563,18 +585,12 @@ adjust_window(GUI* gui)
 }
 
 
-void
-disable_client_cursor()
-{
-    _gui.disable_client_cursor = TRUE;
-    ShowCursor(FALSE);
-}
 
 void
-enable_client_cursor()
+toggle_client_cursor(GUI* gui)
 {
-    _gui.disable_client_cursor = FALSE;
-    ShowCursor(TRUE);
+    gui->disable_client_cursor = !gui->disable_client_cursor;
+    ShowCursor(!gui->disable_client_cursor);
 }
 
 
@@ -587,9 +603,6 @@ gui_terminate(GUI* gui)
 
 
 #else
-
-
-
 void
 gui_terminate(GUI* gui)
 {

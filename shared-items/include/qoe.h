@@ -1,12 +1,13 @@
-/// <summary>
-/// @file qoe.h
-/// @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
-/// </summary>
-/// @version 1.0
-/// @date 2021-09-06
-/// 
-/// 
-/// @copyright Copyright (c) 2021
+/**
+ * @file qoe.h
+ * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
+ * @brief 
+ * @version 1.0
+ * @date 2022-02-22
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #ifndef __QOE_H__
 #define __QOE_H__
 
@@ -30,11 +31,7 @@ typedef enum
     HIGH_CONST,
     VERY_HIGH_CONST,
     ULTRA_HIGH_CONST,
-
-    DEVELOPMENT_DEFAULT_BITRATE,
 }QoEMode;
-
-
 
 
 #endif
