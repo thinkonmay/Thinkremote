@@ -82,20 +82,31 @@ handle_message_server(gchar* path,
 	}
 }
 
+void do_nothing() { }
 
-
+void
+development_agent(AgentServer* agent)
+{
+	SetEnvironmentVariable("SIGNALLING",TEXT("ws://localhost:5000/Handshake"));
+	create_new_child_process("Signalling.exe 		--urls=http://localhost:5000", 	do_nothing, do_nothing, do_nothing, agent, NULL);
+	create_new_child_process("session-webrtc.exe 	--environment=development", 	do_nothing, do_nothing, do_nothing, agent, NULL);
+	create_new_child_process("remote-webrtc.exe 	--environment=development", 	do_nothing, do_nothing, do_nothing, agent, NULL);
+}
 
 
 
 AgentServer*
-agent_new(gboolean self_host,
-		  gchar* token)
+agent_new(gchar* token)
 {	
-	GError* error = NULL;
 	AgentServer* agent = malloc(sizeof(AgentServer));
 	memset(agent,0,sizeof(AgentServer));
 
-	agent->loop = g_main_loop_new(NULL, FALSE);
+	if(DEVELOPMENT_ENVIRONMENT)
+	{
+		development_agent(agent);
+		goto run;
+	}
+
 	agent->portforward = init_portforward_service();
 	agent->remote_session = intialize_remote_session_service();
 	agent->socket = initialize_socket();
@@ -103,7 +114,7 @@ agent_new(gboolean self_host,
 	// Always use window http server for window 
 	// (libsoup server yield a bad performance)
 #ifndef G_OS_WIN32
-	agent->server = init_agent_server(agent,self_host);
+	agent->server = init_agent_server(agent,FALSE);
 #else
 	agent->server = init_window_server((ServerMessageHandle)handle_message_server,
 		portforward_get_agent_instance_port(agent->portforward),agent);
@@ -121,6 +132,9 @@ agent_new(gboolean self_host,
 
 	
 	register_with_managed_cluster(agent, agent->portforward, token);
+
+run:
+	agent->loop = g_main_loop_new(NULL, FALSE);
 	g_main_loop_run(agent->loop);
 	return agent;
 }
@@ -191,4 +205,3 @@ agent_set_remote_session(AgentServer* self,
 {
 	self->remote_session = session;
 }
-

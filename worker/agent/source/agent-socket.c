@@ -24,7 +24,6 @@
 #include <libsoup/soup.h>
 
 
-#define WRITE_TOKEN_TO_FILE FALSE
 
 
 /**
@@ -57,14 +56,9 @@ send_message_to_cluster(AgentServer* object,
     soup_message_headers_append(soupMessage->request_headers,"Authorization",DEVICE_TOKEN);
 
     if(message)
-    {
-        soup_message_set_request(soupMessage,"application/json",SOUP_MEMORY_COPY,
-            message,strlen(message));
-    }
+        soup_message_set_request(soupMessage,"application/json",SOUP_MEMORY_COPY, message,strlen(message));
     else
-    {
-        soup_message_set_request(soupMessage,"application/json",SOUP_MEMORY_COPY,"",0);
-    }
+        soup_message_set_request(soupMessage,"application/json",SOUP_MEMORY_STATIC,"null",4);
 
     soup_session_send_message(socket->session,soupMessage);
 }

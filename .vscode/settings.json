@@ -19,7 +19,8 @@
         "libloaderapi.h": "c",
         "cstdlib": "c",
         "development.h": "c",
-        "glib.h": "c"
+        "glib.h": "c",
+        "environment.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

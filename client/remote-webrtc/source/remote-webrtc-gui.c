@@ -451,7 +451,12 @@ handle_fullscreen_hotkey()
 }
 
 
-void
+/**
+ * @brief 
+ * 
+ * @return gboolean TRUE if the input signal should be disabled
+ */
+gboolean
 handle_user_shortcut()
 {
     if (_keydown(VK_SHIFT))
@@ -467,6 +472,7 @@ handle_user_shortcut()
                 if (_keydown(F_KEY))
                 {
                     handle_fullscreen_hotkey();
+                    return TRUE;
                 }
 
                 /**
@@ -476,10 +482,12 @@ handle_user_shortcut()
                 if (_keydown(W_KEY))
                 {
                     remote_app_reset(_gui.app);
+                    return TRUE;
                 }
             }
         }
     }
+    return FALSE;
 }
 
 /**
@@ -503,18 +511,18 @@ window_proc(HWND hWnd,
     } 
     else if (message == WM_INPUT)
     {
-        handle_user_shortcut();
-        handle_message_window_proc(hWnd, message, wParam, lParam );
+        if(!handle_user_shortcut())
+            handle_message_window_proc(hWnd, message, wParam, lParam );
     }
-    else if (message == WM_MOUSEMOVE ||
-            message == WM_LBUTTONDOWN	||
-            message == WM_LBUTTONUP	||
-            message == WM_MBUTTONDOWN	||
-            message == WM_MBUTTONUP	||
-            message == WM_RBUTTONDOWN	||
-            message == WM_RBUTTONUP	||
-            message == WM_XBUTTONDOWN	||
-            message == WM_XBUTTONUP	)
+    else if (message == WM_MOUSEMOVE    ||
+             message == WM_LBUTTONDOWN	||
+             message == WM_LBUTTONUP	||
+             message == WM_MBUTTONDOWN	||
+             message == WM_MBUTTONUP	||
+             message == WM_RBUTTONDOWN	||
+             message == WM_RBUTTONUP	||
+             message == WM_XBUTTONDOWN	||
+             message == WM_XBUTTONUP	)
     {
         gint x = LOWORD(lParam);
 		gint y = HIWORD(lParam);

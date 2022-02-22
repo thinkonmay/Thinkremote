@@ -48,6 +48,8 @@ struct _ChildProcess
 
     GThread* statehdl;
 
+    gchar process_name[100];
+
     gboolean completed;
     gpointer data;
 };
@@ -120,6 +122,8 @@ handle_child_process_state(gpointer data)
         Sleep(100);
         GetExitCodeProcess(proc->process, &(proc->exit_code));
         if(proc->exit_code != STILL_ACTIVE){
+            worker_log_output("Child process terminated, process name:");
+            worker_log_output(proc->process_name);
             proc->handler(proc,proc->agent,proc->data);
             g_cancellable_cancel(cancellabl);
             return;
@@ -175,6 +179,9 @@ create_new_child_process(gchar* process_name,
 {
     GError* error = NULL;
     ChildProcess* child_process = malloc(sizeof(ChildProcess));
+    memset(child_process,0,sizeof(ChildProcess));
+    memcpy(child_process->process_name,process_name,strlen(process_name));
+
     child_process->data = data;
     child_process->agent = agent;
     child_process->stderr_handler = stderrhdl,
@@ -220,12 +227,14 @@ create_new_child_process(gchar* process_name,
         return NULL;        
     }
     else    
+    {
+        worker_log_output("Child process created:");
+        worker_log_output(child_process->process_name);
         child_process->process = pi.hProcess;
+        child_process->statehdl = g_thread_new("handle",handle_child_process_state,child_process);
+        return child_process;
+    }
 #endif
-
-    child_process->statehdl =   g_thread_new("handle",
-        handle_child_process_state,child_process);
-    return child_process;
 }
 
 

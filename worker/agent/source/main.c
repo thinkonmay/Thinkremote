@@ -19,6 +19,7 @@
 #include <message-form.h>
 
 #include <development.h>
+#include <logging.h>
 #include <stdio.h>
 
 
@@ -117,10 +118,10 @@ main(int argc, char* argv[])
         return -1;
     }
 
-
-    if(DEVELOPMENT_ENVIRONMENT)
+    if(!g_strcmp0(environment,"development"))
     {
-        g_printerr("Cannot start agent in development environment\naborting...");
+        thinkremote_application_init(environment, NULL, NULL, NULL);
+        agent_new(NULL);
         return;
     }
 
@@ -147,10 +148,6 @@ main(int argc, char* argv[])
     }
 
 
-
-
-
-
     {
         JsonObject* login = json_object_new();
         json_object_set_string_member(login,"UserName",user);
@@ -166,18 +163,10 @@ main(int argc, char* argv[])
         JsonObject* result = get_json_object_from_string(message->response_body->data,&error,parser);
         gchar* user_token = json_object_get_string_member(result,"token");
 
-        if(!user_token) 
-            g_printerr("fail to login, retry\n");
-        else
-            g_print("Logged in\n");
-
+        g_assert_nonnull(user_token);
         memcpy(token,user_token,strlen(user_token));
         g_object_unref(parser); 
     }
-
-
-    if(!token)
-        return;
 
 
     {
@@ -196,6 +185,8 @@ main(int argc, char* argv[])
         JsonParser* parser = json_parser_new();
         JsonObject* result = get_json_object_from_string(message->response_body->data,&error,parser);
         gchar* cluster_token_received = json_object_get_string_member(result,"token");
+
+        g_assert_nonnull(cluster_token_received);
         memcpy(cluster_token,cluster_token_received,strlen(cluster_token_received));
         g_object_unref(parser); 
     }
@@ -216,6 +207,7 @@ main(int argc, char* argv[])
         g_string_append(cluster_url_string,":5000");
         gchar* cluster_url_result = g_string_free(cluster_url_string,FALSE);
 
+        g_assert_nonnull(cluster_url_result);
         memcpy(cluster_url, cluster_url_result,strlen(cluster_url_result));
         g_object_unref(parser);
     }
@@ -225,7 +217,7 @@ main(int argc, char* argv[])
                                 cluster_token,
                                 NULL);
 
-    agent_new(FALSE,token);
+    agent_new(token);
     return;
 }
 

@@ -19,6 +19,7 @@
 
 #include <module-code.h>
 #include <development.h>
+#include <environment.h>
 #include <global-var.h>
 
 
@@ -89,68 +90,59 @@ static void
 remote_app_setup_session(RemoteApp* self, 
 						 gchar* remote_token)
 {    
-	if(!DEVELOPMENT_ENVIRONMENT)
+	if(DEVELOPMENT_ENVIRONMENT)
 	{
-		const char* https_aliases[] = { "https", NULL };
-		SoupSession* https_session = soup_session_new_with_options(
-				SOUP_SESSION_SSL_STRICT, FALSE,
-				SOUP_SESSION_SSL_USE_SYSTEM_CA_FILE, TRUE,
-				SOUP_SESSION_HTTPS_ALIASES, https_aliases, NULL);
-			
-		GString* infor_url = g_string_new(SESSION_URL);
-		g_string_append(infor_url,	"?token=");
-		g_string_append(infor_url,	remote_token);
-		gchar* infor_str = g_string_free(infor_url,FALSE);
-
-
-		SoupMessage* infor_message = soup_message_new(SOUP_METHOD_GET,infor_str);
-		soup_session_send_message(https_session,infor_message);
-
-
-		if(infor_message->status_code == SOUP_STATUS_OK)
-		{
-			GError* error = NULL;
-			JsonParser* parser = json_parser_new();
-			JsonObject* json_infor = get_json_object_from_string(infor_message->response_body->data,error,parser);
-
-
-			signalling_hub_setup(self->signalling,
-				json_object_get_string_member(json_infor,"turn"),
-				json_object_get_string_member(json_infor,"signallingurl"),
-				json_object_get_array_member(json_infor,"stuns"),
-				remote_token);
-
-			qoe_setup(self->qoe,
-						json_object_get_int_member(json_infor,"audiocodec"),
-						json_object_get_int_member(json_infor,"videocodec"));
-
-			g_object_unref(parser);
-		}
-		else 
-		{
-			GError* error = malloc(sizeof(GError));
-			g_printerr("response code: %d\n",infor_message->status_code);
-			error->message = "fail to get session information";
-			remote_app_finalize(self,error);
-			return;
-		}
-	}
-	else
-	{
+		gchar* signalling = DEVELOPMENT_SIGNALLING_URL;
 		signalling_hub_setup(self->signalling,
 #ifdef DEFAULT_TURN
 			DEFAULT_TURN,
 #else
 			" ",
 #endif
-			DEVELOPMENT_SIGNALLING_URL,
+			signalling,
 			NULL,
 			remote_token);
 
-		qoe_setup(self->qoe,
-				OPUS_ENC,
-				CODEC_H265);
+		qoe_setup(self->qoe, OPUS_ENC, CODEC_H265);
+		return;
 	}
+
+	const char* https_aliases[] = { "https", NULL };
+	SoupSession* https_session = soup_session_new_with_options(
+			SOUP_SESSION_SSL_STRICT, FALSE,
+			SOUP_SESSION_SSL_USE_SYSTEM_CA_FILE, TRUE,
+			SOUP_SESSION_HTTPS_ALIASES, https_aliases, NULL);
+		
+	GString* infor_url = g_string_new(SESSION_URL);
+	g_string_append(infor_url,	"?token=");
+	g_string_append(infor_url,	remote_token);
+	gchar* infor_str = g_string_free(infor_url,FALSE);
+
+
+	SoupMessage* infor_message = soup_message_new(SOUP_METHOD_GET,infor_str);
+	soup_session_send_message(https_session,infor_message);
+
+
+	if(infor_message->status_code == SOUP_STATUS_OK)
+	{
+		g_printerr("fail to get session information: response code %d\n",infor_message->status_code);
+		remote_app_finalize(self,NULL);
+	}
+
+	JsonParser* parser = json_parser_new();
+	JsonObject* json_infor = get_json_object_from_string(infor_message->response_body->data,NULL,parser);
+
+	signalling_hub_setup(self->signalling,
+		json_object_get_string_member(json_infor,"turn"),
+		json_object_get_string_member(json_infor,"signallingurl"),
+		json_object_get_array_member(json_infor,"stuns"),
+		remote_token);
+
+	qoe_setup(self->qoe,
+				json_object_get_int_member(json_infor,"audiocodec"),
+				json_object_get_int_member(json_infor,"videocodec"));
+
+	g_object_unref(parser);
 }
 
 

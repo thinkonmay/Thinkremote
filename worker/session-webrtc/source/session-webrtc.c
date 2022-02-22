@@ -22,7 +22,9 @@
 #include <message-form.h>
 #include <global-var.h>
 #include <token-validate.h>
+
 #include <development.h>
+#include <environment.h>
 #include <human-interface-opcode.h>
 
 
@@ -105,6 +107,7 @@ session_core_setup_session(SessionCore* self)
 
 	if(DEVELOPMENT_ENVIRONMENT)
 	{
+		gchar* signalling = DEVELOPMENT_SIGNALLING_URL;
 		remote_token = DEFAULT_CORE_TOKEN;
 
 		signalling_hub_setup(self->signalling,
@@ -113,7 +116,7 @@ session_core_setup_session(SessionCore* self)
 #else
 			" ",
 #endif
-			DEVELOPMENT_SIGNALLING_URL,
+			signalling,
 			NULL,
 			remote_token);
 
@@ -125,7 +128,6 @@ session_core_setup_session(SessionCore* self)
 					DEVELOPMENT_DEFAULT_BITRATE);
 		
 		self->peer_device = WINDOW_APP;
-
 		return;
 	}
 

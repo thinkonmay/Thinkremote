@@ -11,8 +11,9 @@
 #ifndef __DEVELOPMENT_H__
 #define __DEVELOPMENT_H__
 #define GST_USE_UNSTABLE_API
-#include <glib.h>
 
+#include <glib.h>
+#include <environment.h>
 
 
 
@@ -94,7 +95,7 @@
  * @brief 
  * 
  */
-#define DEVELOPMENT_SIGNALLING_URL           "ws://localhost:5000/Handshake"
+#define DEVELOPMENT_SIGNALLING_URL           GetEnvironmentVariableWithKey("SIGNALLING")
 
 
 

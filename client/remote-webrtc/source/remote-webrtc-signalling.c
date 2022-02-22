@@ -116,7 +116,6 @@ signalling_hub_setup(SignallingHub* hub,
         g_print("starting remote session with turn server\n%s\n",turn);
         
     memcpy(hub->turn, turn,strlen(turn));
-
     memcpy(hub->remote_token, remote_token,strlen(remote_token));
     memcpy(hub->signalling_server, url,strlen(url));
     if(!stun_array)
