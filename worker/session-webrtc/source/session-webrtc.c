@@ -89,6 +89,33 @@ struct _SessionCore
 
 
 
+void
+session_development_setup(SessionCore* self)
+{
+	JsonArray* array = json_array_new();
+	json_array_add_string_element(array,DEFAULT_STUN);
+
+#ifdef DEFAULT_TURN
+	gchar* turn =	DEFAULT_TURN;
+#else
+	gchar* turn =	" ";
+#endif
+
+	signalling_hub_setup(self->signalling,
+				DEVELOPMENT_SIGNALLING_URL,
+				turn,
+				array,
+				DEFAULT_CORE_TOKEN);
+
+	qoe_setup(self->qoe,
+				1920,
+				1080,
+				OPUS_ENC,
+				CODEC_H264,
+				DEVELOPMENT_DEFAULT_BITRATE);
+	
+	self->peer_device = WINDOW_APP;
+}
 
 
 
@@ -101,36 +128,13 @@ struct _SessionCore
 static void
 session_core_setup_session(SessionCore* self)
 {
-	JsonParser* token_parser = json_parser_new();
-	gchar* remote_token;
-
-
 	if(DEVELOPMENT_ENVIRONMENT)
 	{
-		gchar* signalling = DEVELOPMENT_SIGNALLING_URL;
-		remote_token = DEFAULT_CORE_TOKEN;
-
-		signalling_hub_setup(self->signalling,
-#ifdef DEFAULT_TURN
-        	DEFAULT_TURN,
-#else
-			" ",
-#endif
-			signalling,
-			NULL,
-			remote_token);
-
-		qoe_setup(self->qoe,
-					1920,
-					1080,
-					OPUS_ENC,
-					CODEC_H264,
-					DEVELOPMENT_DEFAULT_BITRATE);
-		
-		self->peer_device = WINDOW_APP;
+		session_development_setup(self);
 		return;
 	}
 
+	gchar* remote_token;
 	{
 		gchar* buffer = "null";
 		const char* http_aliases[] = { "http", NULL };
@@ -156,6 +160,7 @@ session_core_setup_session(SessionCore* self)
 		}
 
 		GError* error = NULL;
+		JsonParser* token_parser = json_parser_new();
 		JsonObject* json_infor = get_json_object_from_string(message->response_body->data,error,token_parser);
 		remote_token = json_object_get_string_member(json_infor,"token");
 

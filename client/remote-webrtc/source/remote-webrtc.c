@@ -28,6 +28,7 @@
 #include <message-form.h>
 #include <module-code.h>
 #include <libsoup/soup.h>
+#include <stdio.h>
 
 
 struct _RemoteApp
@@ -76,15 +77,51 @@ struct _RemoteApp
 };
 
 
+
+void
+remote_development_setup(RemoteApp* self)
+{
+	gchar* signalling = DEVELOPMENT_SIGNALLING_URL;
+#ifdef DEFAULT_TURN
+	gchar* turn =	DEFAULT_TURN;
+#else
+	gchar* turn =	" ";
+#endif
+
+	JsonArray* array = json_array_new();
+	json_array_add_string_element(array,DEFAULT_STUN);
+
+	if(!signalling)
+	{
+		gchar ip [100] = {0};
+		g_print("target computer ip: ");
+		scanf("%s",ip);
+
+		GString* string = g_string_new("ws://");
+		g_string_append(string,ip);
+		g_string_append(string,":5000/Handshake");
+		signalling = g_string_free(string,NULL);
+	}
+
+
+	signalling_hub_setup(self->signalling,
+			turn,
+			signalling,
+			array,
+			DEFAULT_CLIENT_TOKEN);
+
+	qoe_setup(self->qoe, 
+			OPUS_ENC, 
+			CODEC_H265);
+}
+
+
+
 /**
  * @brief 
- * setup session 
+ * 
  * @param self 
- * @param session_id 
- * @param signalling_url 
- * @param turn 
- * @param audio_codec 
- * @param video_codec 
+ * @param remote_token 
  */
 static void
 remote_app_setup_session(RemoteApp* self, 
@@ -92,18 +129,7 @@ remote_app_setup_session(RemoteApp* self,
 {    
 	if(DEVELOPMENT_ENVIRONMENT)
 	{
-		gchar* signalling = DEVELOPMENT_SIGNALLING_URL;
-		signalling_hub_setup(self->signalling,
-#ifdef DEFAULT_TURN
-			DEFAULT_TURN,
-#else
-			" ",
-#endif
-			signalling,
-			NULL,
-			remote_token);
-
-		qoe_setup(self->qoe, OPUS_ENC, CODEC_H265);
+		remote_development_setup(self);
 		return;
 	}
 
@@ -123,7 +149,7 @@ remote_app_setup_session(RemoteApp* self,
 	soup_session_send_message(https_session,infor_message);
 
 
-	if(infor_message->status_code == SOUP_STATUS_OK)
+	if(infor_message->status_code != SOUP_STATUS_OK)
 	{
 		g_printerr("fail to get session information: response code %d\n",infor_message->status_code);
 		remote_app_finalize(self,NULL);

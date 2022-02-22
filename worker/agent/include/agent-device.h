@@ -32,4 +32,12 @@
  */
 gchar*                  get_registration_message        (gboolean port_forward, 
 						                                 gchar* agent_instance_port);
+													
+											
+/**
+ * @brief Get the local ip object
+ * 
+ * @return gchar* 
+ */
+gchar* 					get_local_ip					();
 #endif

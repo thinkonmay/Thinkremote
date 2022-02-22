@@ -59,31 +59,27 @@ main(int argc, char* argv[])
                                 NULL,
                                 NULL);
 
-    if(!DEVELOPMENT_ENVIRONMENT)
-    {
-        if(argc == 2)
-        {
-            gchar** array = split(argv[1],'/');
-            if(g_strcmp0(array[0],"thinkmay:"))
-            {
-                g_print("%s :",array[0]);
-                g_printerr("wrong uri, remote app exiting");
-                return;
-            }
+    if(DEVELOPMENT_ENVIRONMENT)
+        goto start;
 
-            gchar** parameter = split(array[2],'=');
-            if(!g_strcmp0(*(parameter ),"token"))
-            {
-                memcpy(remote_token,parameter[1],strlen(parameter[1]));
-            }
+    if(argc == 2)
+    {
+        gchar** array = split(argv[1],'/');
+        if(g_strcmp0(array[0],"thinkmay:"))
+        {
+            g_print("%s :",array[0]);
+            g_printerr("wrong uri, remote app exiting");
+            return;
+        }
+
+        gchar** parameter = split(array[2],'=');
+        if(!g_strcmp0(*(parameter ),"token"))
+        {
+            memcpy(remote_token,parameter[1],strlen(parameter[1]));
         }
     }
-    else
-    {
-        memcpy(remote_token,DEFAULT_CLIENT_TOKEN,strlen(DEFAULT_CLIENT_TOKEN));
-    }
 
-
+start:
     remote_app_initialize(remote_token);
     return 0;
 }
