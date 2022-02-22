@@ -85,11 +85,31 @@ handle_message_server(gchar* path,
 void do_nothing() { }
 
 void
+development_environment_quit(ChildProcess* proc,
+                            AgentServer* agent,
+                            gpointer data)
+{
+    agent_finalize(agent);
+}
+
+void
 development_agent(AgentServer* agent)
 {
-	SetEnvironmentVariable("SIGNALLING",TEXT("ws://localhost:5000/Handshake"));
-	create_new_child_process("Signalling.exe 		--urls=http://localhost:5000", 	do_nothing, do_nothing, do_nothing, agent, NULL);
-	create_new_child_process("session-webrtc.exe 	--environment=development", 	do_nothing, do_nothing, do_nothing, agent, NULL);
+	gchar* ip = get_local_ip();
+
+	GString* string = g_string_new("ws://");
+	g_string_append(string,ip);
+	g_string_append(string,":5000/Handshake");
+	gchar* handshake = g_string_free(string,FALSE);
+
+	string = g_string_new("Signalling.exe --urls=http://");
+	g_string_append(string,ip);
+	g_string_append(string,":5000");
+	gchar* signalling_url = g_string_free(string,FALSE);
+
+	SetEnvironmentVariable("SIGNALLING",TEXT(handshake));
+	create_new_child_process(signalling_url, 										do_nothing, do_nothing, development_environment_quit, agent, NULL);
+	create_new_child_process("session-webrtc.exe 	--environment=development", 	do_nothing, do_nothing, development_environment_quit, agent, NULL);
 	create_new_child_process("remote-webrtc.exe 	--environment=development", 	do_nothing, do_nothing, do_nothing, agent, NULL);
 }
 
@@ -97,7 +117,7 @@ development_agent(AgentServer* agent)
 
 AgentServer*
 agent_new(gchar* token)
-{	
+{
 	AgentServer* agent = malloc(sizeof(AgentServer));
 	memset(agent,0,sizeof(AgentServer));
 

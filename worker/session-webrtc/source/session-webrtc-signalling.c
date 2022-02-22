@@ -117,15 +117,11 @@ signalling_hub_setup(SignallingHub* hub,
     memcpy(hub->remote_token, remote_token,strlen(remote_token));
     memcpy(hub->signalling_server, url,strlen(url));
 
-    if(stun_array)
-    {
-        json_array_foreach_element(stun_array,
+    if(!stun_array)
+        return;
+
+    json_array_foreach_element(stun_array, 
             (JsonArrayForeach)handle_stun_list,(gpointer)hub);
-    }
-    else
-    {
-        worker_log_output("no stun server found, setting default value\n");
-    }
 }
 
 

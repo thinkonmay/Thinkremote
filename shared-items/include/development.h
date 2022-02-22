@@ -28,6 +28,12 @@
  * @brief 
  * 
  */
+#define DEFAULT_STUN                       "stun.l.google.com:19302"
+
+/**
+ * @brief 
+ * 
+ */
 #define THINKMAY_DOMAIN                     "host.thinkmay.net" 
 
 /**
