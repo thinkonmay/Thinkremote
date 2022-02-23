@@ -13,13 +13,13 @@
 #include <session-webrtc.h>
 #include <session-webrtc-type.h>
 #include <session-webrtc-pipeline.h>
-#include <session-webrtc-remote-config.h>
 
 
 #include <logging.h>
 #include <enum.h>
 #include <key-convert.h>
 #include <constant.h>
+#include <remote-config.h>
 #include <handle-key.h>
 
 #include <global-var.h>
@@ -112,10 +112,6 @@ hid_channel_on_message_string(GObject* dc,
                             SessionCore* core)
 {
     WebRTCHub* hub = session_core_get_rtc_hub(core);
-
-    Pipeline* pipeline = session_core_get_pipeline(core);
-    GstElement* capture = pipeline_get_screen_capture_element(pipeline);
-
     if(DEVELOPMENT_ENVIRONMENT)
         g_print("%s\n",message);
 

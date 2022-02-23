@@ -65,6 +65,7 @@ static InputHandler HID_handler = {0};
 
 InputHandler*
 init_input_capture_system(HIDHandleFunction function, 
+                          Shortcut* shortcuts,
                           gpointer data)
 {
     memset(&HID_handler,0,sizeof(InputHandler));
@@ -73,11 +74,6 @@ init_input_capture_system(HIDHandleFunction function,
     return &HID_handler;
 }
 
-void                
-set_hid_handle_function(HIDHandleFunction function)
-{
-    HID_handler.handler = function;
-}
 
 
 static void
@@ -111,6 +107,16 @@ send_key_event(HidInput* input)
     json_object_set_int_member(object,"Opcode",(gint)input->opcode);
     json_object_set_int_member(object,"wVk",input->keyboard_code);
     json_object_set_boolean_member(object,"IsUp",input->key_is_up);
+
+    if(HID_handler.handler)
+        HID_handler.handler(get_string_from_json_object(object),HID_handler.data);
+}
+
+static void
+send_normal_event(HidInput* input)
+{
+    JsonObject* object = json_object_new();
+    json_object_set_int_member(object,"Opcode",(gint)input->opcode);
 
     if(HID_handler.handler)
         HID_handler.handler(get_string_from_json_object(object),HID_handler.data);
@@ -150,6 +156,7 @@ static void             parse_hid_event             (HidInput* input);
  * @return gboolean 
  */
 gboolean                handle_user_shortcut        ();
+
 /**
  * @brief 
  * detect if a key is pressed
@@ -166,48 +173,7 @@ _keydown(int *key)
 
 
 
-static gint reset_key_array[10] = 
-{
-    VK_SHIFT,
-    VK_CONTROL,
-    VK_LWIN,
-    VK_RWIN,
-    VK_ESCAPE,
-    VK_MENU,
-    0,
-};
-static gint reset_mouse_array[10] = 
-{
-    WM_LBUTTONUP,
-    WM_RBUTTONUP,
-    WM_MBUTTONUP,
-    0
-};
 
-static gint reset_mouse_virtual_code[10] = 
-{
-    VK_LBUTTON,
-    VK_RBUTTON,
-    VK_MBUTTON,
-    0
-};
-
-void
-reset_mouse()
-{
-    gint i = 0;
-    while (!reset_mouse_array[i])
-    {
-        if(_keydown(reset_mouse_virtual_code[i]))
-        {
-            HidInput input = {0};
-            input.opcode = MOUSERAW;
-            input.mouse_code = reset_mouse_array[i];
-            send_mouse_signal(&input);
-        }
-        i++;
-    }
-}
 
 
 
@@ -326,24 +292,6 @@ send_gamepad_vibration(XINPUT_VIBRATION vibration)
     XInputSetState(0, &vibration);
 }
 
-void
-reset_keyboard()
-{
-    gint i = 0;
-    while (!reset_key_array[i])
-    {
-        
-        if(_keydown(reset_key_array[i]))
-        {
-            HidInput input = {0};
-            input.opcode = KEYRAW;
-            input.key_is_up = TRUE;
-            input.keyboard_code = reset_key_array[i]; 
-            send_key_event(&input);
-        }
-        i++;
-    }
-}
 
 
 
@@ -373,7 +321,8 @@ parse_hid_event(HidInput* input)
             send_key_event(input);
             break;
         default:
-            return;
+            send_normal_event(input);
+            break;
     }
 }
 
@@ -397,17 +346,21 @@ handle_user_shortcut()
             gint key = shortcut.key_list[k];
             if(!_keydown(key))
             {
-                goto nothandle;
+                goto ignore;
             }
             k++;
         }
 
-        shortcut.function(shortcut.data);
+        if(shortcut.function && shortcut.data)
+            shortcut.function(shortcut.data);
+        else if (shortcut.function)
+            shortcut.function(NULL);
+
         HidInput input = {0};
         input.opcode = shortcut.opcode;
         parse_hid_event(&input);
         return TRUE;
-nothandle:
+ignore:
         i++;
     }
     return FALSE;
@@ -423,6 +376,29 @@ add_shortcut(Shortcut shortcut)
         i++;
     }
     HID_handler.shortcuts[i] = shortcut;
+}
+
+void
+trigger_hotkey_by_opcode(ShortcutOpcode opcode)
+{
+    gint i = 0;
+    while(HID_handler.shortcuts[i].active)
+    {
+        Shortcut shortcut = HID_handler.shortcuts[i];
+        if(shortcut.opcode == opcode)
+        {
+            if(shortcut.function && shortcut.data)
+                shortcut.function(shortcut.data);
+            else if (shortcut.function)
+                shortcut.function(NULL);
+
+            HidInput input = {0};
+            input.opcode = shortcut.opcode;
+            parse_hid_event(&input);
+            return;
+        }
+        i++;
+    }
 }
 #else
 

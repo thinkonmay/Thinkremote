@@ -10,11 +10,11 @@
  */
 #include <remote-udp-pipeline.h>
 #include <remote-udp-type.h>
-#include <remote-udp-remote-config.h>
 #include <remote-udp-pipeline.h>
 
 #include <enum.h>
 #include <overlay-gui.h>
+#include <remote-config.h>
 
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>
@@ -316,8 +316,6 @@ static void
 setup_element_property(RemoteUdp* core)
 {
     Pipeline* pipe = remote_app_get_pipeline(core);
-    RemoteConfig* qoe = remote_app_get_qoe(core);
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #ifndef G_OS_WIN32
 #else
@@ -443,7 +441,7 @@ gpointer
 setup_pipeline(RemoteUdp* core)
 {
     Pipeline* pipe = remote_app_get_pipeline(core);
-    RemoteConfig* config = remote_app_get_qoe(core);
+    StreamConfig* config = remote_app_get_qoe(core);
     
 
     if(pipe->audio_pipeline || pipe->video_pipeline)

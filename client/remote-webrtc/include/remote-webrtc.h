@@ -13,7 +13,7 @@
 
 #include <remote-webrtc-type.h>
 #include <json-handler.h>
-
+#include <overlay-gui.h>
 
 
 
@@ -61,14 +61,6 @@ Pipeline*		remote_app_get_pipeline				(RemoteApp* self);
  * @return WebRTCHub* 
  */
 WebRTCHub*		remote_app_get_rtc_hub				(RemoteApp* self);
-
-/**
- * @brief 
- * get qoe object from remtoe app
- * @param self 
- * @return QoE* 
- */
-QoE*			remote_app_get_qoe					(RemoteApp* self);
 
 
 

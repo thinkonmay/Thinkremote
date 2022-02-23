@@ -1,21 +1,31 @@
-/// <summary>
-/// @file session-udp-remote-config.h
-/// @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
-/// </summary>
-/// @version 1.0
-/// @date 2021-09-05
-/// 
-/// @copyright Copyright (c) 2021
-/// 
-#ifndef __SESSION_CORE_REMOTE_CONFIG_H__
-#define __SESSION_CORE_REMOTE_CONFIG_H__
-#include <session-udp-type.h>
-#include <session-udp.h>
+/**
+ * @file session-udp-remote-config.h
+ * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
+ * @brief 
+ * @version 1.0
+ * @date 2022-02-23
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+#ifndef __REMOTE_CONFIG_H__
+#define __REMOTE_CONFIG_H__
 #include <gst/gst.h>
 #include <enum.h>
 
 
+/**
+ * @brief 
+ * StreamConfig is a data structure wrap around all QoS metric
+ */
+typedef struct 			_StreamConfig					        StreamConfig;
 
+
+/**
+ * @brief 
+ * 
+ */
+typedef struct			_UdpEndpoint							UdpEndpoint;
 
 
 /**
@@ -86,5 +96,24 @@ gint			qoe_get_screen_width				(StreamConfig* qoe);
  * @return gint video bitrate in kbit/s 
  */
 gint 			qoe_get_video_bitrate				(StreamConfig* qoe);
+
+/**
+ * @brief Set the udp endpoint object
+ * 
+ * @param element 
+ * @param endpoint 
+ */
+void 			set_udp_endpoint					(GstElement* element, 
+				 									 UdpEndpoint* endpoint);
+
+/**
+ * @brief 
+ * 
+ * @param port 
+ * @param ip 
+ * @return UdpEndpoint* 
+ */
+UdpEndpoint* 	udp_endpoint_new					(gchar* port,
+				 									 gchar* ip);
 
 #endif

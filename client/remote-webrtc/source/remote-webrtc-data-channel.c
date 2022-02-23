@@ -2,7 +2,7 @@
 #include <remote-webrtc.h>
 #include <remote-webrtc-type.h>
 #include <remote-webrtc-pipeline.h>
-#include <remote-webrtc-remote-config.h>
+#include <remote-config.h>
 #include <remote-webrtc-signalling.h>
 
 

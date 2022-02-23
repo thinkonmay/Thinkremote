@@ -12,6 +12,7 @@
 #define __REMOTE_APP_GUI_H__
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>
+#include <capture-key.h>
 
 
 
@@ -30,13 +31,11 @@ typedef struct 		_GUI 				                    GUI;
  */
 typedef void        (*ResetApplicationEvent)                (gpointer data);  
 
-/**
- * @brief 
- * switch to fullscreen mode
- * 
- * @param hwnd 
- */
-void                switch_fullscreen_mode                  (GUI* gui);
+
+
+
+
+
 
 /**
  * @brief Set the up window object
@@ -44,7 +43,7 @@ void                switch_fullscreen_mode                  (GUI* gui);
  * @param gui 
  */
 GUI*                init_remote_app_gui                     (gpointer app,
-                                                             ResetApplicationEvent event);
+                                                             HIDHandleFunction event);
 
 
 /**
@@ -55,6 +54,11 @@ GUI*                init_remote_app_gui                     (gpointer app,
 void                gui_terminate                           (GUI* gui);
 
 
+
+
+
+
+
 /**
  * @brief Set the up video overlay object
  * 
@@ -62,13 +66,9 @@ void                gui_terminate                           (GUI* gui);
  * @param app 
  * @return gpointer 
  */
-gpointer            setup_video_overlay                     (GstElement* videosink, 
-                                                            gpointer app);
+gpointer            setup_video_overlay                     (GUI* gui,
+                                                             GstElement* videosink, 
+                                                             GstElement* pipeline);
 
 
-/**
- * @brief 
- * 
- */
-void                disable_client_cursor                   ();
 #endif

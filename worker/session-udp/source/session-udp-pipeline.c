@@ -10,9 +10,10 @@
  */
 #include <session-udp-pipeline.h>
 #include <session-udp-type.h>
-#include <session-udp-remote-config.h>
+#include <session-udp.h>
 
 
+#include <remote-config.h>
 #include <logging.h>
 #include <enum.h>
 
@@ -88,12 +89,6 @@ struct _Pipeline
 
     GstElement* video_element[VIDEO_ELEMENT_LAST];
     GstElement* audio_element[AUDIO_ELEMENT_LAST];
-
-    /**
-     * @brief 
-     * 
-     */
-    UdpEndpoint endpoint;
 };
 
 static gchar sound_capture_device_id[1000]  = {0};
@@ -163,103 +158,100 @@ setup_element_factory(SessionUdp* core,
 {
     Pipeline* pipe = session_core_get_pipeline(core);
     GError* error = NULL;
+
+    if (audio != OPUS_ENC) 
+        return;
     
     if (video == CODEC_H264)
     {
-        if (audio == OPUS_ENC) 
-        {
 #ifdef G_OS_WIN32
-            pipe->video_pipeline =
-                gst_parse_launch(
-                    "d3d11screencapturesrc name=screencap ! "                     QUEUE
-                    DIRECTX_PAD",framerate=60/1 ! "                            QUEUE
-                    "d3d11convert ! "DIRECTX_PAD",format=NV12 ! "              QUEUE
-                    "mfh264enc name=videoencoder ! "                           QUEUE
-                    "rtph264pay name=rtp ! "                                   QUEUE
-                    RTP_CAPS_VIDEO "H264 ! "                                   QUEUE
-                    "udpsink name=udp", &error);
+        pipe->video_pipeline =
+            gst_parse_launch(
+                "d3d11screencapturesrc name=screencap ! "                     QUEUE
+                DIRECTX_PAD",framerate=60/1 ! "                            QUEUE
+                "d3d11convert ! "DIRECTX_PAD",format=NV12 ! "              QUEUE
+                "mfh264enc name=videoencoder ! "                           QUEUE
+                "rtph264pay name=rtp ! "                                   QUEUE
+                RTP_CAPS_VIDEO "H264 ! "                                   QUEUE
+                "udpsink name=udp", &error);
 
-            pipe->audio_pipeline = 
-                gst_parse_launch(
-                    "wasapi2src name=audiocapsrc !"                            QUEUE
-                    "audioconvert ! "                                          QUEUE 
-                    "audioresample ! "                                         QUEUE 
-                    "opusenc name=audioencoder ! "                             QUEUE 
-                    "rtpopuspay ! "                                            QUEUE 
-                    RTP_CAPS_AUDIO "OPUS ! "                                   QUEUE
-                    "udpsink name=udp", &error);
+        pipe->audio_pipeline = 
+            gst_parse_launch(
+                "wasapi2src name=audiocapsrc !"                            QUEUE
+                "audioconvert ! "                                          QUEUE 
+                "audioresample ! "                                         QUEUE 
+                "opusenc name=audioencoder ! "                             QUEUE 
+                "rtpopuspay ! "                                            QUEUE 
+                RTP_CAPS_AUDIO "OPUS ! "                                   QUEUE
+                "udpsink name=udp", &error);
 #else
-            pipe->video_pipeline =
-                gst_parse_launch(
-                    "ximagesrc name=screencap ! "                              QUEUE
-                    "videoconvert ! "                                          QUEUE
-                    "x264enc name=videoencoder ! "                             QUEUE
-                    "rtph264pay name=rtp ! "                                   QUEUE
-                    RTP_CAPS_VIDEO "H264 ! sendrecv. "
-                    "udpsink name=udp", &error);
+        pipe->video_pipeline =
+            gst_parse_launch(
+                "ximagesrc name=screencap ! "                              QUEUE
+                "videoconvert ! "                                          QUEUE
+                "x264enc name=videoencoder ! "                             QUEUE
+                "rtph264pay name=rtp ! "                                   QUEUE
+                RTP_CAPS_VIDEO "H264 ! sendrecv. "
+                "udpsink name=udp", &error);
 
-            pipe->audio_pipeline = 
-                gst_parse_launch(
-                    "pulsesrc name=audiocapsrc !"                              QUEUE
-                    "audioconvert ! "                                          QUEUE 
-                    "audioresample ! "                                         QUEUE 
-                    "opusenc name=audioencoder ! "                             QUEUE 
-                    "rtpopuspay ! "                                            QUEUE 
-                    RTP_CAPS_AUDIO "OPUS ! "
-                    "udpsink name=udp", &error);
+        pipe->audio_pipeline = 
+            gst_parse_launch(
+                "pulsesrc name=audiocapsrc !"                              QUEUE
+                "audioconvert ! "                                          QUEUE 
+                "audioresample ! "                                         QUEUE 
+                "opusenc name=audioencoder ! "                             QUEUE 
+                "rtpopuspay ! "                                            QUEUE 
+                RTP_CAPS_AUDIO "OPUS ! "
+                "udpsink name=udp", &error);
 #endif
-        }
     }
     else if (video == CODEC_H265)
     {
-        if (audio == OPUS_ENC)
-        {
 #ifdef G_OS_WIN32
-            pipe->video_pipeline =
-                gst_parse_launch(
-                    "d3d11screencapturesrc name=screencap ! "                     QUEUE
-                    DIRECTX_PAD",framerate=60/1 ! "                            QUEUE
-                    "d3d11convert ! "DIRECTX_PAD",format=NV12 ! "              QUEUE
-                    "mfh265enc name=videoencoder ! "                           QUEUE
-                    "rtph265pay name=rtp ! "                                   QUEUE
-                    RTP_CAPS_VIDEO "H265 ! "                                   QUEUE
-                    "udpsink name=udp", &error);
+        pipe->video_pipeline =
+            gst_parse_launch(
+                "d3d11screencapturesrc name=screencap ! "                     QUEUE
+                DIRECTX_PAD",framerate=60/1 ! "                            QUEUE
+                "d3d11convert ! "DIRECTX_PAD",format=NV12 ! "              QUEUE
+                "mfh265enc name=videoencoder ! "                           QUEUE
+                "rtph265pay name=rtp ! "                                   QUEUE
+                RTP_CAPS_VIDEO "H265 ! "                                   QUEUE
+                "udpsink name=udp", &error);
 
-            pipe->audio_pipeline = 
-                gst_parse_launch(
-                    "wasapi2src name=audiocapsrc !"                            QUEUE
-                    "audioconvert ! "                                          QUEUE 
-                    "audioresample ! "                                         QUEUE 
-                    "opusenc name=audioencoder ! "                             QUEUE 
-                    "rtpopuspay ! "                                            QUEUE 
-                    RTP_CAPS_AUDIO "OPUS ! "                                   QUEUE
-                    "udpsink name=udp", &error);
+        pipe->audio_pipeline = 
+            gst_parse_launch(
+                "wasapi2src name=audiocapsrc !"                            QUEUE
+                "audioconvert ! "                                          QUEUE 
+                "audioresample ! "                                         QUEUE 
+                "opusenc name=audioencoder ! "                             QUEUE 
+                "rtpopuspay ! "                                            QUEUE 
+                RTP_CAPS_AUDIO "OPUS ! "                                   QUEUE
+                "udpsink name=udp", &error);
 #else
-            pipe->video_pipeline =
-                gst_parse_launch(
-                    "d3d11screencapturesrc name=screencap ! "                     QUEUE
-                    "d3d11convert ! "                                          QUEUE
-                    "mfh265enc name=videoencoder ! "                           QUEUE
-                    "rtph265pay name=rtp ! "                                   QUEUE
-                    RTP_CAPS_VIDEO "H265 ! "                                   QUEUE
-                    "udpsink name=udp", &error);
+        pipe->video_pipeline =
+            gst_parse_launch(
+                "d3d11screencapturesrc name=screencap ! "                     QUEUE
+                "d3d11convert ! "                                          QUEUE
+                "mfh265enc name=videoencoder ! "                           QUEUE
+                "rtph265pay name=rtp ! "                                   QUEUE
+                RTP_CAPS_VIDEO "H265 ! "                                   QUEUE
+                "udpsink name=udp", &error);
 
-            pipe->audio_pipeline = 
-                gst_parse_launch(
-                    "wasapi2src name=audiocapsrc !"                            QUEUE
-                    "audioconvert ! "                                          QUEUE 
-                    "audioresample ! "                                         QUEUE 
-                    "opusenc name=audioencoder ! "                             QUEUE 
-                    "rtpopuspay ! "                                            QUEUE 
-                    RTP_CAPS_AUDIO "OPUS ! "                                   QUEUE
-                    "udpsink name=udp", &error);
-
+        pipe->audio_pipeline = 
+            gst_parse_launch(
+                "wasapi2src name=audiocapsrc !"                            QUEUE
+                "audioconvert ! "                                          QUEUE 
+                "audioresample ! "                                         QUEUE 
+                "opusenc name=audioencoder ! "                             QUEUE 
+                "rtpopuspay ! "                                            QUEUE 
+                RTP_CAPS_AUDIO "OPUS ! "                                   QUEUE
+                "udpsink name=udp", &error);
 #endif
-        }
     }
 
 
-    if (error) { session_core_finalize(core,error); }
+    if (error) 
+        session_core_finalize(core,error);
 
     pipe->audio_element[SOUND_SOURCE] = 
         gst_bin_get_by_name(GST_BIN(pipe->audio_pipeline), "audiocapsrc");
@@ -276,8 +268,6 @@ setup_element_factory(SessionUdp* core,
         gst_bin_get_by_name(GST_BIN(pipe->video_pipeline), "screencap");
     pipe->video_element[UDP_VIDEO_SINK] = 
         gst_bin_get_by_name(GST_BIN(pipe->video_pipeline), "udp");
-
-    
 }
 
 
@@ -428,30 +418,28 @@ setup_element_property(SessionUdp* core)
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    g_object_set(pipe->audio_element[UDP_AUDIO_SINK], "host", pipe->endpoint.audio_target_ip, NULL);
-
-    g_object_set(pipe->video_element[UDP_VIDEO_SINK], "host", pipe->endpoint.video_target_ip, NULL);
-
-    g_object_set(pipe->audio_element[UDP_AUDIO_SINK], "port", pipe->endpoint.audio_target_port, NULL);
-
-    g_object_set(pipe->video_element[UDP_VIDEO_SINK], "port", pipe->endpoint.video_target_port, NULL);
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 
 
+void
+setup_udp_endpoint(Pipeline* pipeline,
+                   SessionUdp* udp)
+{
+    UdpEndpoint* audio = session_core_get_audio_endpoint(udp);
+    UdpEndpoint* video = session_core_get_video_endpoint(udp);
+    setup_udp_endpoint(pipeline->audio_element[UDP_AUDIO_SINK],audio);
+    setup_udp_endpoint(pipeline->video_element[UDP_VIDEO_SINK],video);
+}
 
 
 
 void
-setup_pipeline(SessionUdp* core,
-               UdpEndpoint endpoint)
+setup_pipeline(SessionUdp* core)
 {
     SignallingHub* signalling = session_core_get_signalling_hub(core);
     Pipeline* pipe = session_core_get_pipeline(core);
-    StreamConfig* qoe= session_core_get_qoe(core);
+    StreamConfig* qoe = session_core_get_qoe(core);
 
     if(pipe->audio_pipeline || pipe->video_pipeline)
         free_pipeline(pipe);
@@ -459,9 +447,9 @@ setup_pipeline(SessionUdp* core,
     setup_element_factory(core, 
         qoe_get_video_codec(qoe),
         qoe_get_audio_codec(qoe));
-    
-    pipe->endpoint = endpoint;
+
     setup_element_property(core);
+    setup_udp_endpoint(pipe,core);
 
     if(start_pipeline(pipe->video_pipeline))
         worker_log_output("Starting pipeline");
@@ -475,9 +463,4 @@ setup_pipeline(SessionUdp* core,
 }
 
 
-GstElement*
-pipeline_get_screen_capture_element(Pipeline* pipeline)
-{
-    return pipeline->video_element[SCREEN_CAPTURE];
-}
 

@@ -21,14 +21,9 @@
 #include <gst/gst.h>
 
 #ifdef G_OS_WIN32
-/**
- * @brief 
- * true if mouse movement is relative
- */
-static gboolean relative_mouse = FALSE;
 
 
-typedef struct _HIDHandler
+struct _HIDHandler
 {
     /**
      * @brief 
@@ -47,15 +42,24 @@ typedef struct _HIDHandler
     Shortcut shortcuts[20];
 
     gboolean active;
-}HIDHandler;
+
+    /**
+     * @brief 
+     * true if mouse movement is relative
+     */
+    gboolean relative_mouse;
+};
 
 static HIDHandler HID_handler = {0};
 
-void
+HIDHandler*
 activate_hid_handler(GstElement* capture, 
                      Shortcut* shortcuts)
 {
     HID_handler.capture = capture;
+    HID_handler.relative_mouse = TRUE;
+    
+
 
     GstCaps* cap = gst_element_get_static_pad(capture, "src");
     GstStructure* structure = gst_caps_get_structure(cap,0);
@@ -71,13 +75,15 @@ activate_hid_handler(GstElement* capture,
         memcpy(&(HID_handler.shortcuts[i]),temp,sizeof(Shortcut));
         i++;
     }
+
+    return &HID_handler;
 }
 
 
 void
-deactivate_hid_handler()
+deactivate_hid_handler(HIDHandler* handle)
 {
-    memset(&HID_handler,0,sizeof(HIDHandler));
+    memset(handle,0,sizeof(HIDHandler));
 }
 
 /**
@@ -94,28 +100,14 @@ convert_mouse_input(INPUT* input,
     gfloat screenwidth = HID_handler.screenwidth;
     gfloat screenheight = HID_handler.screenheight; 
 
-    input->mi.dx =  relative_mouse ? (LONG)
+    input->mi.dx =  HID_handler.relative_mouse ? (LONG)
       ((gfloat)json_object_get_int_member(message, "dX")) :
     ((((gfloat)json_object_get_int_member(message, "dX"))/screenwidth)*65535);
-    input->mi.dy =  relative_mouse ? (LONG)
+    input->mi.dy =  HID_handler.relative_mouse ? (LONG)
       ((gfloat)json_object_get_int_member(message, "dY")) :
     ((((gfloat)json_object_get_int_member(message, "dY"))/screenheight)*65535);
 }
 
-/**
- * @brief 
- * get and set the visibility of pointer
- * @param capture 
- */
-static void
-toggle_pointer(GstElement* capture)
-{
-    gboolean toggle;
-    g_object_get(capture, "show-cursor", &toggle, NULL); 
-    toggle = !toggle;
-    relative_mouse = !toggle;
-    g_object_set(capture, "show-cursor", toggle, NULL); 
-}
 
 
 static gboolean
@@ -128,7 +120,11 @@ handle_shortcut(HIDHandler* handler,
         Shortcut shortcut = handler->shortcuts[i];
         if(opcode == shortcut.opcode)
         {
-            shortcut.function(shortcut.data);
+            if(shortcut.function && shortcut.data)
+                shortcut.function(shortcut.data);
+            else if (shortcut.function)
+                shortcut.function(NULL);
+
             return TRUE;
         }
     }
@@ -171,7 +167,6 @@ handle_input_javascript(gchar* message)
 
     else if(opcode == KEYUP || opcode == KEYDOWN)
     {
-        window_input.type = INPUT_MOUSE;
         window_input.type = INPUT_KEYBOARD;
         window_input.ki.wVk = convert_javascript_key_to_window_key(
             json_object_get_string_member(object, "wVk"));
@@ -181,7 +176,7 @@ handle_input_javascript(gchar* message)
 
     if (opcode == MOUSE_UP)
     {
-        if(relative_mouse)
+        if(HID_handler.relative_mouse)
         {
             if(button == 0)
                 window_input.mi.dwFlags =  MOUSEEVENTF_LEFTUP | MOUSEEVENTF_VIRTUALDESK;
@@ -202,7 +197,7 @@ handle_input_javascript(gchar* message)
     }
     else if (opcode == MOUSE_DOWN)
     {
-        if(relative_mouse)
+        if(HID_handler.relative_mouse)
         {
             if(button == 0)
                 window_input.mi.dwFlags =  MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_VIRTUALDESK;
@@ -224,7 +219,7 @@ handle_input_javascript(gchar* message)
     }
     else if (opcode == MOUSE_MOVE)
     {
-        if(relative_mouse)
+        if(HID_handler.relative_mouse)
             window_input.mi.dwFlags = MOUSEEVENTF_MOVE;
         else
             window_input.mi.dwFlags = MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE;
@@ -248,6 +243,11 @@ handle_input_javascript(gchar* message)
 }
 
 
+void
+set_relative_mouse(gboolean isTrue)
+{
+    HID_handler.relative_mouse = isTrue;
+}
 
 
 
@@ -328,6 +328,80 @@ handle_input_gtk(gchar* message)
 
 }
 
+static gint reset_key_array[10] = 
+{
+    VK_SHIFT,
+    VK_CONTROL,
+    VK_LWIN,
+    VK_RWIN,
+    VK_ESCAPE,
+    VK_MENU,
+    0,
+};
+static gint reset_mouse_array[10] = 
+{
+    WM_LBUTTONUP,
+    WM_RBUTTONUP,
+    WM_MBUTTONUP,
+    0
+};
+
+static gint reset_mouse_virtual_code[10] = 
+{
+    VK_LBUTTON,
+    VK_RBUTTON,
+    VK_MBUTTON,
+    0
+};
+
+/**
+ * @brief 
+ * detect if a key is pressed
+ * @param key 
+ * @return gboolean 
+ */
+static gboolean
+_keydown(int *key)
+{
+    return (GetAsyncKeyState(key) & 0x8000) != 0;
+}
+
+void
+reset_session_key(gpointer data)
+{
+    gint i = 0;
+    while (!reset_mouse_array[i])
+    {
+        if(_keydown(reset_mouse_virtual_code[i]))
+        {
+            INPUT window_input;
+            memset(&window_input,0,sizeof(INPUT));
+            window_input.type = INPUT_MOUSE;
+            window_input.mi.dwFlags = reset_mouse_array[i];
+            SendInput(1, &window_input, sizeof(window_input));
+        }
+        i++;
+    }
+
+    i = 0;
+    while (!reset_key_array[i])
+    {
+        if(_keydown(reset_key_array[i]))
+        {
+            INPUT window_input;
+            memset(&window_input,0,sizeof(INPUT));
+            window_input.ki.wVk =     reset_key_array[i];
+            window_input.type =       INPUT_KEYBOARD;
+            window_input.ki.dwFlags = KEYEVENTF_KEYUP ;
+            SendInput(1, &window_input, sizeof(window_input));
+        }
+        i++;
+    }
+}
+
+
+
+
 #else
 
 #include <keysym.h>
@@ -384,3 +458,5 @@ stimulate_mouse_event(SessionCore* core)
 	XSendEvent(event.display, event.window, True, KeyPressMask, (XEvent *)&event);
 }
 #endif
+
+

@@ -16,20 +16,6 @@
 
 
 
-/**
- * @brief 
- * 
- */
-typedef struct _UdpEndpoint
-{
-    gint audio_target_port;
-
-    gint video_target_port;
-
-    gchar video_target_ip[20];
-
-    gchar audio_target_ip[20];
-}UdpEndpoint;
 
 
 /**
@@ -46,18 +32,6 @@ typedef struct 			_Pipeline 				                Pipeline;
  */
 typedef struct 			_SessionUdp 			                SessionUdp;
 
-/**
- * @brief 
- * StreamConfig is a data structure wrap around all QoS metric
- */
-typedef struct 			_StreamConfig					        StreamConfig;
-
-
-/**
- * @brief 
- * HumanInterface is a module that wrap around communication method with client module
- */
-typedef struct			_HumanInterface				            HumanInterface;
 
 /**
  * @brief 

@@ -90,7 +90,14 @@ struct _GUI
      * @brief 
      * 
      */
-    ResetApplicationEvent reset;  
+    HIDHandleFunction hid_handler;  
+
+
+    /**
+     * @brief 
+     * 
+     */
+    ResetApplicationEvent reset;
 };
 
 
@@ -105,7 +112,7 @@ void                        set_up_window           (GUI* gui);
  * @brief 
  * 
  */
-void                        handle_fullscreen_hotkey ();
+void                        handle_fullscreen_hotkey (gpointer data);
 
 /**
  * @brief 
@@ -115,14 +122,45 @@ void                        toggle_client_cursor                    ();
 
 static GUI _gui = {0};
 
+static Shortcut*
+get_default_shortcut(gpointer data)
+{
+    GUI* gui = (GUI*)data;
+    Shortcut* shortcuts = malloc(sizeof(Shortcut)*10);
+
+    (shortcuts + 0)->data = gui->app;
+    (shortcuts + 0)->function = handle_fullscreen_hotkey;
+    (shortcuts + 0)->opcode = FULLSCREEN;
+
+    (shortcuts + 0)->key_list[1] = VK_SHIFT;
+    (shortcuts + 0)->key_list[2] = VK_CONTROL;
+    (shortcuts + 0)->key_list[3] = VK_MENU;
+    (shortcuts + 0)->key_list[4] = F_KEY;
+
+    (shortcuts + 1)->data = gui->app;
+    (shortcuts + 1)->function = gui->reset;
+    (shortcuts + 1)->opcode = RESET_KEY;
+
+    (shortcuts + 1)->key_list[1] = VK_SHIFT;
+    (shortcuts + 1)->key_list[2] = VK_CONTROL;
+    (shortcuts + 1)->key_list[3] = VK_MENU;
+    (shortcuts + 1)->key_list[4] = W_KEY;
+
+    return shortcuts;
+}
+
 GUI*
-init_remote_app_gui(gpointer app,   
-                    ResetApplicationEvent reset)
+init_remote_app_gui(gpointer app,
+                    HIDHandleFunction handler)
 {
     GUI* gui = &_gui;
-    gui->handler =  init_input_capture_system(NULL,app);
+    gui->hid_handler = handler;
+
+    Shortcut* shortcuts = get_default_shortcut(app);
+    gui->handler =  init_input_capture_system(gui->hid_handler,shortcuts,app);
+    free(shortcuts);
+
     gui->app = app;
-    gui->reset = reset;
 #ifdef G_OS_WIN32
     gui->wr = (RECT) { 0, 0, 320, 240 };
     set_up_window(gui);
@@ -433,79 +471,15 @@ handle_fullscreen_hotkey(gpointer data)
     switch_fullscreen_mode(gui);
     toggle_client_cursor(gui);
 
-    HIDHandleFunction function = !gui->disable_client_cursor ? NULL : NULL;
-    set_hid_handle_function(function);
-
     /**
      * @brief 
      * reset mouse and keyboard to prevent key stuck
      */
     if(gui->disable_client_cursor)
-    {
-        reset_keyboard();
-        reset_mouse();
-    }
+        trigger_hotkey_by_opcode(RESET_KEY);
 }
 
 
-// /**
-//  * @brief 
-//  * 
-//  * @return gboolean TRUE if the input signal should be disabled
-//  */
-// gboolean
-// handle_user_shortcut()
-// {
-//     GUI* gui = &_gui;
-//     if (_keydown(VK_SHIFT))
-//     {
-//         if (_keydown(VK_MENU))
-//         {
-//             if (_keydown(VK_CONTROL))
-//             {
-//                 /**
-//                  * @brief 
-//                  * handle mouse lock key
-//                  */
-//                 if (_keydown(F_KEY))
-//                 {
-//                     handle_fullscreen_hotkey();
-//                     return TRUE;
-//                 }
-
-//                 /**
-//                  * @brief 
-//                  * handle reset video stream 
-//                  */
-//                 else if (_keydown(W_KEY))
-//                 {
-//                     gui->reset(gui->app);
-//                     return TRUE;
-//                 }
-
-//                 /**
-//                  * @brief 
-//                  * handle reset video stream 
-//                  */
-//                 else if (_keydown(VK_OEM_PLUS))
-//                 {
-//                     return TRUE;
-//                 }
-
-
-//                 /**
-//                  * @brief 
-//                  * handle reset video stream 
-//                  */
-//                 else if (_keydown(VK_OEM_MINUS))
-//                 {
-//                     return TRUE;
-//                 }
-//             }
-//         }
-//     }
-//     return FALSE;
-// }
 
 /**
  * @brief 

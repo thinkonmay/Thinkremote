@@ -16,6 +16,7 @@
 #include <overlay-gui.h>
 
 
+#include <remote-config.h>
 
 
 
@@ -62,7 +63,7 @@ Pipeline*		remote_app_get_pipeline				(RemoteUdp* self);
  * @param self 
  * @return RemoteConfig* 
  */
-RemoteConfig*			remote_app_get_qoe			(RemoteUdp* self);
+StreamConfig*	remote_app_get_qoe					(RemoteUdp* self);
 
 
 
@@ -74,14 +75,6 @@ RemoteConfig*			remote_app_get_qoe			(RemoteUdp* self);
  */
 void			report_remote_app_error				(RemoteUdp* self,
 													gchar* error);
-
-/**
- * @brief 
- * get handler handler from remote app
- * @param app 
- * @return HIDHandler* 
- */
-InputHandler* 	remote_app_get_hid_handler			(RemoteUdp* app);
 
 
 /**

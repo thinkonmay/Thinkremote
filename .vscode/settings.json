@@ -30,7 +30,11 @@
         "gstvideosink.h": "c",
         "videooverlay.h": "c",
         "key-convert.h": "c",
-        "gst.h": "c"
+        "gst.h": "c",
+        "remote-config.h": "c",
+        "enum.h": "c",
+        "xiosbase": "c",
+        "remote-udp-type.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

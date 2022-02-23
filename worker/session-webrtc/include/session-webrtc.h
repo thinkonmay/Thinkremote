@@ -14,6 +14,7 @@
 #include <session-webrtc-type.h>
 #include <json-handler.h>
 #include <enum.h>
+#include <remote-config.h>
 
 
 
@@ -66,7 +67,7 @@ WebRTCHub*		session_core_get_rtc_hub				(SessionCore* self);
  * @param self session core
  * @return StreamConfig* qoe
  */
-StreamConfig*			session_core_get_qoe					(SessionCore* self);
+StreamConfig*	session_core_get_qoe					(SessionCore* self);
 
 
 

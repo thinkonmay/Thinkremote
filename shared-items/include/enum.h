@@ -30,6 +30,8 @@ typedef enum
 typedef enum
 {
 	POINTER_LOCK,
+	RESET_KEY,
+	FULLSCREEN,
 }ShortcutOpcode;
 
 typedef enum

@@ -23,8 +23,7 @@
  * this function wrap around element creating is property setup procedure
  * @param core 
  */
-void                setup_pipeline					(SessionUdp* core,
-                                                     UdpEndpoint endpoint);
+void                setup_pipeline					(SessionUdp* core);
 
 
 /**
@@ -34,11 +33,3 @@ void                setup_pipeline					(SessionUdp* core,
  * @return Pipeline* return to pipeline element
  */
 Pipeline*			pipeline_initialize				();
-
-/**
- * @brief 
- * 
- * @param pipeline 
- * @return GstElement* 
- */
-GstElement*         pipeline_get_screen_capture_element (Pipeline* pipeline);

@@ -23,24 +23,11 @@
  */
 typedef struct 			_Pipeline 				            Pipeline;
 
-
-/**
- * @brief 
- * GUI is a datastructure wrap around creation of remote window and win32 input handling
- */
-typedef struct 			_GUI 				                GUI;
-
 /**
  * @brief 
  * remote app is a data structure that wrap around all functionality of remote app
  */
 typedef struct 			_RemoteApp 			                RemoteApp;
-
-/**
- * @brief 
- * QoE is a datastructure that wrap around collection and management of streaming quality
- */
-typedef struct 			_QoE					                QoE;
 
 /**
  * @brief 

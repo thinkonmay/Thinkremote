@@ -9,7 +9,6 @@
  * 
  */
 #include <session-webrtc-signalling.h>
-#include <session-webrtc-remote-config.h>
 #include <session-webrtc-pipeline.h>
 #include <session-webrtc-data-channel.h>
 #include <session-webrtc.h>
@@ -18,6 +17,7 @@
 
 #include <logging.h>
 #include <json-handler.h>
+#include <remote-config.h>
 #include <global-var.h>
 #include <token-validate.h>
 

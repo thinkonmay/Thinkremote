@@ -1,5 +1,5 @@
 /**
- * @file session-webrtc-remote-config.c
+ * @file session-udp-remote-config.c
  * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
  * @brief 
  * @version 1.0
@@ -8,9 +8,7 @@
  * @copyright Copyright (c) 2021
  * 
  */
-#include <session-webrtc-remote-config.h>
-#include <session-webrtc-type.h>
-#include <session-webrtc-pipeline.h>
+#include <remote-config.h>
 
 #include <enum.h>
 
@@ -21,6 +19,16 @@
 #include <stdio.h>
 
 
+/**
+ * @brief 
+ * 
+ */
+struct _UdpEndpoint
+{
+    gint target_port;
+
+    gchar target_ip[20];
+};
 
 
 struct _StreamConfig
@@ -113,6 +121,23 @@ qoe_setup(StreamConfig* qoe,
 	qoe->mode = mode;
 }
 
+void
+set_udp_endpoint(GstElement* element, 
+				 UdpEndpoint* endpoint)
+{
+    g_object_set(element, "port", endpoint->target_port, NULL);
+    g_object_set(element, "host", endpoint->target_ip, NULL);
+}
+
+UdpEndpoint*
+udp_endpoint_new(gchar* port,
+				 gchar* ip)
+{
+	UdpEndpoint* udp = malloc(sizeof(UdpEndpoint));
+	memcpy(udp->target_ip,ip,strlen(ip));
+	udp->target_port = atoi(port);
+	return udp;
+}
 
 
 

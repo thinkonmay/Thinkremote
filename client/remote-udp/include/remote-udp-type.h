@@ -23,34 +23,12 @@
  */
 typedef struct 			_Pipeline 				            Pipeline;
 
-/**
- * @brief 
- * hid handler is a datastructure that wrap around handling of 
- */
-typedef struct          _InputHandler                         InputHandler;
-
 
 /**
  * @brief 
  * remote app is a data structure that wrap around all functionality of remote app
  */
 typedef struct 			_RemoteUdp 			                RemoteUdp;
-
-/**
- * @brief 
- * RemoteConfig is a datastructure that wrap around collection and management of streaming quality
- */
-typedef struct 			_RemoteConfig					                RemoteConfig;
-
-/**
- * @brief 
- * WebRTCHub is a datastructure that wrap around communication method with session core
- */
-typedef struct			_WebRTCHub				                WebRTCHub;
-
-
-
-
 
 #endif
 

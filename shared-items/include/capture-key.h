@@ -73,33 +73,6 @@ void                handle_window_mouse_relative                (gint mouse_code
 void                handle_window_wheel                         (gint isup);
 
 
-/**
- * @brief 
- * 
- * @return InputHandler* 
- */
-InputHandler*       init_input_capture_system                   (HIDHandleFunction function,
-                                                                 gpointer data);
-
-/**
- * @brief 
- * 
- */
-void                reset_mouse                                 ();
-
-/**
- * @brief 
- * 
- */
-void                reset_keyboard                              ();
-
-/**
- * @brief 
- * 
- * @return InputHandler* 
- */
-void                set_hid_handle_function                     (HIDHandleFunction function);
-
 #ifdef G_OS_WIN32
 #include <Windows.h>
 /**
@@ -116,11 +89,28 @@ void                handle_message_window_proc                  (HWND hwnd,
                                                                 LPARAM lParam);
 #endif
 
+
+
+
+
+
+
+
+
+
 /**
  * @brief 
  * 
- * @param shortcut 
+ * @return InputHandler* 
  */
-void                add_shortcut                                (Shortcut shortcut);
+InputHandler*       init_input_capture_system                   (HIDHandleFunction function,
+                                                                 Shortcut* shortcuts,
+                                                                 gpointer data);
 
+
+/**
+ * @brief 
+ * 
+ */
+void                trigger_hotkey_by_opcode                    (ShortcutOpcode opcode);
 #endif

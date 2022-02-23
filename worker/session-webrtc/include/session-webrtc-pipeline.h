@@ -39,14 +39,6 @@ GstElement*			pipeline_get_webrtc_bin			(Pipeline* pipeline);
 
 /**
  * @brief 
- * 
- * @param pipeline 
- * @return GstElement* 
- */
-GstElement*         pipeline_get_screen_capture_element (Pipeline* pipeline);
-
-/**
- * @brief 
  * initialize pipeline object without setup the gstelement
  * @param core 
  * @return Pipeline* return to pipeline element

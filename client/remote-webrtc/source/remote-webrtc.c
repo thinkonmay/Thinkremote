@@ -9,7 +9,6 @@
  * 
  */
 #include <remote-webrtc-signalling.h>
-#include <remote-webrtc-remote-config.h>
 #include <remote-webrtc-pipeline.h>
 #include <remote-webrtc-data-channel.h>
 #include <remote-webrtc.h>
@@ -17,6 +16,7 @@
 
 #include <constant.h>
 #include <environment.h>
+#include <remote-config.h>
 #include <global-var.h>
 #include <overlay-gui.h>
 #include <capture-key.h>
@@ -59,12 +59,6 @@ struct _RemoteApp
 	 * @brief 
 	 * 
 	 */
-	QoE* qoe;
-
-	/**
-	 * @brief 
-	 * 
-	 */
 	GUI* gui;
 };
 
@@ -101,10 +95,6 @@ remote_development_setup(RemoteApp* self)
 			signalling,
 			array,
 			DEFAULT_CLIENT_TOKEN);
-
-	qoe_setup(self->qoe, 
-			OPUS_ENC, 
-			CODEC_H265);
 }
 
 
@@ -156,10 +146,6 @@ remote_app_setup_session(RemoteApp* self,
 		json_object_get_array_member(json_infor,"stuns"),
 		remote_token);
 
-	qoe_setup(self->qoe,
-				json_object_get_int_member(json_infor,"audiocodec"),
-				json_object_get_int_member(json_infor,"videocodec"));
-
 	g_object_unref(parser);
 }
 
@@ -180,8 +166,6 @@ remote_app_initialize(gchar* remote_token)
 	app->gui =				init_remote_app_gui(app,remote_app_reset);
 	app->hub =				webrtchub_initialize();
 	app->signalling =		signalling_hub_initialize(app);
-
-	app->qoe =				qoe_initialize();
 	app->pipe =				pipeline_initialize(app);
 	 
 	remote_app_setup_session(app, remote_token);
@@ -251,11 +235,6 @@ remote_app_get_rtc_hub(RemoteApp* self)
 }
 
 
-QoE*
-remote_app_get_qoe(RemoteApp* self)
-{
-	return self->qoe;
-}
 
 GUI*
 remote_app_get_gui(RemoteApp* core)

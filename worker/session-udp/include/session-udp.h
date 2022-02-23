@@ -13,6 +13,7 @@
 #include <session-udp-type.h>
 #include <json-handler.h>
 #include <enum.h>
+#include <remote-config.h>
 
 
 
@@ -29,7 +30,7 @@
  * all operation needed to establishing a remote connection is already called inside session core initialize
  * @return SessionUdp* pointer to session core instance
  */
-SessionUdp*	session_core_initialize					();
+SessionUdp*		session_core_initialize					();
 
 
 
@@ -50,14 +51,6 @@ void			session_core_finalize					(SessionUdp* self,
  * @return Pipeline* pointer to pipeline
  */
 Pipeline*		session_core_get_pipeline				(SessionUdp* self);
-
-/**
- * @brief 
- * get webrtc hub from session core
- * @param self session core
- * @return HumanInterface*  pointer to webrtc
- */
-HumanInterface*	session_core_get_rtc_hub			(SessionUdp* self);
 
 /**
  * @brief 
@@ -85,10 +78,26 @@ SignallingHub*	session_core_get_signalling_hub			(SessionUdp* self);
  * @return gchar* remote token get from cluster
  */
 gchar*			session_core_get_remote_token			(SessionUdp* self);
+
+/**
+ * @brief 
+ * 
+ * @param self 
+ * @return UdpEndpoint* 
+ */
+UdpEndpoint* 	session_core_get_audio_endpoint			(SessionUdp* self);
+
+/**
+ * @brief 
+ * 
+ * @param self 
+ * @return UdpEndpoint* 
+ */
+UdpEndpoint* 	session_core_get_video_endpoint			(SessionUdp* self);
+
 #ifndef G_OS_WIN32
 #include <Xlib.h>
 
 Display* 		session_core_display_interface			(SessionUdp* self);
 #endif
-
 #endif 

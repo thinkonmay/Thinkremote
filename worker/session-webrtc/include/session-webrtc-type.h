@@ -31,12 +31,6 @@ typedef struct 			_Pipeline 				                Pipeline;
  */
 typedef struct 			_SessionCore 			                SessionCore;
 
-/**
- * @brief 
- * StreamConfig is a data structure wrap around all QoS metric
- */
-typedef struct 			_StreamConfig					        StreamConfig;
-
 
 /**
  * @brief 

@@ -8,7 +8,6 @@
  * @copyright Copyright (c) 2021
  * 
  */
-#include <session-udp-remote-config.h>
 #include <session-udp-pipeline.h>
 #include <session-udp.h>
 #include <session-udp-type.h>
@@ -20,6 +19,7 @@
 #include <constant.h>
 #include <enum.h>
 #include <win32-server.h>
+#include <remote-config.h>
 #include <handle-key.h>
 
 
@@ -55,11 +55,6 @@ struct _SessionUdp
 	 */
 	Pipeline* pipe;
 
-	/**
-	 * @brief 
-	 * webrtchub to communicate with client
-	 */
-	HumanInterface* hub;
 
 	/**
 	 * @brief 
@@ -78,6 +73,18 @@ struct _SessionUdp
 	 * StreamConfig of the stream
 	 */
 	StreamConfig* qoe;
+
+	/**
+	 * @brief 
+	 * StreamConfig of the stream
+	 */
+	UdpEndpoint* audio;
+
+	/**
+	 * @brief 
+	 * StreamConfig of the stream
+	 */
+	UdpEndpoint* video;
 
 	DeviceType device;
 
@@ -121,13 +128,16 @@ server_callback (SoupServer        *server,
 static void
 session_core_setup_session(SessionUdp* self)
 {
-	qoe_setup(self->qoe,
-				1920,
-				1080,
-				OPUS_ENC,
-				CODEC_H265,
-				ULTRA_HIGH_CONST);
-		
+	qoe_setup(self->qoe, 1920, 1080,
+				OPUS_ENC, CODEC_H265, ULTRA_HIGH_CONST);
+	
+	gchar* audio_port = GetEnvironmentVariableWithKey("AUDIO_PORT");
+	gchar* audio_host = GetEnvironmentVariableWithKey("AUDIO_HOST");
+	gchar* video_port = GetEnvironmentVariableWithKey("VIDEO_PORT");
+	gchar* video_host = GetEnvironmentVariableWithKey("VIDEO_HOST");
+
+	self->audio = udp_endpoint_new(audio_port,audio_host);
+	self->video = udp_endpoint_new(video_port,video_host);
 	worker_log_output("session core setup done");
 }
 
@@ -144,7 +154,6 @@ on_hid_input(gchar* message,
 			 SessionUdp* udp)
 {
     Pipeline* pipeline = session_core_get_pipeline(udp);
-    GstElement* capture = pipeline_get_screen_capture_element(pipeline);
     if(DEVELOPMENT_ENVIRONMENT)
         g_print("%s\n",message);
 
@@ -276,24 +285,22 @@ server_callback (SoupServer        *server,
 SessionUdp*
 session_core_initialize()
 {
-	UdpEndpoint endpoint = {6001,6002,"192.168.1.6","192.168.1.6"};
-	worker_log_output("Session core process started");
 	SessionUdp* core = malloc(sizeof(SessionUdp));
-
-#ifdef G_OS_WIN32
-	core->server = 				init_window_server((ServerMessageHandle)handle_message_server,"6003",core);
-#endif
 
 	core->qoe =					qoe_initialize();
 	core->pipe =				pipeline_initialize();
 	core->loop =				g_main_loop_new(NULL, FALSE);
+
+#ifdef G_OS_WIN32
+	core->server = 				init_window_server((ServerMessageHandle)handle_message_server,"6003",core);
+#endif
 
 	session_core_setup_session(core);
 
 	if(!DEVELOPMENT_ENVIRONMENT)
 		g_thread_new("Sync",(GThreadFunc) session_core_sync_state_with_cluster,core);
 
-	setup_pipeline(core,endpoint);
+	setup_pipeline(core);
 	g_main_loop_run(core->loop);
 	return core;	
 }
@@ -347,6 +354,18 @@ StreamConfig*
 session_core_get_qoe(SessionUdp* self)
 {
 	return self->qoe;
+}
+
+UdpEndpoint*
+session_core_get_audio_endpoint(SessionUdp* self)
+{
+	return self->audio;
+}
+
+UdpEndpoint*
+session_core_get_video_endpoint(SessionUdp* self)
+{
+	return self->video;
 }
 
 

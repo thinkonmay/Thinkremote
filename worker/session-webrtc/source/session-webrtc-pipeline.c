@@ -12,11 +12,12 @@
 #include <session-webrtc-type.h>
 #include <session-webrtc-data-channel.h>
 #include <session-webrtc-signalling.h>
-#include <session-webrtc-remote-config.h>
 
 
 #include <constant.h>
 #include <logging.h>
+#include <remote-config.h>
+#include <handle-key.h>
 #include <enum.h>
 
 #include <gst/gst.h>
@@ -90,6 +91,8 @@ struct _Pipeline
 
     GstCaps* video_caps[VIDEO_ELEMENT_LAST];
     GstCaps* audio_caps[AUDIO_ELEMENT_LAST];
+
+    HIDHandler* handler;
 };
 
 typedef struct _Device
@@ -105,6 +108,21 @@ static Device capture_device = {0};
 
 
 void device_foreach(GstDevice* data, gpointer user_data);
+
+/**
+ * @brief 
+ * get and set the visibility of pointer
+ * @param capture 
+ */
+static void
+toggle_pointer(GstElement* capture)
+{
+    gboolean toggle;
+    g_object_get(capture, "show-cursor", &toggle, NULL); 
+    toggle = !toggle;
+    set_relative_mouse(!toggle);
+    g_object_set(capture, "show-cursor", toggle, NULL); 
+}
 
 Pipeline*
 pipeline_initialize()
@@ -128,9 +146,28 @@ pipeline_initialize()
 void
 free_pipeline(Pipeline* pipeline)
 {
+    deactivate_hid_handler(pipeline->handler);
     gst_element_set_state (pipeline->pipeline, GST_STATE_NULL);
     gst_object_unref (pipeline->pipeline);
     memset(pipeline,0,sizeof(Pipeline));
+}
+
+static Shortcut*
+get_default_shortcut(SessionCore* core)
+{
+    Pipeline* pipe = session_core_get_pipeline(core);
+
+    Shortcut* shortcuts = malloc(sizeof(Shortcut)*10);
+
+    (shortcuts + 0)->data = pipe->video_element[SCREEN_CAPTURE];
+    (shortcuts + 0)->function = toggle_pointer;
+    (shortcuts + 0)->opcode = POINTER_LOCK;
+
+    (shortcuts + 1)->data = NULL;
+    (shortcuts + 1)->function = reset_session_key;
+    (shortcuts + 1)->opcode = RESET_KEY;
+
+    return shortcuts;
 }
 
 static gboolean
@@ -138,17 +175,18 @@ start_pipeline(SessionCore* core)
 {
     GstStateChangeReturn ret;
     Pipeline* pipe = session_core_get_pipeline(core);
+    worker_log_output("Starting pipeline");
 
     ret = GST_IS_ELEMENT(pipe->pipeline);    
-
     ret = gst_element_set_state(GST_ELEMENT(pipe->pipeline), GST_STATE_PLAYING);
     if (ret == GST_STATE_CHANGE_FAILURE)
     {
-        GError error;
-        error.message = "Fail to start pipeline, this may due to pipeline setup failure";
-        session_core_finalize(core, &error);
+        worker_log_output("Fail to start pipeline, this may due to pipeline setup failure");
+        session_core_finalize(core, NULL);
     }
-    worker_log_output("Starting pipeline");
+
+
+    pipe->handler = activate_hid_handler(pipe->video_element[SCREEN_CAPTURE],get_default_shortcut(core));
 	start_qos_thread(core);
     return TRUE;
 }
@@ -193,88 +231,85 @@ setup_element_factory(SessionCore* core,
 {
     Pipeline* pipe = session_core_get_pipeline(core);
     GError* error = NULL;
+
+    if (audio != OPUS_ENC) 
+        return;
     
     if (video == CODEC_H264)
     {
-        if (audio == OPUS_ENC) 
-        {
 #ifdef G_OS_WIN32
-            pipe->pipeline =
-                gst_parse_launch("webrtcbin bundle-policy=max-bundle name=sendrecv "
+        pipe->pipeline =
+            gst_parse_launch("webrtcbin bundle-policy=max-bundle name=sendrecv "
 
-                    "d3d11screencapturesrc name=screencap ! "
-                    DIRECTX_PAD",framerate=60/1 ! "                            QUEUE
-                    "d3d11convert ! "DIRECTX_PAD",format=NV12 ! "              QUEUE
-                    "mfh264enc name=videoencoder ! "                           QUEUE
-                    "rtph264pay name=rtp ! "                                   QUEUE
-                    RTP_CAPS_VIDEO "H264 ! sendrecv. "
+                "d3d11screencapturesrc name=screencap ! "
+                DIRECTX_PAD",framerate=60/1 ! "                            QUEUE
+                "d3d11convert ! "DIRECTX_PAD",format=NV12 ! "              QUEUE
+                "mfh264enc name=videoencoder ! "                           QUEUE
+                "rtph264pay name=rtp ! "                                   QUEUE
+                RTP_CAPS_VIDEO "H264 ! sendrecv. "
 
-                    "wasapi2src loopback=true name=audiocapsrc !"              QUEUE
-                    "audioconvert ! "                                          QUEUE 
-                    "audioresample ! "                                         QUEUE 
-                    "opusenc name=audioencoder ! "                             QUEUE 
-                    "rtpopuspay ! "                                            QUEUE 
-                    RTP_CAPS_AUDIO "OPUS ! sendrecv. ", &error);
+                "wasapi2src loopback=true name=audiocapsrc !"              QUEUE
+                "audioconvert ! "                                          QUEUE 
+                "audioresample ! "                                         QUEUE 
+                "opusenc name=audioencoder ! "                             QUEUE 
+                "rtpopuspay ! "                                            QUEUE 
+                RTP_CAPS_AUDIO "OPUS ! sendrecv. ", &error);
 #else
-            pipe->pipeline =
-                gst_parse_launch("webrtcbin bundle-policy=max-bundle name=sendrecv "
+        pipe->pipeline =
+            gst_parse_launch("webrtcbin bundle-policy=max-bundle name=sendrecv "
 
-                    "ximagesrc name=screencap ! "                              QUEUE
-                    "videoconvert ! "                                          QUEUE
-                    "x264enc name=videoencoder ! "                             QUEUE
-                    "rtph264pay name=rtp ! "                                   QUEUE
-                    RTP_CAPS_VIDEO "H264 ! sendrecv. "
+                "ximagesrc name=screencap ! "                              QUEUE
+                "videoconvert ! "                                          QUEUE
+                "x264enc name=videoencoder ! "                             QUEUE
+                "rtph264pay name=rtp ! "                                   QUEUE
+                RTP_CAPS_VIDEO "H264 ! sendrecv. "
 
-                    "pulsesrc name=audiocapsrc !"                              QUEUE
-                    "audioconvert ! "                                          QUEUE 
-                    "audioresample ! "                                         QUEUE 
-                    "opusenc name=audioencoder ! "                             QUEUE 
-                    "rtpopuspay ! "                                            QUEUE 
-                    RTP_CAPS_AUDIO "OPUS ! sendrecv. ", &error);
+                "pulsesrc name=audiocapsrc !"                              QUEUE
+                "audioconvert ! "                                          QUEUE 
+                "audioresample ! "                                         QUEUE 
+                "opusenc name=audioencoder ! "                             QUEUE 
+                "rtpopuspay ! "                                            QUEUE 
+                RTP_CAPS_AUDIO "OPUS ! sendrecv. ", &error);
 
 #endif
-        }
     }
     else if (video == CODEC_H265)
     {
-        if (audio == OPUS_ENC)
-        {
 #ifdef G_OS_WIN32
-            pipe->pipeline =
-                gst_parse_launch("webrtcbin bundle-policy=max-bundle name=sendrecv "
+        pipe->pipeline =
+            gst_parse_launch("webrtcbin bundle-policy=max-bundle name=sendrecv "
 
-                    "d3d11screencapturesrc name=screencap ! "
-                    DIRECTX_PAD",framerate=60/1 ! "                             QUEUE
-                    "d3d11convert ! "DIRECTX_PAD",format=NV12 ! "               QUEUE
-                    "mfh265enc name=videoencoder ! "                            QUEUE
-                    "rtph265pay name=rtp ! "                                    QUEUE 
-                    RTP_CAPS_VIDEO "H265 ! sendrecv. "
+                "d3d11screencapturesrc name=screencap ! "
+                DIRECTX_PAD",framerate=60/1 ! "                             QUEUE
+                "d3d11convert ! "DIRECTX_PAD",format=NV12 ! "               QUEUE
+                "mfh265enc name=videoencoder ! "                            QUEUE
+                "rtph265pay name=rtp ! "                                    QUEUE 
+                RTP_CAPS_VIDEO "H265 ! sendrecv. "
 
-                    "wasapi2src loopback=true name=audiocapsrc !"               QUEUE 
-                    "audioconvert ! "                                           QUEUE 
-                    "audioresample ! "                                          QUEUE 
-                    "opusenc name=audioencoder ! "                              QUEUE 
-                    "rtpopuspay ! "                                             QUEUE 
-                    RTP_CAPS_AUDIO "OPUS ! sendrecv. ", &error);
+                "wasapi2src loopback=true name=audiocapsrc !"               QUEUE 
+                "audioconvert ! "                                           QUEUE 
+                "audioresample ! "                                          QUEUE 
+                "opusenc name=audioencoder ! "                              QUEUE 
+                "rtpopuspay ! "                                             QUEUE 
+                RTP_CAPS_AUDIO "OPUS ! sendrecv. ", &error);
 #else
-            pipe->pipeline =
-                gst_parse_launch("webrtcbin bundle-policy=max-bundle name=sendrecv "
+        pipe->pipeline =
+            gst_parse_launch("webrtcbin bundle-policy=max-bundle name=sendrecv "
 
-                    "ximagesrc name=screencap ! "                               QUEUE
-                    "videoconvert name=videoencoder ! "                         QUEUE
-                    "x265enc name=videoencoder ! "                              QUEUE
-                    "rtph265pay name=rtp ! "                                    QUEUE 
-                    RTP_CAPS_VIDEO "H265 ! sendrecv. "
+                "ximagesrc name=screencap ! "                               QUEUE
+                "videoconvert name=videoencoder ! "                         QUEUE
+                "x265enc name=videoencoder ! "                              QUEUE
+                "rtph265pay name=rtp ! "                                    QUEUE 
+                RTP_CAPS_VIDEO "H265 ! sendrecv. "
 
-                    "pulsesrc loopback=true name=audiocapsrc ! "                QUEUE 
-                    "audioconvert ! "                                           QUEUE 
-                    "audioresample ! "                                          QUEUE 
-                    "opusenc name=audioencoder ! "                              QUEUE 
-                    "rtpopuspay ! "                                             QUEUE 
-                    RTP_CAPS_AUDIO"OPUS ! sendrecv. ", &error);
+                "pulsesrc loopback=true name=audiocapsrc ! "                QUEUE 
+                "audioconvert ! "                                           QUEUE 
+                "audioresample ! "                                          QUEUE 
+                "opusenc name=audioencoder ! "                              QUEUE 
+                "rtpopuspay ! "                                             QUEUE 
+                RTP_CAPS_AUDIO"OPUS ! sendrecv. ", &error);
 
 #endif
-        }
     }
 
     if (error || !pipe->pipeline) 
@@ -521,10 +556,4 @@ GstElement*
 pipeline_get_webrtc_bin(Pipeline* pipe)
 {
     return pipe->webrtcbin;
-}
-
-GstElement*
-pipeline_get_screen_capture_element(Pipeline* pipeline)
-{
-    return pipeline->video_element[SCREEN_CAPTURE];
 }

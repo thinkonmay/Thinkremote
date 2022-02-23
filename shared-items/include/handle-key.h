@@ -21,6 +21,7 @@
 #include <Windows.h>
 #include <gst/gst.h>
 
+typedef struct  _HIDHandler                     HIDHandler;
 
 /**
  * @brief 
@@ -43,18 +44,53 @@ void            handle_input_gtk                (gchar* message);
  */
 void            handle_input_javascript         (gchar* message);
 
+
+
+
+
+
+
+
+
 /**
  * @brief 
  * 
  * @param capture 
  * @param shortcuts 
  */
-void            activate_hid_handler            (GstElement* capture, 
-                                                Shortcut* shortcuts);
+HIDHandler*     activate_hid_handler            (GstElement* capture, 
+                                                 Shortcut* shortcuts);
 
 /**
  * @brief 
  * 
  */
-void            deactivate_hid_handler          ();
+void            deactivate_hid_handler          (HIDHandler* handler);
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * @brief Set the relative mouse object
+ * 
+ * @param isTrue 
+ */
+void            set_relative_mouse              (gboolean isTrue);
+
+/**
+ * @brief 
+ * 
+ * @param data 
+ */
+void            reset_session_key               (gpointer data);
+
 #endif
