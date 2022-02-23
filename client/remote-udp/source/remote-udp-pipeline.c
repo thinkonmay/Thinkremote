@@ -13,7 +13,7 @@
 #include <remote-udp-remote-config.h>
 #include <remote-udp-pipeline.h>
 
-#include <qoe.h>
+#include <enum.h>
 #include <overlay-gui.h>
 
 #include <gst/gst.h>
@@ -240,38 +240,6 @@ handle_audio_stream(GstElement* decodebin,
 }
 
 
-
-#ifndef G_OS_WIN32
-
-static gboolean
-handle_event(GstPad* pad, 
-            GstObject* parent, 
-            GstEvent* event)
-{
-    switch (GST_EVENT_TYPE (event)) {
-      case GST_EVENT_NAVIGATION:
-        // handle_navigator(event,pipeline_singleton.core);
-        break;
-      default:
-        gst_pad_event_default(pad, parent,event);
-        break;
-    }
-}
-
-/**
- * @brief Set the up video sink navigator object
- * 
- * @param core 
- */
-void
-setup_video_sink_navigator(RemoteUdp* core)
-{
-    Pipeline* pipeline = remote_app_get_pipeline(core);
-    // GstPad* pad = gst_element_get_static_pad(pipeline->video_element[VIDEO_CONVERT],"src");
-
-    // gst_pad_set_event_function_full(pad,handle_event,core,NULL);
-}
-#endif
 
 #ifdef G_OS_WIN32
 #define DIRECTX_PAD "video/x-raw(memory:D3D11Memory)"

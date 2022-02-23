@@ -28,7 +28,9 @@
         "hidusage.h": "c",
         "winuser.h": "c",
         "gstvideosink.h": "c",
-        "videooverlay.h": "c"
+        "videooverlay.h": "c",
+        "key-convert.h": "c",
+        "gst.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

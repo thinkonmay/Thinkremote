@@ -10,13 +10,13 @@
  */
 #include <capture-key.h>
 
-#include <human-interface-opcode.h>
+#include <enum.h>
 
 #include <glib-2.0/glib.h>
 #include <json-glib/json-glib.h>
 
 
-struct _HidInput
+typedef struct _HidInput
 {
     gdouble delta_x;
     gdouble delta_y;
@@ -30,7 +30,7 @@ struct _HidInput
 
     gboolean relative;
     gboolean key_is_up;
-};
+}HidInput;
 
 
 struct _InputHandler
@@ -52,6 +52,12 @@ struct _InputHandler
      * 
      */
     gpointer data;
+
+    /**
+     * @brief 
+     * 
+     */
+    Shortcut shortcuts [20];
 };
 
 static InputHandler HID_handler = {0};
@@ -131,7 +137,19 @@ send_gamepad_signal(HARDWAREINPUT input)
         HID_handler.handler(get_string_from_json_object(object),HID_handler.data);
 }
 
-static void parse_hid_event(HidInput* input);
+/**
+ * @brief 
+ * 
+ * @param input 
+ */
+static void             parse_hid_event             (HidInput* input);
+
+/**
+ * @brief 
+ * 
+ * @return gboolean 
+ */
+gboolean                handle_user_shortcut        ();
 /**
  * @brief 
  * detect if a key is pressed
@@ -221,6 +239,9 @@ handle_message_window_proc(HWND hwnd,
                             WPARAM wParam, 
                             LPARAM lParam)
 {
+    if(handle_user_shortcut())
+        return;
+
     HidInput navigation = {0};
 
     guint dwSize;
@@ -356,7 +377,55 @@ parse_hid_event(HidInput* input)
     }
 }
 
+
+/**
+ * @brief 
+ * 
+ * @return gboolean TRUE if the input signal should be disabled
+ */
+gboolean
+handle_user_shortcut()
+{
+    gint i = 0;
+    while(HID_handler.shortcuts[i].active)
+    {
+        Shortcut shortcut = HID_handler.shortcuts[i];
+
+        gint k = 0;
+        while (shortcut.key_list[k])
+        {
+            gint key = shortcut.key_list[k];
+            if(!_keydown(key))
+            {
+                goto nothandle;
+            }
+            k++;
+        }
+
+        shortcut.function(shortcut.data);
+        HidInput input = {0};
+        input.opcode = shortcut.opcode;
+        parse_hid_event(&input);
+        return TRUE;
+nothandle:
+        i++;
+    }
+    return FALSE;
+}
+
+
+void
+add_shortcut(Shortcut shortcut)
+{
+    gint i = 0;
+    while(HID_handler.shortcuts[i].active)
+    {
+        i++;
+    }
+    HID_handler.shortcuts[i] = shortcut;
+}
 #else
+
 #include <gst/video/navigation.h>
 
 
@@ -364,36 +433,31 @@ gboolean
 handle_navigator(GstEvent *event, 
                 RemoteApp* core)
 {
-    HidInput* navigation = malloc(sizeof(HidInput));
-    gint eventcode = gst_navigation_event_get_type(event);\
-    
-    switch (eventcode)
-    {
-        case GST_NAVIGATION_EVENT_KEY_PRESS: 
-            gst_navigation_event_parse_key_event(event,&(navigation->keyboard_code));
-            navigation->opcode = KEYDOWN;
-            break; 
-        case GST_NAVIGATION_EVENT_KEY_RELEASE: 
-            gst_navigation_event_parse_key_event(event,&(navigation->keyboard_code));
-            navigation->opcode = KEYUP;
-            break;
-        case GST_NAVIGATION_EVENT_MOUSE_MOVE: 
-            gst_navigation_event_parse_mouse_move_event(event,&(navigation->delta_x),&(navigation->delta_y));
-            navigation->opcode = MOUSE_MOVE;
-            break; 
-        case GST_NAVIGATION_EVENT_MOUSE_BUTTON_PRESS: 
-            gst_navigation_event_parse_mouse_button_event(event,&(navigation->mouse_code),&(navigation->delta_y),&(navigation->delta_y));
-            navigation->opcode = MOUSE_DOWN;
-            break; 
-        case GST_NAVIGATION_EVENT_MOUSE_BUTTON_RELEASE: 
-            gst_navigation_event_parse_mouse_button_event(event,&(navigation->mouse_code),&(navigation->delta_x),&(navigation->delta_y));
-            navigation->opcode = MOUSE_UP;
-            break; 
-        default:
-            break;
-    }
-    parse_hid_event(navigation);
-    free(navigation);
+    // switch (eventcode)
+    // {
+    //     case GST_NAVIGATION_EVENT_KEY_PRESS: 
+    //         gst_navigation_event_parse_key_event(event,&(navigation->keyboard_code));
+    //         navigation->opcode = KEYDOWN;
+    //         break; 
+    //     case GST_NAVIGATION_EVENT_KEY_RELEASE: 
+    //         gst_navigation_event_parse_key_event(event,&(navigation->keyboard_code));
+    //         navigation->opcode = KEYUP;
+    //         break;
+    //     case GST_NAVIGATION_EVENT_MOUSE_MOVE: 
+    //         gst_navigation_event_parse_mouse_move_event(event,&(navigation->delta_x),&(navigation->delta_y));
+    //         navigation->opcode = MOUSE_MOVE;
+    //         break; 
+    //     case GST_NAVIGATION_EVENT_MOUSE_BUTTON_PRESS: 
+    //         gst_navigation_event_parse_mouse_button_event(event,&(navigation->mouse_code),&(navigation->delta_y),&(navigation->delta_y));
+    //         navigation->opcode = MOUSE_DOWN;
+    //         break; 
+    //     case GST_NAVIGATION_EVENT_MOUSE_BUTTON_RELEASE: 
+    //         gst_navigation_event_parse_mouse_button_event(event,&(navigation->mouse_code),&(navigation->delta_x),&(navigation->delta_y));
+    //         navigation->opcode = MOUSE_UP;
+    //         break; 
+    //     default:
+    //         break;
+    // }
 }
 
 #endif

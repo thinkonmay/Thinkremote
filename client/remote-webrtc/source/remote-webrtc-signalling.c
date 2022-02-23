@@ -4,8 +4,7 @@
 #include <remote-webrtc-pipeline.h>
 #include <remote-webrtc-type.h>
 
-#include <signalling-message.h>
-#include <development.h>
+#include <constant.h>
 #include <string-manipulate.h>
 #include <global-var.h>
 
@@ -574,20 +573,22 @@ on_server_message(SoupWebsocketConnection* conn,
     JsonObject* object = get_json_object_from_string(text,&error,parser);
 	if(!error == NULL || object == NULL) {return;}
 
-    gchar* RequestType =    json_object_get_string_member(object, "RequestType");
-    gchar* Content =        json_object_get_string_member(object, "Content");
+    gchar* Request =        json_object_get_string_member(object, REQUEST_TYPE);
+    gchar* Content =        json_object_get_string_member(object, CONTENT);
 
     if(DEVELOPMENT_ENVIRONMENT)
         g_print("%s\n",Content);
 
 
+    if (!g_strcmp0(Request, OFFER_ICE))
+        on_ice_exchange(Content, app);
 
-    if (!g_strcmp0(RequestType, "OFFER_SDP")) {
+    if (!g_strcmp0(Request, OFFER_SDP)) 
+    {
         setup_pipeline(app);
         on_sdp_exchange(Content, app);
-    } else if (!g_strcmp0(RequestType, "OFFER_ICE")) {
-        on_ice_exchange(Content, app);
     }
+
 
     g_free(text);
     g_object_unref(parser);

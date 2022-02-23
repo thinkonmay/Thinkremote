@@ -12,8 +12,7 @@
 #include <session-webrtc-type.h>
 #include <session-webrtc-pipeline.h>
 
-#include <opcode.h>
-#include <qoe.h>
+#include <enum.h>
 
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>

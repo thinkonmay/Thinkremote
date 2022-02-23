@@ -1,17 +1,18 @@
-/// <summary>
-/// @file session-udp-pipeline.h
-/// @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
-/// </summary>
-/// @version 1.0
-/// @date 2021-09-05
-/// 
-/// @copyright Copyright (c) 2021
-/// 
+/**
+ * @file session-udp-pipeline.h
+ * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
+ * @brief 
+ * @version 1.0
+ * @date 2022-02-23
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #include <session-udp-type.h>
 #include <gst/gst.h>
 
 #include <session-udp-type.h>
-#include <qoe.h>
+#include <enum.h>
 
 
 

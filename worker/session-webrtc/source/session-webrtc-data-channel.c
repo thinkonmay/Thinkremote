@@ -17,9 +17,9 @@
 
 
 #include <logging.h>
-#include <human-interface-opcode.h>
+#include <enum.h>
 #include <key-convert.h>
-#include <development.h>
+#include <constant.h>
 #include <handle-key.h>
 
 #include <global-var.h>
@@ -43,6 +43,19 @@ struct _WebRTCHub
      * control datachannel for transfering control signal with client
      */
     GObject* control;
+
+
+    /**
+     * @brief 
+     * 
+     */
+    DeviceType device; 
+    
+    /**
+     * @brief 
+     * 
+     */
+    CoreEngine engine; 
 };
 
 
@@ -98,19 +111,18 @@ hid_channel_on_message_string(GObject* dc,
                             gchar* message,
                             SessionCore* core)
 {
+    WebRTCHub* hub = session_core_get_rtc_hub(core);
+
     Pipeline* pipeline = session_core_get_pipeline(core);
-    GstElement* capture = pipeline_get_webrtc_bin(pipeline);
+    GstElement* capture = pipeline_get_screen_capture_element(pipeline);
+
     if(DEVELOPMENT_ENVIRONMENT)
         g_print("%s\n",message);
 
-
-    DeviceType device = session_core_get_client_device(core);
-    if(device == WEB_APP)
-        handle_input_javascript(message,capture);
-    else if(device == WINDOW_APP)
-        handle_input_win32(message,capture);
-    else if(device == LINUX_APP)
-        handle_input_gtk(message,capture);
+    if(hub->device == WEB_APP)
+        handle_input_javascript(message);
+    else if(hub->engine == GSTREAMER && hub->device == WINDOW_APP)
+        handle_input_win32(message);
 }
 
 
@@ -130,8 +142,23 @@ control_channel_on_message_string(GObject* dc,
                                   gchar* message,
                                   SessionCore* core)
 {
+    if(!g_strcmp0(message,"ping"))
+    {
+        g_signal_emit_by_name(dc,"send-string",message,NULL);
+        return;
+    }
+
     WebRTCHub* hub = session_core_get_rtc_hub(core);
-    g_signal_emit_by_name(dc,"send-string",message,NULL);
+    JsonParser* parser = json_parser_new();
+    JsonObject* object = get_json_object_from_string(message,NULL,parser);
+
+    if(!object)
+        goto free;
+
+    hub->device =  json_object_get_int_member(object,"Device");
+    hub->engine =  json_object_get_int_member(object,"Engine");
+free:
+    g_object_unref(parser);
 }
 
 

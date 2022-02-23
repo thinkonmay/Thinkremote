@@ -15,8 +15,7 @@
 #include <remote-webrtc.h>
 #include <remote-webrtc-type.h>
 
-#include <module-code.h>
-#include <development.h>
+#include <constant.h>
 #include <environment.h>
 #include <global-var.h>
 #include <overlay-gui.h>
@@ -25,8 +24,7 @@
 
 #include <glib.h>
 #include <gst/base/gstbasesink.h>
-#include <message-form.h>
-#include <module-code.h>
+#include <json-handler.h>
 #include <libsoup/soup.h>
 #include <stdio.h>
 

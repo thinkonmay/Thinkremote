@@ -22,13 +22,13 @@
  * @brief 
  * GUI is a datastructure wrap around creation of remote window and win32 input handling
  */
-typedef struct 			_GUI 				                GUI;
+typedef struct 		_GUI 				                    GUI;
 
 /**
  * @brief 
  * 
  */
-typedef void            (*ResetApplicationEvent)            (gpointer data);  
+typedef void        (*ResetApplicationEvent)                (gpointer data);  
 
 /**
  * @brief 

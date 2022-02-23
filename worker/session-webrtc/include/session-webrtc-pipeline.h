@@ -12,10 +12,10 @@
 #define __SESSION_WEBRTC_PIPELINE_H__
 
 #include <session-webrtc-type.h>
+
 #include <gst/gst.h>
 
-#include <session-webrtc-type.h>
-#include <qoe.h>
+#include <enum.h>
 
 
 

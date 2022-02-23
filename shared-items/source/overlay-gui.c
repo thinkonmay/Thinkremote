@@ -11,7 +11,7 @@
 #include <overlay-gui.h>
 
 
-#include <virtual-key.h>
+#include <key-convert.h>
 #include <capture-key.h>
 
 #include <glib-2.0/glib.h>
@@ -396,17 +396,6 @@ adjust_video_position(GUI* gui,
 
 
 
-/**
- * @brief 
- * detect if a key is pressed
- * @param key 
- * @return gboolean 
- */
-static gboolean
-_keydown(int *key)
-{
-    return (GetAsyncKeyState(key) & 0x8000) != 0;
-}
 
 
 /**
@@ -438,7 +427,7 @@ center_mouse_position(GUI* gui)
  * 
  */
 void
-handle_fullscreen_hotkey()
+handle_fullscreen_hotkey(gpointer data)
 {
     GUI* gui = &_gui;
     switch_fullscreen_mode(gui);
@@ -459,64 +448,64 @@ handle_fullscreen_hotkey()
 }
 
 
-/**
- * @brief 
- * 
- * @return gboolean TRUE if the input signal should be disabled
- */
-gboolean
-handle_user_shortcut()
-{
-    GUI* gui = &_gui;
-    if (_keydown(VK_SHIFT))
-    {
-        if (_keydown(VK_MENU))
-        {
-            if (_keydown(VK_CONTROL))
-            {
-                /**
-                 * @brief 
-                 * handle mouse lock key
-                 */
-                if (_keydown(F_KEY))
-                {
-                    handle_fullscreen_hotkey();
-                    return TRUE;
-                }
+// /**
+//  * @brief 
+//  * 
+//  * @return gboolean TRUE if the input signal should be disabled
+//  */
+// gboolean
+// handle_user_shortcut()
+// {
+//     GUI* gui = &_gui;
+//     if (_keydown(VK_SHIFT))
+//     {
+//         if (_keydown(VK_MENU))
+//         {
+//             if (_keydown(VK_CONTROL))
+//             {
+//                 /**
+//                  * @brief 
+//                  * handle mouse lock key
+//                  */
+//                 if (_keydown(F_KEY))
+//                 {
+//                     handle_fullscreen_hotkey();
+//                     return TRUE;
+//                 }
 
-                /**
-                 * @brief 
-                 * handle reset video stream 
-                 */
-                else if (_keydown(W_KEY))
-                {
-                    gui->reset(gui->app);
-                    return TRUE;
-                }
+//                 /**
+//                  * @brief 
+//                  * handle reset video stream 
+//                  */
+//                 else if (_keydown(W_KEY))
+//                 {
+//                     gui->reset(gui->app);
+//                     return TRUE;
+//                 }
 
-                /**
-                 * @brief 
-                 * handle reset video stream 
-                 */
-                else if (_keydown(VK_OEM_PLUS))
-                {
-                    return TRUE;
-                }
+//                 /**
+//                  * @brief 
+//                  * handle reset video stream 
+//                  */
+//                 else if (_keydown(VK_OEM_PLUS))
+//                 {
+//                     return TRUE;
+//                 }
 
 
-                /**
-                 * @brief 
-                 * handle reset video stream 
-                 */
-                else if (_keydown(VK_OEM_MINUS))
-                {
-                    return TRUE;
-                }
-            }
-        }
-    }
-    return FALSE;
-}
+//                 /**
+//                  * @brief 
+//                  * handle reset video stream 
+//                  */
+//                 else if (_keydown(VK_OEM_MINUS))
+//                 {
+//                     return TRUE;
+//                 }
+//             }
+//         }
+//     }
+//     return FALSE;
+// }
 
 /**
  * @brief 
@@ -539,19 +528,20 @@ window_proc(HWND hWnd,
         g_assert_nonnull(NULL);
 
     if (message == WM_INPUT)
-    {
-        if(!handle_user_shortcut())
-            handle_message_window_proc(hWnd, message, wParam, lParam );
-    }
-    else if (message == WM_MOUSEMOVE    ||
-             message == WM_LBUTTONDOWN	||
-             message == WM_LBUTTONUP	||
-             message == WM_MBUTTONDOWN	||
-             message == WM_MBUTTONUP	||
-             message == WM_RBUTTONDOWN	||
-             message == WM_RBUTTONUP	||
-             message == WM_XBUTTONDOWN	||
-             message == WM_XBUTTONUP	)
+        handle_message_window_proc(hWnd, message, wParam, lParam );
+
+    if (message == WM_MOUSEWHEEL)
+        handle_window_wheel(GET_WHEEL_DELTA_WPARAM(wParam) > 0);
+
+    if (message == WM_MOUSEMOVE    ||
+        message == WM_LBUTTONDOWN	||
+        message == WM_LBUTTONUP	||
+        message == WM_MBUTTONDOWN	||
+        message == WM_MBUTTONUP	||
+        message == WM_RBUTTONDOWN	||
+        message == WM_RBUTTONUP	||
+        message == WM_XBUTTONDOWN	||
+        message == WM_XBUTTONUP	)
     {
         if(!gui->disable_client_cursor)
             goto end;
@@ -560,11 +550,6 @@ window_proc(HWND hWnd,
 		gint y = HIWORD(lParam);
         POINT pt = center_mouse_position(gui);
         handle_window_mouse_relative(message, x-pt.x, y-pt.y);
-    }
-    else if (message == WM_MOUSEWHEEL)
-    {		
-		gboolean up = (GET_WHEEL_DELTA_WPARAM(wParam) > 0);
-        handle_window_wheel(up);
     }
 
 end:

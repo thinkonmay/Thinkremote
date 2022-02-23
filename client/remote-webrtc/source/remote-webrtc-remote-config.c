@@ -12,7 +12,7 @@
 #include <remote-webrtc-type.h>
 #include <remote-webrtc-pipeline.h>
 
-#include <qoe.h>
+#include <enum.h>
 
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>

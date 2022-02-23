@@ -9,10 +9,10 @@
 /// 
 #ifndef __SESSION_CORE_REMOTE_CONFIG_H__
 #define __SESSION_CORE_REMOTE_CONFIG_H__
-#include "session-udp-type.h"
-#include "session-udp.h"
+#include <session-udp-type.h>
+#include <session-udp.h>
 #include <gst/gst.h>
-#include <qoe.h>
+#include <enum.h>
 
 
 

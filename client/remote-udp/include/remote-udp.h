@@ -12,7 +12,7 @@
 #define __REMOTE_APP_H__
 
 #include <remote-udp-type.h>
-#include <message-form.h>
+#include <json-handler.h>
 #include <overlay-gui.h>
 
 

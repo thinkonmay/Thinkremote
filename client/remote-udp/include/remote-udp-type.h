@@ -49,12 +49,6 @@ typedef struct 			_RemoteConfig					                RemoteConfig;
 typedef struct			_WebRTCHub				                WebRTCHub;
 
 
-/**
- * @brief 
- * Hid Input is a datastructure that wrap around all parameter 
- * that captured by remoteapp related to human interface device
- */
-typedef struct			_HidInput								HidInput;
 
 
 

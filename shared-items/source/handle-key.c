@@ -13,7 +13,8 @@
 #include <glib-2.0/glib.h>
 #include <json-glib/json-glib.h>
 
-#include <human-interface-opcode.h>
+#include <enum.h>
+#include <capture-key.h>
 
 
 #include <Windows.h>
@@ -24,7 +25,60 @@
  * @brief 
  * true if mouse movement is relative
  */
-static gboolean relative_mouse;
+static gboolean relative_mouse = FALSE;
+
+
+typedef struct _HIDHandler
+{
+    /**
+     * @brief 
+     * 
+     */
+    gfloat screenwidth;
+
+    /**
+     * @brief 
+     * 
+     */
+    gfloat screenheight;
+
+    GstElement* capture;
+
+    Shortcut shortcuts[20];
+
+    gboolean active;
+}HIDHandler;
+
+static HIDHandler HID_handler = {0};
+
+void
+activate_hid_handler(GstElement* capture, 
+                     Shortcut* shortcuts)
+{
+    HID_handler.capture = capture;
+
+    GstCaps* cap = gst_element_get_static_pad(capture, "src");
+    GstStructure* structure = gst_caps_get_structure(cap,0);
+    gst_structure_get_int(structure,"width",&HID_handler.screenwidth);
+    gst_structure_get_int(structure,"height",&HID_handler.screenheight);
+
+    gint i = 0;
+    Shortcut* temp = shortcuts;
+    while (temp)
+    {
+        temp = shortcuts + i;
+        temp->active = TRUE;
+        memcpy(&(HID_handler.shortcuts[i]),temp,sizeof(Shortcut));
+        i++;
+    }
+}
+
+
+void
+deactivate_hid_handler()
+{
+    memset(&HID_handler,0,sizeof(HIDHandler));
+}
 
 /**
  * @brief 
@@ -35,46 +89,50 @@ static gboolean relative_mouse;
  */
 static void
 convert_mouse_input(INPUT* input, 
-                    JsonObject* message,
-                    GstElement* capture_source)
+                    JsonObject* message)
 {
-    static gboolean initialize = FALSE;
-    static gfloat screenwidth, screenheight; 
+    gfloat screenwidth = HID_handler.screenwidth;
+    gfloat screenheight = HID_handler.screenheight; 
 
-    if(!initialize)
-    {
-        GstCaps* cap = gst_element_get_static_pad(capture_source, "src");
-        GstStructure* structure = gst_caps_get_structure(cap,0);
-        gst_structure_get_int(structure,"width",&screenwidth);
-        gst_structure_get_int(structure,"height",&screenheight);
-        initialize = TRUE;
-    }
-
-
-
-    if(relative_mouse)
-    {
-        input->mi.dx = (LONG)
-        ((gfloat)json_object_get_int_member(message, "dX"));
-        input->mi.dy = (LONG)
-        ((gfloat)json_object_get_int_member(message, "dY"));
-    }
-    else
-    {
-        input->mi.dx = (LONG)
-        ((((gfloat)json_object_get_int_member(message, "dX"))/screenwidth)*65535);
-        input->mi.dy = (LONG)
-        ((((gfloat)json_object_get_int_member(message, "dY"))/screenheight)*65535);
-    }
+    input->mi.dx =  relative_mouse ? (LONG)
+      ((gfloat)json_object_get_int_member(message, "dX")) :
+    ((((gfloat)json_object_get_int_member(message, "dX"))/screenwidth)*65535);
+    input->mi.dy =  relative_mouse ? (LONG)
+      ((gfloat)json_object_get_int_member(message, "dY")) :
+    ((((gfloat)json_object_get_int_member(message, "dY"))/screenheight)*65535);
 }
 
-void
+/**
+ * @brief 
+ * get and set the visibility of pointer
+ * @param capture 
+ */
+static void
 toggle_pointer(GstElement* capture)
 {
     gboolean toggle;
     g_object_get(capture, "show-cursor", &toggle, NULL); 
     toggle = !toggle;
+    relative_mouse = !toggle;
     g_object_set(capture, "show-cursor", toggle, NULL); 
+}
+
+
+static gboolean
+handle_shortcut(HIDHandler* handler,
+                gint opcode)
+{
+    gint i = 0;
+    while (handler->shortcuts[i].active)
+    {
+        Shortcut shortcut = handler->shortcuts[i];
+        if(opcode == shortcut.opcode)
+        {
+            shortcut.function(shortcut.data);
+            return TRUE;
+        }
+    }
+    return FALSE;
 }
 
 
@@ -86,8 +144,7 @@ toggle_pointer(GstElement* capture)
  * @param core 
  */
 void
-handle_input_javascript(gchar* message, 
-                        GstElement* capture)
+handle_input_javascript(gchar* message)
 {
     JsonParser* parser = json_parser_new();
     JsonObject* object = get_json_object_from_string(message,NULL,parser);
@@ -95,27 +152,24 @@ handle_input_javascript(gchar* message,
 	if(object == NULL) 
         return;
 
-
-
-
     INPUT window_input;
     gint button = 0;
     memset(&window_input,0, sizeof(window_input));
     JavaScriptOpcode opcode = json_object_get_int_member(object, "Opcode");
 
-    if (opcode == POINTER_LOCK)
-        toggle_pointer(capture);
+    if(handle_shortcut(&HID_handler,opcode))
+        return;
 
     if(opcode == MOUSE_DOWN || opcode == MOUSE_UP || opcode == MOUSE_MOVE)
     {
         window_input.type = INPUT_MOUSE;
         window_input.mi.mouseData = 0;
         window_input.mi.time = 0;
-        button = json_object_get_int_member(object, "button");
-        convert_mouse_input(&window_input,object,capture);
+        button = ( opcode != MOUSE_MOVE ) ? json_object_get_int_member(object, "button") : 0; 
+        convert_mouse_input(&window_input,object);
     }
 
-    if(opcode == KEYUP || opcode == KEYDOWN)
+    else if(opcode == KEYUP || opcode == KEYDOWN)
     {
         window_input.type = INPUT_MOUSE;
         window_input.type = INPUT_KEYBOARD;
@@ -234,7 +288,11 @@ handle_input_win32(gchar* message)
 	if(!object) 
         return;
 
+
     Win32Opcode opcode = json_object_get_int_member(object, "Opcode");
+
+    if(handle_shortcut(&HID_handler,opcode))
+        return;
 
     INPUT window_input;
     memset(&window_input,0, sizeof(INPUT));
@@ -265,8 +323,7 @@ handle_input_win32(gchar* message)
 }
 
 void            
-handle_input_gtk(gchar* message,  
-                GstElement* core)
+handle_input_gtk(gchar* message)
 {
 
 }
@@ -325,50 +382,5 @@ stimulate_mouse_event(SessionCore* core)
 // Send a fake key release event to the window.
 	event = createKeyEvent(display, winFocus, winRoot, FALSE, XK_Down, 0);
 	XSendEvent(event.display, event.window, True, KeyPressMask, (XEvent *)&event);
-}
-
-
-
-#include <gst/video/navigation.h>
-
-
-gboolean      
-handle_navigator(GstEvent *event, 
-                RemoteApp* core)
-{
-    HidInput* navigation = malloc(sizeof(HidInput));
-    gint eventcode = gst_navigation_event_get_type(event);\
-    
-    switch (eventcode)
-    {
-        case GST_NAVIGATION_EVENT_KEY_PRESS: 
-            gst_navigation_event_parse_key_event(event,&(navigation->keyboard_code));
-            navigation->opcode = KEYDOWN;
-            break; 
-        case GST_NAVIGATION_EVENT_KEY_RELEASE: 
-            gst_navigation_event_parse_key_event(event,&(navigation->keyboard_code));
-            navigation->opcode = KEYUP;
-            break;
-        case GST_NAVIGATION_EVENT_MOUSE_MOVE: 
-            gst_navigation_event_parse_mouse_move_event(event,&(navigation->x_pos),&(navigation->y_pos));
-            navigation->opcode = MOUSE_MOVE;
-            break; 
-        // case GST_NAVIGATION_EVENT_MOUSE_SCROLL: 
-        //     gst_navigation_event_parse_mouse_scroll_event(event,&(navigation->x_pos),&(navigation->y_pos),&(navigation->delta_x),&(navigation->delta_y));
-        //     navigation->opcode = MOUSE_WHEEL;
-        //     break; 
-        case GST_NAVIGATION_EVENT_MOUSE_BUTTON_PRESS: 
-            gst_navigation_event_parse_mouse_button_event(event,&(navigation->mouse_code),&(navigation->x_pos),&(navigation->y_pos));
-            navigation->opcode = MOUSE_DOWN;
-            break; 
-        case GST_NAVIGATION_EVENT_MOUSE_BUTTON_RELEASE: 
-            gst_navigation_event_parse_mouse_button_event(event,&(navigation->mouse_code),&(navigation->x_pos),&(navigation->y_pos));
-            navigation->opcode = MOUSE_UP;
-            break; 
-        default:
-            break;
-    }
-    parse_hid_event(navigation,core);
-    free(navigation);
 }
 #endif

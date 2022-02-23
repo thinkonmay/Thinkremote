@@ -11,8 +11,8 @@
 #define __SESSION_CORE_H__
 
 #include <session-udp-type.h>
-#include <message-form.h>
-#include <human-interface-opcode.h>
+#include <json-handler.h>
+#include <enum.h>
 
 
 
@@ -85,26 +85,6 @@ SignallingHub*	session_core_get_signalling_hub			(SessionUdp* self);
  * @return gchar* remote token get from cluster
  */
 gchar*			session_core_get_remote_token			(SessionUdp* self);
-
-
-
-
-/**
- * @brief 
- * get client device of current stream
- * @param app 
- * @return DeviceType 
- */
-DeviceType		session_core_get_client_device			(SessionUdp* self);
-
-/**
- * @brief 
- * 
- * @param self 
- * @return CoreEngine 
- */
-CoreEngine 		session_core_get_client_engine			(SessionUdp* self);
-
 #ifndef G_OS_WIN32
 #include <Xlib.h>
 

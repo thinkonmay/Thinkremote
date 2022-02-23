@@ -16,16 +16,14 @@
 #include <session-webrtc-type.h>
 #include <session-webrtc-qos.h>
 
-#include <module-code.h>
-#include <opcode.h>
 #include <logging.h>
-#include <message-form.h>
+#include <json-handler.h>
 #include <global-var.h>
 #include <token-validate.h>
 
-#include <development.h>
+#include <constant.h>
 #include <environment.h>
-#include <human-interface-opcode.h>
+#include <enum.h>
 
 
 #include <glib.h>
@@ -70,19 +68,6 @@ struct _SessionCore
 	 * StreamConfig of the stream
 	 */
 	StreamConfig* qoe;
-
-	/**
-	 * @brief 
-	 * 
-	 */
-	DeviceType peer_device;
-
-	/**
-	 * @brief 
-	 * 
-	 */
-	CoreEngine peer_engine;
-
 #ifndef G_OS_WIN32
 	Display* x_display
 #endif
@@ -127,8 +112,6 @@ session_development_setup(SessionCore* self)
 				OPUS_ENC,
 				CODEC_H265,
 				ULTRA_HIGH_CONST);
-	
-	self->peer_device = WINDOW_APP;
 }
 
 
@@ -221,10 +204,6 @@ session_core_setup_session(SessionCore* self)
 					json_object_get_int_member(json_infor,"audiocodec"),
 					json_object_get_int_member(json_infor,"videocodec"),
 					json_object_get_int_member(json_infor,"mode"));
-		
-
-		self->peer_device =	json_object_get_int_member(json_infor,"clientdevice");
-		self->peer_engine =	json_object_get_int_member(json_infor,"clientengine");
 		
 		g_object_unref(parser);
 	}
@@ -367,19 +346,6 @@ session_core_get_signalling_hub(SessionCore* core)
 {
 	return core->signalling;
 }
-
-DeviceType		
-session_core_get_client_device(SessionCore* self)
-{
-	return self->peer_device;
-}
-
-CoreEngine
-session_core_get_client_engine(SessionCore* self)
-{
-	return self->peer_engine;
-}
-
 #ifndef G_OS_WIN32
 Display*
 session_core_display_interface(SessionCore* self)

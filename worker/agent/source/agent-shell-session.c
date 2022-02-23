@@ -15,7 +15,7 @@
 
 
 #include <logging.h>
-#include <message-form.h>
+#include <json-handler.h>
 #include <agent-server.h>
 
 #include <glib.h>

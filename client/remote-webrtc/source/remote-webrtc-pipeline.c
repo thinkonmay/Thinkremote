@@ -16,9 +16,9 @@
 #include <remote-webrtc-pipeline.h>
 #include <overlay-gui.h>
 
-#include <qoe.h>
+#include <enum.h>
 #include <global-var.h>
-#include <development.h>
+#include <constant.h>
 
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>
@@ -419,7 +419,6 @@ handle_event(GstPad* pad,
 {
     switch (GST_EVENT_TYPE (event)) {
       case GST_EVENT_NAVIGATION:
-        // handle_navigator(event,pipeline_singleton.core);
         break;
       default:
         gst_pad_event_default(pad, parent,event);

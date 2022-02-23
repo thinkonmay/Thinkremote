@@ -6,10 +6,9 @@
 #include <remote-webrtc-signalling.h>
 
 
-#include <human-interface-opcode.h>
-#include <module-code.h>
+#include <enum.h>
 #include <global-var.h>
-#include <development.h>
+#include <constant.h>
 
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>
@@ -56,6 +55,12 @@ struct _WebRTCHub
     gboolean still_connected;
 };
 
+/**
+ * @brief 
+ * 
+ */
+static gboolean ping = TRUE;
+
 
 
 WebRTCHub* 
@@ -67,11 +72,6 @@ webrtchub_initialize()
 }
 
 
-/**
- * @brief 
- * 
- */
-static gboolean ping = TRUE;
 
 /**
  * @brief 
@@ -147,15 +147,7 @@ hid_channel_on_message_string(GObject* dc,
     gchar* message,
     RemoteApp* core)
 {
-    QoE* qoe = remote_app_get_qoe(core);
-
-    GError* error = NULL;
-    JsonParser* parser = json_parser_new();
-    JsonObject* object = get_json_object_from_string(message,&error,parser);
-	if(!error == NULL || object == NULL) {return;}
-
-    gint opcode = json_object_get_int_member(object, "Opcode");
-    g_object_unref(parser);
+    return;
 }
 
 /**
@@ -225,8 +217,15 @@ start_to_ping(GObject* dc,
     WebRTCHub* hub = remote_app_get_rtc_hub(app);
     hub->still_connected = TRUE;
     hub->ping_thread = g_thread_new("Ping",ping_thread,app);
-
     g_signal_emit_by_name(dc,"send-string","ping",NULL);
+
+    JsonObject* object = json_object_new();
+#ifdef G_OS_WIN32
+    json_object_set_int_member(object,"Device",(gint)WINDOW_APP);
+    json_object_set_int_member(object,"Engine",(gint)GSTREAMER);
+#endif
+    gchar* infor = get_string_from_json_object(object);
+    g_signal_emit_by_name(dc,"send-string",infor,NULL);
 }
 
 

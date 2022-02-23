@@ -1,5 +1,5 @@
 /**
- * @file human-interface-opcode.h
+ * @file enum.h
  * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
  * @brief 
  * @version 1.0
@@ -25,12 +25,12 @@ typedef enum
 	MOUSE_MOVE,
 	MOUSE_UP,
 	MOUSE_DOWN,
-
-	POINTER_LOCK,
-
-	KEYRESET,
-	QOE_REPORT
 }JavaScriptOpcode;
+
+typedef enum
+{
+	POINTER_LOCK,
+}ShortcutOpcode;
 
 typedef enum
 {
@@ -54,9 +54,44 @@ typedef enum
 	IOS_APP
 }DeviceType;
 
+/**
+ * @brief 
+ * 
+ */
 typedef enum 
 {
 	GSTREAMER,
 	CHROME
 }CoreEngine;
+
+/**
+ * @brief 
+ * 
+ */
+typedef enum
+{
+    CODEC_H265,
+    CODEC_H264,
+    CODEC_VP8,
+    CODEC_VP9,
+
+    OPUS_ENC,
+    AAC_ENC
+}Codec;
+
+/**
+ * @brief 
+ * 
+ */
+typedef enum
+{
+    ULTRA_LOW_CONST = 1,
+    LOW_CONST,
+    MEDIUM_CONST,
+    HIGH_CONST,
+    VERY_HIGH_CONST,
+    ULTRA_HIGH_CONST,
+}QoEMode;
+
+
 #endif

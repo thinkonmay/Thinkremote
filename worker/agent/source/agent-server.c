@@ -30,7 +30,7 @@
 #endif
 
 #include <logging.h>
-#include <message-form.h>
+#include <json-handler.h>
 #include <global-var.h>
 #include <token-validate.h>
 

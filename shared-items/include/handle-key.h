@@ -14,21 +14,47 @@
 #include <glib-2.0/glib.h>
 #include <json-glib/json-glib.h>
 
-#include <human-interface-opcode.h>
+#include <enum.h>
+#include <capture-key.h>
 
 
 #include <Windows.h>
 #include <gst/gst.h>
 
 
-void            handle_input_win32              (gchar* message,  
-                                                GstElement* core);
+/**
+ * @brief 
+ * 
+ * @param message 
+ */
+void            handle_input_win32              (gchar* message);
 
-void            handle_input_gtk                 (gchar* message,  
-                                                GstElement* core);
+/**
+ * @brief 
+ * 
+ * @param message 
+ */
+void            handle_input_gtk                (gchar* message);
 
-void            handle_input_javascript         (gchar* message, 
-                                                GstElement* core);
+/**
+ * @brief 
+ * 
+ * @param message 
+ */
+void            handle_input_javascript         (gchar* message);
 
+/**
+ * @brief 
+ * 
+ * @param capture 
+ * @param shortcuts 
+ */
+void            activate_hid_handler            (GstElement* capture, 
+                                                Shortcut* shortcuts);
 
+/**
+ * @brief 
+ * 
+ */
+void            deactivate_hid_handler          ();
 #endif

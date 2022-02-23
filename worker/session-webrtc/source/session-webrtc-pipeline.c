@@ -15,9 +15,9 @@
 #include <session-webrtc-remote-config.h>
 
 
-#include <development.h>
+#include <constant.h>
 #include <logging.h>
-#include <qoe.h>
+#include <enum.h>
 
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>
@@ -399,7 +399,7 @@ setup_element_property(SessionCore* core)
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #ifdef G_OS_WIN32
-    if (pipe->video_element[SCREEN_CAPTURE]) { g_object_set(pipe->video_element[SCREEN_CAPTURE], "show-cursor", TRUE, NULL);}
+    if (pipe->video_element[SCREEN_CAPTURE]) { g_object_set(pipe->video_element[SCREEN_CAPTURE], "show-cursor", FALSE, NULL);}
 #else
     if (pipe->video_element[SCREEN_CAPTURE]) { g_object_set(pipe->video_element[SCREEN_CAPTURE], "show-pointer", TRUE, NULL);}
 

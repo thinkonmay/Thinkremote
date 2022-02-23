@@ -35,12 +35,5 @@ validate_token(gchar* token)
 
     soup_session_send_message(session,message);
 
-    if(message->status_code == SOUP_STATUS_OK)
-    {
-        return TRUE;
-    }
-    else
-    {
-        return FALSE;
-    }
+    return (message->status_code == SOUP_STATUS_OK) ? TRUE : FALSE;
 }

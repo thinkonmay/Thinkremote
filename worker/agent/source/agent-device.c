@@ -11,7 +11,7 @@
 #include <agent-device.h>
 
 #include <logging.h>
-#include <message-form.h>
+#include <json-handler.h>
 #include <json-glib/json-glib.h>
 #include <global-var.h>
 

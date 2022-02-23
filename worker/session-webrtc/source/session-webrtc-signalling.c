@@ -15,9 +15,8 @@
 #include <session-webrtc-type.h>
 
 #include <logging.h>
-#include <signalling-message.h>
 #include <global-var.h>
-#include <development.h>
+#include <constant.h>
 
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>
@@ -546,8 +545,8 @@ on_server_message(SoupWebsocketConnection* conn,
     JsonObject* object = get_json_object_from_string(text,&error,parser);
 	if(!error == NULL || object == NULL) {return;}
 
-    gchar* RequestType =    json_object_get_string_member(object, "RequestType");
-    gchar* Content =        json_object_get_string_member(object, "Content");
+    gchar* Request =        json_object_get_string_member(object, REQUEST_TYPE);
+    gchar* Content =        json_object_get_string_member(object, CONTENT);
 
     if(DEVELOPMENT_ENVIRONMENT)
         g_print("%s\n",Content);
@@ -555,11 +554,11 @@ on_server_message(SoupWebsocketConnection* conn,
     /*this is websocket message with signalling server and has nothing to do with 
     * json message format use to communicate with other module
     */
-    if (!g_strcmp0(RequestType, "OFFER_SDP")) {
+    if (!g_strcmp0(Request, OFFER_SDP)) {
         on_sdp_exchange(Content, core);
-    } else if (!g_strcmp0(RequestType, "OFFER_ICE")) {
+    } else if (!g_strcmp0(Request, OFFER_ICE)) {
         on_ice_exchange(Content, core);
-    } else if (!g_strcmp0(RequestType, "REQUEST_STREAM")) {
+    } else if (!g_strcmp0(Request, REQUEST_STREAM)) {
         setup_pipeline(core);
     }
     g_free(text);

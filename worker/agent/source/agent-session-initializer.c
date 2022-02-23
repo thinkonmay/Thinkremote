@@ -13,9 +13,8 @@
 #include <agent-type.h>
 #include <agent-child-process.h>
 
-#include <development.h>
-#include <message-form.h>
-#include <general-constant.h>
+#include <constant.h>
+#include <json-handler.h>
 #include <global-var.h>
 #include <logging.h>
 

@@ -1,5 +1,5 @@
 /**
- * @file development.h
+ * @file constant.h
  * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
  * @brief 
  * @version 1.0
@@ -102,6 +102,64 @@
  * 
  */
 #define DEVELOPMENT_SIGNALLING_URL           GetEnvironmentVariableWithKey("SIGNALLING")
+
+
+/**
+ * @brief 
+ * 
+ */
+#define SESSION_CORE_BINARY                 "session-webrtc.exe"
+
+/**
+ * @brief 
+ * 
+ */
+#define AGENT_BINARY                        "agent.exe"
+
+/**
+ * @brief 
+ * 
+ */
+#define REMOTE_APP_BINARY                   "remote-webrtc.exe"
+
+/**
+ * @brief 
+ * 
+ */
+#define PORT_FORWARD_BINARY                 "port-forward.exe"
+
+
+/**
+ * @brief 
+ * 
+ */
+#define OFFER_ICE                           "OFFER_ICE"
+
+
+/**
+ * @brief 
+ * 
+ */
+#define OFFER_SDP                           "OFFER_SDP"
+
+/**
+ * @brief 
+ * 
+ */
+#define REQUEST_STREAM                      "REQUEST_STREAM"
+
+/**
+ * @brief 
+ * 
+ */
+#define REQUEST_TYPE                        "RequestType"
+
+
+/**
+ * @brief 
+ * 
+ */
+#define CONTENT                             "Content"
 
 
 

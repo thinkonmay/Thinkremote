@@ -17,7 +17,7 @@
 
 #include <glib.h>
 
-#include <general-constant.h>
+#include <constant.h>
 #include <global-var.h>
 
 #define BUFSIZE 5000

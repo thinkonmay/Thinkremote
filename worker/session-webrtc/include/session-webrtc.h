@@ -1,18 +1,19 @@
-/// <summary>
-/// @file session-webrtc.h
-/// @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
-/// </summary>
-/// @version 1.0
-/// @date 2021-09-05
-/// 
-/// @copyright Copyright (c) 2021
-/// 
+/**
+ * @file session-webrtc.h
+ * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
+ * @brief 
+ * @version 1.0
+ * @date 2022-02-23
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #ifndef __SESSION_CORE_H__
 #define __SESSION_CORE_H__
 
 #include <session-webrtc-type.h>
-#include <message-form.h>
-#include <human-interface-opcode.h>
+#include <json-handler.h>
+#include <enum.h>
 
 
 
@@ -85,26 +86,6 @@ SignallingHub*	session_core_get_signalling_hub			(SessionCore* self);
  * @return gchar* remote token get from cluster
  */
 gchar*			session_core_get_remote_token			(SessionCore* self);
-
-
-
-
-/**
- * @brief 
- * get client device of current stream
- * @param app 
- * @return DeviceType 
- */
-DeviceType		session_core_get_client_device			(SessionCore* self);
-
-/**
- * @brief 
- * 
- * @param self 
- * @return CoreEngine 
- */
-CoreEngine 		session_core_get_client_engine			(SessionCore* self);
-
 #ifndef G_OS_WIN32
 #include <Xlib.h>
 

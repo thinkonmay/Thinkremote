@@ -15,7 +15,7 @@
 #include "session-webrtc-type.h"
 
 
-#include <message-form.h>
+#include <json-handler.h>
 
 #include <libsoup/soup.h>
 #include <glib.h>
