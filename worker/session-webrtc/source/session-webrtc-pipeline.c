@@ -17,6 +17,7 @@
 #include <constant.h>
 #include <logging.h>
 #include <remote-config.h>
+#include <shortcut.h>
 #include <handle-key.h>
 #include <enum.h>
 
@@ -120,6 +121,7 @@ toggle_pointer(GstElement* capture)
     gboolean toggle;
     g_object_get(capture, "show-cursor", &toggle, NULL); 
     toggle = !toggle;
+    
     set_relative_mouse(!toggle);
     g_object_set(capture, "show-cursor", toggle, NULL); 
 }
@@ -152,20 +154,6 @@ free_pipeline(Pipeline* pipeline)
     memset(pipeline,0,sizeof(Pipeline));
 }
 
-static Shortcut*
-get_default_shortcut(SessionCore* core)
-{
-    Pipeline* pipe = session_core_get_pipeline(core);
-    Shortcut* shortcuts = malloc(sizeof(Shortcut)*10);
-    memset(shortcuts,0,sizeof(Shortcut)*10);
-
-    (shortcuts + 0)->data = pipe->video_element[SCREEN_CAPTURE];
-    (shortcuts + 0)->function = toggle_pointer;
-    (shortcuts + 0)->opcode = POINTER_LOCK;
-    (shortcuts + 0)->active = TRUE;
-
-    return shortcuts;
-}
 
 static gboolean
 start_pipeline(SessionCore* core)
@@ -182,9 +170,13 @@ start_pipeline(SessionCore* core)
         session_core_finalize(core, NULL);
     }
 
-    Shortcut* shortcuts = get_default_shortcut(core);
+    Shortcut* shortcuts = shortcut_list_initialize(10);
+    add_new_shortcut_to_list(shortcuts,NULL,
+            POINTER_LOCK,toggle_pointer,
+            pipe->video_element[SCREEN_CAPTURE]);
+
     pipe->handler = activate_hid_handler(pipe->video_element[SCREEN_CAPTURE],shortcuts);
-	free(shortcuts);
+	shortcut_list_free(shortcuts);
 
 
 	start_qos_thread(core);

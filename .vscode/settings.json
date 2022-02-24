@@ -34,7 +34,9 @@
         "remote-config.h": "c",
         "enum.h": "c",
         "xiosbase": "c",
-        "remote-udp-type.h": "c"
+        "remote-udp-type.h": "c",
+        "shortcut.h": "c",
+        "handle-key.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

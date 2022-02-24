@@ -12,6 +12,9 @@
 #define __CAPTURE_KEY_H__
 
 #include <glib-2.0/glib.h>
+#include <Windows.h>
+
+#include <shortcut.h>
 #include <enum.h>
 
 /**
@@ -30,28 +33,6 @@ typedef struct          _InputHandler                         InputHandler;
 typedef void            (*HIDHandleFunction)                    (gchar* message,
                                                                  gpointer data);
 
-/**
- * @brief 
- * 
- */
-typedef void            (*ShortcutHandleFuntion)                (gpointer data);
-
-/**
- * @brief 
- * 
- */
-typedef struct _Shortcut
-{
-    ShortcutOpcode opcode;
-
-    gint key_list[10];
-
-    gpointer data;
-
-    ShortcutHandleFuntion function;
-
-    gboolean active;
-}Shortcut;
 
 /**
  * @brief 
@@ -60,7 +41,7 @@ typedef struct _Shortcut
  * @param delta_X 
  * @param delta_Y 
  */
-void                handle_window_mouse_relative                (gint mouse_code,
+void                handle_window_mouse                         (gint mouse_code,
                                                                 gint delta_X,
                                                                 gint delta_Y);
 
@@ -72,9 +53,6 @@ void                handle_window_mouse_relative                (gint mouse_code
  */
 void                handle_window_wheel                         (gint isup);
 
-
-#ifdef G_OS_WIN32
-#include <Windows.h>
 /**
  * @brief 
  * 
@@ -87,7 +65,13 @@ void                handle_message_window_proc                  (HWND hwnd,
                                                                 UINT message, 
                                                                 WPARAM wParam, 
                                                                 LPARAM lParam);
-#endif
+
+
+/**
+ * @brief 
+ * 
+ */
+void                trigger_hotkey_by_opcode                    (ShortcutOpcode opcode);
 
 
 
@@ -107,10 +91,11 @@ InputHandler*       init_input_capture_system                   (HIDHandleFuncti
                                                                  Shortcut* shortcuts,
                                                                  gpointer data);
 
-
 /**
  * @brief 
  * 
+ * @param handler 
  */
-void                trigger_hotkey_by_opcode                    (ShortcutOpcode opcode);
+void                toggle_input_capture                        (InputHandler* handler);
+
 #endif

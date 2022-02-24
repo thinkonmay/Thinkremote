@@ -41,15 +41,6 @@ GUI*                init_remote_app_gui                     (gpointer app,
                                                              HIDHandleFunction event);
 
 
-/**
- * @brief 
- * terminate gui after use, call when remote app is finalized 
- * @param gui 
- */
-void                gui_terminate                           (GUI* gui);
-
-
-
 
 
 

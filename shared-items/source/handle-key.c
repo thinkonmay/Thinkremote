@@ -8,6 +8,7 @@
  * @copyright Copyright (c) 2022
  * 
  */
+#include <shortcut.h>
 #include <handle-key.h>
 
 #include <glib-2.0/glib.h>
@@ -62,17 +63,6 @@ static HIDHandler HID_handler = {0};
 void            reset_session_key               (gpointer data);
 
 
-static void
-add_default_shortcut(Shortcut* shortcuts)
-{
-    gint i = 0;
-    while ((shortcuts + i)->active) { i++; }
-
-    (shortcuts + i)->data = NULL;
-    (shortcuts + i)->function = reset_session_key;
-    (shortcuts + i)->opcode = RESET_KEY;
-    (shortcuts + i)->active = TRUE;
-}
 
 HIDHandler*
 activate_hid_handler(GstElement* capture, 
@@ -81,7 +71,7 @@ activate_hid_handler(GstElement* capture,
     HID_handler.capture = capture;
     HID_handler.relative_mouse = TRUE;
     
-    add_default_shortcut(shortcuts);
+    add_new_shortcut_to_list(shortcuts,NULL,RESET_KEY,reset_session_key,NULL);
 
     GstPad* pad = gst_element_get_static_pad(capture, "src");
     GstCaps* caps = gst_pad_get_current_caps (pad);

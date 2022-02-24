@@ -17,6 +17,7 @@
 #include <remote-config.h>
 #include <global-var.h>
 #include <key-convert.h>
+#include <shortcut.h>
 
 
 #include <glib.h>
@@ -108,19 +109,16 @@ remote_app_setup_session(RemoteUdp* self,
 static Shortcut*
 get_default_shortcut(gpointer data)
 {
-    RemoteUdp* udp = (RemoteUdp*)data;
-    Shortcut* shortcuts = malloc(sizeof(Shortcut)*10);
-    memset(shortcuts,0,sizeof(Shortcut)*10);
+	Shortcut* shortcuts = shortcut_list_initialize(10);
 
-    (shortcuts + 0)->active = TRUE;
-    (shortcuts + 0)->data = udp;
-    (shortcuts + 0)->function = remote_app_reset;
-    (shortcuts + 0)->opcode = RELOAD_STREAM;
+	gint key_list[10] = {0};
+    key_list[0] = W_KEY;
+    key_list[1] = VK_SHIFT;
+    key_list[2] = VK_CONTROL;
+    key_list[3] = VK_MENU;
 
-    (shortcuts + 0)->key_list[0] = W_KEY;
-    (shortcuts + 0)->key_list[1] = VK_SHIFT;
-    (shortcuts + 0)->key_list[2] = VK_CONTROL;
-    (shortcuts + 0)->key_list[3] = VK_MENU;
+	add_new_shortcut_to_list(shortcuts,key_list,
+			RELOAD_STREAM,remote_app_reset,data);
 
     return shortcuts;
 }
@@ -147,6 +145,8 @@ remote_app_initialize(gchar* remote_token)
 
 	Shortcut* shortcuts = 	get_default_shortcut(app);
 	app->gui =				init_remote_app_gui(app,shortcuts,send_hid_message);
+	shortcut_list_free(shortcuts);
+
 	free(shortcuts);
 
 	app->qoe =				qoe_initialize();
@@ -191,7 +191,6 @@ remote_app_finalize(RemoteUdp* self,
 	if(error)
 		g_print(error->message);
 
-	gui_terminate(self->gui);
 	g_main_loop_quit(self->loop);
 }
 

@@ -59,6 +59,8 @@ struct _InputHandler
      * 
      */
     Shortcut shortcuts [20];
+
+    gboolean enable;
 };
 
 static InputHandler HID_handler = {0};
@@ -87,9 +89,10 @@ init_input_capture_system(HIDHandleFunction function,
     memset(&HID_handler,0,sizeof(InputHandler));
     HID_handler.handler = function;
     HID_handler.data = data;
+    HID_handler.enable = FALSE;
 
     gint i = 0;
-    while ((shortcuts+i)->active)
+    while ((shortcuts + i)->active)
     {
         memcpy(&HID_handler.shortcuts[i],(shortcuts + i),sizeof(Shortcut));
         i++;
@@ -227,14 +230,46 @@ handle_message_window_proc(HWND hwnd,
     parse_hid_event(&navigation);
 }
 
+/**
+ * @brief 
+ * center mouse to center of the screee
+ * @param gui 
+ * @return RECT new position of the screen 
+ */
+POINT
+center_mouse_position(HWND window)
+{
+    POINT pt;
+    RECT rect;
+    GetWindowRect(window,&rect);
+    int width = rect.right - rect.left;
+    int height = rect.bottom - rect.top;
+    pt.x = width /2;
+    pt.y = height /2;
+    ClientToScreen(window, &pt);
+    SetCursorPos(pt.x,pt.y);
+    ScreenToClient(window,&pt);
+    return pt; 
+}
 
 void
-handle_window_mouse_relative(gint mouse_code,
-                          gint delta_X,
-                          gint delta_Y)
+handle_window_mouse(gint mouse_code,
+                    LPARAM lParam,
+                    HWND window)
 {
+    if(!HID_handler.enable)
+        return;
+
+    gint x = LOWORD(lParam);
+    gint y = HIWORD(lParam);
+    POINT pt = center_mouse_position(window);
+    gint delta_X = x-pt.x;
+    gint delta_Y = y-pt.y;
+
+
+
     // reduce mouse move signal by filter unactive mouse
-    if(!delta_X && !delta_Y && mouse_code == WM_MOUSEMOVE)
+    if(!delta_X && !delta_Y && mouse_code == MOUSE_MOVE)
         return;
 
     HidInput navigation = {0};
@@ -312,6 +347,9 @@ send_gamepad_vibration(XINPUT_VIBRATION vibration)
 static void
 parse_hid_event(HidInput* input)
 {
+    if(!HID_handler.enable)
+        return;
+
     switch((gint)input->opcode)
     {
         case MOUSERAW:
@@ -393,6 +431,22 @@ trigger_hotkey_by_opcode(ShortcutOpcode opcode)
         i++;
     }
 }
+
+void                
+toggle_input_capture(InputHandler* handler)
+{
+    /**
+     * @brief 
+     * reset mouse and keyboard to prevent key stuck
+     */
+    trigger_hotkey_by_opcode(RESET_KEY);
+    handler->enable = !handler->enable;
+}
+
+
+
+
+
 #else
 
 #include <gst/video/navigation.h>

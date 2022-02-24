@@ -9,17 +9,11 @@
  * 
  */
 #ifndef __HANDLE_KEY_H__
-#define __SHORTCUT_H__
+#define __HANDLE_KEY_H__
 
 #include <glib-2.0/glib.h>
-#include <json-glib/json-glib.h>
-
-#include <enum.h>
-#include <capture-key.h>
-
-
-#include <Windows.h>
 #include <gst/gst.h>
+#include <shortcut.h>
 
 typedef struct  _HIDHandler                     HIDHandler;
 

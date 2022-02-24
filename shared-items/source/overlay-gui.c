@@ -13,6 +13,7 @@
 
 #include <key-convert.h>
 #include <capture-key.h>
+#include <shortcut.h>
 
 #include <glib-2.0/glib.h>
 #include <gst/gst.h>
@@ -29,7 +30,6 @@ struct _GUI
      */
     gpointer app;
 
-#ifdef G_OS_WIN32
     /**
      * @brief 
      * win32 window for display video
@@ -59,26 +59,12 @@ struct _GUI
      * IO channel for remote app
      */
     GIOChannel *msg_io_channel;
-#endif
 
     /**
      * @brief 
      * gst video sink element
      */
     GstElement* sink_element;
-
-    /**
-     * @brief 
-     * fullscreen mode on or off
-     */
-    gboolean fullscreen;
-
-
-    /**
-     * @brief 
-     * 
-     */
-    gboolean disable_client_cursor;
 
     /**
      * @brief 
@@ -114,24 +100,43 @@ void                        handle_fullscreen_hotkey(GUI* gui);
  */
 void                        toggle_client_cursor                    ();
 
+/**
+ * @brief 
+ * 
+ * @param windowHandle 
+ * @return true 
+ * @return false 
+ */
+gboolean
+isFullscreen(HWND windowHandle)
+{
+    MONITORINFO monitorInfo = { 0 };
+    monitorInfo.cbSize = sizeof(MONITORINFO);
+    GetMonitorInfo(MonitorFromWindow(windowHandle, MONITOR_DEFAULTTOPRIMARY), &monitorInfo);
+
+    RECT windowRect;
+    GetWindowRect(windowHandle, &windowRect);
+
+    return windowRect.left == monitorInfo.rcMonitor.left
+        && windowRect.right == monitorInfo.rcMonitor.right
+        && windowRect.top == monitorInfo.rcMonitor.top
+        && windowRect.bottom == monitorInfo.rcMonitor.bottom;
+}
+
 static GUI _gui = {0};
 
 
 static void
 add_gui_shortcuts(Shortcut* shortcuts)
 {
-    gint i = 0;
-    while ((shortcuts+i)->active) { i++; }
+    gint key_list[10] = {0};
+    key_list[0] = F_KEY;
+    key_list[1] = VK_SHIFT;
+    key_list[2] = VK_CONTROL;
+    key_list[3] = VK_MENU;
 
-    (shortcuts + i)->active = TRUE;
-    (shortcuts + i)->data = &_gui;
-    (shortcuts + i)->function = handle_fullscreen_hotkey;
-    (shortcuts + i)->opcode = FULLSCREEN;
-
-    (shortcuts + i)->key_list[0] = F_KEY;
-    (shortcuts + i)->key_list[1] = VK_SHIFT;
-    (shortcuts + i)->key_list[2] = VK_CONTROL;
-    (shortcuts + i)->key_list[3] = VK_MENU;
+	add_new_shortcut_to_list(shortcuts,key_list,
+        RELOAD_STREAM,handle_fullscreen_hotkey,&_gui);
 }
 
 GUI*
@@ -330,15 +335,10 @@ get_monitor_size(RECT *rect,
 
 
 
-
 void 
 switch_fullscreen_mode(GUI* gui)
 {
-    long _prev_style;
-
-    gui->fullscreen = !gui->fullscreen;
-
-    if (!gui->fullscreen)
+    if (isFullscreen(gui->window))
     {
         /* Restore the window's attributes and size */
         SetWindowLong(gui->window, GWL_STYLE, gui->prev_style);
@@ -353,6 +353,7 @@ switch_fullscreen_mode(GUI* gui)
     }
     else
     {
+        long _prev_style;
         RECT fullscreen_rect;
 
         /* show window before change style */
@@ -365,10 +366,8 @@ switch_fullscreen_mode(GUI* gui)
 
         if (!get_monitor_size(&fullscreen_rect, gui->window))
         {
-          g_warning("Couldn't get monitor size");
-
-          gui->fullscreen = !gui->fullscreen;
-          return;
+            g_warning("Couldn't get monitor size");
+            return;
         }
 
         /* Make the window borderless so that the client area can fill the screen */
@@ -389,57 +388,11 @@ switch_fullscreen_mode(GUI* gui)
 
 
 
-/**
- * @brief 
- * 
- * @param app 
- * @param x 
- * @param y 
- * @param width 
- * @param height 
- * @return gboolean 
- */
-static gboolean
-adjust_video_position(GUI* gui, 
-                      gint x, 
-                      gint y, 
-                      gint width, 
-                      gint height)
-{
-    gst_video_overlay_set_render_rectangle(GST_VIDEO_OVERLAY(gui->sink_element), 
-                                            x, 
-                                            y, 
-                                            width, 
-                                            height);
-}
 
 
 
 
 
-
-
-/**
- * @brief 
- * center mouse to center of the screee
- * @param gui 
- * @return RECT new position of the screen 
- */
-POINT
-center_mouse_position(GUI* gui)
-{
-    POINT pt;
-    RECT rect;
-    GetWindowRect(gui->window,&rect);
-    int width = rect.right - rect.left;
-    int height = rect.bottom - rect.top;
-    pt.x = width /2;
-    pt.y = height /2;
-    ClientToScreen(gui->window, &pt);
-    SetCursorPos(pt.x,pt.y);
-    ScreenToClient(gui->window,&pt);
-    return pt; 
-}
 
 
 
@@ -452,13 +405,7 @@ handle_fullscreen_hotkey(GUI* gui)
 {
     switch_fullscreen_mode(gui);
     toggle_client_cursor(gui);
-
-    /**
-     * @brief 
-     * reset mouse and keyboard to prevent key stuck
-     */
-    if(gui->disable_client_cursor)
-        trigger_hotkey_by_opcode(RESET_KEY);
+    toggle_input_capture(gui->handler);
 }
 
 
@@ -481,7 +428,7 @@ window_proc(HWND hWnd,
     GUI* gui = &_gui;
 
     if (message == WM_DESTROY) 
-        g_assert_nonnull(NULL);
+        trigger_hotkey_by_opcode(EXIT);
 
     if (message == WM_INPUT)
         handle_message_window_proc(hWnd, message, wParam, lParam );
@@ -490,25 +437,16 @@ window_proc(HWND hWnd,
         handle_window_wheel(GET_WHEEL_DELTA_WPARAM(wParam) > 0);
 
     if (message == WM_MOUSEMOVE    ||
-        message == WM_LBUTTONDOWN	||
-        message == WM_LBUTTONUP	||
-        message == WM_MBUTTONDOWN	||
-        message == WM_MBUTTONUP	||
-        message == WM_RBUTTONDOWN	||
-        message == WM_RBUTTONUP	||
-        message == WM_XBUTTONDOWN	||
+        message == WM_LBUTTONDOWN  ||
+        message == WM_LBUTTONUP	   ||
+        message == WM_MBUTTONDOWN  ||
+        message == WM_MBUTTONUP	   ||
+        message == WM_RBUTTONDOWN  ||
+        message == WM_RBUTTONUP	   ||
+        message == WM_XBUTTONDOWN  ||
         message == WM_XBUTTONUP	)
-    {
-        if(!gui->disable_client_cursor)
-            goto end;
+        handle_window_mouse(message, lParam, gui->window);
 
-        gint x = LOWORD(lParam);
-		gint y = HIWORD(lParam);
-        POINT pt = center_mouse_position(gui);
-        handle_window_mouse_relative(message, x-pt.x, y-pt.y);
-    }
-
-end:
     return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
@@ -530,24 +468,15 @@ adjust_window(GUI* gui)
 void
 toggle_client_cursor(GUI* gui)
 {
-    gui->disable_client_cursor = !gui->disable_client_cursor;
-    ShowCursor(!gui->disable_client_cursor);
+    gboolean fullscreen = isFullscreen(gui->window);
+    ShowCursor(!fullscreen);
 }
 
 
 
-void
-gui_terminate(GUI* gui)
-{
-    DestroyWindow(gui->window);
-}
 
 
 #else
-void
-gui_terminate(GUI* gui)
-{
-}
 
 gpointer
 setup_video_overlay(GstElement* videosink, 

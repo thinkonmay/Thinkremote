@@ -33,6 +33,8 @@ typedef enum
 	RESET_KEY,
 	FULLSCREEN,
 	RELOAD_STREAM,
+
+	EXIT
 }ShortcutOpcode;
 
 typedef enum
