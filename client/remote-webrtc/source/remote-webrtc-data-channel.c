@@ -96,10 +96,10 @@ ping_thread(gpointer data)
         sleep(300);
 #endif
 
-        if(ping)
-            ping = FALSE;
-        else
-            remote_app_reset(app);
+        // if(ping)
+        //     ping = FALSE;
+        // else
+        //     remote_app_reset(app);
     }
 }
 

@@ -14,6 +14,7 @@
 
 #include <glib-2.0/glib.h>
 #include <json-glib/json-glib.h>
+#include <json-handler.h>
 
 
 typedef struct _HidInput
@@ -63,6 +64,21 @@ struct _InputHandler
 static InputHandler HID_handler = {0};
 
 
+/**
+ * @brief 
+ * 
+ * @param input 
+ */
+static void             parse_hid_event             (HidInput* input);
+
+/**
+ * @brief 
+ * 
+ * @return gboolean 
+ */
+gboolean                handle_user_shortcut        ();
+
+
 InputHandler*
 init_input_capture_system(HIDHandleFunction function, 
                           Shortcut* shortcuts,
@@ -71,6 +87,14 @@ init_input_capture_system(HIDHandleFunction function,
     memset(&HID_handler,0,sizeof(InputHandler));
     HID_handler.handler = function;
     HID_handler.data = data;
+
+    gint i = 0;
+    while ((shortcuts+i)->active)
+    {
+        memcpy(&HID_handler.shortcuts[i],(shortcuts + i),sizeof(Shortcut));
+        i++;
+    }
+
     return &HID_handler;
 }
 
@@ -143,19 +167,6 @@ send_gamepad_signal(HARDWAREINPUT input)
         HID_handler.handler(get_string_from_json_object(object),HID_handler.data);
 }
 
-/**
- * @brief 
- * 
- * @param input 
- */
-static void             parse_hid_event             (HidInput* input);
-
-/**
- * @brief 
- * 
- * @return gboolean 
- */
-gboolean                handle_user_shortcut        ();
 
 /**
  * @brief 
@@ -168,14 +179,6 @@ _keydown(int *key)
 {
     return (GetAsyncKeyState(key) & 0x8000) != 0;
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -367,16 +370,6 @@ ignore:
 }
 
 
-void
-add_shortcut(Shortcut shortcut)
-{
-    gint i = 0;
-    while(HID_handler.shortcuts[i].active)
-    {
-        i++;
-    }
-    HID_handler.shortcuts[i] = shortcut;
-}
 
 void
 trigger_hotkey_by_opcode(ShortcutOpcode opcode)

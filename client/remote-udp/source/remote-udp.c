@@ -16,12 +16,15 @@
 #include <constant.h>
 #include <remote-config.h>
 #include <global-var.h>
+#include <key-convert.h>
 
 
 #include <glib.h>
 #include <gst/base/gstbasesink.h>
 #include <json-handler.h>
 #include <libsoup/soup.h>
+#include <overlay-gui.h>
+
 
 
 struct _RemoteUdp
@@ -102,6 +105,32 @@ remote_app_setup_session(RemoteUdp* self,
 }
 
 
+static Shortcut*
+get_default_shortcut(gpointer data)
+{
+    RemoteUdp* udp = (RemoteUdp*)data;
+    Shortcut* shortcuts = malloc(sizeof(Shortcut)*10);
+    memset(shortcuts,0,sizeof(Shortcut)*10);
+
+    (shortcuts + 0)->active = TRUE;
+    (shortcuts + 0)->data = udp;
+    (shortcuts + 0)->function = remote_app_reset;
+    (shortcuts + 0)->opcode = RELOAD_STREAM;
+
+    (shortcuts + 0)->key_list[0] = W_KEY;
+    (shortcuts + 0)->key_list[1] = VK_SHIFT;
+    (shortcuts + 0)->key_list[2] = VK_CONTROL;
+    (shortcuts + 0)->key_list[3] = VK_MENU;
+
+    return shortcuts;
+}
+
+void
+send_hid_message(gchar* message,
+				 gpointer data)
+{
+
+}
 
 
 RemoteUdp*
@@ -115,7 +144,10 @@ remote_app_initialize(gchar* remote_token)
 
 	RemoteUdp* app= 		malloc(sizeof(RemoteUdp));
 	app->loop =				g_main_loop_new(NULL, FALSE);
-	app->gui =				init_remote_app_gui(app,remote_app_reset);
+
+	Shortcut* shortcuts = 	get_default_shortcut(app);
+	app->gui =				init_remote_app_gui(app,shortcuts,send_hid_message);
+	free(shortcuts);
 
 	app->qoe =				qoe_initialize();
 	app->pipe =				pipeline_initialize();
@@ -149,6 +181,7 @@ remote_app_initialize(gchar* remote_token)
 void
 remote_app_reset(RemoteUdp* self)
 {
+	setup_pipeline(self);
 }
 
 void

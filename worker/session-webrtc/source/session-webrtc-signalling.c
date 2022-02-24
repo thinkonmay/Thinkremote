@@ -551,16 +551,16 @@ on_server_message(SoupWebsocketConnection* conn,
     if(DEVELOPMENT_ENVIRONMENT)
         g_print("%s\n",Content);
 
+
     /*this is websocket message with signalling server and has nothing to do with 
     * json message format use to communicate with other module
     */
-    if (!g_strcmp0(Request, OFFER_SDP)) {
-        on_sdp_exchange(Content, core);
-    } else if (!g_strcmp0(Request, OFFER_ICE)) {
-        on_ice_exchange(Content, core);
-    } else if (!g_strcmp0(Request, REQUEST_STREAM)) {
+    if (!g_strcmp0(Request, REQUEST_STREAM)) 
         setup_pipeline(core);
-    }
+    else if (!g_strcmp0(Request, OFFER_SDP)) 
+        on_sdp_exchange(Content, core);
+    else if (!g_strcmp0(Request, OFFER_ICE)) 
+        on_ice_exchange(Content, core);
     g_free(text);
 }
 

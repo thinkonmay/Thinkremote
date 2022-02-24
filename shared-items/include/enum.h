@@ -29,14 +29,15 @@ typedef enum
 
 typedef enum
 {
-	POINTER_LOCK,
+	POINTER_LOCK = 100,
 	RESET_KEY,
 	FULLSCREEN,
+	RELOAD_STREAM,
 }ShortcutOpcode;
 
 typedef enum
 {
-	KEYRAW,
+	KEYRAW = 200,
 	MOUSERAW,
 
 	MOUSEWHEEL,

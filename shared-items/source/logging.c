@@ -40,7 +40,7 @@ worker_log_output(gchar* text)
             SOUP_SESSION_HTTPS_ALIASES, http_aliases, NULL);
 
         SoupMessage* message = soup_message_new(SOUP_METHOD_GET,IP);
-        soup_session_send_message(session,message);    
+        // soup_session_send_message(session,message);    
 
         JsonObject* object = json_object_new();
         json_object_set_string_member(object,"ClusterURL",CLUSTER_URL);

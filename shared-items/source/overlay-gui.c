@@ -91,13 +91,6 @@ struct _GUI
      * 
      */
     HIDHandleFunction hid_handler;  
-
-
-    /**
-     * @brief 
-     * 
-     */
-    ResetApplicationEvent reset;
 };
 
 
@@ -111,8 +104,9 @@ void                        set_up_window           (GUI* gui);
 /**
  * @brief 
  * 
+ * @param gui 
  */
-void                        handle_fullscreen_hotkey (gpointer data);
+void                        handle_fullscreen_hotkey(GUI* gui);
 
 /**
  * @brief 
@@ -122,44 +116,33 @@ void                        toggle_client_cursor                    ();
 
 static GUI _gui = {0};
 
-static Shortcut*
-get_default_shortcut(gpointer data)
+
+static void
+add_gui_shortcuts(Shortcut* shortcuts)
 {
-    GUI* gui = (GUI*)data;
-    Shortcut* shortcuts = malloc(sizeof(Shortcut)*10);
+    gint i = 0;
+    while ((shortcuts+i)->active) { i++; }
 
-    (shortcuts + 0)->data = gui->app;
-    (shortcuts + 0)->function = handle_fullscreen_hotkey;
-    (shortcuts + 0)->opcode = FULLSCREEN;
+    (shortcuts + i)->active = TRUE;
+    (shortcuts + i)->data = &_gui;
+    (shortcuts + i)->function = handle_fullscreen_hotkey;
+    (shortcuts + i)->opcode = FULLSCREEN;
 
-    (shortcuts + 0)->key_list[1] = VK_SHIFT;
-    (shortcuts + 0)->key_list[2] = VK_CONTROL;
-    (shortcuts + 0)->key_list[3] = VK_MENU;
-    (shortcuts + 0)->key_list[4] = F_KEY;
-
-    (shortcuts + 1)->data = gui->app;
-    (shortcuts + 1)->function = gui->reset;
-    (shortcuts + 1)->opcode = RESET_KEY;
-
-    (shortcuts + 1)->key_list[1] = VK_SHIFT;
-    (shortcuts + 1)->key_list[2] = VK_CONTROL;
-    (shortcuts + 1)->key_list[3] = VK_MENU;
-    (shortcuts + 1)->key_list[4] = W_KEY;
-
-    return shortcuts;
+    (shortcuts + i)->key_list[0] = F_KEY;
+    (shortcuts + i)->key_list[1] = VK_SHIFT;
+    (shortcuts + i)->key_list[2] = VK_CONTROL;
+    (shortcuts + i)->key_list[3] = VK_MENU;
 }
 
 GUI*
 init_remote_app_gui(gpointer app,
+                    Shortcut* shortcuts,
                     HIDHandleFunction handler)
 {
     GUI* gui = &_gui;
     gui->hid_handler = handler;
-
-    Shortcut* shortcuts = get_default_shortcut(app);
-    gui->handler =  init_input_capture_system(gui->hid_handler,shortcuts,app);
-    free(shortcuts);
-
+    add_gui_shortcuts(shortcuts);
+    gui->handler = init_input_capture_system(handler,shortcuts,app);
     gui->app = app;
 #ifdef G_OS_WIN32
     gui->wr = (RECT) { 0, 0, 320, 240 };
@@ -465,9 +448,8 @@ center_mouse_position(GUI* gui)
  * 
  */
 void
-handle_fullscreen_hotkey(gpointer data)
+handle_fullscreen_hotkey(GUI* gui)
 {
-    GUI* gui = &_gui;
     switch_fullscreen_mode(gui);
     toggle_client_cursor(gui);
 

@@ -15,6 +15,7 @@
 
 #include <enum.h>
 #include <capture-key.h>
+#include <json-handler.h>
 
 
 #include <Windows.h>
@@ -29,13 +30,13 @@ struct _HIDHandler
      * @brief 
      * 
      */
-    gfloat screenwidth;
+    gint screenwidth;
 
     /**
      * @brief 
      * 
      */
-    gfloat screenheight;
+    gint screenheight;
 
     GstElement* capture;
 
@@ -52,6 +53,27 @@ struct _HIDHandler
 
 static HIDHandler HID_handler = {0};
 
+
+/**
+ * @brief 
+ * 
+ * @param data 
+ */
+void            reset_session_key               (gpointer data);
+
+
+static void
+add_default_shortcut(Shortcut* shortcuts)
+{
+    gint i = 0;
+    while ((shortcuts + i)->active) { i++; }
+
+    (shortcuts + i)->data = NULL;
+    (shortcuts + i)->function = reset_session_key;
+    (shortcuts + i)->opcode = RESET_KEY;
+    (shortcuts + i)->active = TRUE;
+}
+
 HIDHandler*
 activate_hid_handler(GstElement* capture, 
                      Shortcut* shortcuts)
@@ -59,22 +81,26 @@ activate_hid_handler(GstElement* capture,
     HID_handler.capture = capture;
     HID_handler.relative_mouse = TRUE;
     
+    add_default_shortcut(shortcuts);
 
+    GstPad* pad = gst_element_get_static_pad(capture, "src");
+    GstCaps* caps = gst_pad_get_current_caps (pad);
+    if (!caps)
+        caps = gst_pad_query_caps (pad, NULL);
 
-    GstCaps* cap = gst_element_get_static_pad(capture, "src");
-    GstStructure* structure = gst_caps_get_structure(cap,0);
+    GstStructure* structure = gst_caps_get_structure(caps,0);
+    gchar* output = gst_structure_serialize(structure,GST_SERIALIZE_FLAG_NONE);
     gst_structure_get_int(structure,"width",&HID_handler.screenwidth);
     gst_structure_get_int(structure,"height",&HID_handler.screenheight);
 
     gint i = 0;
-    Shortcut* temp = shortcuts;
-    while (temp)
+    while ((shortcuts + i)->active)
     {
-        temp = shortcuts + i;
-        temp->active = TRUE;
-        memcpy(&(HID_handler.shortcuts[i]),temp,sizeof(Shortcut));
+        memcpy(&(HID_handler.shortcuts[i]),(shortcuts + i),sizeof(Shortcut));
         i++;
     }
+
+
 
     return &HID_handler;
 }
@@ -127,6 +153,7 @@ handle_shortcut(HIDHandler* handler,
 
             return TRUE;
         }
+        i++;
     }
     return FALSE;
 }

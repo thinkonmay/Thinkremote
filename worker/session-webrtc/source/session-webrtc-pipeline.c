@@ -156,16 +156,13 @@ static Shortcut*
 get_default_shortcut(SessionCore* core)
 {
     Pipeline* pipe = session_core_get_pipeline(core);
-
     Shortcut* shortcuts = malloc(sizeof(Shortcut)*10);
+    memset(shortcuts,0,sizeof(Shortcut)*10);
 
     (shortcuts + 0)->data = pipe->video_element[SCREEN_CAPTURE];
     (shortcuts + 0)->function = toggle_pointer;
     (shortcuts + 0)->opcode = POINTER_LOCK;
-
-    (shortcuts + 1)->data = NULL;
-    (shortcuts + 1)->function = reset_session_key;
-    (shortcuts + 1)->opcode = RESET_KEY;
+    (shortcuts + 0)->active = TRUE;
 
     return shortcuts;
 }
@@ -185,8 +182,11 @@ start_pipeline(SessionCore* core)
         session_core_finalize(core, NULL);
     }
 
+    Shortcut* shortcuts = get_default_shortcut(core);
+    pipe->handler = activate_hid_handler(pipe->video_element[SCREEN_CAPTURE],shortcuts);
+	free(shortcuts);
 
-    pipe->handler = activate_hid_handler(pipe->video_element[SCREEN_CAPTURE],get_default_shortcut(core));
+
 	start_qos_thread(core);
     return TRUE;
 }
@@ -516,17 +516,14 @@ setup_pipeline(SessionCore* core)
 {
     SignallingHub* signalling = session_core_get_signalling_hub(core);
     Pipeline* pipe = session_core_get_pipeline(core);
-    StreamConfig* qoe= session_core_get_qoe(core);
+    StreamConfig* qoe = session_core_get_qoe(core);
 
     if(pipe->pipeline)
         free_pipeline(pipe);
     
-
-
     setup_element_factory(core, 
         qoe_get_video_codec(qoe),
         qoe_get_audio_codec(qoe));
-    
 
     signalling_hub_setup_turn_and_stun(pipe,signalling);
     connect_signalling_handler(core);
@@ -536,12 +533,12 @@ setup_pipeline(SessionCore* core)
     g_object_set(pipe->webrtcbin,"ice-transport-policy",1,NULL);
     #endif
 
+
     GstStateChangeReturn result = gst_element_change_state(pipe->pipeline, GST_STATE_READY);
     if (result == GST_STATE_CHANGE_FAILURE)
     {
-        GError error;
-        error.message = "Fail to start pipeline, this may due to pipeline setup failure";
-        session_core_finalize(core, &error);
+        worker_log_output("Fail to start pipeline, this may due to pipeline setup failure");
+        session_core_finalize(core, NULL);
     }
     connect_data_channel_signals(core);
     start_pipeline(core);

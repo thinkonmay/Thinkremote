@@ -25,12 +25,6 @@
  */
 typedef struct 		_GUI 				                    GUI;
 
-/**
- * @brief 
- * 
- */
-typedef void        (*ResetApplicationEvent)                (gpointer data);  
-
 
 
 
@@ -43,6 +37,7 @@ typedef void        (*ResetApplicationEvent)                (gpointer data);
  * @param gui 
  */
 GUI*                init_remote_app_gui                     (gpointer app,
+                                                             Shortcut* shortcuts,
                                                              HIDHandleFunction event);
 
 
@@ -69,6 +64,5 @@ void                gui_terminate                           (GUI* gui);
 gpointer            setup_video_overlay                     (GUI* gui,
                                                              GstElement* videosink, 
                                                              GstElement* pipeline);
-
 
 #endif

@@ -4,6 +4,7 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
     {
         "name": "remote udp linux",
         "type": "cppdbg",
@@ -61,7 +62,7 @@
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/session-webrtc.exe",
-            "args": [],
+            "args": ["--environment=development"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
@@ -94,7 +95,7 @@
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/remote-webrtc.exe",
-            "args": [],
+            "args": ["--environment=development"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

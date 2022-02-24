@@ -68,9 +68,6 @@ struct _SessionCore
 	 * StreamConfig of the stream
 	 */
 	StreamConfig* qoe;
-#ifndef G_OS_WIN32
-	Display* x_display
-#endif
 };
 
 

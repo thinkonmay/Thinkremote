@@ -86,11 +86,4 @@ void            deactivate_hid_handler          (HIDHandler* handler);
  */
 void            set_relative_mouse              (gboolean isTrue);
 
-/**
- * @brief 
- * 
- * @param data 
- */
-void            reset_session_key               (gpointer data);
-
 #endif

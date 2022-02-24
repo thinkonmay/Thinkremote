@@ -20,6 +20,7 @@
 #include <global-var.h>
 #include <overlay-gui.h>
 #include <capture-key.h>
+#include <key-convert.h>
 
 
 #include <glib.h>
@@ -150,6 +151,26 @@ remote_app_setup_session(RemoteApp* self,
 }
 
 
+static Shortcut*
+get_default_shortcut(gpointer data)
+{
+    RemoteApp* app = (RemoteApp*)data;
+    Shortcut* shortcuts = malloc(sizeof(Shortcut)*10);
+    memset(shortcuts,0,sizeof(Shortcut)*10);
+
+    (shortcuts + 0)->data = app;
+    (shortcuts + 0)->function = remote_app_reset;
+    (shortcuts + 0)->opcode = RESET_KEY;
+    (shortcuts + 0)->active = TRUE;
+
+    (shortcuts + 0)->key_list[0] = W_KEY;
+    (shortcuts + 0)->key_list[1] = VK_SHIFT;
+    (shortcuts + 0)->key_list[2] = VK_CONTROL;
+    (shortcuts + 0)->key_list[3] = VK_MENU;
+
+    return shortcuts;
+}
+
 
 
 RemoteApp*
@@ -163,7 +184,11 @@ remote_app_initialize(gchar* remote_token)
 
 	RemoteApp* app= 		malloc(sizeof(RemoteApp));
 	app->loop =				g_main_loop_new(NULL, FALSE);
-	app->gui =				init_remote_app_gui(app,remote_app_reset);
+
+	Shortcut* shortcuts = 	get_default_shortcut(app);
+	app->gui =				init_remote_app_gui(app,shortcuts,hid_data_channel_send);
+	free(shortcuts);
+
 	app->hub =				webrtchub_initialize();
 	app->signalling =		signalling_hub_initialize(app);
 	app->pipe =				pipeline_initialize(app);
