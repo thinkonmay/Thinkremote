@@ -318,6 +318,14 @@ convert_mouse_code(gint input)
 }
 
 void
+feedback_mouse_position()
+{
+    // GetCursorPos()
+
+}
+
+
+void
 handle_input_win32(gchar* message)
 {
     JsonParser* parser = json_parser_new();
@@ -332,6 +340,7 @@ handle_input_win32(gchar* message)
     if(handle_shortcut(&HID_handler,opcode))
         return;
 
+    gint mouse_code;
     INPUT window_input;
     memset(&window_input,0, sizeof(INPUT));
     switch (opcode)
@@ -345,7 +354,8 @@ handle_input_win32(gchar* message)
             window_input.type = INPUT_MOUSE;
             window_input.mi.dx = (LONG)(json_object_get_int_member(object, "dX"));
             window_input.mi.dy = (LONG)(json_object_get_int_member(object, "dY"));
-            window_input.mi.dwFlags = convert_mouse_code(json_object_get_int_member(object, "MouseCode"));
+            mouse_code = json_object_get_int_member(object, "MouseCode");
+            window_input.mi.dwFlags = convert_mouse_code(mouse_code);
             break;
         case MOUSEWHEEL:
             window_input.type = INPUT_MOUSE;
@@ -360,6 +370,8 @@ handle_input_win32(gchar* message)
     if(!DEVELOPMENT_ENVIRONMENT)
         SendInput(1, &window_input, sizeof(window_input));
     g_object_unref(parser);
+
+    // if(opcode == MOUSERAW && mouse_code == WM_MOUSEMOVE)
 }
 
 void            

@@ -57,4 +57,11 @@ gpointer            setup_video_overlay                     (GUI* gui,
                                                              GstElement* videosink, 
                                                              GstElement* pipeline);
 
+/**
+ * @brief 
+ * 
+ * @return gboolean 
+ */
+gboolean            is_hover_window                         ();
+
 #endif

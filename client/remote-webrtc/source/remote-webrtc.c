@@ -172,7 +172,7 @@ get_default_shortcut(gpointer data)
     key_list_finalize[2] = VK_CONTROL;
     key_list_finalize[3] = VK_MENU;
 
-	add_new_shortcut_to_list(shortcuts,key_list_finalize,EXIT,remote_app_finalize,app);
+	add_new_shortcut_to_list(shortcuts,key_list_finalize,EXIT,g_main_loop_quit,app->loop);
 	add_new_shortcut_to_list(shortcuts,key_list_reset,RELOAD_STREAM,remote_app_reset,app);
 
     return shortcuts;

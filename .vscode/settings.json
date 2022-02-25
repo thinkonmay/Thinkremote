@@ -36,7 +36,8 @@
         "xiosbase": "c",
         "remote-udp-type.h": "c",
         "shortcut.h": "c",
-        "handle-key.h": "c"
+        "handle-key.h": "c",
+        "*.rh": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

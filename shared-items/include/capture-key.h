@@ -41,9 +41,7 @@ typedef void            (*HIDHandleFunction)                    (gchar* message,
  * @param delta_X 
  * @param delta_Y 
  */
-void                handle_window_mouse                         (gint mouse_code,
-                                                                gint delta_X,
-                                                                gint delta_Y);
+void                handle_mouse_button                         (gint mouse_code);
 
 /**
  * @brief 

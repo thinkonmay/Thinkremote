@@ -14,6 +14,7 @@
 #include <key-convert.h>
 #include <capture-key.h>
 #include <shortcut.h>
+#include <logging.h>
 
 #include <glib-2.0/glib.h>
 #include <gst/gst.h>
@@ -60,12 +61,6 @@ struct _GUI
 
 
 
-
-    /**
-     * @brief 
-     * revious window style
-     */
-    LONG prev_style;
 
     /**
      * @brief 
@@ -127,8 +122,19 @@ get_remote_resolution(GUI* gui,
     size->top  = 0;
 }
 
+
 static GUI _gui = {0};
 
+gboolean
+is_hover_window()
+{
+    POINT pos;
+    GetCursorPos(&pos);
+    return((pos.x < _gui.window_position.right) &&
+           (pos.x > _gui.window_position.left) &&
+           (pos.y > _gui.window_position.top) &&
+           (pos.y < _gui.window_position.bottom));
+}
 
 static void
 add_gui_shortcuts(Shortcut* shortcuts)
@@ -214,12 +220,14 @@ static void
 set_up_window(GUI* gui)
 {
     HINSTANCE hinstance = GetModuleHandle(NULL);
+
     WNDCLASSEX wc = { 0, };
     wc.cbSize = sizeof(WNDCLASSEX);
-    wc.style = CS_HREDRAW | CS_VREDRAW; //// ????
+    wc.style = CS_HREDRAW | CS_VREDRAW; 
     wc.lpfnWndProc = (WNDPROC)window_proc;
     wc.hInstance = hinstance;
     wc.hCursor = LoadCursor(NULL, IDC_NO);
+
     wc.lpszClassName = "GstWIN32VideoOverlay";
     RegisterClassEx(&wc);
 
@@ -244,10 +252,21 @@ set_up_window(GUI* gui)
 
 		BOOL registered = RegisterRawInputDevices(devices, ARRAYSIZE(devices),
 			sizeof(RAWINPUTDEVICE));
+
 		if(registered == FALSE)
-		{
-			g_printerr("Registering keyboard and/or mouse as Raw Input devices failed!");
-		}
+			worker_log_output("Registering keyboard and/or mouse as Raw Input devices failed!");
+	}
+
+	{
+        RAWINPUTDEVICE Rid[1];
+        Rid[0].usUsagePage = HID_USAGE_PAGE_GENERIC; 
+        Rid[0].usUsage = HID_USAGE_GENERIC_MOUSE; 
+        Rid[0].dwFlags = RIDEV_INPUTSINK;   
+        Rid[0].hwndTarget = gui->window;
+        gboolean registered = RegisterRawInputDevices(Rid, 1, sizeof(Rid[0]));
+
+		if(registered == FALSE)
+			worker_log_output("Registering keyboard and/or mouse as Raw Input devices failed!");
 	}
 }
 
@@ -276,6 +295,8 @@ bus_msg (GstBus * bus,
 }
 
 
+#define BORDER_SIZE 35
+
 void
 adjust_window_size(GUI* gui)
 {
@@ -286,6 +307,7 @@ adjust_window_size(GUI* gui)
 
     RECT rect;
     GetWindowRect(gui->window,&rect);
+
     gint width = rect.right - rect.left;
     gint height = rect.bottom - rect.top;
     gfloat window_ratio = ((gfloat) width) / ((gfloat)height);
@@ -307,8 +329,10 @@ adjust_window_size(GUI* gui)
                 gui->window_position.left,
                 gui->window_position.top,
                 new_width,
-                new_height + 35, 
+                new_height+BORDER_SIZE, 
                 NULL);
+
+
 }
 
 
@@ -351,18 +375,16 @@ get_monitor_size(RECT *rect,
     DEVMODE dev_mode;
 
     monitor_info.cbSize = sizeof(monitor_info);
+
     if (!GetMonitorInfo(monitor, (LPMONITORINFO)&monitor_info))
-    {
         return FALSE;
-    }
 
     dev_mode.dmSize = sizeof(dev_mode);
     dev_mode.dmDriverExtra = sizeof(POINTL);
     dev_mode.dmFields = DM_POSITION;
+
     if (!EnumDisplaySettings(monitor_info.szDevice, ENUM_CURRENT_SETTINGS, &dev_mode))
-    {
         return FALSE;
-    }
 
     SetRect(rect, 0, 0, dev_mode.dmPelsWidth, dev_mode.dmPelsHeight);
 
@@ -379,10 +401,11 @@ get_monitor_size(RECT *rect,
 void 
 switch_fullscreen_mode(GUI* gui)
 {
+    static LONG prev_style;
     if (gui->fullscreen)
     {
         /* Restore the window's attributes and size */
-        SetWindowLong(gui->window, GWL_STYLE, gui->prev_style);
+        SetWindowLong(gui->window, GWL_STYLE, prev_style);
 
         SetWindowPos(gui->window, HWND_NOTOPMOST,
                     gui->window_position.left,
@@ -391,31 +414,25 @@ switch_fullscreen_mode(GUI* gui)
                     gui->window_position.top, 
                     SWP_FRAMECHANGED | SWP_NOACTIVATE);
 
+        adjust_window_size(gui);
         ShowWindow(gui->window, SW_NORMAL);
     }
     else
     {
-        long _prev_style;
-
         /* show window before change style */
         ShowWindow(gui->window, SW_SHOW);
 
         /* Save the old window rect so we can restore it when exiting
-        * fullscreen mode */
-        GetWindowRect(gui->window, &(gui->window_position));
-        gui->prev_style = GetWindowLong(gui->window, GWL_STYLE);
+        prev_style = GetWindowLong(gui->window, GWL_STYLE);
+
+        /* Make the window borderless so that the client area can fill the screen */
+        SetWindowLong(gui->window, GWL_STYLE, prev_style &
+                ~(WS_CAPTION | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_SYSMENU | WS_THICKFRAME));
 
         RECT fullscreen_rect;
         if (!get_monitor_size(&fullscreen_rect, gui->window))
             return;
 
-        /* Make the window borderless so that the client area can fill the screen */
-        _prev_style = gui->prev_style;
-        SetWindowLong(gui->window, GWL_STYLE,
-                            _prev_style &
-                          ~(WS_CAPTION | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_SYSMENU |
-                            WS_THICKFRAME));
-        gui->prev_style = _prev_style;
         SetWindowPos(gui->window, HWND_NOTOPMOST,
                     fullscreen_rect.left,
                     fullscreen_rect.top,
@@ -425,6 +442,7 @@ switch_fullscreen_mode(GUI* gui)
 
         ShowWindow(gui->window, SW_MAXIMIZE);
     }
+    gui->fullscreen = !gui->fullscreen;
 }
 
 
@@ -467,6 +485,12 @@ size_handle_thread(gpointer data)
 
 
 
+void
+on_new_window_position(GUI* gui)
+{
+    GetWindowRect(gui->window,&gui->window_position);
+
+}
 
 /**
  * @brief 
@@ -484,7 +508,6 @@ window_proc(HWND hWnd,
             LPARAM lParam)
 {
     GUI* gui = &_gui;
-
     if (message == WM_DESTROY) 
         trigger_hotkey_by_opcode(EXIT);
 
@@ -494,20 +517,18 @@ window_proc(HWND hWnd,
     if (message == WM_MOUSEWHEEL)
         handle_window_wheel(GET_WHEEL_DELTA_WPARAM(wParam) > 0);
 
-    if (message == WM_MOUSEMOVE    ||
-        message == WM_LBUTTONDOWN  ||
-        message == WM_LBUTTONUP	   ||
-        message == WM_MBUTTONDOWN  ||
-        message == WM_MBUTTONUP	   ||
-        message == WM_RBUTTONDOWN  ||
-        message == WM_RBUTTONUP	   ||
-        message == WM_XBUTTONDOWN  ||
-        message == WM_XBUTTONUP	)
-        handle_window_mouse(message, lParam, gui->window);
+    if (message == WM_LBUTTONDOWN  || message == WM_LBUTTONUP	||
+        message == WM_MBUTTONDOWN  || message == WM_MBUTTONUP	||
+        message == WM_RBUTTONDOWN  || message == WM_RBUTTONUP	||
+        message == WM_XBUTTONDOWN  || message == WM_XBUTTONUP)
+        handle_mouse_button(message);
 
     if (message == WM_SIZE)
         g_thread_new("handle resize",size_handle_thread,gui);
 
+    if (message == WM_MOVE)
+        on_new_window_position(gui);
+        
 
     return DefWindowProc(hWnd, message, wParam, lParam);
 }

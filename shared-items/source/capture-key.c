@@ -11,6 +11,7 @@
 #include <capture-key.h>
 
 #include <enum.h>
+#include <overlay-gui.h>
 
 #include <glib-2.0/glib.h>
 #include <json-glib/json-glib.h>
@@ -26,10 +27,7 @@ typedef struct _HidInput
     gint mouse_code;
     gint keyboard_code;
 
-
     Win32Opcode opcode;
-
-    gboolean relative;
     gboolean key_is_up;
 }HidInput;
 
@@ -59,6 +57,12 @@ struct _InputHandler
      * 
      */
     Shortcut shortcuts [20];
+
+    /**
+     * @brief 
+     * 
+     */
+    POINT previous_cursor_position;
 
     gboolean enable;
 };
@@ -197,10 +201,24 @@ static void
 handle_window_keyboard(RAWKEYBOARD input,
                         HidInput* navigation)
 {
-    gint Message= input.Message;
     navigation->opcode = KEYRAW;
     navigation->key_is_up = input.Flags;
     navigation->keyboard_code = input.VKey;
+}
+
+static void
+handle_window_mouse_move(RAWMOUSE input,
+                        HidInput* navigation,
+                        HWND window)
+{
+    if(!is_hover_window())
+        return;
+
+    navigation->opcode = MOUSERAW;
+    navigation->mouse_code = WM_MOUSEMOVE;
+    navigation->delta_x = input.lLastX;
+    navigation->delta_y = input.lLastY;
+    g_print("%f  %f \n",navigation->delta_x,navigation->delta_y);
 }
 
 
@@ -224,9 +242,14 @@ handle_message_window_proc(HWND hwnd,
         return;
 
     RAWINPUT* raw_input = (RAWINPUT*) buffer;
+
     if (raw_input->header.dwType == RIM_TYPEKEYBOARD) 
         handle_window_keyboard(raw_input->data.keyboard,&navigation); 
     
+    if (raw_input->header.dwType == RIM_TYPEMOUSE && 
+        (raw_input->data.mouse.lLastX || raw_input->data.mouse.lLastY))
+        handle_window_mouse_move(raw_input->data.mouse,&navigation,hwnd);
+
     parse_hid_event(&navigation);
 }
 
@@ -253,31 +276,16 @@ center_mouse_position(HWND window)
 }
 
 void
-handle_window_mouse(gint mouse_code,
-                    LPARAM lParam,
-                    HWND window)
+handle_mouse_button(gint mouse_code)
 {
-    if(!HID_handler.enable)
-        return;
-
-    gint x = LOWORD(lParam);
-    gint y = HIWORD(lParam);
-    POINT pt = center_mouse_position(window);
-    gint delta_X = x-pt.x;
-    gint delta_Y = y-pt.y;
-
-
-
-    // reduce mouse move signal by filter unactive mouse
-    if(!delta_X && !delta_Y && mouse_code == MOUSE_MOVE)
+    if(!HID_handler.enable || mouse_code == MOUSE_MOVE)
         return;
 
     HidInput navigation = {0};
     navigation.opcode = MOUSERAW;
-    navigation.relative = TRUE;
     navigation.mouse_code = mouse_code;
-    navigation.delta_x = delta_X;
-    navigation.delta_y = delta_Y;
+    navigation.delta_x = 0;
+    navigation.delta_y = 0;
 
     parse_hid_event(&navigation);
 }
@@ -444,42 +452,5 @@ toggle_input_capture(InputHandler* handler)
 
 
 
-
-
-#else
-
-#include <gst/video/navigation.h>
-
-
-gboolean      
-handle_navigator(GstEvent *event, 
-                RemoteApp* core)
-{
-    // switch (eventcode)
-    // {
-    //     case GST_NAVIGATION_EVENT_KEY_PRESS: 
-    //         gst_navigation_event_parse_key_event(event,&(navigation->keyboard_code));
-    //         navigation->opcode = KEYDOWN;
-    //         break; 
-    //     case GST_NAVIGATION_EVENT_KEY_RELEASE: 
-    //         gst_navigation_event_parse_key_event(event,&(navigation->keyboard_code));
-    //         navigation->opcode = KEYUP;
-    //         break;
-    //     case GST_NAVIGATION_EVENT_MOUSE_MOVE: 
-    //         gst_navigation_event_parse_mouse_move_event(event,&(navigation->delta_x),&(navigation->delta_y));
-    //         navigation->opcode = MOUSE_MOVE;
-    //         break; 
-    //     case GST_NAVIGATION_EVENT_MOUSE_BUTTON_PRESS: 
-    //         gst_navigation_event_parse_mouse_button_event(event,&(navigation->mouse_code),&(navigation->delta_y),&(navigation->delta_y));
-    //         navigation->opcode = MOUSE_DOWN;
-    //         break; 
-    //     case GST_NAVIGATION_EVENT_MOUSE_BUTTON_RELEASE: 
-    //         gst_navigation_event_parse_mouse_button_event(event,&(navigation->mouse_code),&(navigation->delta_x),&(navigation->delta_y));
-    //         navigation->opcode = MOUSE_UP;
-    //         break; 
-    //     default:
-    //         break;
-    // }
-}
 
 #endif
