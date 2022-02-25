@@ -204,10 +204,20 @@ handle_video_stream (GstPad * pad,
         pipeline->video_element[VIDEO_SINK], NULL);
 
     GstPad* queue_pad = gst_element_get_static_pad (pipeline->video_element[VIDEO_QUEUE_SINK], "sink");
+
+
     GstPadLinkReturn ret = gst_pad_link (pad, queue_pad);
     g_assert_cmphex (ret, ==, GST_PAD_LINK_OK);
 
+
+    gst_element_set_state(GST_ELEMENT(pipeline->pipeline), GST_STATE_PLAYING);
+
+    GstCaps* caps = gst_pad_get_current_caps (pad);
+    if (!caps)
+        caps = gst_pad_query_caps (pad, NULL);
+
     setup_video_overlay(gui,
+        caps,
         pipeline->video_element[VIDEO_SINK],
         pipeline->pipeline);
 }

@@ -73,11 +73,4 @@ void            deactivate_hid_handler          (HIDHandler* handler);
 
 
 
-/**
- * @brief Set the relative mouse object
- * 
- * @param isTrue 
- */
-void            set_relative_mouse              (gboolean isTrue);
-
 #endif

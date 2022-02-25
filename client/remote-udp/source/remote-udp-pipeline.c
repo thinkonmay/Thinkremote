@@ -200,7 +200,14 @@ handle_video_stream (GstElement* decodebin,
     GstPadLinkReturn ret = gst_pad_link (pad, queue_pad);
     g_assert_cmphex (ret, ==, GST_PAD_LINK_OK);
 
-    setup_video_overlay(gui,pipeline->video_element[VIDEO_SINK],pipeline->video_pipeline,core);
+    GstCaps* caps = gst_pad_get_current_caps (pad);
+    if (!caps)
+        caps = gst_pad_query_caps (pad, NULL);
+
+    setup_video_overlay(gui,
+        caps,
+        pipeline->video_element[VIDEO_SINK],
+        pipeline->video_pipeline,core);
 }
 
 static void

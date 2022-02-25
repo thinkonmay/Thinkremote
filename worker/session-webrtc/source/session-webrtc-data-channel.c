@@ -112,8 +112,6 @@ hid_channel_on_message_string(GObject* dc,
                             SessionCore* core)
 {
     WebRTCHub* hub = session_core_get_rtc_hub(core);
-    if(DEVELOPMENT_ENVIRONMENT)
-        g_print("%s\n",message);
 
     if(hub->device == WEB_APP)
         handle_input_javascript(message);

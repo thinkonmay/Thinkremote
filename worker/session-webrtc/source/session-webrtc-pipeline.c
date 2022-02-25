@@ -116,14 +116,20 @@ void device_foreach(GstDevice* data, gpointer user_data);
  * @param capture 
  */
 static void
-toggle_pointer(GstElement* capture)
+toggle_pointer_on(GstElement* capture)
 {
-    gboolean toggle;
-    g_object_get(capture, "show-cursor", &toggle, NULL); 
-    toggle = !toggle;
-    
-    set_relative_mouse(!toggle);
-    g_object_set(capture, "show-cursor", toggle, NULL); 
+    g_object_set(capture, "show-cursor", TRUE, NULL); 
+}
+
+/**
+ * @brief 
+ * get and set the visibility of pointer
+ * @param capture 
+ */
+static void
+toggle_pointer_off(GstElement* capture)
+{
+    g_object_set(capture, "show-cursor", FALSE, NULL); 
 }
 
 Pipeline*
@@ -171,8 +177,13 @@ start_pipeline(SessionCore* core)
     }
 
     Shortcut* shortcuts = shortcut_list_initialize(10);
+
     add_new_shortcut_to_list(shortcuts,NULL,
-            POINTER_LOCK,toggle_pointer,
+            WORKER_POINTER_ON,toggle_pointer_on,
+            pipe->video_element[SCREEN_CAPTURE]);
+
+    add_new_shortcut_to_list(shortcuts,NULL,
+            WORKER_POINTER_OFF,toggle_pointer_off,
             pipe->video_element[SCREEN_CAPTURE]);
 
     pipe->handler = activate_hid_handler(pipe->video_element[SCREEN_CAPTURE],shortcuts);

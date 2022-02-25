@@ -17,6 +17,9 @@
 #include <enum.h>
 #include <capture-key.h>
 #include <json-handler.h>
+#include <logging.h>
+#include <environment.h>
+#include <global-var.h>
 
 
 #include <Windows.h>
@@ -64,6 +67,13 @@ void            reset_session_key               (gpointer data);
 
 
 
+/**
+ * @brief Set the relative mouse object
+ * 
+ * @param isTrue 
+ */
+void            set_relative_mouse              (gboolean isTrue);
+
 HIDHandler*
 activate_hid_handler(GstElement* capture, 
                      Shortcut* shortcuts)
@@ -72,6 +82,8 @@ activate_hid_handler(GstElement* capture,
     HID_handler.relative_mouse = TRUE;
     
     add_new_shortcut_to_list(shortcuts,NULL,RESET_KEY,reset_session_key,NULL);
+    add_new_shortcut_to_list(shortcuts,NULL,RELATIVE_MOUSE_ON,set_relative_mouse,GINT_TO_POINTER(TRUE));
+    add_new_shortcut_to_list(shortcuts,NULL,RELATIVE_MOUSE_OFF,set_relative_mouse,GINT_TO_POINTER(FALSE));
 
     GstPad* pad = gst_element_get_static_pad(capture, "src");
     GstCaps* caps = gst_pad_get_current_caps (pad);
@@ -130,6 +142,8 @@ static gboolean
 handle_shortcut(HIDHandler* handler,
                 gint opcode)
 {
+
+
     gint i = 0;
     while (handler->shortcuts[i].active)
     {
@@ -141,10 +155,16 @@ handle_shortcut(HIDHandler* handler,
             else if (shortcut.function)
                 shortcut.function(NULL);
 
+            gchar buffer[10] = {0};
+            itoa(opcode,buffer,10);
+            GString* string = g_string_new("Handled client event with opcode: ");
+            g_string_append(string,buffer);
+            worker_log_output(g_string_free(string,FALSE));
             return TRUE;
         }
         i++;
     }
+
     return FALSE;
 }
 
@@ -255,7 +275,8 @@ handle_input_javascript(gchar* message)
         //do nothing
     }
 
-    SendInput(1, &window_input, sizeof(window_input));
+    if(!DEVELOPMENT_ENVIRONMENT)
+        SendInput(1, &window_input, sizeof(window_input));
     g_object_unref(parser);
 }
 
@@ -335,7 +356,9 @@ handle_input_win32(gchar* message)
             /* code */
             break;
     }
-    SendInput(1, &window_input, sizeof(window_input));
+
+    if(!DEVELOPMENT_ENVIRONMENT)
+        SendInput(1, &window_input, sizeof(window_input));
     g_object_unref(parser);
 }
 
@@ -386,6 +409,10 @@ _keydown(int *key)
 void
 reset_session_key(gpointer data)
 {
+    if(DEVELOPMENT_ENVIRONMENT)
+        return;
+
+
     gint i = 0;
     while (!reset_mouse_array[i])
     {

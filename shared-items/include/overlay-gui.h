@@ -53,6 +53,7 @@ GUI*                init_remote_app_gui                     (gpointer app,
  * @return gpointer 
  */
 gpointer            setup_video_overlay                     (GUI* gui,
+                                                             GstCaps* caps,
                                                              GstElement* videosink, 
                                                              GstElement* pipeline);
 

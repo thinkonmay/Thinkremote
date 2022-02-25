@@ -36,7 +36,7 @@ webrtcbin_get_qos(GstElement* webrtcbin)
 #else
         gchar* output = gst_structure_to_string(structure);
 #endif
-        worker_log_output(output);
+        // worker_log_output(output);
     }
     gst_promise_unref(promise);
     return state;

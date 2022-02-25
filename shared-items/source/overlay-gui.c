@@ -22,6 +22,7 @@
 
 
 
+
 struct _GUI
 {
     /**
@@ -32,33 +33,15 @@ struct _GUI
 
     /**
      * @brief 
+     * 
+     */
+    InputHandler* handler;
+
+    /**
+     * @brief 
      * win32 window for display video
      */
     HWND window;
-
-    /**
-     * @brief 
-     * revious window style
-     */
-    LONG prev_style;
-
-    /**
-     * @brief 
-     * previous rectangle size, use for setup fullscreen mode
-     */
-    RECT prev_rect;
-
-    /**
-     * @brief 
-     * window retangle, size and position of window
-     */
-    RECT wr;
-
-    /**
-     * @brief 
-     * IO channel for remote app
-     */
-    GIOChannel *msg_io_channel;
 
     /**
      * @brief 
@@ -70,13 +53,38 @@ struct _GUI
      * @brief 
      * 
      */
-    InputHandler* handler;
+    GstCaps* stream_cap;
+
+
+
+
+
+
+
+    /**
+     * @brief 
+     * revious window style
+     */
+    LONG prev_style;
+
+    /**
+     * @brief 
+     * previous rectangle size, use for setup fullscreen mode
+     */
+    RECT window_position;
 
     /**
      * @brief 
      * 
      */
-    HIDHandleFunction hid_handler;  
+    gboolean fullscreen;
+
+    /**
+     * @brief 
+     * 
+     */
+    gboolean client_pointer;
+
 };
 
 
@@ -100,27 +108,23 @@ void                        handle_fullscreen_hotkey(GUI* gui);
  */
 void                        toggle_client_cursor                    ();
 
+
+
 /**
- * @brief 
+ * @brief Get the remote resolution object
  * 
- * @param windowHandle 
- * @return true 
- * @return false 
+ * @param gui 
+ * @param size 
  */
-gboolean
-isFullscreen(HWND windowHandle)
+void
+get_remote_resolution(GUI* gui,
+                      RECT* size)
 {
-    MONITORINFO monitorInfo = { 0 };
-    monitorInfo.cbSize = sizeof(MONITORINFO);
-    GetMonitorInfo(MonitorFromWindow(windowHandle, MONITOR_DEFAULTTOPRIMARY), &monitorInfo);
-
-    RECT windowRect;
-    GetWindowRect(windowHandle, &windowRect);
-
-    return windowRect.left == monitorInfo.rcMonitor.left
-        && windowRect.right == monitorInfo.rcMonitor.right
-        && windowRect.top == monitorInfo.rcMonitor.top
-        && windowRect.bottom == monitorInfo.rcMonitor.bottom;
+    GstStructure* structure = gst_caps_get_structure(gui->stream_cap,0);
+    gst_structure_get_int(structure,"height",&size->bottom);
+    gst_structure_get_int(structure,"width", &size->right);
+    size->left = 0;
+    size->top  = 0;
 }
 
 static GUI _gui = {0};
@@ -145,14 +149,11 @@ init_remote_app_gui(gpointer app,
                     HIDHandleFunction handler)
 {
     GUI* gui = &_gui;
-    gui->hid_handler = handler;
     add_gui_shortcuts(shortcuts);
     gui->handler = init_input_capture_system(handler,shortcuts,app);
     gui->app = app;
-#ifdef G_OS_WIN32
-    gui->wr = (RECT) { 0, 0, 320, 240 };
+    gui->window_position = (RECT){0,0,1920,1080};
     set_up_window(gui);
-#endif
     return gui;
 }
 
@@ -222,17 +223,17 @@ set_up_window(GUI* gui)
     wc.lpszClassName = "GstWIN32VideoOverlay";
     RegisterClassEx(&wc);
 
-    AdjustWindowRect (&(gui->wr), WS_OVERLAPPEDWINDOW, FALSE);
+    AdjustWindowRect (&(gui->window_position), WS_OVERLAPPEDWINDOW , FALSE);
     gui->window = CreateWindowEx(0, wc.lpszClassName,
                           "Thinkremote",
                           WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_OVERLAPPEDWINDOW,
                           CW_USEDEFAULT, CW_USEDEFAULT,
-                          gui->wr.right  - gui->wr.left, 
-                          gui->wr.bottom - gui->wr.top, 
+                          gui->window_position.right  - gui->window_position.left, 
+                          gui->window_position.bottom - gui->window_position.top, 
                           (HWND)NULL, (HMENU)NULL,
                           hinstance, NULL);
-    gui->msg_io_channel = g_io_channel_win32_new_messages (0);
-    g_io_add_watch (gui->msg_io_channel, G_IO_IN, msg_cb, NULL);
+    GIOChannel* msg_io_channel = g_io_channel_win32_new_messages (0);
+    g_io_add_watch (msg_io_channel, G_IO_IN, msg_cb, NULL);
 
 	{
 		RAWINPUTDEVICE devices[1];
@@ -267,6 +268,7 @@ bus_msg (GstBus * bus,
   GstElement *pipeline = GST_ELEMENT (user_data);
   switch (GST_MESSAGE_TYPE (msg)) {
     case GST_MESSAGE_ASYNC_DONE:
+      gst_element_set_state (pipeline, GST_STATE_PLAYING);
       break;
   }
 
@@ -274,22 +276,60 @@ bus_msg (GstBus * bus,
 }
 
 
+void
+adjust_window_size(GUI* gui)
+{
+    /* Restore the window's attributes and size */
+    RECT stream;
+    get_remote_resolution(gui,&stream);
+    gfloat stream_ratio = ((gfloat) stream.right) / ((gfloat)stream.bottom);
+
+    RECT rect;
+    GetWindowRect(gui->window,&rect);
+    gint width = rect.right - rect.left;
+    gint height = rect.bottom - rect.top;
+    gfloat window_ratio = ((gfloat) width) / ((gfloat)height);
+
+    POINT center;
+    center.x = ( rect.left + rect.right )/2;
+    center.y = ( rect.top  + rect.bottom )/2;
+
+    gint new_height = (stream_ratio > window_ratio) ? ( width  / stream_ratio ) : height;
+    gint new_width  = (stream_ratio < window_ratio) ? ( height * stream_ratio ) : width;
+    
+    gui->window_position.left =  center.x - (new_width / 2);
+    gui->window_position.right = center.x + (new_width / 2);
+
+    gui->window_position.top    = center.y - (new_height / 2);
+    gui->window_position.bottom = center.y + (new_height / 2);
+
+    MoveWindow(gui->window, 
+                gui->window_position.left,
+                gui->window_position.top,
+                new_width,
+                new_height + 35, 
+                NULL);
+}
 
 
 gpointer
 setup_video_overlay(GUI* gui,
+                    GstCaps* caps,
                     GstElement* videosink, 
                     GstElement* pipeline)
 {
+    gui->stream_cap = caps;
+    gui->sink_element = videosink;
+    get_remote_resolution(gui,&gui->window_position);
+
     /* prepare the pipeline */
     gst_object_ref_sink (videosink);
     gst_bus_add_watch (GST_ELEMENT_BUS (pipeline), bus_msg, pipeline);
 
+    adjust_window_size(gui);
     ShowWindow (gui->window, SW_SHOW);
-
     gst_video_overlay_set_window_handle (GST_VIDEO_OVERLAY (videosink),
         (guintptr) gui->window);
-
 }
 
 
@@ -335,45 +375,44 @@ get_monitor_size(RECT *rect,
 
 
 
+
 void 
 switch_fullscreen_mode(GUI* gui)
 {
-    if (isFullscreen(gui->window))
+    if (gui->fullscreen)
     {
         /* Restore the window's attributes and size */
         SetWindowLong(gui->window, GWL_STYLE, gui->prev_style);
 
         SetWindowPos(gui->window, HWND_NOTOPMOST,
-                    gui->prev_rect.left,
-                    gui->prev_rect.top,
-                    1556 - gui->prev_rect.left,
-                    884 - gui->prev_rect.top, SWP_FRAMECHANGED | SWP_NOACTIVATE);
+                    gui->window_position.left,
+                    gui->window_position.top,
+                    gui->window_position.left,
+                    gui->window_position.top, 
+                    SWP_FRAMECHANGED | SWP_NOACTIVATE);
 
         ShowWindow(gui->window, SW_NORMAL);
     }
     else
     {
         long _prev_style;
-        RECT fullscreen_rect;
 
         /* show window before change style */
         ShowWindow(gui->window, SW_SHOW);
 
         /* Save the old window rect so we can restore it when exiting
         * fullscreen mode */
-        GetWindowRect(gui->window, &(gui->prev_rect));
+        GetWindowRect(gui->window, &(gui->window_position));
         gui->prev_style = GetWindowLong(gui->window, GWL_STYLE);
 
+        RECT fullscreen_rect;
         if (!get_monitor_size(&fullscreen_rect, gui->window))
-        {
-            g_warning("Couldn't get monitor size");
             return;
-        }
 
         /* Make the window borderless so that the client area can fill the screen */
         _prev_style = gui->prev_style;
         SetWindowLong(gui->window, GWL_STYLE,
-                      _prev_style &
+                            _prev_style &
                           ~(WS_CAPTION | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_SYSMENU |
                             WS_THICKFRAME));
         gui->prev_style = _prev_style;
@@ -381,7 +420,9 @@ switch_fullscreen_mode(GUI* gui)
                     fullscreen_rect.left,
                     fullscreen_rect.top,
                     fullscreen_rect.right,
-                    fullscreen_rect.bottom, SWP_FRAMECHANGED | SWP_NOACTIVATE);
+                    fullscreen_rect.bottom, 
+                    SWP_FRAMECHANGED | SWP_NOACTIVATE);
+
         ShowWindow(gui->window, SW_MAXIMIZE);
     }
 }
@@ -407,6 +448,23 @@ handle_fullscreen_hotkey(GUI* gui)
     toggle_client_cursor(gui);
     toggle_input_capture(gui->handler);
 }
+
+
+
+gpointer 
+size_handle_thread(gpointer data)
+{
+    static gboolean sizing = FALSE;
+
+    if (sizing)
+        return;
+
+    sizing = TRUE;
+    Sleep(2000);
+    adjust_window_size((GUI*) data);
+    sizing = FALSE;
+}
+
 
 
 
@@ -447,49 +505,23 @@ window_proc(HWND hWnd,
         message == WM_XBUTTONUP	)
         handle_window_mouse(message, lParam, gui->window);
 
+    if (message == WM_SIZE)
+        g_thread_new("handle resize",size_handle_thread,gui);
+
+
     return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
-
-
-/**
- * @brief 
- * 
- * @param gui 
- */
-static void 
-adjust_window(GUI* gui)
-{
-    AdjustWindowRect(&(gui->wr), WS_OVERLAPPEDWINDOW, FALSE);
-}
 
 
 
 void
 toggle_client_cursor(GUI* gui)
 {
-    gboolean fullscreen = isFullscreen(gui->window);
-    ShowCursor(!fullscreen);
+    ShowCursor(gui->client_pointer);
+    trigger_hotkey_by_opcode(gui->client_pointer ? WORKER_POINTER_ON : WORKER_POINTER_OFF);
 }
 
 
 
-
-
-#else
-
-gpointer
-setup_video_overlay(GstElement* videosink, 
-                    RemoteApp* app)
-{
-    GUI* gui = remote_app_get_gui(app);
-    Pipeline* pipeline = remote_app_get_pipeline(app);
-    GstElement* pipe_element = pipeline_get_pipeline_element(pipeline);
-
-    /* prepare the pipeline */
-    gst_object_ref_sink (videosink);
-
-
-
-}
 #endif

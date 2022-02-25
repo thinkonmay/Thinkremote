@@ -422,14 +422,13 @@ trigger_hotkey_by_opcode(ShortcutOpcode opcode)
                 shortcut.function(shortcut.data);
             else if (shortcut.function)
                 shortcut.function(NULL);
-
-            HidInput input = {0};
-            input.opcode = shortcut.opcode;
-            parse_hid_event(&input);
-            return;
         }
         i++;
     }
+
+    HidInput input = {0};
+    input.opcode = opcode;
+    parse_hid_event(&input);
 }
 
 void                
