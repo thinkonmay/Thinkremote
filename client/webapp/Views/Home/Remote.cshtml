@@ -9,12 +9,6 @@ var app = new Vue({
             loadingText: '',
             remoteToken: "@Model.token",
 
-            connectionVideoDecoder: "unknown",
-            connectionStatType: "unknown",
-            connectionAudioCodecName: "unknown",
-            connectionVideoCodecName: "unknown",
-            connectionResolution: "",
-            
             /*parameter serve for session initialization */
             SignallingUrl: "@Model.session.signallingurl",
 
@@ -46,7 +40,8 @@ var app = new Vue({
             /**
             * variable used to convert client and slave mouse position
             */
-            Mouse: {
+            Mouse: 
+            {
                 /**
                  * relation between frame size and actual window size
                  * (used to determine relation between client mouse and its position on slave screen)
@@ -125,20 +120,6 @@ var app = new Vue({
             },
 
 
-            /**/
-            Websocket: null,
-            Webrtc: null,
-            VideoElement: null,
-            ControlDC: null,
-            HidDC: null,
-
-            /**
-             * signalling state, use to track state error
-            */
-            signalling_state: null,
-            clipboardStatus: true,
-            adaptiveScreenSize: false, ///on testing feature
-
             enableAudio: true,
             
             EventListeners: [],
@@ -169,10 +150,6 @@ var app = new Vue({
                     }
                 );
             }
-        },
-        fileTransfer()
-        {
-            
         },
         ///report qoe reset to slave, after that, slave device will be restarted
         QoeReset()
@@ -213,41 +190,6 @@ var app = new Vue({
         {
             console.log(message);
             this.logEntries.push(applyTimestamp(message));
-        }
-    },
-
-    watch: {
-        showDrawer(newValue) {
-            // Detach inputs when menu is shown.
-            if (newValue === true) {
-                webrtc.input.detach();
-            } else {
-                webrtc.input.attach();
-            }
-        },
-        audioEnabled(newValue, oldValue) {
-            if(newValue === true)
-            {
-                                
-            }
-        },
-        signalling_state(newValue) {
-            switch (newValue) {
-                case "connected":
-                    this.setStatus("Connection complete");
-                    break;
-
-                case "disconnected":
-                    this.setError("Peer connection disconnected");
-                    this.VideoElement.load();
-                    break;
-
-                case "failed":
-                    this.setError("Peer connection failed");
-                    this.VideoElement.load();
-                    break;
-                default:
-            }
         }
     },
 });

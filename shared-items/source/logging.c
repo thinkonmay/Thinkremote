@@ -22,13 +22,33 @@
 
 #define IP "https://api.ipify.org?format=string"
 
+static gchar source[20] = {0};
+
+void 
+ip_message_callback(GObject *source_object,
+				    GAsyncResult *res,
+				    gpointer user_data)
+{
+    gchar ip_address[100] = {0}; 
+    GError* error = NULL;
+    GInputStream* result = soup_session_send_finish(source_object,res,&error);
+
+    g_input_stream_read_all(result,ip_address,100,NULL,NULL,NULL);
+
+    JsonObject* object = json_object_new();
+    json_object_set_string_member(object,"ClusterURL",CLUSTER_URL);
+    json_object_set_string_member(object,"WorkerIP",ip_address);
+    gchar* buffer = get_string_from_json_object(object);
+    memcpy(source,buffer,strlen(buffer));
+
+    g_input_stream_close(result,NULL,NULL);
+}
 
 void
 worker_log_output(gchar* text)
 {
     static gboolean initialized = FALSE;
     static SoupSession* session; 
-    static gchar source[100] = {0};
 
     if(!initialized)
     {
@@ -40,14 +60,8 @@ worker_log_output(gchar* text)
             SOUP_SESSION_HTTPS_ALIASES, http_aliases, NULL);
 
         SoupMessage* message = soup_message_new(SOUP_METHOD_GET,IP);
-        // soup_session_send_message(session,message);    
-
-        JsonObject* object = json_object_new();
-        json_object_set_string_member(object,"ClusterURL",CLUSTER_URL);
-        json_object_set_string_member(object,"WorkerIP",message->response_body->data);
-        gchar* buffer = get_string_from_json_object(object);
-
-        memcpy(source,buffer,strlen(buffer));
+        soup_session_send_async(session,message,NULL,
+            (GAsyncReadyCallback)ip_message_callback,NULL);    
     }
 
     if(DEVELOPMENT_ENVIRONMENT)

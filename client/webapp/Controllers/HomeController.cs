@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using RestSharp;
 using Newtonsoft.Json;
 using remote.Models;
+using System;
 
 namespace remote.Controllers
 {
@@ -24,20 +25,28 @@ namespace remote.Controllers
         [Route("/Remote")]
         public async Task<IActionResult> Remote(string token)
         {
-            var domain = Environment.GetEnvironmentVariable("URL");
+            try
+            {
+                var domain = Environment.GetEnvironmentVariable("URL");
 
-            var result = JsonConvert.DeserializeObject<SessionClient>((
-                await (new RestClient().ExecuteAsync(
-                    new RestRequest($"https://{domain}/Session/Setting",Method.Get)
-                    .AddQueryParameter("token",token)))).Content);
+                var result = JsonConvert.DeserializeObject<SessionClient>((
+                    await (new RestClient().ExecuteAsync(
+                        new RestRequest($"https://{domain}/Session/Setting",Method.Get)
+                        .AddQueryParameter("token",token)))).Content);
 
-            return View(new RemoteViewModel
-            { 
-                token = token,
-                InforURL = $"https://{domain}/Session/Setting",
-                icePolicy = "all",
-                session = result
-            });
+                return View(new RemoteViewModel
+                { 
+                    token = token,
+                    InforURL = $"https://{domain}/Session/Setting",
+                    icePolicy = "all",
+                    session = result
+                });
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
         }
 
         [Route("/Development")]
