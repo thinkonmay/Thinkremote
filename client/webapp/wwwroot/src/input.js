@@ -1,9 +1,73 @@
+import { sendHIDMessage } from "./datachannel";
+import { ShortcutOpcode } from "./enum";
+
+var CaptureInput = 
+{
+    Mouse: 
+    {
+        /**
+         * relation between frame size and actual window size
+         * (used to determine relation between client mouse and its position on slave screen)
+         */
+        mouseMultiX: 0,
+        mouseMultiY: 0,
+
+        /**
+         * 
+         */
+        mouseOffsetX: 0,
+        mouseOffsetY: 0,
+
+        /**
+        *
+        */
+        centerOffsetX: 0,
+        centerOffsetY: 0,
+
+        /*
+        *
+        */
+        scrollX: 0,
+        scrollY: 0,
+
+        /*
+        *
+        */
+        frameW:0,
+        frameH:0,
+
+        relativeMouse:false,
+    },
+
+    shortcuts: [],
+    EventListeners: [],
+}
+
+export const new_shortcut = (Opcode,key_list) => {
+    var shortcutTriggered = new Event('trigger');
+    CaptureInput.shortcuts.push({
+        Opcode: Opcode,
+        key_list: key_list,
+        event: shortcutTriggered
+    }); 
+}
+
+export const triggerEventByOpcode = (Opcode) => {
+    CaptureInput.shortcuts.forEach((element) =>{
+        if(element.Opcode === Opcode)
+        {
+            element.dispatchEvent(element.event);
+        }
+    })
+}
+
+
 /**
  * attach event handler when Hid channel is connected
  * @param {Event} event 
  */
-function 
-connectionDone()  
+export function 
+startHandleUserInput()  
 {
     AttachEvent();
 }
@@ -16,39 +80,13 @@ connectionDone()
 function 
 mouseButtonUp(event) 
 {
-    for (let index = 0; index < app.pressedKey.mouse.length; index++) {
-        const element = app.pressedKey.mouse[index];
-        if(event.code === element)
-        {
-            app.pressedKey.mouse.splice(index,1);
-        }
-    }
-
-    if(app.Mouse.relativeMouse)
-    {        
-        var INPUT =
-        {
-            "Opcode":   HidOpcode.MOUSE_UP,
-            "button":   event.button,
-        }
-    
-        app.HidDC.send(JSON.stringify(INPUT));
-    }
-    else
+    var INPUT =
     {
-        var mousePosition_X = clientToServerX(event.clientX);
-        var mousePosition_Y = clientToServerY(event.clientY);
+        "Opcode":   HidOpcode.MOUSE_UP,
+        "button":   event.button,
+    };
 
-        var INPUT =
-        {
-            "Opcode":   HidOpcode.MOUSE_UP,
-            "button":   event.button,
-            "dX":       mousePosition_X,
-            "dY":       mousePosition_Y,
-        }
-    
-        app.HidDC.send(JSON.stringify(INPUT));
-    }
+    sendHIDMessage(JSON.stringify(INPUT));
     event.preventDefault();
 }
 
@@ -59,8 +97,6 @@ mouseButtonUp(event)
 function 
 mouseButtonDown(event) 
 {
-    app.pressedKey.mouse.push(event.button);
-
     if(app.Mouse.relativeMouse)
     {        
         var INPUT =
@@ -69,7 +105,7 @@ mouseButtonDown(event)
             "button":   event.button,
         }
     
-        app.HidDC.send(JSON.stringify(INPUT));
+        sendHIDMessage(JSON.stringify(INPUT));
     }
     else
     {
@@ -84,7 +120,7 @@ mouseButtonDown(event)
             "dY":       mousePosition_Y
         }
     
-        app.HidDC.send(JSON.stringify(INPUT));
+        sendHIDMessage(JSON.stringify(INPUT));
     }
     event.preventDefault();
 }
@@ -98,6 +134,7 @@ mouseButtonMovement(event)
 {
     var mousePosition_X; 
     var mousePosition_Y;
+
     if(app.Mouse.relativeMouse)
     {
         mousePosition_X = event.movementX;
@@ -114,7 +151,7 @@ mouseButtonMovement(event)
         "dX":       mousePosition_X,
         "dY":       mousePosition_Y,
     }
-    app.HidDC.send(JSON.stringify(INPUT));
+    sendHIDMessage(JSON.stringify(INPUT));
 }
 
 /**
@@ -124,64 +161,12 @@ mouseButtonMovement(event)
 function 
 mouseWheel(event)
 {
-    var mousePosition_X = clientToServerX(event.clientX);
-    var mousePosition_Y = clientToServerY(event.clientY);
-
     var INPUT =
     {
         "Opcode":   HidOpcode.MOUSE_WHEEL,
-        "dX":       mousePosition_X,
-        "dY":       mousePosition_Y,
         "WheeldY":  event.deltaY
     }
-
-    app.HidDC.send(JSON.stringify(INPUT));
-}
-
-function 
-reset_mouse()
-{
-    var mousePosition_X = clientToServerX(0);
-    var mousePosition_Y = clientToServerY(0);              
-
-
-    app.pressedKey.mouse.forEach(element => {
-        var INPUT =
-        {
-            "Opcode":HidOpcode.MOUSE_UP,
-            "button":element,
-            "dX":mousePosition_X,
-            "dY":mousePosition_Y,
-        }
-        app.HidDC.send(JSON.stringify(INPUT));
-    });
-    app.pressedKey.mouse = [];
-}
-
-function 
-reset_keyboard()
-{
-    // var array = [
-    //         "ControlLeft",
-    //         "ShiftLeft",
-    //         "AltLeft",
-    //         "Home",
-    //         "MetaLeft",
-    //         "KeyF",
-    //         "KeyM",
-    //         "Escape"
-    //     ]; 
-
-
-    app.pressedKey.keyboard.forEach(element => {
-        var INPUT = 
-        {
-            "Opcode":HidOpcode.KEYUP,
-            "wVk": element,
-        }
-        app.HidDC.send(JSON.stringify(INPUT));
-    });
-    app.pressedKey.keyboard = [];
+    sendHIDMessage(JSON.stringify(INPUT));
 }
 
 
@@ -208,7 +193,7 @@ function keyup(event)
         "wVk":event.code,
     }
 
-    app.HidDC.send(JSON.stringify(Keyboard));
+    sendHIDMessage(JSON.stringify(Keyboard));
 
     // disable problematic browser shortcuts
     if ((event.code === 'F5' && event.ctrlKey)||
@@ -243,7 +228,8 @@ keydown(event)
     }
 
     // capture menu hotkey
-    if (event.code === 'KeyF' && event.ctrlKey && event.shiftKey) {
+    if (event.code === 'KeyF' && event.ctrlKey && event.shiftKey) 
+    {
         if (document.fullscreenElement === null) 
         {
             app.enterFullscreen();
@@ -257,7 +243,7 @@ keydown(event)
         "wVk":event.code,
     }
 
-    app.HidDC.send(JSON.stringify(Keyboard));
+    sendHIDMessage(JSON.stringify(Keyboard));
 
     // disable problematic browser shortcuts
     if ((event.code === 'F5' && event.ctrlKey) ||
@@ -335,8 +321,7 @@ onFullscreenChange()
 function
 mouseLeaveEvent(event)
 {
-    reset_keyboard();
-    reset_mouse();
+    triggerEventByOpcode(ShortcutOpcode.RESET_KEY);
 }
 
 
@@ -412,7 +397,7 @@ function pointerLock() {
             "Opcode":HidOpcode.POINTER_LOCK,
             "Value":true
         }
-        app.HidDC.send(JSON.stringify(INPUT));
+        sendHIDMessage(JSON.stringify(INPUT));
     } else {        
         app.Mouse.relativeMouse = false;
         var INPUT =
@@ -420,7 +405,7 @@ function pointerLock() {
             "Opcode":HidOpcode.POINTER_LOCK,
             "Value":false
         }
-        app.HidDC.send(JSON.stringify(INPUT));
+        sendHIDMessage(JSON.stringify(INPUT));
     }
 }
 

@@ -1,3 +1,27 @@
+/*
+* Metric serve for adaptive streaming algorithm
+*/
+var StreamMetric =
+{
+    currentTime: 0,
+    AudioBitrate: 0,
+    VideoBitrate: 0,
+    Framerate: 0,
+
+
+    PacketsLost: 0,
+    AudioLatency: 0,
+    VideoLatency: 0,
+    TotalBandwidth:  0,
+}
+
+
+
+
+
+
+
+
 var applyTimestamp = (msg) => {
     var now = new Date();
     var ts = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
@@ -267,16 +291,16 @@ get_stats()
             (
                 JSON.stringify(
                 {
-                    "FrameRate": app.adaptive.Framerate,
+                    FrameRate:      app.adaptive.Framerate,
     
-                    "AudioLatency": app.adaptive.AudioLatency,
-                    "VideoLatency": app.adaptive.VideoLatency,
+                    AudioLatency:   app.adaptive.AudioLatency,
+                    VideoLatency:   app.adaptive.VideoLatency,
     
-                    "AudioBitrate": app.adaptive.AudioBitrate,
-                    "VideoBitrate": app.adaptive.VideoBitrate,
+                    AudioBitrate:   app.adaptive.AudioBitrate,
+                    VideoBitrate:   app.adaptive.VideoBitrate,
     
-                    "TotalBandwidth": app.adaptive.TotalBandwidth,
-                    "PacketsLost": app.adaptive.PacketsLost
+                    TotalBandwidth: app.adaptive.TotalBandwidth,
+                    PacketsLost:    app.adaptive.PacketsLost
                 })
             );            
             statsStart = now;

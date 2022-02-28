@@ -1,4 +1,4 @@
-const JavaScriptOpcode = 
+export const JavaScriptOpcode = 
 {
 	KEYUP :                100,
 	KEYDOWN :              101,
@@ -9,7 +9,7 @@ const JavaScriptOpcode =
 }
 
 
-const ShortcutOpcode = 
+export const ShortcutOpcode = 
 {
 	WORKER_POINTER_OFF:       200,
 	WORKER_POINTER_ON:        201,

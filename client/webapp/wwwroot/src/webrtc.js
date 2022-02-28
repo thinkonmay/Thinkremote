@@ -1,18 +1,31 @@
-/**
- * 
- * @param {*} ice 
- */
-function onIncomingICE(ice) {
-    var candidate = new RTCIceCandidate(ice);
-    app.Webrtc.addIceCandidate(candidate).catch(app.setError);
+import { setDebug } from "./app";
+import { onRemoteTrack } from "./GUI";
+import { SignallingSend } from "./signalling.js"
+
+var RemotePipeline = 
+{
+    RTCPeerConnection:  null,
+    VideoElement: null,
+    
+    State: 'Disconnected',
 }
 
 
 
-
-
-
-
+/**
+ * 
+ * @param {*} ice 
+ */
+export function 
+onIncomingICE(ice) {
+    setDebug("[ICE RECEIVED] "+ice);
+    var candidate = new RTCIceCandidate(ice);
+    RemotePipeline.RTCPeerConnection.addIceCandidate(candidate)
+    .catch((error) =>
+    {
+        setDebug(error);
+    });
+}
 
 
 /**
@@ -22,16 +35,23 @@ function onIncomingICE(ice) {
  *
  * @param {RTCSessionDescription} sdp
  */
-function onIncomingSDP(sdp) {
-    app.Webrtc.setRemoteDescription(sdp).then(() => {
-        app.setStatus("Remote SDP set");
-        if (sdp.type != "offer")
-            return;
-        app.setStatus("Got SDP offer");        
-        app.Webrtc.createAnswer()
-            .then(onLocalDescription).catch(app.setError);
-        
-    }).catch(app.setError);
+export function 
+onIncomingSDP(sdp) 
+{
+    setDebug("[SDP RECEIVED] "+sdp);
+    if (sdp.type != "offer")
+        return;
+
+    RemotePipeline.State = "Got SDP offer";        
+
+    RemotePipeline.RTCPeerConnection.setRemoteDescription(sdp).then(() => {
+        RemotePipeline.RTCPeerConnection.createAnswer()
+            .then(onLocalDescription).catch((error =>{
+                setDebug(error);
+            }));
+        }).catch(error => {
+        setDebug(error)
+    });
 }
 
 
@@ -40,30 +60,18 @@ function onIncomingSDP(sdp) {
  *
  * @param {RTCSessionDescription} local_sdp
  */
-function onLocalDescription(desc) {
-    app.Webrtc.setLocalDescription(desc).then(function() {
-        app.setStatus("Sending SDP " + desc.type);
+export function 
+onLocalDescription(desc) {
+    RemotePipeline.RTCPeerConnection.setLocalDescription(desc).then(function() {
         sdp = {'sdp': app.Webrtc.localDescription}
     
-    console.log("[Send SDP]: " + JSON.stringify(desc));
-    SignallingSend("OFFER_SDP",JSON.stringify(sdp));
+        SignallingSend("OFFER_SDP",JSON.stringify(sdp));
     });
 }
 
 
 
 
-/**
- * Handles incoming track event from peer connection.
- *
- * @param {Event} event - Track event: https://developer.mozilla.org/en-US/docs/Web/API/RTCTrackEvent
- */
- function onRemoteTrack(event) {
-    if (app.VideoElement.srcObject !== event.streams[0]) {
-        console.log('Incoming stream');
-        app.VideoElement.srcObject = event.streams[0];
-    }
-}
 
 
     
@@ -103,17 +111,15 @@ ondatachannel(event)
 }
 
 
-function
+export function
 onICECandidates(event)
 {
-    // We have a candidate, send it to the remote party with the
-    // same uuid
-    if (event.candidate == null) {
+    if (event.candidate == null) 
+    {
         console.log("ICE Candidate was null, done");
-        document.getElementById("loading").innerHTML = " ";
         return;
     }
-    app.setDebug("OFFER_ICE" + JSON.stringify({'ice': event.candidate}));
+
     SignallingSend("OFFER_ICE",JSON.stringify({'ice': event.candidate}));
 }
 
@@ -121,14 +127,16 @@ onICECandidates(event)
  * Initiate connection to signalling server. 
  * invoke after request sdp signal has been replied
  */
-function 
+export function 
 WebrtcConnect() 
 {
-    console.log('Creating RTCPeerConnection');
+    RemotePipeline.State             = null;
+    RemotePipeline.RTCPeerConnection = null;
 
     var config = app.RTPconfig;
-    app.Webrtc = new RTCPeerConnection(config);
-    app.Webrtc.ondatachannel = ondatachannel;    
-    app.Webrtc.ontrack = onRemoteTrack;
-    app.Webrtc.onicecandidate = onICECandidates;
+    RemotePipeline.RTCPeerConnection = new RTCPeerConnection(config);
+
+    RemotePipeline.RTCPeerConnection.ondatachannel =  ondatachannel;    
+    RemotePipeline.RTCPeerConnection.ontrack =        onRemoteTrack;
+    RemotePipeline.RTCPeerConnection.onicecandidate = onICECandidates;
 }

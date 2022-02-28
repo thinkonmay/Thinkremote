@@ -1,3 +1,14 @@
+import * as APP from "./app.js"
+import { setDebug } from "./app.js";
+import { onIncomingICE, onIncomingSDP, WebrtcConnect } from "./webrtc.js";
+
+var SignallingHub = 
+{
+    state: "Disconnected",
+    WebSocketConnection: null,
+}
+
+
 /**
  * Fired whenever the signalling websocket is opened.
  * Sends the peer id to the signalling server.
@@ -5,7 +16,7 @@
 function    
 onServerOpen(event)
 {
-    app.signalling_state = 'connected';
+    SignallingHub.state = 'connected';
 }
 
 
@@ -14,13 +25,16 @@ onServerOpen(event)
  * @param {string} request_type 
  * @param {any} content 
  */
-function   
+export function
 SignallingSend(request_type, content)
 {
-    var json_message = {"RequestType":request_type,
-                        "Content":content}
+    setDebug(`${request_type} : ${content}`);
 
-    app.Websocket.send(JSON.stringify(json_message));
+    var json_message = JSON.stringify(
+        {RequestType:       request_type,
+         Content:           content});
+
+    SignallingHub.WebSocketConnection.send(json_message);
 }
 
 /**
@@ -30,12 +44,7 @@ SignallingSend(request_type, content)
 function    
 onServerError() 
 {
-    app.signalling_state = 'disconnected';
-    if (app.Websocket.readyState === app.Websocket.CLOSED) {
-        setTimeout(() => {
-            app.connectServer();
-        }, 3000);
-    }
+    SignallingHub.state = 'disconnected';
 }
 
 
@@ -47,80 +56,43 @@ onServerError()
 function   
 onServerMessage(event) 
 {
-    try {
-        if(event.data === "ping"){
-            app.setDebug("ping signalling server successful")
-            return;
-        }
+
+    if(event.data === "ping") 
+        return;
+
+    try 
+    {
         var message_json = JSON.parse(event.data);
-    } catch (e) {
-        if (e instanceof SyntaxError) {
-            app.setDebug("Error parsing incoming JSON: " + event.data);
-        } else {
-            app.setDebug("Unknown error parsing response: " + event.data);
-        }
+    } 
+    catch (e) 
+    {
+        setDebug("Error parsing incoming JSON: " + event.data);
         return;
     }
 
-
-
-
-    /**
-     * initialize webrtc connection after receive sdp offer
-     */
-    if(app.Webrtc == null)
-    {
-        WebrtcConnect();
-    }
-
-    /**
-     * webrtc instance has been established, now come to negotiation
-     */
     if(message_json.RequestType === "OFFER_SDP")
     {
-        app.setDebug("[SDP RECEIVED]"+JSON.stringify(message_json.Content));
+        WebrtcConnect();
         onIncomingSDP(JSON.parse(message_json.Content).sdp);
     }
     else if(message_json.RequestType === "OFFER_ICE")
     {
-        app.setDebug("[ICE RECEIVED]"+message_json.Content);
         onIncomingICE(JSON.parse(message_json.Content).ice);
-    }   
-    else
-    {
-        /**
-         * emit error if request type is not either OFFER ICE or SDP
-         */
-        app.setError("unknown message", event.data);
-    } 
-    
+    }
 }
 
-/**
- * Fired whenever the signalling websocket is closed.
- * Reconnects after 1 second.
- */
-function    
-onServerClose() {
-    app.signalling_state = 'disconnected';
-}
 
 /**
  * Initiates the connection to the signalling server.
  */
-function
+export function
 SignallingConnect() 
 {
-    app.signalling_state = 'connecting';
-    app.setStatus("Connecting to server.");
+    SignallingHub.state = 'connecting';
+    SignallingHub.WebSocketConnection = new WebSocket(APP.signalling_hub_get_connection_string());
 
-    app.Websocket = new WebSocket(app.SignallingUrl+"?token="+app.remoteToken);
-
-    // Bind event handlers.
-    app.Websocket.addEventListener('open', onServerOpen);
-    app.Websocket.addEventListener('error', onServerError);
-    app.Websocket.addEventListener('message', onServerMessage);
-    app.Websocket.addEventListener('close', onServerClose);
+    SignallingHub.WebSocketConnection.addEventListener('open', onServerOpen);
+    SignallingHub.WebSocketConnection.addEventListener('error', onServerError);
+    SignallingHub.WebSocketConnection.addEventListener('message', onServerMessage);
+    SignallingHub.WebSocketConnection.addEventListener('close', onServerClose);
 }
-
-
