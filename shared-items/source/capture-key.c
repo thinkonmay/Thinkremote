@@ -409,10 +409,8 @@ handle_user_shortcut()
         input.opcode = shortcut.opcode;
         parse_hid_event(&input);
 
-        if(shortcut.function && shortcut.data)
+        if(shortcut.function)
             shortcut.function(shortcut.data);
-        else if (shortcut.function)
-            shortcut.function(NULL);
 
         return TRUE;
 ignore:
@@ -427,19 +425,17 @@ void
 trigger_hotkey_by_opcode(ShortcutOpcode opcode)
 {
     gint i = 0;
+    HidInput input = {0};
+    input.opcode = opcode;
+    parse_hid_event(&input);
+
     while(HID_handler.shortcuts[i].active)
     {
         Shortcut shortcut = HID_handler.shortcuts[i];
         if(shortcut.opcode == opcode)
         {
-            HidInput input = {0};
-            input.opcode = opcode;
-            parse_hid_event(&input);
-
-            if(shortcut.function && shortcut.data)
+            if(shortcut.function)
                 shortcut.function(shortcut.data);
-            else if (shortcut.function)
-                shortcut.function(NULL);
         }
         i++;
     }

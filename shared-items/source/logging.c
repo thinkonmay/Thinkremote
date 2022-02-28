@@ -22,7 +22,7 @@
 
 #define IP "https://api.ipify.org?format=string"
 
-static gchar source[20] = {0};
+static gchar source[200] = {0};
 
 void 
 ip_message_callback(GObject *source_object,

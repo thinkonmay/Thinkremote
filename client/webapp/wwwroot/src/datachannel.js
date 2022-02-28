@@ -2,8 +2,6 @@ var WebRTCDataChannel=
 {
     HID: null,
     Control: null,
-    shortcuts: [],
-    
 }
 
 

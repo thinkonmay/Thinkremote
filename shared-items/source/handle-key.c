@@ -80,6 +80,7 @@ activate_hid_handler(GstElement* capture,
     HID_handler.capture = capture;
     HID_handler.relative_mouse = TRUE;
     
+    add_new_shortcut_to_list(shortcuts,NULL,FULLSCREEN,         reset_session_key,NULL);
     add_new_shortcut_to_list(shortcuts,NULL,RELOAD_STREAM,      reset_session_key,NULL);
     add_new_shortcut_to_list(shortcuts,NULL,RESET_KEY,          reset_session_key,NULL);
     add_new_shortcut_to_list(shortcuts,NULL,RELATIVE_MOUSE_ON,  set_relative_mouse,GINT_TO_POINTER(TRUE));
@@ -156,10 +157,8 @@ handle_shortcut(HIDHandler* handler,
             g_string_append(string,buffer);
             worker_log_output(g_string_free(string,FALSE));
 
-            if(shortcut.function && shortcut.data)
+            if(shortcut.function)
                 shortcut.function(shortcut.data);
-            else if (shortcut.function)
-                shortcut.function(NULL);
 
             return TRUE;
         }
@@ -437,26 +436,22 @@ _keydown(int *key)
 static void
 reset_session_key(gpointer data)
 {
-    if(DEVELOPMENT_ENVIRONMENT)
-        return;
-
-
     gint i = 0;
-    while (!reset_mouse_array[i])
+    while (reset_mouse_array[i])
     {
         if(_keydown(reset_mouse_virtual_code[i]))
         {
             INPUT window_input;
             memset(&window_input,0,sizeof(INPUT));
             window_input.type = INPUT_MOUSE;
-            window_input.mi.dwFlags = reset_mouse_array[i];
+            window_input.mi.dwFlags = convert_mouse_code(reset_mouse_array[i]);
             SendInput(1, &window_input, sizeof(window_input));
         }
         i++;
     }
 
     i = 0;
-    while (!reset_key_array[i])
+    while (reset_key_array[i])
     {
         if(_keydown(reset_key_array[i]))
         {

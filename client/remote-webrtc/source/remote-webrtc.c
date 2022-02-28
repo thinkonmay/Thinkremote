@@ -229,7 +229,6 @@ remote_app_initialize(gchar* remote_token)
 void
 remote_app_reset(RemoteApp* self)
 {
-	trigger_hotkey_by_opcode(EXIT);
 	stop_to_ping(self->hub);
 	signalling_close(self->signalling);
 	signalling_connect(self);

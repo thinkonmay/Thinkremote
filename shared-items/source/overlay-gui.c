@@ -137,12 +137,23 @@ static GUI _gui = {0};
 gboolean
 is_hover_window()
 {
+    if(_gui.fullscreen)
+        return TRUE;
+        
     POINT pos;
     GetCursorPos(&pos);
-    return((pos.x < _gui.window_position.right) &&
-           (pos.x > _gui.window_position.left) &&
-           (pos.y > ( _gui.window_position.top + BORDER_SIZE) ) &&
-           (pos.y < _gui.window_position.bottom));
+    gboolean result = 
+    (pos.x < _gui.window_position.right) &&
+    (pos.x > _gui.window_position.left) &&
+    (pos.y > ( _gui.window_position.top + BORDER_SIZE) ) &&
+    (pos.y < _gui.window_position.bottom);
+
+    static gboolean previous_state;
+    if(result != previous_state)
+        trigger_hotkey_by_opcode(RESET_KEY);
+
+    previous_state = result;
+    return(result);
 }
 
 static void
@@ -155,7 +166,7 @@ add_gui_shortcuts(Shortcut* shortcuts)
     key_list[3] = VK_MENU;
 
 	add_new_shortcut_to_list(shortcuts,key_list,
-        RELOAD_STREAM,handle_fullscreen_hotkey,&_gui);
+        FULLSCREEN,handle_fullscreen_hotkey,&_gui);
 }
 
 GUI*
@@ -167,7 +178,7 @@ init_remote_app_gui(gpointer app,
     add_gui_shortcuts(shortcuts);
     gui->handler = init_input_capture_system(handler,shortcuts,app);
     gui->app = app;
-    gui->window_position = (RECT){0,0,1920,1080};
+    gui->window_position = (RECT){0,0,1280,720};
     set_up_window(gui);
     return gui;
 }
@@ -308,7 +319,6 @@ bus_msg (GstBus * bus,
 void
 adjust_window_size(GUI* gui)
 {
-
     /* Restore the window's attributes and size */
     RECT stream;
     get_remote_resolution(gui,&stream);
@@ -316,6 +326,8 @@ adjust_window_size(GUI* gui)
 
     RECT rect;
     GetWindowRect(gui->window,&rect);
+
+
     rect.top = rect.top - BORDER_SIZE;
 
     gint width = rect.right - rect.left;
@@ -342,14 +354,22 @@ adjust_window_size(GUI* gui)
     if(gui->fullscreen)
         return;
 
+    RECT fullscreen_rect;
+    get_monitor_size(&fullscreen_rect, gui->window);
+    if(
+       ((fullscreen_rect.bottom  - new_height) < 10) &&
+       ((fullscreen_rect.right   - new_width) < 10))
+    {
+       trigger_hotkey_by_opcode(FULLSCREEN);
+       return;
+    }
+
     MoveWindow(gui->window, 
                 gui->window_position.left,
                 gui->window_position.top + BORDER_SIZE,
                 new_width,
                 new_height, 
                 NULL);
-
-
 }
 
 
