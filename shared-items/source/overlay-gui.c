@@ -24,6 +24,7 @@
 #include <gst/video/videooverlay.h>
 #include <gst/video/gstvideosink.h>
 
+#define BORDER_SIZE   30
 
 
 
@@ -140,7 +141,7 @@ is_hover_window()
     GetCursorPos(&pos);
     return((pos.x < _gui.window_position.right) &&
            (pos.x > _gui.window_position.left) &&
-           (pos.y > _gui.window_position.top) &&
+           (pos.y > ( _gui.window_position.top + BORDER_SIZE) ) &&
            (pos.y < _gui.window_position.bottom));
 }
 
@@ -303,11 +304,11 @@ bus_msg (GstBus * bus,
 }
 
 
-#define BORDER_SIZE 30
 
 void
 adjust_window_size(GUI* gui)
 {
+
     /* Restore the window's attributes and size */
     RECT stream;
     get_remote_resolution(gui,&stream);
@@ -338,7 +339,8 @@ adjust_window_size(GUI* gui)
     gui->window_position.top    = center.y - (new_height / 2);
     gui->window_position.bottom = center.y + (new_height / 2);
 
-
+    if(gui->fullscreen)
+        return;
 
     MoveWindow(gui->window, 
                 gui->window_position.left,
@@ -417,19 +419,13 @@ get_monitor_size(RECT *rect,
 void 
 switch_fullscreen_mode(GUI* gui)
 {
-    static LONG prev_style;
+    static glong style; 
     if (gui->fullscreen)
     {
-        /* Restore the window's attributes and size */
-        SetWindowLong(gui->window, GWL_STYLE, prev_style);
+        /* show window before change style */
+        ShowWindow(gui->window, SW_SHOW);
 
-        SetWindowPos(gui->window, HWND_NOTOPMOST,
-                    gui->window_position.left,
-                    gui->window_position.top,
-                    gui->window_position.left,
-                    gui->window_position.top, 
-                    SWP_FRAMECHANGED | SWP_NOACTIVATE);
-
+        SetWindowLong(gui->window, GWL_STYLE, style);
         adjust_window_size(gui);
         ShowWindow(gui->window, SW_NORMAL);
     }
@@ -438,13 +434,14 @@ switch_fullscreen_mode(GUI* gui)
         /* show window before change style */
         ShowWindow(gui->window, SW_SHOW);
 
-        /* Make the window borderless so that the client area can fill the screen */
-        SetWindowLong(gui->window, GWL_STYLE, prev_style &
-                ~(WS_CAPTION | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_SYSMENU | WS_THICKFRAME));
-
         RECT fullscreen_rect;
         if (!get_monitor_size(&fullscreen_rect, gui->window))
             return;
+
+        style = GetWindowLong(gui->window, GWL_STYLE);
+        SetWindowLong(gui->window, GWL_STYLE, style &
+                          ~(WS_CAPTION | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_SYSMENU |
+                            WS_THICKFRAME));
 
         SetWindowPos(gui->window, HWND_NOTOPMOST,
                     fullscreen_rect.left,
@@ -476,8 +473,6 @@ void
 handle_fullscreen_hotkey(GUI* gui)
 {
     switch_fullscreen_mode(gui);
-    toggle_client_cursor(gui);
-    toggle_input_capture(gui->handler);
 }
 
 
@@ -545,9 +540,15 @@ window_proc(HWND hWnd,
 }
 
 
+#define CLIENT_CURSOR_OFFSET 0
+
 void
 gui_set_cursor_position(JsonObject* object)
 {
+    if(!is_hover_window())
+        return;
+
+
     GUI* gui = &_gui;
 
     gint x = json_object_get_int_member(object,"X");
@@ -555,17 +556,14 @@ gui_set_cursor_position(JsonObject* object)
 
     POINT _position = {x,y};
     POINT* position = &_position;
-    position->x = position->x / gui->scale_ratio;
-    position->y = position->y / gui->scale_ratio;
+    position->x = position->x * gui->scale_ratio;
+    position->y = position->y * gui->scale_ratio;
 
+    position->x = position->x + CLIENT_CURSOR_OFFSET;
+    position->y = position->y + CLIENT_CURSOR_OFFSET;
 
-    if(DEVELOPMENT_ENVIRONMENT)
-        g_print("Mouse position %d , %d\n",position->x,position->y);
-    else
-    {
-        ClientToScreen(gui->window,position);
-        SetCursorPos(position->x,position->y);
-    }
+    ClientToScreen(gui->window,position);
+    SetCursorPos(position->x,position->y);
 }
 
 

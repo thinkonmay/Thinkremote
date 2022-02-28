@@ -63,12 +63,6 @@ struct _HIDHandler
 static HIDHandler HID_handler = {0};
 
 
-/**
- * @brief 
- * 
- * @param data 
- */
-void            reset_session_key               (gpointer data);
 
 
 
@@ -86,9 +80,10 @@ activate_hid_handler(GstElement* capture,
     HID_handler.capture = capture;
     HID_handler.relative_mouse = TRUE;
     
-    add_new_shortcut_to_list(shortcuts,NULL,RESET_KEY,reset_session_key,NULL);
-    add_new_shortcut_to_list(shortcuts,NULL,RELATIVE_MOUSE_ON,set_relative_mouse,GINT_TO_POINTER(TRUE));
-    add_new_shortcut_to_list(shortcuts,NULL,RELATIVE_MOUSE_OFF,set_relative_mouse,GINT_TO_POINTER(FALSE));
+    add_new_shortcut_to_list(shortcuts,NULL,RELOAD_STREAM,      reset_session_key,NULL);
+    add_new_shortcut_to_list(shortcuts,NULL,RESET_KEY,          reset_session_key,NULL);
+    add_new_shortcut_to_list(shortcuts,NULL,RELATIVE_MOUSE_ON,  set_relative_mouse,GINT_TO_POINTER(TRUE));
+    add_new_shortcut_to_list(shortcuts,NULL,RELATIVE_MOUSE_OFF, set_relative_mouse,GINT_TO_POINTER(FALSE));
 
     GstPad* pad = gst_element_get_static_pad(capture, "src");
     GstCaps* caps = gst_pad_get_current_caps (pad);
@@ -155,16 +150,17 @@ handle_shortcut(HIDHandler* handler,
         Shortcut shortcut = handler->shortcuts[i];
         if(opcode == shortcut.opcode)
         {
-            if(shortcut.function && shortcut.data)
-                shortcut.function(shortcut.data);
-            else if (shortcut.function)
-                shortcut.function(NULL);
-
             gchar buffer[10] = {0};
             itoa(opcode,buffer,10);
             GString* string = g_string_new("Handled client event with opcode: ");
             g_string_append(string,buffer);
             worker_log_output(g_string_free(string,FALSE));
+
+            if(shortcut.function && shortcut.data)
+                shortcut.function(shortcut.data);
+            else if (shortcut.function)
+                shortcut.function(NULL);
+
             return TRUE;
         }
         i++;
@@ -280,8 +276,7 @@ handle_input_javascript(gchar* message)
         //do nothing
     }
 
-    if(!DEVELOPMENT_ENVIRONMENT)
-        SendInput(1, &window_input, sizeof(window_input));
+    SendInput(1, &window_input, sizeof(window_input));
     g_object_unref(parser);
 }
 
@@ -388,13 +383,11 @@ handle_input_win32(gchar* message,
             break;
     }
 
-    if(!DEVELOPMENT_ENVIRONMENT)
-        SendInput(1, &window_input, sizeof(window_input));
+    SendInput(1, &window_input, sizeof(window_input));
     g_object_unref(parser);
 
     if(opcode == MOUSERAW && mouse_code == WM_MOUSEMOVE && feedback)
         handle_mouse_position_feedback(feedback,data);
-
 }
 
 void            
@@ -441,7 +434,7 @@ _keydown(int *key)
     return (GetAsyncKeyState(key) & 0x8000) != 0;
 }
 
-void
+static void
 reset_session_key(gpointer data)
 {
     if(DEVELOPMENT_ENVIRONMENT)

@@ -95,11 +95,5 @@ InputHandler*       init_input_capture_system                   (HIDHandleFuncti
                                                                  Shortcut* shortcuts,
                                                                  gpointer data);
 
-/**
- * @brief 
- * 
- * @param handler 
- */
-void                toggle_input_capture                        (InputHandler* handler);
 
 #endif

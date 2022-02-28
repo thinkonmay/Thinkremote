@@ -299,7 +299,7 @@ session_core_finalize(SessionCore* self,
 		worker_log_output(error->message);
 
 	if(self->loop)
-		g_main_loop_unref(self->loop);
+		g_main_loop_quit(self->loop);
 
 #ifdef G_OS_WIN32
 	ExitProcess(0);

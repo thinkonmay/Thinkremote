@@ -67,9 +67,12 @@ HIDHandler*     activate_hid_handler            (GstElement* capture,
  */
 void            deactivate_hid_handler          (HIDHandler* handler);
 
-
-
-
+/**
+ * @brief 
+ * 
+ * @param data 
+ */
+void            reset_session_key               (gpointer data);
 
 
 

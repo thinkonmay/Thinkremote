@@ -179,16 +179,19 @@ start_pipeline(SessionCore* core)
     Shortcut* shortcuts = shortcut_list_initialize(10);
 
     add_new_shortcut_to_list(shortcuts,NULL,
-            WORKER_POINTER_ON,toggle_pointer_on,
+            WORKER_POINTER_ON,(ShortcutHandleFunction)toggle_pointer_on,
             pipe->video_element[SCREEN_CAPTURE]);
 
     add_new_shortcut_to_list(shortcuts,NULL,
-            WORKER_POINTER_OFF,toggle_pointer_off,
+            WORKER_POINTER_OFF,(ShortcutHandleFunction)toggle_pointer_off,
             pipe->video_element[SCREEN_CAPTURE]);
+
+    add_new_shortcut_to_list(shortcuts,NULL,
+            EXIT,(ShortcutHandleFunction)session_core_finalize,
+            core);
 
     pipe->handler = activate_hid_handler(pipe->video_element[SCREEN_CAPTURE],shortcuts);
 	shortcut_list_free(shortcuts);
-
 
 	start_qos_thread(core);
     return TRUE;

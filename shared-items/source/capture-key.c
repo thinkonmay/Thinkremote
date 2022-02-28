@@ -205,6 +205,9 @@ static void
 handle_window_keyboard(RAWKEYBOARD input,
                         HidInput* navigation)
 {
+    if(handle_user_shortcut())
+        return;
+
     navigation->opcode = KEYRAW;
     navigation->key_is_up = input.Flags;
     navigation->keyboard_code = input.VKey;
@@ -232,9 +235,6 @@ handle_message_window_proc(HWND hwnd,
                             WPARAM wParam, 
                             LPARAM lParam)
 {
-    if(handle_user_shortcut())
-        return;
-
     HidInput navigation = {0};
 
     guint dwSize;
@@ -301,7 +301,7 @@ void
 handle_window_wheel(gint isup)
 {
     HidInput navigation = {0};
-    navigation.opcode    = MOUSE_WHEEL;
+    navigation.opcode    = MOUSEWHEEL;
     navigation.wheel_dY  = isup ? 120 : -120;
 
     parse_hid_event(&navigation);
@@ -369,7 +369,7 @@ parse_hid_event(HidInput* input)
         case MOUSERAW:
             send_mouse_signal(input);
             break;
-        case MOUSE_WHEEL:
+        case MOUSEWHEEL:
             send_mouse_wheel_signal(input);
             break;
         case KEYRAW:
@@ -405,15 +405,15 @@ handle_user_shortcut()
             }
             k++;
         }
+        HidInput input = {0};
+        input.opcode = shortcut.opcode;
+        parse_hid_event(&input);
 
         if(shortcut.function && shortcut.data)
             shortcut.function(shortcut.data);
         else if (shortcut.function)
             shortcut.function(NULL);
 
-        HidInput input = {0};
-        input.opcode = shortcut.opcode;
-        parse_hid_event(&input);
         return TRUE;
 ignore:
         i++;
@@ -432,6 +432,10 @@ trigger_hotkey_by_opcode(ShortcutOpcode opcode)
         Shortcut shortcut = HID_handler.shortcuts[i];
         if(shortcut.opcode == opcode)
         {
+            HidInput input = {0};
+            input.opcode = opcode;
+            parse_hid_event(&input);
+
             if(shortcut.function && shortcut.data)
                 shortcut.function(shortcut.data);
             else if (shortcut.function)
@@ -439,10 +443,6 @@ trigger_hotkey_by_opcode(ShortcutOpcode opcode)
         }
         i++;
     }
-
-    HidInput input = {0};
-    input.opcode = opcode;
-    parse_hid_event(&input);
 }
 
 void                
