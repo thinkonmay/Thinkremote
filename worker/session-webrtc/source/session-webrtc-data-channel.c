@@ -99,6 +99,16 @@ hid_channel_on_message_data(GObject* datachannel,
 }
 
 
+void
+send_hid_message(SessionCore* core,
+                 gchar* message)
+{
+    WebRTCHub* hub = session_core_get_rtc_hub(core);
+    g_signal_emit_by_name(hub->hid,"send-string",message,NULL);
+}
+
+
+
 /**
  * @brief 
  * handle message from hid datachannel and send to window
@@ -113,10 +123,10 @@ hid_channel_on_message_string(GObject* dc,
 {
     WebRTCHub* hub = session_core_get_rtc_hub(core);
 
-    if(hub->device == WEB_APP)
+    if(hub->device == WEB_APP && hub->engine == CHROME)
         handle_input_javascript(message);
     else if(hub->engine == GSTREAMER && hub->device == WINDOW_APP)
-        handle_input_win32(message);
+        handle_input_win32(message,(MousePositionFeedbackFunc)send_hid_message,core);
 }
 
 
@@ -182,7 +192,6 @@ channel_on_close_and_error(GObject* dc,
 {
     return;
 }
-
 
 
 

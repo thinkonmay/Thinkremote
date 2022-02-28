@@ -160,8 +160,8 @@ on_hid_input(gchar* message,
 
     if(udp->device == WEB_APP && udp->engine == CHROME)
         handle_input_javascript(message);
-    if(udp->device == WINDOW_APP && udp->engine == GSTREAMER)
-        handle_input_win32(message);
+    else if(udp->device == WINDOW_APP && udp->engine == GSTREAMER)
+        handle_input_win32(message,(MousePositionFeedbackFunc)NULL,udp);
 }
 
 void

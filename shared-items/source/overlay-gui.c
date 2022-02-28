@@ -14,7 +14,10 @@
 #include <key-convert.h>
 #include <capture-key.h>
 #include <shortcut.h>
+#include <global-var.h>
+
 #include <logging.h>
+#include <json-handler.h>
 
 #include <glib-2.0/glib.h>
 #include <gst/gst.h>
@@ -80,6 +83,11 @@ struct _GUI
      */
     gboolean client_pointer;
 
+    /**
+     * @brief 
+     * 
+     */
+    gfloat scale_ratio;
 };
 
 
@@ -88,20 +96,20 @@ struct _GUI
  * 
  * @param gui 
  */
-void                        set_up_window           (GUI* gui);
+void                        set_up_window            (GUI* gui);
 
 /**
  * @brief 
  * 
  * @param gui 
  */
-void                        handle_fullscreen_hotkey(GUI* gui);
+void                        handle_fullscreen_hotkey (GUI* gui);
 
 /**
  * @brief 
  * 
  */
-void                        toggle_client_cursor                    ();
+void                        toggle_client_cursor     ();
 
 
 
@@ -295,7 +303,7 @@ bus_msg (GstBus * bus,
 }
 
 
-#define BORDER_SIZE 35
+#define BORDER_SIZE 30
 
 void
 adjust_window_size(GUI* gui)
@@ -307,6 +315,7 @@ adjust_window_size(GUI* gui)
 
     RECT rect;
     GetWindowRect(gui->window,&rect);
+    rect.top = rect.top - BORDER_SIZE;
 
     gint width = rect.right - rect.left;
     gint height = rect.bottom - rect.top;
@@ -318,6 +327,10 @@ adjust_window_size(GUI* gui)
 
     gint new_height = (stream_ratio > window_ratio) ? ( width  / stream_ratio ) : height;
     gint new_width  = (stream_ratio < window_ratio) ? ( height * stream_ratio ) : width;
+
+    new_height = new_height + BORDER_SIZE;
+
+    gui->scale_ratio = (gfloat)new_width / (gfloat)stream.right;
     
     gui->window_position.left =  center.x - (new_width / 2);
     gui->window_position.right = center.x + (new_width / 2);
@@ -325,11 +338,13 @@ adjust_window_size(GUI* gui)
     gui->window_position.top    = center.y - (new_height / 2);
     gui->window_position.bottom = center.y + (new_height / 2);
 
+
+
     MoveWindow(gui->window, 
                 gui->window_position.left,
-                gui->window_position.top,
+                gui->window_position.top + BORDER_SIZE,
                 new_width,
-                new_height+BORDER_SIZE, 
+                new_height, 
                 NULL);
 
 
@@ -354,6 +369,7 @@ setup_video_overlay(GUI* gui,
     ShowWindow (gui->window, SW_SHOW);
     gst_video_overlay_set_window_handle (GST_VIDEO_OVERLAY (videosink),
         (guintptr) gui->window);
+    toggle_input_capture(gui->handler);
 }
 
 
@@ -422,9 +438,6 @@ switch_fullscreen_mode(GUI* gui)
         /* show window before change style */
         ShowWindow(gui->window, SW_SHOW);
 
-        /* Save the old window rect so we can restore it when exiting
-        prev_style = GetWindowLong(gui->window, GWL_STYLE);
-
         /* Make the window borderless so that the client area can fill the screen */
         SetWindowLong(gui->window, GWL_STYLE, prev_style &
                 ~(WS_CAPTION | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_SYSMENU | WS_THICKFRAME));
@@ -489,7 +502,6 @@ void
 on_new_window_position(GUI* gui)
 {
     GetWindowRect(gui->window,&gui->window_position);
-
 }
 
 /**
@@ -528,12 +540,33 @@ window_proc(HWND hWnd,
 
     if (message == WM_MOVE)
         on_new_window_position(gui);
-        
 
     return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
 
+void
+gui_set_cursor_position(JsonObject* object)
+{
+    GUI* gui = &_gui;
+
+    gint x = json_object_get_int_member(object,"X");
+    gint y = json_object_get_int_member(object,"Y");
+
+    POINT _position = {x,y};
+    POINT* position = &_position;
+    position->x = position->x / gui->scale_ratio;
+    position->y = position->y / gui->scale_ratio;
+
+
+    if(DEVELOPMENT_ENVIRONMENT)
+        g_print("Mouse position %d , %d\n",position->x,position->y);
+    else
+    {
+        ClientToScreen(gui->window,position);
+        SetCursorPos(position->x,position->y);
+    }
+}
 
 
 void

@@ -42,6 +42,9 @@ struct _HIDHandler
      */
     gint screenheight;
 
+
+
+
     GstElement* capture;
 
     Shortcut shortcuts[20];
@@ -53,6 +56,8 @@ struct _HIDHandler
      * true if mouse movement is relative
      */
     gboolean relative_mouse;
+
+
 };
 
 static HIDHandler HID_handler = {0};
@@ -317,16 +322,32 @@ convert_mouse_code(gint input)
     }
 }
 
-void
-feedback_mouse_position()
-{
-    // GetCursorPos()
 
+/**
+ * @brief 
+ * 
+ * @param function 
+ * @param data 
+ */
+void
+handle_mouse_position_feedback(MousePositionFeedbackFunc function,
+                               gpointer data)
+{
+    POINT position;
+    GetCursorPos(&position);
+
+    JsonObject* object = json_object_new();
+    json_object_set_int_member(object,"X",position.x);
+    json_object_set_int_member(object,"Y",position.y);
+    json_object_set_int_member(object,"Opcode",MOUSE_POSITION_FEEDBACK);
+    function(data,get_string_from_json_object(object));
 }
 
 
-void
-handle_input_win32(gchar* message)
+void            
+handle_input_win32(gchar* message,
+                  MousePositionFeedbackFunc feedback,
+                  gpointer data)
 {
     JsonParser* parser = json_parser_new();
     JsonObject* object = get_json_object_from_string(message,NULL,parser);
@@ -371,7 +392,9 @@ handle_input_win32(gchar* message)
         SendInput(1, &window_input, sizeof(window_input));
     g_object_unref(parser);
 
-    // if(opcode == MOUSERAW && mouse_code == WM_MOUSEMOVE)
+    if(opcode == MOUSERAW && mouse_code == WM_MOUSEMOVE && feedback)
+        handle_mouse_position_feedback(feedback,data);
+
 }
 
 void            

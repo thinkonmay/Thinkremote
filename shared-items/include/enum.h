@@ -18,7 +18,7 @@
  */
 typedef enum
 {
-	KEYUP,
+	KEYUP = 100,
 	KEYDOWN,
 
 	MOUSE_WHEEL,
@@ -29,7 +29,7 @@ typedef enum
 
 typedef enum
 {
-	WORKER_POINTER_OFF= 100,
+	WORKER_POINTER_OFF = 200,
 	WORKER_POINTER_ON,
 
 	RELATIVE_MOUSE_ON,
@@ -46,7 +46,7 @@ typedef enum
 
 typedef enum
 {
-	KEYRAW = 200,
+	KEYRAW = 300,
 	MOUSERAW,
 
 	MOUSEWHEEL,

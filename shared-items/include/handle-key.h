@@ -17,12 +17,18 @@
 
 typedef struct  _HIDHandler                     HIDHandler;
 
+typedef void    (*MousePositionFeedbackFunc)    (gpointer data,
+                                                 gchar* feedback);
+
+
 /**
  * @brief 
  * 
  * @param message 
  */
-void            handle_input_win32              (gchar* message);
+void            handle_input_win32              (gchar* message,
+                                                 MousePositionFeedbackFunc feedback,
+                                                 gpointer data);
 
 /**
  * @brief 

@@ -64,6 +64,10 @@ struct _InputHandler
      */
     POINT previous_cursor_position;
 
+    /**
+     * @brief 
+     * 
+     */
     gboolean enable;
 };
 
@@ -218,7 +222,6 @@ handle_window_mouse_move(RAWMOUSE input,
     navigation->mouse_code = WM_MOUSEMOVE;
     navigation->delta_x = input.lLastX;
     navigation->delta_y = input.lLastY;
-    g_print("%f  %f \n",navigation->delta_x,navigation->delta_y);
 }
 
 
@@ -250,8 +253,11 @@ handle_message_window_proc(HWND hwnd,
         (raw_input->data.mouse.lLastX || raw_input->data.mouse.lLastY))
         handle_window_mouse_move(raw_input->data.mouse,&navigation,hwnd);
 
-    parse_hid_event(&navigation);
+    if (navigation.opcode > 100)
+        parse_hid_event(&navigation);
 }
+
+
 
 /**
  * @brief 
@@ -278,7 +284,7 @@ center_mouse_position(HWND window)
 void
 handle_mouse_button(gint mouse_code)
 {
-    if(!HID_handler.enable || mouse_code == MOUSE_MOVE)
+    if(mouse_code == MOUSE_MOVE)
         return;
 
     HidInput navigation = {0};

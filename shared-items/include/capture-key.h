@@ -72,6 +72,12 @@ void                handle_message_window_proc                  (HWND hwnd,
 void                trigger_hotkey_by_opcode                    (ShortcutOpcode opcode);
 
 
+/**
+ * @brief 
+ * 
+ * @param handler 
+ */
+void                toggle_input_capture                        (InputHandler* handler);
 
 
 

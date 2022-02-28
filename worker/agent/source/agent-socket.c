@@ -89,20 +89,16 @@ register_with_managed_cluster(AgentServer* agent,
     {
         g_printerr("Fail to register device\n");
         agent_finalize(agent);
-        return;
     }
-    else
-    {
-        GError* error = NULL;
-        JsonParser* parser = json_parser_new();
-        JsonObject* json = get_json_object_from_string(soupMessage->response_body->data,&error,parser);
-        gchar* token = json_object_get_string_member(json,"token");
-        update_device_token(token);
-        g_object_unref(parser); 
 
-        g_print("Worker is registered...\n");
-        return FALSE; 
-    }
+    GError* error = NULL;
+    JsonParser* parser = json_parser_new();
+    JsonObject* json = get_json_object_from_string(soupMessage->response_body->data,&error,parser);
+    gchar* device_token = json_object_get_string_member(json,"token");
+    update_device_token(device_token);
+    g_object_unref(parser); 
+
+    g_print("Worker is registered...\n");
 }
 
 

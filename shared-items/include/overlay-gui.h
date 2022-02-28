@@ -13,6 +13,7 @@
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>
 #include <capture-key.h>
+#include <json-handler.h>
 
 
 
@@ -63,5 +64,12 @@ gpointer            setup_video_overlay                     (GUI* gui,
  * @return gboolean 
  */
 gboolean            is_hover_window                         ();
+
+/**
+ * @brief 
+ * 
+ * @param object 
+ */
+void                gui_set_cursor_position                 (JsonObject* object);
 
 #endif

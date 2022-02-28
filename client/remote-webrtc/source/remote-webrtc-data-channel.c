@@ -1,3 +1,13 @@
+/**
+ * @file remote-webrtc-data-channel.c
+ * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
+ * @brief 
+ * @version 1.0
+ * @date 2022-02-28
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #include <remote-webrtc-data-channel.h>
 #include <remote-webrtc.h>
 #include <remote-webrtc-type.h>
@@ -110,10 +120,7 @@ hid_data_channel_send(gchar* message,
                       RemoteApp* app)
 {
     WebRTCHub* hub = remote_app_get_rtc_hub(app);
-
     g_signal_emit_by_name(hub->hid,"send-string",message,NULL);
-    if(DEVELOPMENT_ENVIRONMENT) 
-        g_print("%s\n",message);
 }
 
 
@@ -147,7 +154,15 @@ hid_channel_on_message_string(GObject* dc,
     gchar* message,
     RemoteApp* core)
 {
-    return;
+    JsonParser* parser = json_parser_new();
+    JsonObject* object = get_json_object_from_string(message,NULL,parser);
+
+    ShortcutOpcode opcode = json_object_get_int_member(object,"Opcode");
+
+    if(opcode == MOUSE_POSITION_FEEDBACK)
+        gui_set_cursor_position(object);
+    
+    g_object_unref(parser);
 }
 
 /**
