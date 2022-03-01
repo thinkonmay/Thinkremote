@@ -48,7 +48,7 @@ struct _ChildProcess
 
     GThread* statehdl;
 
-    gchar process_name[100];
+    gchar process_name[1000];
 
     gboolean completed;
     gpointer data;

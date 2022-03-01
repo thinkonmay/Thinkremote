@@ -1,4 +1,5 @@
 import { clientLog, setDebug } from "./app.js";
+import { turnOffLoaddingScreen } from "./GUI.js";
 import { getRTCConnection } from "./webrtc.js";
 
 /*
@@ -164,6 +165,7 @@ startCollectingStat()
 
             StreamMetric.AudioBitrate = Math.round((parseInt(stats.audiobytesReceived) - audiobytesReceivedStart) / (now - statsStart));
             audiobytesReceivedStart = parseInt(stats.audiobytesReceived);
+
 
 
             /**

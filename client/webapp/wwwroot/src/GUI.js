@@ -44,10 +44,16 @@ export function enterFullscreen() {
 export function onRemoteTrack(event) {
     if (GUI.VideoElement.srcObject !== event.streams[0]) {
         GUI.VideoElement.srcObject = event.streams[0];
-        GUI.LoadingElement.innerHTML= "";
+        turnOffLoaddingScreen();
         console.log('Incoming stream');
     }
 }
+
+export function turnOffLoaddingScreen()
+{
+    GUI.LoadingElement.innerHTML= "";
+}
+
 
 export const getVideoElement = () =>{
     return GUI.VideoElement;
