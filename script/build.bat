@@ -1,5 +1,5 @@
 rmdir bin
-dotnet build worker/port-forward --output "bin"
+dotnet build worker/port-forward --output "bin" 
 dotnet build signalling --output "bin"
 call "C:\Program Files\Microsoft Visual Studio\2022\Preview\VC\Auxiliary\Build\vcvarsall.bat" amd64_x86
 cd build

@@ -1,5 +1,7 @@
-import { setDebug } from "./app";
-import { onRemoteTrack } from "./GUI";
+import { setDebug } from "./app.js";
+import { ondatachannel } from "./datachannel.js";
+import { onRemoteTrack } from "./GUI.js";
+import { startCollectingStat } from "./quality-track.js";
 import { SignallingSend } from "./signalling.js"
 
 var RemotePipeline = 
@@ -60,58 +62,17 @@ onIncomingSDP(sdp)
  *
  * @param {RTCSessionDescription} local_sdp
  */
-export function 
+function 
 onLocalDescription(desc) {
     RemotePipeline.RTCPeerConnection.setLocalDescription(desc).then(function() {
-        sdp = {'sdp': app.Webrtc.localDescription}
-    
+        var sdp = {'sdp': RemotePipeline.RTCPeerConnection.localDescription}
         SignallingSend("OFFER_SDP",JSON.stringify(sdp));
     });
 }
 
 
 
-
-
-
-    
-
-
-/**
- * Control data channel has been estalished, 
- * start report stream stats to slave
- * @param {Event} event 
- */
-function 
-onControlDataChannel(event)
-{
-    app.ControlDC = event.channel;
-    app.ControlDC.onmessage = (event =>{
-        if(event.data == "ping") {
-            app.ControlDC.send("ping");
-        }
-    });
-}
-
 function
-onHidDataChannel(event)
-{
-    app.HidDC = event.channel;
-    connectionDone();
-}
-
-function
-ondatachannel(event)
-{
-    if(event.channel.label === "HID"){
-        onHidDataChannel(event);
-    }else if(event.channel.label === "Control"){
-        onControlDataChannel(event);
-    }
-}
-
-
-export function
 onICECandidates(event)
 {
     if (event.candidate == null) 
@@ -120,7 +81,9 @@ onICECandidates(event)
         return;
     }
 
-    SignallingSend("OFFER_ICE",JSON.stringify({'ice': event.candidate}));
+    SignallingSend("OFFER_ICE",JSON.stringify({
+        'ice': event.candidate
+    }));
 }
 
 /**
@@ -128,15 +91,22 @@ onICECandidates(event)
  * invoke after request sdp signal has been replied
  */
 export function 
-WebrtcConnect() 
+WebrtcConnect(RTCconfig) 
 {
     RemotePipeline.State             = null;
     RemotePipeline.RTCPeerConnection = null;
 
-    var config = app.RTPconfig;
-    RemotePipeline.RTCPeerConnection = new RTCPeerConnection(config);
+    RemotePipeline.RTCPeerConnection = new RTCPeerConnection(RTCconfig);
 
     RemotePipeline.RTCPeerConnection.ondatachannel =  ondatachannel;    
     RemotePipeline.RTCPeerConnection.ontrack =        onRemoteTrack;
     RemotePipeline.RTCPeerConnection.onicecandidate = onICECandidates;
+
+    startCollectingStat();
+}
+
+export const
+getRTCConnection = () => 
+{
+    return RemotePipeline.RTCPeerConnection;
 }

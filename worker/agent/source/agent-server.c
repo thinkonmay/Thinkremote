@@ -109,8 +109,8 @@ development_agent(AgentServer* agent)
 	gchar* signalling_url = g_string_free(string,FALSE);
 
 	SetEnvironmentVariable("SIGNALLING",TEXT(handshake));
-	create_new_child_process(signalling_url, 										do_nothing, do_nothing, development_environment_quit, agent, NULL);
-	create_new_child_process("session-webrtc.exe 	--environment=development", 	do_nothing, do_nothing, development_environment_quit, agent, NULL);
+	create_new_child_process(signalling_url, 										do_nothing, do_nothing, do_nothing, agent, NULL);
+	create_new_child_process("session-webrtc.exe 	--environment=development", 	do_nothing, do_nothing, do_nothing, agent, NULL);
 	create_new_child_process("remote-webrtc.exe 	--environment=development", 	do_nothing, do_nothing, do_nothing, agent, NULL);
 }
 

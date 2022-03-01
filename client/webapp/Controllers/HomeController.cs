@@ -25,47 +25,46 @@ namespace remote.Controllers
         [Route("/Remote")]
         public async Task<IActionResult> Remote(string token)
         {
+            var signallingURL = Environment.GetEnvironmentVariable("SIGNALLING");
+
+            if (signallingURL != null)
+            {
+                var session = new SessionClient
+                {
+                    signallingurl =  signallingURL,
+                    turnip =         "turn:13.214.177.108:3478",
+                    turnuser =       "359549596",
+                    turnpassword =   "2000860796",
+                };
+
+                return View(new RemoteViewModel 
+                {
+                    token = "TestingClientModuleToken",
+                    icePolicy = "all",
+                    session = session
+                });
+            }
+
             try
             {
                 var domain = Environment.GetEnvironmentVariable("URL");
 
                 var result = JsonConvert.DeserializeObject<SessionClient>((
                     await (new RestClient().ExecuteAsync(
-                        new RestRequest($"https://{domain}/Session/Setting",Method.Get)
+                        new RestRequest($"https://{domain}/Session/Setting",Method.GET)
                         .AddQueryParameter("token",token)))).Content);
 
                 return View(new RemoteViewModel
                 { 
                     token = token,
-                    InforURL = $"https://{domain}/Session/Setting",
                     icePolicy = "all",
                     session = result
                 });
             }
             catch (Exception)
             {
-                
-                throw;
+                return BadRequest();
             }
-        }
-
-        [Route("/Development")]
-        public IActionResult Development(string ip, string port)
-        {
-            var session = new SessionClient
-            {
-                signallingurl = $"http://{ip}:{port}/Handshake",
-                turnip =         "turn:13.214.177.108:3478",
-                turnuser =       "359549596",
-                turnpassword =   "2000860796",
-                audiocodec = Codec.CODEC_H265,
-                videocodec = Codec.OPUS_ENC,
-            };
-            return View(new DevelopmentViewModel
-            {
-                icePolicy = "all",
-                session = session
-            });
         }
     }
 }

@@ -107,7 +107,7 @@ session_development_setup(SessionCore* self)
 				1920,
 				1080,
 				OPUS_ENC,
-				CODEC_H265,
+				CODEC_H264,
 				ULTRA_HIGH_CONST);
 }
 

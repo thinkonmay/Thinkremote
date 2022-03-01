@@ -45,6 +45,7 @@ function
 onServerError() 
 {
     SignallingHub.state = 'disconnected';
+    APP.reloadStream();
 }
 
 
@@ -56,29 +57,15 @@ onServerError()
 function   
 onServerMessage(event) 
 {
-
     if(event.data === "ping") 
         return;
 
-    try 
-    {
-        var message_json = JSON.parse(event.data);
-    } 
-    catch (e) 
-    {
-        setDebug("Error parsing incoming JSON: " + event.data);
-        return;
-    }
+    var message_json = JSON.parse(event.data);
 
     if(message_json.RequestType === "OFFER_SDP")
-    {
-        WebrtcConnect();
         onIncomingSDP(JSON.parse(message_json.Content).sdp);
-    }
     else if(message_json.RequestType === "OFFER_ICE")
-    {
         onIncomingICE(JSON.parse(message_json.Content).ice);
-    }
 }
 
 
@@ -89,10 +76,10 @@ export function
 SignallingConnect() 
 {
     SignallingHub.state = 'connecting';
-    SignallingHub.WebSocketConnection = new WebSocket(APP.signalling_hub_get_connection_string());
+    SignallingHub.WebSocketConnection = new WebSocket(APP.getSignallingConnectionString());
 
     SignallingHub.WebSocketConnection.addEventListener('open', onServerOpen);
     SignallingHub.WebSocketConnection.addEventListener('error', onServerError);
     SignallingHub.WebSocketConnection.addEventListener('message', onServerMessage);
-    SignallingHub.WebSocketConnection.addEventListener('close', onServerClose);
+    SignallingHub.WebSocketConnection.addEventListener('close', onServerError);
 }
