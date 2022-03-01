@@ -63,7 +63,10 @@ onServerMessage(event)
     var message_json = JSON.parse(event.data);
 
     if(message_json.RequestType === "OFFER_SDP")
+    {
+        WebrtcConnect();
         onIncomingSDP(JSON.parse(message_json.Content).sdp);
+    }
     else if(message_json.RequestType === "OFFER_ICE")
         onIncomingICE(JSON.parse(message_json.Content).ice);
 }

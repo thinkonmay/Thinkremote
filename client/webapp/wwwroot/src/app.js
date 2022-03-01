@@ -37,6 +37,5 @@ export const reloadStream = () =>{
 window.onload = function () 
 {
     initGUI();
-    WebrtcConnect();
     SignallingConnect();
 }

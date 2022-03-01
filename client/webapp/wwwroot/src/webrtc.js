@@ -20,7 +20,7 @@ var RemotePipeline =
  */
 export function 
 onIncomingICE(ice) {
-    setDebug("[ICE RECEIVED] "+ice);
+    setDebug("ICE RECEIVED : "+JSON.stringify(ice));
     var candidate = new RTCIceCandidate(ice);
     RemotePipeline.RTCPeerConnection.addIceCandidate(candidate)
     .catch((error) =>
@@ -40,7 +40,7 @@ onIncomingICE(ice) {
 export function 
 onIncomingSDP(sdp) 
 {
-    setDebug("[SDP RECEIVED] "+sdp);
+    setDebug("SDP RECEIVED : "+JSON.stringify(sdp));
     if (sdp.type != "offer")
         return;
 

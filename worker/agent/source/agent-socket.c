@@ -60,7 +60,7 @@ send_message_to_cluster(AgentServer* object,
     else
         soup_message_set_request(soupMessage,"application/json",SOUP_MEMORY_STATIC,"null",4);
 
-    soup_session_send_message(socket->session,soupMessage);
+    soup_session_send_async(socket->session,soupMessage,NULL,NULL,NULL);
 }
 
 

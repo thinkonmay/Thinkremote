@@ -32,9 +32,9 @@ namespace remote.Controllers
                 var session = new SessionClient
                 {
                     signallingurl =  signallingURL,
-                    turnip =         "turn:13.214.177.108:3478",
-                    turnuser =       "359549596",
-                    turnpassword =   "2000860796",
+                    turnip =         "turn:13.229.142.5:3478",
+                    turnuser =       "516352215",
+                    turnpassword =   "810139898",
                 };
 
                 return View(new RemoteViewModel 
