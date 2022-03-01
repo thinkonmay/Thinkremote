@@ -9,6 +9,7 @@ pkg_check_modules(JSON_GLIB REQUIRED json-glib-1.0)
 pkg_check_modules(LIBSOUP REQUIRED libsoup-2.4)
 pkg_check_modules(WEBRTC REQUIRED gstreamer-webrtc-1.0)
 pkg_check_modules(CONTROLLER REQUIRED gstreamer-controller-1.0)
+pkg_check_modules(VIDEO REQUIRED gstreamer-video-1.0)
 
 
 
@@ -16,7 +17,8 @@ pkg_check_modules(CONTROLLER REQUIRED gstreamer-controller-1.0)
 
 file(GLOB SOURCE_LIST 
 ${CMAKE_SOURCE_DIR}/worker/session-webrtc/source/*.c
-${CMAKE_SOURCE_DIR}/shared-items/source/*.c)
+${SHARED_SOURCE}
+)
 
 add_executable(session-webrtc ${SOURCE_LIST})
 
@@ -34,7 +36,9 @@ target_include_directories(session-webrtc PUBLIC
     ${GST_INCLUDE_DIRS}
     ${JSON_GLIB_INCLUDE_DIRS}
     ${WEBRTC_INCLUDE_DIRS}
-    ${CONTROLLER_INCLUDE_DIRS})
+    ${CONTROLLER_INCLUDE_DIRS}
+    ${VIDEO_INCLUDE_DIRS}
+)
 
 
 set_target_properties(session-webrtc PROPERTIES 
@@ -47,6 +51,7 @@ target_compile_options(session-webrtc PUBLIC ${SDP_CFLAGS})
 target_compile_options(session-webrtc PUBLIC ${GST_CFLAGS})
 target_compile_options(session-webrtc PUBLIC ${JSON_GLIB_CFLAGS})
 target_compile_options(session-webrtc PUBLIC ${WEBRTC_CFLAGS})
+target_compile_options(session-webrtc PUBLIC ${VIDEO_CFLAGS})
 target_compile_options(session-webrtc PUBLIC ${CONTROLLER_CFLAGS})
 
 target_link_directories(session-webrtc PUBLIC ${INCLUDE_LIBRARY} )    

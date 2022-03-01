@@ -9,7 +9,8 @@ pkg_check_modules(LIBSOUP REQUIRED libsoup-2.4)
 
 file(GLOB SOURCE 
 ${CMAKE_SOURCE_DIR}/worker/agent/source/*.c 
-${CMAKE_SOURCE_DIR}/shared-items/source/*.c)
+${SHARED_SOURCE}
+)
 
 list(FILTER SOURCE EXCLUDE REGEX ".capture-key.c")
 list(FILTER SOURCE EXCLUDE REGEX ".handle-key.c")

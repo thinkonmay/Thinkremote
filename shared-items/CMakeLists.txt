@@ -12,6 +12,7 @@ pkg_check_modules(LIBSOUP REQUIRED libsoup-2.4)
 
 file(GLOB SOURCE_LIST 
 ${CMAKE_SOURCE_DIR}/shared-items/source/*.c
+${CMAKE_SOURCE_DIR}/shared-items/window/*.c
 )
 
 add_library(shared-items ${SOURCE_LIST})
@@ -22,6 +23,7 @@ add_library(shared-items ${SOURCE_LIST})
 target_include_directories(shared-items 
 PUBLIC
     ${CMAKE_SOURCE_DIR}/shared-items/include
+    ${CMAKE_SOURCE_DIR}/shared-items/window
     ${LIBSOUP_INCLUDE_DIRS}
     ${GLIB_INCLUDE_DIRS} 
     ${GIO_INCLUDE_DIRS} 

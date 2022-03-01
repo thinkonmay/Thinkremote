@@ -19,7 +19,7 @@ endif()
 
 
 
-file(GLOB SOURCE_LIST ${CMAKE_SOURCE_DIR}/client/remote-udp/source/*.c)
+file(GLOB SOURCE_LIST ${CMAKE_SOURCE_DIR}/client/remote-udp/source/*.c ${SHARED_SOURCE})
 add_executable(remote-udp ${SOURCE_LIST} ${SHARED_SOURCE})
 
 

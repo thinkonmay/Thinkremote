@@ -18,8 +18,8 @@ else()
 endif()
 
 
-file(GLOB SOURCE_LIST ${CMAKE_SOURCE_DIR}/client/remote-webrtc/source/*.c)
-add_executable(remote-webrtc ${SOURCE_LIST} ${SHARED_SOURCE})
+file(GLOB SOURCE_LIST ${CMAKE_SOURCE_DIR}/client/remote-webrtc/source/*.c ${SHARED_SOURCE})
+add_executable(remote-webrtc ${SOURCE_LIST} )
 
 
 
