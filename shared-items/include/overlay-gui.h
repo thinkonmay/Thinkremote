@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2021
  * 
  */
-#ifndef __REMOTE_APP_GUI_H__
-#define __REMOTE_APP_GUI_H__
+#ifndef __GUI_H__
+#define __GUI_H__
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>
 #include <capture-key.h>

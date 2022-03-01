@@ -37,7 +37,8 @@
         "remote-udp-type.h": "c",
         "shortcut.h": "c",
         "handle-key.h": "c",
-        "*.rh": "c"
+        "*.rh": "c",
+        "overlay-gui.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

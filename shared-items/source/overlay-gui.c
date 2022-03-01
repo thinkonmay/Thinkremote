@@ -21,8 +21,6 @@
 
 #include <glib-2.0/glib.h>
 #include <gst/gst.h>
-#include <gst/video/videooverlay.h>
-#include <gst/video/gstvideosink.h>
 
 #define BORDER_SIZE   30
 
@@ -139,7 +137,7 @@ is_hover_window()
 {
     if(_gui.fullscreen)
         return TRUE;
-        
+
     POINT pos;
     GetCursorPos(&pos);
     gboolean result = 
@@ -373,6 +371,7 @@ adjust_window_size(GUI* gui)
 }
 
 
+#include <gst/video/videooverlay.h>
 gpointer
 setup_video_overlay(GUI* gui,
                     GstCaps* caps,
