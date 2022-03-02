@@ -26,10 +26,11 @@ gboolean			send_message_to_child_process				(ChildProcess* self,
 																 gchar* buffer,
 																 gint size);
 
-/// <summary>
-/// close child process
-/// </summary>
-/// <param name="proc">child process which will be close</param>
+/**
+ * @brief 
+ * 
+ * @param process 
+ */
 void				wait_for_childproces						(ChildProcess* process);
 
 
@@ -74,4 +75,12 @@ void 				clean_childprocess							(ChildProcess* proc);
  * @return gint 
  */
 gint 				childprocess_get_exit_code					(ChildProcess* proc);
+
+/**
+ * @brief 
+ * 
+ * @param proc 
+ * @return gchar* 
+ */
+gchar* 				childprocess_get_name						(ChildProcess* proc);
 #endif

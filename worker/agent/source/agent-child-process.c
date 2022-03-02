@@ -237,6 +237,11 @@ create_new_child_process(gchar* process_name,
 #endif
 }
 
+gchar*
+childprocess_get_name(ChildProcess* proc)
+{
+    return proc->process_name;
+}
 
 gint 
 childprocess_get_exit_code(ChildProcess* proc)

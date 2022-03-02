@@ -449,7 +449,7 @@ toggle_input_capture(InputHandler* handler)
      * reset mouse and keyboard to prevent key stuck
      */
     trigger_hotkey_by_opcode(RESET_KEY);
-    handler->enable = !handler->enable;
+    handler->enable = TRUE;
 }
 
 
