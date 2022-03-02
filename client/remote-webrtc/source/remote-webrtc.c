@@ -160,6 +160,8 @@ get_default_shortcut(gpointer data)
 
 	gint key_list_reset[10] = {0};
 	gint key_list_finalize[10] = {0};
+	gint key_list_bitrate_increase[10] = {0};
+	gint key_list_bitrate_decrease[10] = {0};
 
     key_list_reset[0] = W_KEY;
     key_list_reset[1] = VK_SHIFT;
@@ -172,8 +174,18 @@ get_default_shortcut(gpointer data)
     key_list_finalize[2] = VK_CONTROL;
     key_list_finalize[3] = VK_MENU;
 
+    key_list_bitrate_decrease[0] = VK_OEM_MINUS;
+    key_list_bitrate_decrease[1] = VK_SHIFT;
+    key_list_bitrate_decrease[2] = VK_CONTROL;
+
+    key_list_bitrate_increase[0] = VK_OEM_PLUS;
+    key_list_bitrate_increase[1] = VK_SHIFT;
+    key_list_bitrate_increase[2] = VK_CONTROL;
+
 	add_new_shortcut_to_list(shortcuts,key_list_finalize,EXIT,g_main_loop_quit,app->loop);
 	add_new_shortcut_to_list(shortcuts,key_list_reset,RELOAD_STREAM,remote_app_reset,app);
+	add_new_shortcut_to_list(shortcuts,key_list_bitrate_increase,INCREASE_STREAM_BITRATE,NULL,NULL);
+	add_new_shortcut_to_list(shortcuts,key_list_bitrate_decrease,DECREASE_STREAM_BITRATE,NULL,NULL);
 
     return shortcuts;
 }

@@ -16,6 +16,7 @@
 #include <remote-config.h>
 #include <logging.h>
 #include <enum.h>
+#include <device.h>
 
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>
@@ -89,30 +90,19 @@ struct _Pipeline
 
     GstElement* video_element[VIDEO_ELEMENT_LAST];
     GstElement* audio_element[AUDIO_ELEMENT_LAST];
+
+    MediaDevice* device;
 };
 
-static gchar sound_capture_device_id[1000]  = {0};
-static gchar sound_output_device_id[1000]   = {0};
 
 
-void device_foreach(GstDevice* data, gpointer user_data);
 
 Pipeline*
 pipeline_initialize()
 {
     Pipeline* pipeline = malloc(sizeof(Pipeline));
     memset(pipeline,0,sizeof(Pipeline));
-
-#ifdef G_OS_WIN32
-    GstDeviceMonitor* monitor = gst_device_monitor_new();
-    if(!gst_device_monitor_start(monitor)) {
-        worker_log_output("WARNING: Monitor couldn't started!!\n");
-    }
-
-    worker_log_output("Searching for available device");
-    GList* device_list = gst_device_monitor_get_devices(monitor);
-    g_list_foreach(device_list,(GFunc)device_foreach,NULL);
-#endif
+    pipeline->device = get_media_device_source();
     return pipeline;
 }
 
@@ -276,73 +266,6 @@ setup_element_factory(SessionUdp* core,
 
 
 
-
-void
-device_foreach(GstDevice* device, 
-                gpointer data)
-{
-    GstElement* element = (GstElement*) data;
-    gchar* name = gst_device_get_display_name(device);
-    gchar* class = gst_device_get_device_class(device);
-    GstCaps* cap = gst_device_get_caps(device);
-    GstStructure* cap_structure = gst_caps_get_structure (cap, 0);
-    GstStructure* device_structure = gst_device_get_properties(device);
-    gchar* api = gst_structure_get_string(device_structure,"device.api");
-    gchar* id  = gst_structure_get_string(device_structure,"device.strid");
-    if(!id)
-        id  = gst_structure_get_string(device_structure,"device.id");
-
-
-    gchar* cap_name = gst_structure_get_name (cap_structure);
-
-
-    if(!g_strcmp0(api,"wasapi2"))
-    {
-        if(!g_strcmp0(class,"Audio/Source"))
-        {
-            if(!g_strcmp0(cap_name,"audio/x-raw"))
-            {
-                if(g_str_has_prefix(name,"CABLE Input"))
-                {
-                    GString* string = g_string_new("Selecting sound capture device: ");
-                    g_string_append(string,name);
-                    g_string_append(string," with device id: ");
-                    g_string_append(string,id);
-                    worker_log_output(g_string_free(string,FALSE));
-
-                    memcpy(sound_output_device_id,id,strlen(id));
-                }
-            }
-        }
-    }
-
-    if(!g_strcmp0(api,"wasapi2"))
-    {
-        if(!g_strcmp0(class,"Audio/Sink"))
-        {
-            if(!g_strcmp0(cap_name,"audio/x-raw"))
-            {
-                if(g_str_has_prefix(name,"CABLE"))
-                {
-                    GString* string = g_string_new("Selecting sound output device: ");
-                    g_string_append(string,name);
-                    g_string_append(string," with device id: ");
-                    g_string_append(string,id);
-                    worker_log_output(g_string_free(string,FALSE));
-
-                    memcpy(sound_capture_device_id,id,strlen(id));
-                }
-            }
-        }
-    }
-
-    gst_caps_unref(cap);
-    g_object_unref(device);
-}
-
-
-
-
 /**
  * @brief Set the up element property object
  * setup proerty of gst element,
@@ -366,8 +289,6 @@ setup_element_property(SessionUdp* core)
     g_object_set(pipe->audio_element[SOUND_SOURCE], "low-latency", TRUE, NULL);
 
     g_object_set(pipe->audio_element[SOUND_SOURCE], "loopback", TRUE, NULL);
-
-    g_object_set(pipe->audio_element[SOUND_SOURCE], "device", sound_capture_device_id, NULL);
 #endif
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -417,7 +338,9 @@ setup_element_property(SessionUdp* core)
     if (pipe->video_element[RTP_VIDEO_PAYLOAD]) { g_object_set(pipe->video_element[RTP_VIDEO_PAYLOAD], "aggregate-mode", 1, NULL);}
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    if (pipe->audio_element[SOUND_SOURCE]) { g_object_set(pipe->audio_element[SOUND_SOURCE], "device", get_audio_source(pipe->device), NULL); }
 
+    if (pipe->video_element[SCREEN_CAPTURE]) { g_object_set(pipe->video_element[SCREEN_CAPTURE], "monitor-handle", get_video_source(pipe->device), NULL); }
 }
 
 

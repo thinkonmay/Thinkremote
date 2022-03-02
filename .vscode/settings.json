@@ -38,7 +38,8 @@
         "shortcut.h": "c",
         "handle-key.h": "c",
         "*.rh": "c",
-        "overlay-gui.h": "c"
+        "overlay-gui.h": "c",
+        "device.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

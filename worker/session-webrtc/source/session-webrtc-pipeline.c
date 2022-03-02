@@ -20,6 +20,7 @@
 #include <shortcut.h>
 #include <handle-key.h>
 #include <enum.h>
+#include <device.h>
 
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>
@@ -94,21 +95,13 @@ struct _Pipeline
     GstCaps* audio_caps[AUDIO_ELEMENT_LAST];
 
     HIDHandler* handler;
+
+    MediaDevice* device;
 };
 
-typedef struct _Device
-{
-    gchar sound_capture_device_id[1000];
-
-    gchar sound_output_device_id[1000];
-
-    guint64 monitor_handle;
-}Device;
-
-static Device capture_device = {0};
 
 
-void device_foreach(GstDevice* data, gpointer user_data);
+
 
 /**
  * @brief 
@@ -137,17 +130,7 @@ pipeline_initialize()
 {
     Pipeline* pipeline = malloc(sizeof(Pipeline));
     memset(pipeline,0,sizeof(Pipeline));
-
-#ifdef G_OS_WIN32
-    GstDeviceMonitor* monitor = gst_device_monitor_new();
-    if(!gst_device_monitor_start(monitor)) {
-        worker_log_output("WARNING: Monitor couldn't started!!\n");
-    }
-
-    worker_log_output("Searching for available device");
-    GList* device_list = gst_device_monitor_get_devices(monitor);
-    g_list_foreach(device_list,(GFunc)device_foreach,NULL);
-#endif
+    pipeline->device = get_media_device_source();
     return pipeline;
 }
 
@@ -160,6 +143,61 @@ free_pipeline(Pipeline* pipeline)
     memset(pipeline,0,sizeof(Pipeline));
 }
 
+#define MAXIMUM_VIDEO_BITRATE       4194303
+#define MAXIMUM_AUDIO_BITRATE       650000
+
+#define MINIMUM_VIDEO_BITRATE       1
+#define MINIMUM_AUDIO_BITRATE       4000
+
+#define VIDEO_BITRATE_STEP          200
+#define AUDIO_BITRATE_STEP          200000
+
+static void
+increase_stream_bitrate(gpointer data)
+{
+    Pipeline* pipeline = (Pipeline*) data;
+    GstElement* audio_encoder = pipeline->audio_element[SOUND_ENCODER];
+    GstElement* video_encoder = pipeline->video_element[VIDEO_ENCODER];
+
+    gint audio_bitrate; 
+    gint video_bitrate;
+    g_object_get(audio_encoder,"bitrate",&audio_bitrate,NULL);
+    g_object_get(video_encoder,"bitrate",&video_bitrate,NULL);
+
+    audio_bitrate = audio_bitrate + AUDIO_BITRATE_STEP;
+    video_bitrate = video_bitrate + VIDEO_BITRATE_STEP;
+
+    if((audio_bitrate < MINIMUM_AUDIO_BITRATE) || 
+       (video_bitrate < MINIMUM_VIDEO_BITRATE))
+       return;
+
+    g_object_set(audio_encoder,"bitrate",audio_bitrate,NULL);
+    g_object_set(video_encoder,"bitrate",video_bitrate,NULL);
+}
+
+static void
+decrease_stream_bitrate(gpointer data)
+{
+    Pipeline* pipeline = (Pipeline*) data;
+    GstElement* audio_encoder = pipeline->audio_element[SOUND_ENCODER];
+    GstElement* video_encoder = pipeline->video_element[VIDEO_ENCODER];
+
+    gint audio_bitrate;
+    gint video_bitrate;
+    g_object_get(audio_encoder,"bitrate",&audio_bitrate,NULL);
+    g_object_get(video_encoder,"bitrate",&video_bitrate,NULL);
+
+    audio_bitrate = audio_bitrate - AUDIO_BITRATE_STEP;
+    video_bitrate = video_bitrate - VIDEO_BITRATE_STEP;
+
+    if((audio_bitrate < MINIMUM_AUDIO_BITRATE) || 
+       (video_bitrate < MINIMUM_VIDEO_BITRATE))
+       return;
+
+    g_object_set(audio_encoder,"bitrate",audio_bitrate,NULL);
+    g_object_set(video_encoder,"bitrate",video_bitrate,NULL);
+
+}
 
 static gboolean
 start_pipeline(SessionCore* core)
@@ -187,8 +225,12 @@ start_pipeline(SessionCore* core)
             pipe->video_element[SCREEN_CAPTURE]);
 
     add_new_shortcut_to_list(shortcuts,NULL,
-            EXIT,(ShortcutHandleFunction)session_core_finalize,
-            core);
+            DECREASE_STREAM_BITRATE,(ShortcutHandleFunction)decrease_stream_bitrate,
+            pipe);
+
+    add_new_shortcut_to_list(shortcuts,NULL,
+            INCREASE_STREAM_BITRATE,(ShortcutHandleFunction)increase_stream_bitrate,
+            pipe);
 
     pipe->handler = activate_hid_handler(pipe->video_element[SCREEN_CAPTURE],shortcuts);
 	shortcut_list_free(shortcuts);
@@ -350,76 +392,6 @@ setup_element_factory(SessionCore* core,
 
 
 
-void
-device_foreach(GstDevice* device, 
-                gpointer data)
-{
-    GstElement* element = (GstElement*) data;
-    gchar* name = gst_device_get_display_name(device);
-    gchar* class = gst_device_get_device_class(device);
-    GstCaps* cap = gst_device_get_caps(device);
-    GstStructure* cap_structure = gst_caps_get_structure (cap, 0);
-    GstStructure* device_structure = gst_device_get_properties(device);
-    gchar* cap_name = gst_structure_get_name (cap_structure);
-    gchar* api = gst_structure_get_string(device_structure,"device.api");
-    
-    if(!g_strcmp0(api,"wasapi2"))
-    {
-        gchar* id  = gst_structure_get_string(device_structure,"device.strid");
-        id = id ? id: gst_structure_get_string(device_structure,"device.id");
-        if(!g_strcmp0(class,"Audio/Source"))
-        {
-            if(!g_strcmp0(cap_name,"audio/x-raw"))
-            {
-                if(g_str_has_prefix(name,"CABLE Input"))
-                {
-                    GString* string = g_string_new("Selecting sound capture device: ");
-                    g_string_append(string,name);
-                    g_string_append(string," with device id: ");
-                    g_string_append(string,id);
-                    worker_log_output(g_string_free(string,FALSE));
-
-                    memcpy(capture_device.sound_output_device_id,id,strlen(id));
-                }
-            }
-        }
-
-        if(!g_strcmp0(class,"Audio/Sink"))
-        {
-            if(!g_strcmp0(cap_name,"audio/x-raw"))
-            {
-                if(g_str_has_prefix(name,"CABLE"))
-                {
-                    GString* string = g_string_new("Selecting sound output device: ");
-                    g_string_append(string,name);
-                    g_string_append(string," with device id: ");
-                    g_string_append(string,id);
-                    worker_log_output(g_string_free(string,FALSE));
-                    memcpy(capture_device.sound_capture_device_id,id,strlen(id));
-                }
-            }
-        }
-    }
-
-
-    if(!g_strcmp0(api,"d3d11"))
-    {
-        if(!g_strcmp0(class,"Source/Monitor"))
-        {
-            gint width, height; 
-            guint64 id; 
-            gst_structure_get_int(cap_structure,"width",&width);
-            gst_structure_get_int(cap_structure,"height",&height);
-            gst_structure_get_uint64(device_structure,"device.hmonitor",&id);
-
-            if(!g_strcmp0(name,"Linux FHD"))
-                capture_device.monitor_handle = id;
-        }
-    }
-
-    gst_caps_unref(cap);
-    g_object_unref(device);
-}
 
 
 
@@ -438,7 +410,6 @@ setup_element_property(SessionCore* core)
     SignallingHub* hub = session_core_get_signalling_hub(core);
     StreamConfig* qoe = session_core_get_qoe(core);
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #ifdef G_OS_WIN32
     if (pipe->video_element[SCREEN_CAPTURE]) { g_object_set(pipe->video_element[SCREEN_CAPTURE], "show-cursor", FALSE, NULL);}
 #else
@@ -450,10 +421,8 @@ setup_element_property(SessionCore* core)
     
     if (pipe->video_element[SCREEN_CAPTURE]) { g_object_set(pipe->video_element[SCREEN_CAPTURE], "use-damage", FALSE, NULL);}
 #endif
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #ifdef G_OS_WIN32
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "rc-mode", 0, NULL); }
 
     if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "quality-vs-speed", 100, NULL); }
@@ -478,13 +447,9 @@ setup_element_property(SessionCore* core)
 
     if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "bitrate", qoe_get_video_bitrate(qoe), NULL); }
 #endif
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if (pipe->video_element[RTP_VIDEO_PAYLOAD]) { g_object_set(pipe->video_element[RTP_VIDEO_PAYLOAD], "aggregate-mode", 1, NULL);}
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #ifndef G_OS_WIN32
     if (pipe->audio_element[SOUND_SOURCE]) { g_object_set(pipe->audio_element[SOUND_SOURCE], "provide-clock", TRUE, NULL);}
 
@@ -493,21 +458,9 @@ setup_element_property(SessionCore* core)
     if (pipe->audio_element[SOUND_SOURCE]) { g_object_set(pipe->audio_element[SOUND_SOURCE], "low-latency", TRUE, NULL);}
 #endif
 
-    if(strlen(capture_device.sound_capture_device_id))
-    {
-        if (pipe->audio_element[SOUND_SOURCE]) 
-        {
-            g_object_set(pipe->audio_element[SOUND_SOURCE], "device", capture_device.sound_capture_device_id, NULL);
-        }
-    }
+    if (pipe->audio_element[SOUND_SOURCE]) { g_object_set(pipe->audio_element[SOUND_SOURCE], "device", get_audio_source(pipe->device), NULL); }
 
-    if (capture_device.monitor_handle) 
-    {
-        if (pipe->video_element[SCREEN_CAPTURE]) 
-        {
-            g_object_set(pipe->video_element[SCREEN_CAPTURE], "monitor-handle", capture_device.monitor_handle, NULL);
-        }
-    }
+    if (pipe->video_element[SCREEN_CAPTURE]) { g_object_set(pipe->video_element[SCREEN_CAPTURE], "monitor-handle", get_video_source(pipe->device), NULL); }
 
     g_object_set(pipe->webrtcbin,"latency",0,NULL);
 }
