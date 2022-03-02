@@ -40,15 +40,19 @@ device_foreach(GstDevice* device,
     
     if(!g_strcmp0(api,"wasapi2"))
     {
-        gchar*  id  = gst_structure_get_string(device_structure,"device.strid");
-        id = id ? id: gst_structure_get_string(device_structure,"device.id");
+        gboolean is_default;
+        gchar* id;
+
+        id = gst_structure_get_string(device_structure,"device.strid");
+        id = id ? id : gst_structure_get_string(device_structure,"device.id");
+        gst_structure_get_boolean(device_structure,"device.default",&is_default);
 
         if(!g_strcmp0(class,"Audio/Source") &&
            !g_strcmp0(cap_name,"audio/x-raw"))
         {
             if(g_str_has_prefix(name,"CABLE Input"))
                 memcpy(source->sound_output_device_id,id,strlen(id));
-            else
+            else if(is_default && !g_str_has_prefix(name,"Default Audio Capture"))
                 memcpy(source->backup_sound_output_device_id,id,strlen(id));
         }
 
@@ -57,7 +61,7 @@ device_foreach(GstDevice* device,
         {
             if(g_str_has_prefix(name,"CABLE"))
                 memcpy(source->sound_capture_device_id,id,strlen(id));
-            else
+            else if(is_default)
                 memcpy(source->backup_sound_capture_device_id,id,strlen(id));
         }
     }
@@ -66,12 +70,14 @@ device_foreach(GstDevice* device,
     if(!g_strcmp0(class,"Source/Monitor") && 
        !g_strcmp0(api,"d3d11"))
     {
+        gboolean is_primary;
         guint64 id; 
         gst_structure_get_uint64(device_structure,"device.hmonitor",&id);
+        gst_structure_get_boolean(device_structure,"device.primary",&is_primary);
 
         if(!g_strcmp0(name,"Linux FHD"))
             source->monitor_handle = id;
-        else
+        else if (is_primary)
             source->backup_monitor_handle = id;
     }
 
