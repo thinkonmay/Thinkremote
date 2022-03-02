@@ -220,21 +220,19 @@ create_new_child_process(gchar* process_name,
         NULL,
         NULL,
         &startup_infor, &pi);
+#endif
 
     if(!result)
     {
         worker_log_output("Fail to create child process");
         return NULL;        
     }
-    else    
-    {
-        worker_log_output("Child process created:");
-        worker_log_output(child_process->process_name);
-        child_process->process = pi.hProcess;
-        child_process->statehdl = g_thread_new("handle",handle_child_process_state,child_process);
-        return child_process;
-    }
-#endif
+
+    worker_log_output("Child process created:");
+    worker_log_output(child_process->process_name);
+    child_process->process = pi.hProcess;
+    child_process->statehdl = g_thread_new("handle",handle_child_process_state,child_process);
+    return child_process;
 }
 
 gchar*
