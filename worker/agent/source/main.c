@@ -70,6 +70,12 @@ const gchar* token;
  */
 const gchar* environment;
 
+/**
+ * @brief 
+ * user token to communication with other module
+ */
+const gchar* input_capture;
+
 static GOptionEntry entries[] = {
   {"token", 0, 0, G_OPTION_ARG_STRING, &token,
       "token register with worker manager", "TOKEN"},
@@ -77,10 +83,10 @@ static GOptionEntry entries[] = {
       "Signalling server to connect to", "NAME"},
   {"user", 0, 0, G_OPTION_ARG_STRING, &user,
       "thinkmay manager username", "USERNAME"},
-  {"environment", 0, 0, G_OPTION_ARG_STRING, &environment,
-      "environment (dev = development, default = production)", "ENV"},
   {"password", 0, 0, G_OPTION_ARG_STRING, &password,
       "thinkmay manager password", "PASSWORD"},
+  {"environment", 0, 0, G_OPTION_ARG_STRING, &environment,
+      "environment (development,localhost,production(default))", "ENV"},
   {NULL},
 };
 
@@ -118,7 +124,9 @@ main(int argc, char* argv[])
         return -1;
     }
 
-    if(!g_strcmp0(environment,"development"))
+    if(
+        !g_strcmp0(environment,"development") ||
+        !g_strcmp0(environment,"localhost"))
     {
         thinkremote_application_init(environment, NULL, NULL, NULL);
         agent_new(NULL);

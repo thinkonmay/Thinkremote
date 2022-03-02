@@ -12,6 +12,7 @@
 
 #include <enum.h>
 #include <overlay-gui.h>
+#include <global-var.h>
 
 #include <glib-2.0/glib.h>
 #include <json-glib/json-glib.h>
@@ -120,7 +121,7 @@ send_mouse_signal(HidInput* input)
     json_object_set_int_member(object,"dX",(gint)input->delta_x);
     json_object_set_int_member(object,"dY",(gint)input->delta_y);
 
-    if(HID_handler.handler)
+    if(HID_handler.handler && !LOCALHOST)
         HID_handler.handler(get_string_from_json_object(object),HID_handler.data);
 }
 
@@ -131,7 +132,7 @@ send_mouse_wheel_signal(HidInput* input)
     json_object_set_int_member(object,"Opcode",(gint)input->opcode);
     json_object_set_int_member(object,"WheeldY",(gint)input->wheel_dY);
 
-    if(HID_handler.handler)
+    if(HID_handler.handler && !LOCALHOST)
         HID_handler.handler(get_string_from_json_object(object),HID_handler.data);
 }
 
@@ -143,7 +144,7 @@ send_key_event(HidInput* input)
     json_object_set_int_member(object,"wVk",input->keyboard_code);
     json_object_set_boolean_member(object,"IsUp",input->key_is_up);
 
-    if(HID_handler.handler)
+    if(HID_handler.handler && !LOCALHOST)
         HID_handler.handler(get_string_from_json_object(object),HID_handler.data);
 }
 

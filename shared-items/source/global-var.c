@@ -9,6 +9,7 @@
  * 
  */
 #include <global-var.h>
+#include <environment.h>
 #include <constant.h>
 #include <glib.h>
 
@@ -18,6 +19,7 @@
 
 
 static gboolean env                  = FALSE;
+static gboolean is_localhost         = FALSE;
 static gchar _cluster_url[500]       = {0}; 
 static gchar _device_token[500]      = {0}; 
 static gchar _cluster_token[500]     = {0}; 
@@ -29,12 +31,22 @@ thinkremote_application_init(gchar* environment,
                              gchar* cluster_token,
                              gchar* device_token)
 {
+    gchar* localhost;
 #ifdef G_OS_WIN32
     SetEnvironmentVariable("GST_DEBUG", TEXT("0"));
+    localhost = GetEnvironmentVariableWithKey("LOCALHOST");
 #endif
 
-    if(!g_strcmp0(environment,"development"))
+    if(!g_strcmp0(environment,"development") ||
+       !g_strcmp0(environment,"localhost"))
         env = TRUE;
+
+    if(!g_strcmp0(environment,"localhost") ||
+       !g_strcmp0(localhost,"TRUE"))
+    {
+        SetEnvironmentVariable("LOCALHOST", TEXT("TRUE"));
+        is_localhost = TRUE;
+    }
 
     if(cluster_url)
         memcpy(_cluster_url,cluster_url,strlen(cluster_url));
@@ -72,4 +84,10 @@ gboolean
 get_environment()
 {
     return env;
+}
+
+gboolean 
+is_localhost_env()
+{
+    return is_localhost;
 }

@@ -23,6 +23,8 @@ gchar*                   get_thinkremote_cluster_token();
 
 gboolean                 get_environment();
 
+gboolean                 is_localhost_env();
+
 
 
 /**
@@ -30,6 +32,12 @@ gboolean                 get_environment();
  * 
  */
 #define         DEVELOPMENT_ENVIRONMENT     get_environment()
+
+/**
+ * @brief 
+ * 
+ */
+#define         LOCALHOST                   is_localhost_env()
 
 /**
  * @brief 
