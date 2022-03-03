@@ -45,10 +45,6 @@ app.on('activate', () => {
 
 
 const ProtocolRegistry = require('protocol-registry');
-
-console.log('Registering...');
-
-// Registers the Protocol
 ProtocolRegistry.register({
   protocol: 'thinkmay', // sets protocol for your command , testproto://**
   command: `powershell ./welcome.exe && powershell ./remote-webrtc.exe $_URL_ 2> temp.txt && exit`, // $_URL_ will the replaces by the url used to initiate it
@@ -58,8 +54,24 @@ ProtocolRegistry.register({
 }).then(async () => { });
 
 ProtocolRegistry.register({
-  protocol: 'agentThinkmay', // sets protocol for your command , testproto://**
+  protocol: 'agent', // sets protocol for your command , testproto://**
   command: `powershell ./welcome.exe && powershell ./agent.exe $_URL_ && exit`, // $_URL_ will the replaces by the url used to initiate it
+  override: true, // Use this with caution as it will destroy all previous Registrations on this protocol
+  terminal: true, // Use this to run your command inside a terminal
+  script: false
+}).then(async () => { });
+
+ProtocolRegistry.register({
+  protocol: 'localagent', // sets protocol for your command , testproto://**
+  command: `powershell ./welcome.exe && powershell ./agent.exe --environment=localhost && exit`, // $_URL_ will the replaces by the url used to initiate it
+  override: true, // Use this with caution as it will destroy all previous Registrations on this protocol
+  terminal: true, // Use this to run your command inside a terminal
+  script: false
+}).then(async () => { });
+
+ProtocolRegistry.register({
+  protocol: 'localremote', // sets protocol for your command , testproto://**
+  command: `powershell ./welcome.exe && powershell ./remote-webrtc.exe --environment=development && exit`, // $_URL_ will the replaces by the url used to initiate it
   override: true, // Use this with caution as it will destroy all previous Registrations on this protocol
   terminal: true, // Use this to run your command inside a terminal
   script: false
