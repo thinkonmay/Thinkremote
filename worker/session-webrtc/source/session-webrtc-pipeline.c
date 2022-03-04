@@ -94,9 +94,23 @@ struct _Pipeline
     GstCaps* video_caps[VIDEO_ELEMENT_LAST];
     GstCaps* audio_caps[AUDIO_ELEMENT_LAST];
 
+    /**
+     * @brief 
+     * 
+     */
     HIDHandler* handler;
 
+    /**
+     * @brief 
+     * 
+     */
     MediaDevice* device;
+
+	/**
+	 * @brief 
+	 * Config of the stream
+	 */
+	StreamConfig* qoe;
 };
 
 
@@ -130,7 +144,8 @@ pipeline_initialize()
 {
     Pipeline* pipeline = malloc(sizeof(Pipeline));
     memset(pipeline,0,sizeof(Pipeline));
-    pipeline->device = get_media_device_source();
+    pipeline->device = init_media_device_source();
+    pipeline->qoe = qoe_initialize();
     return pipeline;
 }
 
@@ -141,9 +156,11 @@ free_pipeline(Pipeline* pipeline)
     gst_element_set_state (pipeline->pipeline, GST_STATE_NULL);
     gst_object_unref (pipeline->pipeline);
 
-    MediaDevice* old = pipeline->device;
+    MediaDevice*  old_device = pipeline->device;
+    StreamConfig* old_config = pipeline->qoe;
     memset(pipeline,0,sizeof(Pipeline));
-    pipeline->device = old;
+    pipeline->device = old_device;
+    pipeline->qoe    = old_config;
 }
 
 #define MAXIMUM_VIDEO_BITRATE       4194303
@@ -411,7 +428,6 @@ setup_element_property(SessionCore* core)
 {
     Pipeline* pipe = session_core_get_pipeline(core);
     SignallingHub* hub = session_core_get_signalling_hub(core);
-    StreamConfig* qoe = session_core_get_qoe(core);
 
 #ifdef G_OS_WIN32
     /**
@@ -422,7 +438,7 @@ setup_element_property(SessionCore* core)
 
     if (pipe->video_element[SCREEN_CAPTURE])       g_object_set(pipe->video_element[SCREEN_CAPTURE], "show-cursor", FALSE, NULL);
 
-    if (pipe->video_element[VIDEO_ENCODER])        g_object_set(pipe->video_element[VIDEO_ENCODER], "bitrate", qoe_get_video_bitrate(qoe), NULL); 
+    if (pipe->video_element[VIDEO_ENCODER])        g_object_set(pipe->video_element[VIDEO_ENCODER], "bitrate", qoe_get_video_bitrate(pipe->qoe), NULL); 
 
     /**
      * @brief 
@@ -478,7 +494,7 @@ setup_element_property(SessionCore* core)
 
     if (pipe->video_element[VIDEO_ENCODER])        g_object_set(pipe->video_element[VIDEO_ENCODER], "pass", "pass1", NULL);
 
-    if (pipe->video_element[VIDEO_ENCODER])        g_object_set(pipe->video_element[VIDEO_ENCODER], "bitrate", qoe_get_video_bitrate(qoe), NULL); 
+    if (pipe->video_element[VIDEO_ENCODER])        g_object_set(pipe->video_element[VIDEO_ENCODER], "bitrate", qoe_get_video_bitrate(pipeline->qoe), NULL); 
 
     if (pipe->audio_element[SOUND_SOURCE])         g_object_set(pipe->audio_element[SOUND_SOURCE], "provide-clock", TRUE, NULL);
 
@@ -497,7 +513,7 @@ setup_pipeline(SessionCore* core)
 {
     SignallingHub* signalling = session_core_get_signalling_hub(core);
     Pipeline* pipe = session_core_get_pipeline(core);
-    StreamConfig* qoe = session_core_get_qoe(core);
+    StreamConfig* qoe = pipe->qoe;
 
     if(pipe->pipeline)
         free_pipeline(pipe);
@@ -534,4 +550,29 @@ GstElement*
 pipeline_get_webrtc_bin(Pipeline* pipe)
 {
     return pipe->webrtcbin;
+}
+
+void
+setup_media_device_and_stream(Pipeline* pipe,
+                              JsonObject* object)
+{
+    set_media_device(pipe->device);
+
+    if(!object)
+    {
+        qoe_setup(pipe->qoe,pipe->device,
+                  1920,1080,
+                  OPUS_ENC,
+                  CODEC_H265,
+                  ULTRA_HIGH_CONST);
+        return;
+    }
+
+
+    qoe_setup(pipe->qoe,pipe->device,
+            json_object_get_int_member(object,"screenwidth"),
+            json_object_get_int_member(object,"screenheight"),
+            json_object_get_int_member(object,"audiocodec"),
+            json_object_get_int_member(object,"videocodec"),
+            json_object_get_int_member(object,"mode"));
 }

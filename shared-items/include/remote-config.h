@@ -12,6 +12,7 @@
 #define __REMOTE_CONFIG_H__
 #include <gst/gst.h>
 #include <enum.h>
+#include <device.h>
 
 
 /**
@@ -46,6 +47,7 @@ StreamConfig*	qoe_initialize						();
  * @param mode qoe mode that will be used during the stream
  */
 void 			qoe_setup							(StreamConfig* qoe,
+													MediaDevice* device,
 													gint screen_width,
 													gint screen_height,
 													Codec audio_codec,

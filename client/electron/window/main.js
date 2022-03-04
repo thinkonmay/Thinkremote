@@ -5,6 +5,8 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
   app.quit();
 }
 
+const ThinkmayServiceDomain = "service.thinkmay.net";
+
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -14,7 +16,7 @@ const createWindow = () => {
   mainWindow.setTitle(require('./package.json').name);
   mainWindow.maximize();
   mainWindow.show();
-  mainWindow.loadURL("http://service.thinkmay.net/dashboard")
+  mainWindow.loadURL(`https://${ThinkmayServiceDomain}/dashboard`)
 };
 
 // This method will be called when Electron has finished
@@ -47,7 +49,7 @@ app.on('activate', () => {
 const ProtocolRegistry = require('protocol-registry');
 ProtocolRegistry.register({
   protocol: 'thinkmay', // sets protocol for your command , testproto://**
-  command: `powershell ./welcome.exe && powershell ./remote-webrtc.exe $_URL_ 2> temp.txt && exit`, // $_URL_ will the replaces by the url used to initiate it
+  command: `powershell ./welcome.exe && powershell ./remote-webrtc.exe $_URL_ 2> remotetemp.txt && exit`, // $_URL_ will the replaces by the url used to initiate it
   override: true, // Use this with caution as it will destroy all previous Registrations on this protocol
   terminal: true, // Use this to run your command inside a terminal
   script: false
@@ -55,7 +57,7 @@ ProtocolRegistry.register({
 
 ProtocolRegistry.register({
   protocol: 'agent', // sets protocol for your command , testproto://**
-  command: `powershell ./welcome.exe && powershell ./agent.exe $_URL_ && exit`, // $_URL_ will the replaces by the url used to initiate it
+  command: `powershell ./welcome.exe && powershell ./agent.exe 2> agenttemp.txt && exit`, // $_URL_ will the replaces by the url used to initiate it
   override: true, // Use this with caution as it will destroy all previous Registrations on this protocol
   terminal: true, // Use this to run your command inside a terminal
   script: false
@@ -63,7 +65,7 @@ ProtocolRegistry.register({
 
 ProtocolRegistry.register({
   protocol: 'localagent', // sets protocol for your command , testproto://**
-  command: `powershell ./welcome.exe && powershell ./agent.exe --environment=localhost && exit`, // $_URL_ will the replaces by the url used to initiate it
+  command: `powershell ./welcome.exe && powershell ./agent.exe --environment=localhost 2> localagenttemp.txt && exit`, // $_URL_ will the replaces by the url used to initiate it
   override: true, // Use this with caution as it will destroy all previous Registrations on this protocol
   terminal: true, // Use this to run your command inside a terminal
   script: false
@@ -71,7 +73,7 @@ ProtocolRegistry.register({
 
 ProtocolRegistry.register({
   protocol: 'localremote', // sets protocol for your command , testproto://**
-  command: `powershell ./welcome.exe && powershell ./remote-webrtc.exe --environment=development && exit`, // $_URL_ will the replaces by the url used to initiate it
+  command: `powershell ./welcome.exe && powershell ./remote-webrtc.exe --environment=development 2> localremotetemp.txt && exit`, // $_URL_ will the replaces by the url used to initiate it
   override: true, // Use this with caution as it will destroy all previous Registrations on this protocol
   terminal: true, // Use this to run your command inside a terminal
   script: false
@@ -79,7 +81,7 @@ ProtocolRegistry.register({
 
 ProtocolRegistry.register({
   protocol: 'loginThinkmay', // sets protocol for your command , testproto://**
-  command: `powershell Start-Process "https://service.thinkmay.net/token-auth" && exit`, // $_URL_ will the replaces by the url used to initiate it
+  command: `powershell Start-Process "https://${ThinkmayServiceDomain}/token-auth" && exit`, // $_URL_ will the replaces by the url used to initiate it
   override: true, // Use this with caution as it will destroy all previous Registrations on this protocol
   terminal: true, // Use this to run your command inside a terminal
   script: false

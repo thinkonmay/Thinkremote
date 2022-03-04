@@ -102,7 +102,6 @@ pipeline_initialize()
 {
     Pipeline* pipeline = malloc(sizeof(Pipeline));
     memset(pipeline,0,sizeof(Pipeline));
-    pipeline->device = get_media_device_source();
     return pipeline;
 }
 

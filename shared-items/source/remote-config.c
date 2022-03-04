@@ -11,6 +11,8 @@
 #include <remote-config.h>
 
 #include <enum.h>
+#include <device.h>
+#include <global-var.h>
 
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>
@@ -62,7 +64,6 @@ struct _StreamConfig
 	 * codec video will be used throughout the stream
 	 */
 	Codec codec_video;
-
 };
 
 
@@ -77,48 +78,51 @@ qoe_initialize()
 
 #ifdef G_OS_WIN32
 #include <Windows.h>
+
 void
-display_setting_get_and_set(gint* screen_width,
-							gint* screen_height)
+display_setting_get_and_set(StreamConfig* config,
+							MediaDevice* device)
 {
 	// resize window to fit user's window
-	DEVMODE devmode;
-    devmode.dmPelsWidth = *screen_width;
-    devmode.dmPelsHeight = *screen_height;
+	DEVMODE devmode = {0};
+    devmode.dmPelsWidth =  config->screen_width;
+    devmode.dmPelsHeight = config->screen_height;
     devmode.dmFields = DM_PELSWIDTH | DM_PELSHEIGHT;
     devmode.dmSize = sizeof(DEVMODE);
 
-    long result = ChangeDisplaySettings(&devmode, 0);
-
-	gint x = GetSystemMetrics(SM_CXSCREEN);
-	gint y = GetSystemMetrics(SM_CYSCREEN);
+	gchar* name = get_video_source_name(device);
 
 
-	memcpy(screen_height,&y,sizeof(gint));
-	memcpy(screen_width,&x,sizeof(gint));
+	DWORD flags;
+	flags = (CDS_UPDATEREGISTRY | CDS_RESET);
+
+    long result = ChangeDisplaySettingsExA(name,
+		&devmode, NULL,flags,NULL);
+
+	config->screen_width  = GetSystemMetrics(SM_CXSCREEN);
+	config->screen_height = GetSystemMetrics(SM_CYSCREEN);
 }
 #endif
 
 
 void
 qoe_setup(StreamConfig* qoe,
+		  MediaDevice* device,
 		  gint screen_width,
 		  gint screen_height,
 		  Codec audio_codec,
 		  Codec video_codec,
 		  QoEMode mode)
 {
-#ifdef G_OS_WIN32
-	display_setting_get_and_set(&qoe->screen_width,&qoe->screen_height);
-#endif
-	
 	qoe->screen_width =  screen_width;
 	qoe->screen_height =  screen_height;
-
 	qoe->codec_audio = audio_codec;
 	qoe->codec_video = video_codec;
-
 	qoe->mode = mode;
+
+#ifdef G_OS_WIN32
+	display_setting_get_and_set(qoe,device);
+#endif
 }
 
 void

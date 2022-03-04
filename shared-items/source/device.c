@@ -13,8 +13,10 @@ struct _MediaDevice
     gchar backup_sound_output_device_id[1000];
 
     guint64 monitor_handle;
-
     guint64 backup_monitor_handle;
+
+    gchar monitor_name[100];
+    gchar backup_monitor_name[100];
 };
 
 
@@ -74,11 +76,17 @@ device_foreach(GstDevice* device,
         guint64 id; 
         gst_structure_get_uint64(device_structure,"device.hmonitor",&id);
         gst_structure_get_boolean(device_structure,"device.primary",&is_primary);
-
+        gchar* display_name = gst_structure_get_string(device_structure,"device.name");
         if(!g_strcmp0(name,"Linux FHD"))
+        {
             source->monitor_handle = id;
+            memcpy(source->monitor_name,display_name,strlen(display_name));
+        }
         else if (is_primary)
+        {
             source->backup_monitor_handle = id;
+            memcpy(source->backup_monitor_name,display_name,strlen(display_name));
+        }
     }
 
     gst_caps_unref(cap);
@@ -87,13 +95,17 @@ device_foreach(GstDevice* device,
 
 
 MediaDevice*
-get_media_device_source()
+init_media_device_source()
 {
     MediaDevice* device = malloc(sizeof(MediaDevice));
     memset(device,0,sizeof(MediaDevice));
+    return device;
+}
 
+void
+set_media_device(MediaDevice* device)
+{
     GstDeviceMonitor* monitor = gst_device_monitor_new();
-
     worker_log_output("Searching for available device");
     if(!gst_device_monitor_start(monitor)) {
         worker_log_output("WARNING: Monitor couldn't started!!\n");
@@ -102,7 +114,6 @@ get_media_device_source()
 
     GList* device_list = gst_device_monitor_get_devices(monitor);
     g_list_foreach(device_list,(GFunc)device_foreach,device);
-    return device;
 }
 
 
@@ -116,4 +127,10 @@ guint64
 get_video_source(MediaDevice* source)
 {
     return source->monitor_handle ? source->monitor_handle : source->backup_monitor_handle;
+}
+
+gchar*
+get_video_source_name(MediaDevice* source)
+{
+    return source->monitor_handle ? source->monitor_name : source->backup_monitor_name;
 }

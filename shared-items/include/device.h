@@ -21,7 +21,14 @@ typedef struct _MediaDevice                     MediaDevice;
  * 
  * @return MediaDevice* 
  */
-MediaDevice*    get_media_device_source         ();
+MediaDevice*    init_media_device_source        ();
+
+/**
+ * @brief Set the media device object
+ * 
+ * @param device 
+ */
+void            set_media_device                (MediaDevice* device);
 
 /**
  * @brief 
@@ -35,4 +42,9 @@ guint64          get_video_source                (MediaDevice* source);
  */
 gchar*          get_audio_source                (MediaDevice* source);
 
+/**
+ * @brief 
+ * 
+ */
+gchar*          get_video_source_name           (MediaDevice* source);
 #endif
