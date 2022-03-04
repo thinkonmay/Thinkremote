@@ -70,6 +70,12 @@ const gchar* token;
  */
 const gchar* environment;
 
+/**
+ * @brief 
+ * user token to communication with other module
+ */
+const gchar* input_capture;
+
 static GOptionEntry entries[] = {
   {"token", 0, 0, G_OPTION_ARG_STRING, &token,
       "token register with worker manager", "TOKEN"},
@@ -77,13 +83,29 @@ static GOptionEntry entries[] = {
       "Signalling server to connect to", "NAME"},
   {"user", 0, 0, G_OPTION_ARG_STRING, &user,
       "thinkmay manager username", "USERNAME"},
-  {"environment", 0, 0, G_OPTION_ARG_STRING, &environment,
-      "environment (dev = development, default = production)", "ENV"},
   {"password", 0, 0, G_OPTION_ARG_STRING, &password,
       "thinkmay manager password", "PASSWORD"},
+  {"environment", 0, 0, G_OPTION_ARG_STRING, &environment,
+      "environment (development,localhost,production(default))", "ENV"},
   {NULL},
 };
 
+void clear() {
+    COORD topLeft  = { 0, 0 };
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_SCREEN_BUFFER_INFO screen;
+    DWORD written;
+
+    GetConsoleScreenBufferInfo(console, &screen);
+    FillConsoleOutputCharacterA(
+        console, ' ', screen.dwSize.X * screen.dwSize.Y, topLeft, &written
+    );
+    FillConsoleOutputAttribute(
+        console, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE,
+        screen.dwSize.X * screen.dwSize.Y, topLeft, &written
+    );
+    SetConsoleCursorPosition(console, topLeft);
+}
 
 int
 main(int argc, char* argv[])
@@ -118,7 +140,9 @@ main(int argc, char* argv[])
         return -1;
     }
 
-    if(!g_strcmp0(environment,"development"))
+    if(
+        !g_strcmp0(environment,"development") ||
+        !g_strcmp0(environment,"localhost"))
     {
         thinkremote_application_init(environment, NULL, NULL, NULL);
         agent_new(NULL);
@@ -147,6 +171,7 @@ main(int argc, char* argv[])
         scanf("%s", cluster_name);
     }
 
+    clear();    
 
     {
         JsonObject* login = json_object_new();

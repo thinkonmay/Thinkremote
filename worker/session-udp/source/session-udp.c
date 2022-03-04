@@ -128,8 +128,6 @@ server_callback (SoupServer        *server,
 static void
 session_core_setup_session(SessionUdp* self)
 {
-	qoe_setup(self->qoe, 1920, 1080,
-				OPUS_ENC, CODEC_H265, ULTRA_HIGH_CONST);
 	
 	gchar* audio_port = GetEnvironmentVariableWithKey("AUDIO_PORT");
 	gchar* audio_host = GetEnvironmentVariableWithKey("AUDIO_HOST");

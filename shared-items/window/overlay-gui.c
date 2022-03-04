@@ -534,8 +534,7 @@ window_proc(HWND hWnd,
             LPARAM lParam)
 {
     GUI* gui = &_gui;
-    if (message == WM_DESTROY) 
-        trigger_hotkey_by_opcode(EXIT);
+
 
     if (message == WM_INPUT)
         handle_message_window_proc(hWnd, message, wParam, lParam );
@@ -548,6 +547,9 @@ window_proc(HWND hWnd,
         message == WM_RBUTTONDOWN  || message == WM_RBUTTONUP	||
         message == WM_XBUTTONDOWN  || message == WM_XBUTTONUP)
         handle_mouse_button(message);
+
+    if (message == WM_DESTROY) 
+        trigger_hotkey_by_opcode(EXIT);
 
     if (message == WM_SIZE)
         g_thread_new("handle resize",size_handle_thread,gui);

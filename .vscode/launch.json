@@ -91,6 +91,17 @@
             "console": "externalTerminal"
         },
         {
+            "name": "agent[local]",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/agent.exe",
+            "args": ["--environment=localhost"],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "console": "externalTerminal"
+        },
+        {
             "name": "remote webrtc",
             "type": "cppvsdbg",
             "request": "launch",

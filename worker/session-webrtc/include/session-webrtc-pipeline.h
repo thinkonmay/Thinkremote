@@ -46,4 +46,12 @@ GstElement*			pipeline_get_webrtc_bin			(Pipeline* pipeline);
  */
 Pipeline*			pipeline_initialize				();
 
+/**
+ * @brief Set the up media device and stream object
+ * 
+ * @param pipe 
+ * @param object 
+ */
+void                setup_media_device_and_stream   (Pipeline* pipe,
+                                                     JsonObject* object);
 #endif

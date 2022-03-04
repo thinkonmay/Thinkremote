@@ -62,12 +62,6 @@ struct _SessionCore
 	 * signalling hub for connection with signalling server
 	 */
 	SignallingHub* signalling;
-
-	/**
-	 * @brief 
-	 * StreamConfig of the stream
-	 */
-	StreamConfig* qoe;
 };
 
 
@@ -103,12 +97,7 @@ session_development_setup(SessionCore* self)
 				array,
 				DEFAULT_CORE_TOKEN);
 
-	qoe_setup(self->qoe,
-				1920,
-				1080,
-				OPUS_ENC,
-				CODEC_H264,
-				ULTRA_HIGH_CONST);
+	setup_media_device_and_stream(self->pipe, NULL);
 }
 
 
@@ -195,13 +184,7 @@ session_core_setup_session(SessionCore* self)
 			json_object_get_array_member(json_infor,"stuns"),
 			remote_token);
 
-		qoe_setup(self->qoe,
-					json_object_get_int_member(json_infor,"screenwidth"),
-					json_object_get_int_member(json_infor,"screenheight"),
-					json_object_get_int_member(json_infor,"audiocodec"),
-					json_object_get_int_member(json_infor,"videocodec"),
-					json_object_get_int_member(json_infor,"mode"));
-		
+		setup_media_device_and_stream(self->pipe,json_infor);
 		g_object_unref(parser);
 	}
 	
@@ -267,7 +250,6 @@ session_core_initialize()
 
 	core->hub =					webrtchub_initialize();
 	core->signalling =			signalling_hub_initialize(core);
-	core->qoe =					qoe_initialize();
 	core->pipe =				pipeline_initialize();
 	core->loop =				g_main_loop_new(NULL, FALSE);
 
@@ -331,11 +313,6 @@ session_core_get_rtc_hub(SessionCore* self)
 }
 
 
-StreamConfig*
-session_core_get_qoe(SessionCore* self)
-{
-	return self->qoe;
-}
 
 
 SignallingHub*

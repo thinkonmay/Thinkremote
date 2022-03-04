@@ -380,6 +380,11 @@ on_incoming_stream (GstElement * webrtc,
        !g_strcmp0("OPUS",encoding))
     {
         pipeline->audio_element[AUDIO_DECODER] = gst_element_factory_make ("decodebin", "audiodecoder");
+
+        g_object_set(pipeline->audio_element[AUDIO_DECODER], "max-size-time", 0, NULL);
+        g_object_set(pipeline->audio_element[AUDIO_DECODER], "max-size-bytes", 0, NULL);
+        g_object_set(pipeline->audio_element[AUDIO_DECODER], "max-size-buffers", 3, NULL);
+
         g_signal_connect (pipeline->audio_element[AUDIO_DECODER], "pad-added",
             G_CALLBACK (on_incoming_decodebin_stream), core);
         g_signal_connect (pipeline->audio_element[AUDIO_DECODER], "autoplug-select",
@@ -398,6 +403,10 @@ on_incoming_stream (GstElement * webrtc,
         !g_strcmp0("H264",encoding)))
     {
         pipeline->video_element[VIDEO_DECODER] = gst_element_factory_make ("decodebin", "videodecoder");
+
+        g_object_set(pipeline->video_element[VIDEO_DECODER], "max-size-time", 0, NULL);
+        g_object_set(pipeline->video_element[VIDEO_DECODER], "max-size-bytes", 0, NULL);
+        g_object_set(pipeline->video_element[VIDEO_DECODER], "max-size-buffers", 3, NULL);
 
         g_signal_connect (pipeline->video_element[VIDEO_DECODER], "pad-added",
             G_CALLBACK (on_incoming_decodebin_stream), core);
@@ -420,39 +429,6 @@ on_incoming_stream (GstElement * webrtc,
 
 
 
-
-
-
-#ifndef G_OS_WIN32
-
-static gboolean
-handle_event(GstPad* pad, 
-            GstObject* parent, 
-            GstEvent* event)
-{
-    switch (GST_EVENT_TYPE (event)) {
-      case GST_EVENT_NAVIGATION:
-        break;
-      default:
-        gst_pad_event_default(pad, parent,event);
-        break;
-    }
-}
-
-/**
- * @brief Set the up video sink navigator object
- * 
- * @param core 
- */
-void
-setup_video_sink_navigator(RemoteApp* core)
-{
-    Pipeline* pipeline = remote_app_get_pipeline(core);
-    GstPad* pad = gst_element_get_static_pad(pipeline->video_element[VIDEO_CONVERT],"src");
-
-    gst_pad_set_event_function_full(pad,handle_event,core,NULL);
-}
-#endif
 
  
 static void

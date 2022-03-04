@@ -97,10 +97,6 @@ remote_app_setup_session(RemoteUdp* self,
 	JsonObject* json_infor = get_json_object_from_string(infor_message->response_body->data,error,parser);
 
 
-	qoe_setup(self->qoe,
-				json_object_get_int_member(json_infor,"audiocodec"),
-				json_object_get_int_member(json_infor,"videocodec"),
-				OPUS_ENC,CODEC_H265,ULTRA_HIGH_CONST);
 
 	g_object_unref(parser);
 }

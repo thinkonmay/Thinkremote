@@ -94,9 +94,23 @@ struct _Pipeline
     GstCaps* video_caps[VIDEO_ELEMENT_LAST];
     GstCaps* audio_caps[AUDIO_ELEMENT_LAST];
 
+    /**
+     * @brief 
+     * 
+     */
     HIDHandler* handler;
 
+    /**
+     * @brief 
+     * 
+     */
     MediaDevice* device;
+
+	/**
+	 * @brief 
+	 * Config of the stream
+	 */
+	StreamConfig* qoe;
 };
 
 
@@ -130,7 +144,8 @@ pipeline_initialize()
 {
     Pipeline* pipeline = malloc(sizeof(Pipeline));
     memset(pipeline,0,sizeof(Pipeline));
-    pipeline->device = get_media_device_source();
+    pipeline->device = init_media_device_source();
+    pipeline->qoe = qoe_initialize();
     return pipeline;
 }
 
@@ -140,7 +155,12 @@ free_pipeline(Pipeline* pipeline)
     deactivate_hid_handler(pipeline->handler);
     gst_element_set_state (pipeline->pipeline, GST_STATE_NULL);
     gst_object_unref (pipeline->pipeline);
+
+    MediaDevice*  old_device = pipeline->device;
+    StreamConfig* old_config = pipeline->qoe;
     memset(pipeline,0,sizeof(Pipeline));
+    pipeline->device = old_device;
+    pipeline->qoe    = old_config;
 }
 
 #define MAXIMUM_VIDEO_BITRATE       4194303
@@ -328,7 +348,7 @@ setup_element_factory(SessionCore* core,
             gst_parse_launch("webrtcbin bundle-policy=max-bundle name=sendrecv "
 
                 "d3d11screencapturesrc name=screencap ! "
-                DIRECTX_PAD",framerate=60/1 ! "                             QUEUE
+                DIRECTX_PAD",framerate=120/1 ! "                             QUEUE
                 "d3d11convert ! "DIRECTX_PAD",format=NV12 ! "               QUEUE
                 "mfh265enc name=videoencoder ! "                            QUEUE
                 "rtph265pay name=rtp ! "                                    QUEUE 
@@ -408,60 +428,78 @@ setup_element_property(SessionCore* core)
 {
     Pipeline* pipe = session_core_get_pipeline(core);
     SignallingHub* hub = session_core_get_signalling_hub(core);
-    StreamConfig* qoe = session_core_get_qoe(core);
 
 #ifdef G_OS_WIN32
-    if (pipe->video_element[SCREEN_CAPTURE]) { g_object_set(pipe->video_element[SCREEN_CAPTURE], "show-cursor", FALSE, NULL);}
+    /**
+     * @brief 
+     * depend on user preset
+     */
+    if (pipe->video_element[SCREEN_CAPTURE])       g_object_set(pipe->video_element[SCREEN_CAPTURE], "blocksize", 8192, NULL);
+
+    if (pipe->video_element[SCREEN_CAPTURE])       g_object_set(pipe->video_element[SCREEN_CAPTURE], "show-cursor", FALSE, NULL);
+
+    if (pipe->video_element[VIDEO_ENCODER])        g_object_set(pipe->video_element[VIDEO_ENCODER], "bitrate", qoe_get_video_bitrate(pipe->qoe), NULL); 
+
+    /**
+     * @brief 
+     * should not be changed frequenly
+     */
+    if (pipe->video_element[VIDEO_ENCODER])        g_object_set(pipe->video_element[VIDEO_ENCODER], "rc-mode", 0, NULL); 
+
+    if (pipe->video_element[VIDEO_ENCODER])        g_object_set(pipe->video_element[VIDEO_ENCODER], "low-latency", TRUE, NULL); 
+
+
+
+    /**
+     * @brief 
+     * properties affect the quality
+     */
+    if (pipe->video_element[VIDEO_ENCODER])        g_object_set(pipe->video_element[VIDEO_ENCODER], "ref", 1, NULL); 
+
+    if (pipe->video_element[VIDEO_ENCODER])        g_object_set(pipe->video_element[VIDEO_ENCODER], "quality-vs-speed", 0, NULL); 
+
+    if (pipe->video_element[RTP_VIDEO_PAYLOAD])    g_object_set(pipe->video_element[RTP_VIDEO_PAYLOAD], "aggregate-mode", 1, NULL);
+
+    if (pipe->audio_element[SOUND_SOURCE])         g_object_set(pipe->audio_element[SOUND_SOURCE], "low-latency", TRUE, NULL);
+
+
+
+    /**
+     * @brief 
+     * setup device  
+     */
+    if (pipe->audio_element[SOUND_SOURCE])         g_object_set(pipe->audio_element[SOUND_SOURCE], "device", get_audio_source(pipe->device), NULL); 
+
+    if (pipe->video_element[SCREEN_CAPTURE])       g_object_set(pipe->video_element[SCREEN_CAPTURE], "monitor-handle", get_video_source(pipe->device), NULL); 
 #else
-    if (pipe->video_element[SCREEN_CAPTURE]) { g_object_set(pipe->video_element[SCREEN_CAPTURE], "show-pointer", TRUE, NULL);}
+    if (pipe->video_element[SCREEN_CAPTURE])       g_object_set(pipe->video_element[SCREEN_CAPTURE], "show-pointer", TRUE, NULL);
 
-    if (pipe->video_element[SCREEN_CAPTURE]) { g_object_set(pipe->video_element[SCREEN_CAPTURE], "remote", TRUE, NULL);}
+    if (pipe->video_element[SCREEN_CAPTURE])       g_object_set(pipe->video_element[SCREEN_CAPTURE], "remote", TRUE, NULL);
 
-    if (pipe->video_element[SCREEN_CAPTURE]) { g_object_set(pipe->video_element[SCREEN_CAPTURE], "blocksize", 16384, NULL);}
+    if (pipe->video_element[SCREEN_CAPTURE])       g_object_set(pipe->video_element[SCREEN_CAPTURE], "blocksize", 16384, NULL);
     
-    if (pipe->video_element[SCREEN_CAPTURE]) { g_object_set(pipe->video_element[SCREEN_CAPTURE], "use-damage", FALSE, NULL);}
+    if (pipe->video_element[SCREEN_CAPTURE])       g_object_set(pipe->video_element[SCREEN_CAPTURE], "use-damage", FALSE, NULL);
+
+    if (pipe->video_element[VIDEO_ENCODER])        g_object_set(pipe->video_element[VIDEO_ENCODER], "threads", 4, NULL);
+
+    if (pipe->video_element[VIDEO_ENCODER])        g_object_set(pipe->video_element[VIDEO_ENCODER], "bframes", 0, NULL);
+
+    if (pipe->video_element[VIDEO_ENCODER])        g_object_set(pipe->video_element[VIDEO_ENCODER], "key-int-max", 0, NULL);
+
+    if (pipe->video_element[VIDEO_ENCODER])        g_object_set(pipe->video_element[VIDEO_ENCODER], "byte-stream", TRUE, NULL);
+
+    if (pipe->video_element[VIDEO_ENCODER])        g_object_set(pipe->video_element[VIDEO_ENCODER], "tune", "zerolatency", NULL);
+
+    if (pipe->video_element[VIDEO_ENCODER])        g_object_set(pipe->video_element[VIDEO_ENCODER], "speed-preset", "veryfast", NULL);
+
+    if (pipe->video_element[VIDEO_ENCODER])        g_object_set(pipe->video_element[VIDEO_ENCODER], "pass", "pass1", NULL);
+
+    if (pipe->video_element[VIDEO_ENCODER])        g_object_set(pipe->video_element[VIDEO_ENCODER], "bitrate", qoe_get_video_bitrate(pipeline->qoe), NULL); 
+
+    if (pipe->audio_element[SOUND_SOURCE])         g_object_set(pipe->audio_element[SOUND_SOURCE], "provide-clock", TRUE, NULL);
+
+    if (pipe->audio_element[SOUND_SOURCE])         g_object_set(pipe->audio_element[SOUND_SOURCE], "do-timestamp", TRUE, NULL);
 #endif
-
-#ifdef G_OS_WIN32
-    if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "rc-mode", 0, NULL); }
-
-    if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "quality-vs-speed", 100, NULL); }
-
-    if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "bitrate", qoe_get_video_bitrate(qoe), NULL); }
-
-    if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "low-latency", TRUE, NULL); }
-#else
-    if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "threads", 4, NULL);}
-
-    if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "bframes", 0, NULL);}
-
-    if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "key-int-max", 0, NULL);}
-
-    if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "byte-stream", TRUE, NULL);}
-
-    if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "tune", "zerolatency", NULL);}
-
-    if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "speed-preset", "veryfast", NULL);}
-
-    if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "pass", "pass1", NULL);}
-
-    if (pipe->video_element[VIDEO_ENCODER]) { g_object_set(pipe->video_element[VIDEO_ENCODER], "bitrate", qoe_get_video_bitrate(qoe), NULL); }
-#endif
-
-    if (pipe->video_element[RTP_VIDEO_PAYLOAD]) { g_object_set(pipe->video_element[RTP_VIDEO_PAYLOAD], "aggregate-mode", 1, NULL);}
-
-#ifndef G_OS_WIN32
-    if (pipe->audio_element[SOUND_SOURCE]) { g_object_set(pipe->audio_element[SOUND_SOURCE], "provide-clock", TRUE, NULL);}
-
-    if (pipe->audio_element[SOUND_SOURCE]) { g_object_set(pipe->audio_element[SOUND_SOURCE], "do-timestamp", TRUE, NULL);}
-#else
-    if (pipe->audio_element[SOUND_SOURCE]) { g_object_set(pipe->audio_element[SOUND_SOURCE], "low-latency", TRUE, NULL);}
-#endif
-
-    if (pipe->audio_element[SOUND_SOURCE]) { g_object_set(pipe->audio_element[SOUND_SOURCE], "device", get_audio_source(pipe->device), NULL); }
-
-    if (pipe->video_element[SCREEN_CAPTURE]) { g_object_set(pipe->video_element[SCREEN_CAPTURE], "monitor-handle", get_video_source(pipe->device), NULL); }
-
     g_object_set(pipe->webrtcbin,"latency",0,NULL);
 }
 
@@ -475,7 +513,7 @@ setup_pipeline(SessionCore* core)
 {
     SignallingHub* signalling = session_core_get_signalling_hub(core);
     Pipeline* pipe = session_core_get_pipeline(core);
-    StreamConfig* qoe = session_core_get_qoe(core);
+    StreamConfig* qoe = pipe->qoe;
 
     if(pipe->pipeline)
         free_pipeline(pipe);
@@ -512,4 +550,29 @@ GstElement*
 pipeline_get_webrtc_bin(Pipeline* pipe)
 {
     return pipe->webrtcbin;
+}
+
+void
+setup_media_device_and_stream(Pipeline* pipe,
+                              JsonObject* object)
+{
+    set_media_device(pipe->device);
+
+    if(!object)
+    {
+        qoe_setup(pipe->qoe,pipe->device,
+                  1920,1080,
+                  OPUS_ENC,
+                  CODEC_H265,
+                  ULTRA_HIGH_CONST);
+        return;
+    }
+
+
+    qoe_setup(pipe->qoe,pipe->device,
+            json_object_get_int_member(object,"screenwidth"),
+            json_object_get_int_member(object,"screenheight"),
+            json_object_get_int_member(object,"audiocodec"),
+            json_object_get_int_member(object,"videocodec"),
+            json_object_get_int_member(object,"mode"));
 }
