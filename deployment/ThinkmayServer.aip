@@ -150,11 +150,11 @@
     <ROW Directory="protocolregistry_Dir" Directory_Parent="node_modules_Dir" DefaultDir="PROTOC~1|protocol-registry"/>
     <ROW Directory="quux_Dir" Directory_Parent="resolver_Dir" DefaultDir="quux"/>
     <ROW Directory="rechoir_Dir" Directory_Parent="node_modules_Dir" DefaultDir="rechoir"/>
-    <ROW Directory="ref_Dir" Directory_Parent="bin_4_Dir" DefaultDir="ref"/>
     <ROW Directory="resolve_Dir" Directory_Parent="node_modules_Dir" DefaultDir="resolve"/>
     <ROW Directory="resolver_Dir" Directory_Parent="test_6_Dir" DefaultDir="resolver"/>
     <ROW Directory="resources_Dir" Directory_Parent="bin_4_Dir" DefaultDir="RESOUR~1|resources"/>
     <ROW Directory="same_names_Dir" Directory_Parent="resolver_Dir" DefaultDir="SAME_N~1|same_names"/>
+    <ROW Directory="script_Dir" Directory_Parent="bin_4_Dir" DefaultDir="script"/>
     <ROW Directory="shadowed_core_Dir" Directory_Parent="test_6_Dir" DefaultDir="SHADOW~1|shadowed_core"/>
     <ROW Directory="shelljs_Dir" Directory_Parent="node_modules_Dir" DefaultDir="shelljs"/>
     <ROW Directory="sideway_Dir" Directory_Parent="node_modules_Dir" DefaultDir="@sideway"/>
@@ -204,403 +204,402 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
     <ROW Component="APPDIR" ComponentId="{A0CA33A8-B120-4211-A652-F52BCCEA48D6}" Directory_="APPDIR" Attributes="0"/>
-    <ROW Component="CHANGELOG" ComponentId="{508CD6F9-E022-4C6B-9D1D-ACDC862987CE}" Directory_="interpret_Dir" Attributes="0" KeyPath="CHANGELOG" Type="0"/>
-    <ROW Component="CHANGELOG.md" ComponentId="{9290650A-A909-45EF-90A1-50B3C01F3A25}" Directory_="colorconvert_Dir" Attributes="0" KeyPath="CHANGELOG.md_2" Type="0"/>
-    <ROW Component="CHANGELOG.md_1" ComponentId="{FE3F4717-40A8-4A5F-B379-44F3B244CF68}" Directory_="shelljs_Dir" Attributes="0" KeyPath="CHANGELOG.md_3" Type="0"/>
-    <ROW Component="FUNDING.yml" ComponentId="{1BD50591-8317-4D81-8637-9A6826147AA1}" Directory_="github_Dir" Attributes="0" KeyPath="FUNDING.yml" Type="0"/>
-    <ROW Component="IddSampleDriver.dll" ComponentId="{663A630D-A3C6-4B5A-99AF-1A47F63EAD47}" Directory_="virtualDisplay_Dir" Attributes="256" KeyPath="IddSampleDriver.dll"/>
-    <ROW Component="LICENSE" ComponentId="{247892B3-8EAF-4494-BD31-4D8582291AFA}" Directory_="minimatch_Dir" Attributes="0" KeyPath="LICENSE_24" Type="0"/>
-    <ROW Component="LICENSE.md" ComponentId="{C2F359A5-7425-4961-A3AB-7CD7DEB2E098}" Directory_="hoek_Dir" Attributes="0" KeyPath="LICENSE.md" Type="0"/>
-    <ROW Component="LICENSE.md_1" ComponentId="{115C603B-AE9C-4D2E-A8E1-569BAA27FAC0}" Directory_="topo_Dir" Attributes="0" KeyPath="LICENSE.md_1" Type="0"/>
-    <ROW Component="LICENSE.md_2" ComponentId="{F52CBFEA-4B34-4240-A0D3-8E98719C3FB7}" Directory_="address_Dir" Attributes="0" KeyPath="LICENSE.md_2" Type="0"/>
-    <ROW Component="LICENSE.md_3" ComponentId="{38CE31D6-896C-4522-A5BC-210B72167776}" Directory_="formula_Dir" Attributes="0" KeyPath="LICENSE.md_3" Type="0"/>
-    <ROW Component="LICENSE.md_4" ComponentId="{3483AC5C-B275-433D-8C58-99EEB4A38680}" Directory_="pinpoint_Dir" Attributes="0" KeyPath="LICENSE.md_4" Type="0"/>
-    <ROW Component="LICENSE.md_5" ComponentId="{DC1F94DD-1C3C-42DB-AEAD-0797683901A8}" Directory_="joi_Dir" Attributes="0" KeyPath="LICENSE.md_7" Type="0"/>
-    <ROW Component="LICENSEMIT" ComponentId="{4C192B6C-E6F3-491A-B60C-37E3EE1175A3}" Directory_="has_Dir" Attributes="0" KeyPath="LICENSEMIT" Type="0"/>
-    <ROW Component="LICENSE_1" ComponentId="{0769620B-E45C-4884-A45D-63C29E340F55}" Directory_="once_Dir" Attributes="0" KeyPath="LICENSE_25" Type="0"/>
-    <ROW Component="LICENSE_2" ComponentId="{2585FF88-9A7B-4F32-BEE3-B0DDAF9E9552}" Directory_="wrappy_Dir" Attributes="0" KeyPath="LICENSE_33" Type="0"/>
-    <ROW Component="Microsoft.CSharp.dll" ComponentId="{2D77E074-77AA-45A3-BDDD-4935801F61D9}" Directory_="bin_4_Dir" Attributes="256" KeyPath="Microsoft.CSharp.dll"/>
-    <ROW Component="Microsoft.DiaSymReader.Native.amd64.dll" ComponentId="{617051C7-51FE-4F44-87DC-FA37F7155AC1}" Directory_="bin_4_Dir" Attributes="256" KeyPath="Microsoft.DiaSymReader.Native.amd64.dll"/>
-    <ROW Component="Microsoft.VisualBasic.Core.dll" ComponentId="{714017C3-EC93-43D5-91DE-4A79CFDACB89}" Directory_="bin_4_Dir" Attributes="256" KeyPath="Microsoft.VisualBasic.Core.dll"/>
-    <ROW Component="Microsoft.VisualBasic.dll" ComponentId="{5A6D9D4C-32F3-48D8-9F1A-E00C93B55256}" Directory_="bin_4_Dir" Attributes="0" KeyPath="Microsoft.VisualBasic.dll"/>
-    <ROW Component="Microsoft.Win32.Primitives.dll" ComponentId="{477311DC-D032-47CB-BB83-A46BE5DF78FC}" Directory_="bin_4_Dir" Attributes="256" KeyPath="Microsoft.Win32.Primitives.dll"/>
-    <ROW Component="Microsoft.Win32.Registry.dll" ComponentId="{FEF81B07-7B13-4763-9A69-0D0384154473}" Directory_="bin_4_Dir" Attributes="256" KeyPath="Microsoft.Win32.Registry.dll"/>
-    <ROW Component="Newtonsoft.Json.dll" ComponentId="{1FDC112F-E571-4B58-BAD1-868146A8D544}" Directory_="bin_4_Dir" Attributes="0" KeyPath="Newtonsoft.Json.dll"/>
+    <ROW Component="CHANGELOG" ComponentId="{14CF5B5F-20D3-4EB9-B50F-A098B673FE7D}" Directory_="interpret_Dir" Attributes="0" KeyPath="CHANGELOG" Type="0"/>
+    <ROW Component="CHANGELOG.md" ComponentId="{AB52C0EB-DFE3-4C67-9105-3BB9723B90E2}" Directory_="colorconvert_Dir" Attributes="0" KeyPath="CHANGELOG.md_2" Type="0"/>
+    <ROW Component="CHANGELOG.md_1" ComponentId="{A4E0408D-5CCB-4C64-A9FF-C9E40F8230CD}" Directory_="shelljs_Dir" Attributes="0" KeyPath="CHANGELOG.md_3" Type="0"/>
+    <ROW Component="FUNDING.yml" ComponentId="{D629B7C6-25B5-46D7-AD0F-3594D3EA8481}" Directory_="github_Dir" Attributes="0" KeyPath="FUNDING.yml" Type="0"/>
+    <ROW Component="IddSampleDriver.dll" ComponentId="{3CF82FF0-6DF4-4A70-BFA5-507355648BD9}" Directory_="virtualDisplay_Dir" Attributes="256" KeyPath="IddSampleDriver.dll"/>
+    <ROW Component="LICENSE" ComponentId="{7693EF91-C6E1-4A2B-A35E-D3D644008EA4}" Directory_="minimatch_Dir" Attributes="0" KeyPath="LICENSE_24" Type="0"/>
+    <ROW Component="LICENSE.md" ComponentId="{ECA8A221-B9FF-4ED6-B5CD-7A0BC5168A1C}" Directory_="hoek_Dir" Attributes="0" KeyPath="LICENSE.md" Type="0"/>
+    <ROW Component="LICENSE.md_1" ComponentId="{8D6F3251-C927-453D-81C9-744CE13644E0}" Directory_="topo_Dir" Attributes="0" KeyPath="LICENSE.md_1" Type="0"/>
+    <ROW Component="LICENSE.md_2" ComponentId="{0D8C543E-EDAE-4EB9-AC21-7C21BCECA7EE}" Directory_="address_Dir" Attributes="0" KeyPath="LICENSE.md_2" Type="0"/>
+    <ROW Component="LICENSE.md_3" ComponentId="{2E179993-AD29-4E6A-97A3-1A554A802566}" Directory_="formula_Dir" Attributes="0" KeyPath="LICENSE.md_3" Type="0"/>
+    <ROW Component="LICENSE.md_4" ComponentId="{B0424F17-05F7-4FFF-9726-A7FC3D818BDE}" Directory_="pinpoint_Dir" Attributes="0" KeyPath="LICENSE.md_4" Type="0"/>
+    <ROW Component="LICENSE.md_5" ComponentId="{9EB57403-4F13-4784-B6B3-1DA1C9EC960F}" Directory_="joi_Dir" Attributes="0" KeyPath="LICENSE.md_7" Type="0"/>
+    <ROW Component="LICENSEMIT" ComponentId="{F8FF32BB-6209-4D94-93B9-00AFA9DA1F77}" Directory_="has_Dir" Attributes="0" KeyPath="LICENSEMIT" Type="0"/>
+    <ROW Component="LICENSE_1" ComponentId="{B20584D0-E53F-404D-8B3F-3D2CC00306F7}" Directory_="once_Dir" Attributes="0" KeyPath="LICENSE_25" Type="0"/>
+    <ROW Component="LICENSE_2" ComponentId="{982319CE-7D91-4D6E-8F6F-839902556946}" Directory_="wrappy_Dir" Attributes="0" KeyPath="LICENSE_33" Type="0"/>
+    <ROW Component="Microsoft.CSharp.dll" ComponentId="{8EEBD383-CAF6-4AAC-BBAB-9CA050D0E1F8}" Directory_="bin_4_Dir" Attributes="256" KeyPath="Microsoft.CSharp.dll"/>
+    <ROW Component="Microsoft.DiaSymReader.Native.amd64.dll" ComponentId="{B395ADEA-DCA3-45F2-BA71-6907B7241F9F}" Directory_="bin_4_Dir" Attributes="256" KeyPath="Microsoft.DiaSymReader.Native.amd64.dll"/>
+    <ROW Component="Microsoft.VisualBasic.Core.dll" ComponentId="{264D3DDE-914E-4DC9-8902-274F9129E4F5}" Directory_="bin_4_Dir" Attributes="256" KeyPath="Microsoft.VisualBasic.Core.dll"/>
+    <ROW Component="Microsoft.VisualBasic.dll" ComponentId="{7EC72098-AAE4-4AF1-86AF-739F77BFAE5A}" Directory_="bin_4_Dir" Attributes="0" KeyPath="Microsoft.VisualBasic.dll"/>
+    <ROW Component="Microsoft.Win32.Primitives.dll" ComponentId="{A3CBB730-510A-4382-8423-CE994E27003D}" Directory_="bin_4_Dir" Attributes="256" KeyPath="Microsoft.Win32.Primitives.dll"/>
+    <ROW Component="Microsoft.Win32.Registry.dll" ComponentId="{6C61D2D6-1CA7-440F-B1B0-49554FF71F99}" Directory_="bin_4_Dir" Attributes="256" KeyPath="Microsoft.Win32.Registry.dll"/>
+    <ROW Component="Newtonsoft.Json.dll" ComponentId="{86053C11-7BFF-4394-B34A-96CCD507DDDD}" Directory_="bin_4_Dir" Attributes="0" KeyPath="Newtonsoft.Json.dll"/>
     <ROW Component="ProductInformation" ComponentId="{B3B853D4-EA96-448C-B230-3DDAE216CC19}" Directory_="APPDIR" Attributes="260" KeyPath="Version"/>
-    <ROW Component="Renci.SshNet.dll" ComponentId="{2BEF2C67-CBB3-4FBD-AC41-43989CF24D90}" Directory_="bin_4_Dir" Attributes="0" KeyPath="Renci.SshNet.dll"/>
-    <ROW Component="RestSharp.dll" ComponentId="{28AE41CA-ADD2-4F80-9931-3F28D0D71E91}" Directory_="bin_4_Dir" Attributes="0" KeyPath="RestSharp.dll"/>
+    <ROW Component="Renci.SshNet.dll" ComponentId="{FEFCE1AA-AE6A-4FE9-8886-94E7F74B0C4A}" Directory_="bin_4_Dir" Attributes="0" KeyPath="Renci.SshNet.dll"/>
+    <ROW Component="RestSharp.dll" ComponentId="{49294F6E-2A40-4B84-A240-BFD00AE4738D}" Directory_="bin_4_Dir" Attributes="0" KeyPath="RestSharp.dll"/>
     <ROW Component="SHORTCUTDIR" ComponentId="{956F3D3B-F17E-4CBE-BA9F-EA3DE28028D7}" Directory_="SHORTCUTDIR" Attributes="0"/>
-    <ROW Component="Signalling.dll" ComponentId="{487B1594-F182-4C6C-B644-546E0B1DB74D}" Directory_="ref_Dir" Attributes="0" KeyPath="Signalling.dll"/>
-    <ROW Component="Signalling.dll_1" ComponentId="{4B3A9ECE-8C70-48AB-995F-3873A116D9F0}" Directory_="bin_4_Dir" Attributes="0" KeyPath="Signalling.dll_1"/>
-    <ROW Component="Signalling.exe" ComponentId="{B1CF581C-22AB-4775-8C47-79B80890C3D9}" Directory_="bin_4_Dir" Attributes="256" KeyPath="Signalling.exe"/>
-    <ROW Component="Squirrel.exe" ComponentId="{9BF00DB4-05F7-4239-B89D-0BD923E9502E}" Directory_="bin_4_Dir" Attributes="0" KeyPath="Squirrel.exe"/>
-    <ROW Component="SshNet.Security.Cryptography.dll" ComponentId="{C512605C-9C2D-4D71-BAE5-EF030091ACE4}" Directory_="bin_4_Dir" Attributes="0" KeyPath="SshNet.Security.Cryptography.dll"/>
-    <ROW Component="System.AppContext.dll" ComponentId="{B40825BB-0EB7-4402-A2EA-FBE5C1BBD1E1}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.AppContext.dll"/>
-    <ROW Component="System.Buffers.dll" ComponentId="{75D2E378-47F7-4013-BD59-2DC79AAB3857}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Buffers.dll"/>
-    <ROW Component="System.Collections.Concurrent.dll" ComponentId="{753AB18B-4C61-4C71-860B-83741DA87462}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Collections.Concurrent.dll"/>
-    <ROW Component="System.Collections.Immutable.dll" ComponentId="{2A312FAE-B308-411A-84BE-B4363AACA4A0}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Collections.Immutable.dll"/>
-    <ROW Component="System.Collections.NonGeneric.dll" ComponentId="{88D1A99F-F652-4140-B5B7-258058534FC4}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Collections.NonGeneric.dll"/>
-    <ROW Component="System.Collections.Specialized.dll" ComponentId="{419E1D78-2499-4549-BB6F-6AD59E2D2B89}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Collections.Specialized.dll"/>
-    <ROW Component="System.Collections.dll" ComponentId="{0AF1A785-6C25-44A7-B934-B33ABC7DAC14}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Collections.dll"/>
-    <ROW Component="System.ComponentModel.Annotations.dll" ComponentId="{3698E1FA-81FB-47E0-82F5-6C7F5770B531}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.ComponentModel.Annotations.dll"/>
-    <ROW Component="System.ComponentModel.DataAnnotations.dll" ComponentId="{ED1E4647-2DFE-4B1C-B70C-1070D4F3BAB8}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.ComponentModel.DataAnnotations.dll"/>
-    <ROW Component="System.ComponentModel.EventBasedAsync.dll" ComponentId="{D6A5A161-4182-434E-A7A4-719B78BB4D1B}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.ComponentModel.EventBasedAsync.dll"/>
-    <ROW Component="System.ComponentModel.Primitives.dll" ComponentId="{37A870B6-BB5F-403E-B7F4-7AF9FEF5B675}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.ComponentModel.Primitives.dll"/>
-    <ROW Component="System.ComponentModel.TypeConverter.dll" ComponentId="{BDAB5697-4FDC-4CBF-B41D-CCDB7513E99B}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.ComponentModel.TypeConverter.dll"/>
-    <ROW Component="System.ComponentModel.dll" ComponentId="{8B10AC38-6AB6-4063-A7CF-C1409C119998}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.ComponentModel.dll"/>
-    <ROW Component="System.Configuration.dll" ComponentId="{BD867226-33C6-411B-9976-DAC556525952}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Configuration.dll"/>
-    <ROW Component="System.Console.dll" ComponentId="{1875310D-5124-4A2B-B41E-FA6A38B20140}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Console.dll"/>
-    <ROW Component="System.Core.dll" ComponentId="{5AEAE506-6DC7-4F2F-93A3-A9E03BF390DA}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Core.dll"/>
-    <ROW Component="System.Data.Common.dll" ComponentId="{61827EF8-CDDA-4792-81B7-BFCDD6E2C0EA}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Data.Common.dll"/>
-    <ROW Component="System.Data.DataSetExtensions.dll" ComponentId="{515A447A-4807-4AC3-8411-031422D526EF}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Data.DataSetExtensions.dll"/>
-    <ROW Component="System.Data.dll" ComponentId="{888907AD-1B03-4D89-A061-BDB34AD82320}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Data.dll"/>
-    <ROW Component="System.Diagnostics.Contracts.dll" ComponentId="{3E614963-06DA-47AA-ADDD-B083C1F0E1BE}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Diagnostics.Contracts.dll"/>
-    <ROW Component="System.Diagnostics.Debug.dll" ComponentId="{6CA20F31-9456-4100-AB48-8A80899B46A9}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Diagnostics.Debug.dll"/>
-    <ROW Component="System.Diagnostics.DiagnosticSource.dll" ComponentId="{179E13E2-65DE-4F61-B14D-0DA2BBEE9556}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Diagnostics.DiagnosticSource.dll"/>
-    <ROW Component="System.Diagnostics.FileVersionInfo.dll" ComponentId="{2C30BF27-ED46-4E17-8D97-3D30878ACA74}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Diagnostics.FileVersionInfo.dll"/>
-    <ROW Component="System.Diagnostics.Process.dll" ComponentId="{8F614A2C-DA40-4273-ADDD-2ADB2E1B0EDF}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Diagnostics.Process.dll"/>
-    <ROW Component="System.Diagnostics.StackTrace.dll" ComponentId="{C404916B-C0EB-41D9-918A-58FB053ACBF0}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Diagnostics.StackTrace.dll"/>
-    <ROW Component="System.Diagnostics.TextWriterTraceListener.dll" ComponentId="{03F31167-3ED9-456C-B50F-C714E15BE686}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Diagnostics.TextWriterTraceListener.dll"/>
-    <ROW Component="System.Diagnostics.Tools.dll" ComponentId="{68049B3C-3967-4A70-825F-9CDD3E6E3E02}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Diagnostics.Tools.dll"/>
-    <ROW Component="System.Diagnostics.TraceSource.dll" ComponentId="{AD32BD09-DDF0-4858-86AB-E2F1DB183D07}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Diagnostics.TraceSource.dll"/>
-    <ROW Component="System.Diagnostics.Tracing.dll" ComponentId="{F24A1B44-8DD6-4646-A8F6-91F53EE953E4}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Diagnostics.Tracing.dll"/>
-    <ROW Component="System.Drawing.Primitives.dll" ComponentId="{D5FE6814-4E98-4442-8AFD-F3CC3EC8535A}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Drawing.Primitives.dll"/>
-    <ROW Component="System.Drawing.dll" ComponentId="{252C228C-E2CC-4198-984A-791A4ABA5D5A}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Drawing.dll"/>
-    <ROW Component="System.Dynamic.Runtime.dll" ComponentId="{42E03A69-B729-4BAA-BBFE-213FF3D9CF53}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Dynamic.Runtime.dll"/>
-    <ROW Component="System.Formats.Asn1.dll" ComponentId="{BB627FAC-FB96-468C-9471-AD59364A8688}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Formats.Asn1.dll"/>
-    <ROW Component="System.Globalization.Calendars.dll" ComponentId="{D670E026-2029-4820-BAF3-63B71CEEFAF2}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Globalization.Calendars.dll"/>
-    <ROW Component="System.Globalization.Extensions.dll" ComponentId="{799202C8-39F0-47D5-82CC-C6AA21D8AFFA}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Globalization.Extensions.dll"/>
-    <ROW Component="System.Globalization.dll" ComponentId="{1F5D9F8F-DEC9-4585-B89D-495F71449C56}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Globalization.dll"/>
-    <ROW Component="System.IO.Compression.Brotli.dll" ComponentId="{FF2490BB-2508-4961-B4CF-A59A9E64C3F1}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.IO.Compression.Brotli.dll"/>
-    <ROW Component="System.IO.Compression.FileSystem.dll" ComponentId="{6C7CB856-513A-40D4-A212-EC31656295AC}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.IO.Compression.FileSystem.dll"/>
-    <ROW Component="System.IO.Compression.Native.dll" ComponentId="{C8279638-41AE-4F7E-83F1-29F99C4970D3}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.IO.Compression.Native.dll"/>
-    <ROW Component="System.IO.Compression.ZipFile.dll" ComponentId="{C27D1F48-0DA8-415C-8F2B-EA66B4E0010F}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.IO.Compression.ZipFile.dll"/>
-    <ROW Component="System.IO.Compression.dll" ComponentId="{EB7FDB27-2ADE-47E7-BF9C-947788BEC45D}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.IO.Compression.dll"/>
-    <ROW Component="System.IO.FileSystem.AccessControl.dll" ComponentId="{D3B2DA3E-1848-43EC-A624-62E1B8721EAF}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.IO.FileSystem.AccessControl.dll"/>
-    <ROW Component="System.IO.FileSystem.DriveInfo.dll" ComponentId="{5EB12F0D-E1AC-47BA-A287-7CAB7FE05290}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.IO.FileSystem.DriveInfo.dll"/>
-    <ROW Component="System.IO.FileSystem.Primitives.dll" ComponentId="{AB6C10F7-356A-45B4-A293-20E8342BE1FB}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.IO.FileSystem.Primitives.dll"/>
-    <ROW Component="System.IO.FileSystem.Watcher.dll" ComponentId="{8CA3B089-8C69-431F-A2D8-B8879DE27E82}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.IO.FileSystem.Watcher.dll"/>
-    <ROW Component="System.IO.FileSystem.dll" ComponentId="{04525300-A590-4F95-A16A-3FA52AA02AD8}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.IO.FileSystem.dll"/>
-    <ROW Component="System.IO.IsolatedStorage.dll" ComponentId="{49436FD5-773D-4E91-990E-3D9B5BF7E86A}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.IO.IsolatedStorage.dll"/>
-    <ROW Component="System.IO.MemoryMappedFiles.dll" ComponentId="{D07C6547-E56D-400B-B03F-F4E16F3D6344}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.IO.MemoryMappedFiles.dll"/>
-    <ROW Component="System.IO.Pipes.AccessControl.dll" ComponentId="{7952D7CB-F09C-4A12-95B0-1A0E121FCDF0}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.IO.Pipes.AccessControl.dll"/>
-    <ROW Component="System.IO.Pipes.dll" ComponentId="{DB953B32-C0BA-450E-9C9C-C7DF8CD04237}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.IO.Pipes.dll"/>
-    <ROW Component="System.IO.UnmanagedMemoryStream.dll" ComponentId="{25291865-3330-4A75-8418-21722A8D10DF}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.IO.UnmanagedMemoryStream.dll"/>
-    <ROW Component="System.IO.dll" ComponentId="{A0D7E739-A863-48D7-A839-0B7800D8DE86}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.IO.dll"/>
-    <ROW Component="System.Linq.Expressions.dll" ComponentId="{52D0EF7A-9F18-4CFD-989E-4C2C75F63E21}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Linq.Expressions.dll"/>
-    <ROW Component="System.Linq.Parallel.dll" ComponentId="{10B4FAE1-AC30-4A4C-9121-92C640164308}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Linq.Parallel.dll"/>
-    <ROW Component="System.Linq.Queryable.dll" ComponentId="{9A6D9BA2-B9A4-4FA0-896D-CDD9A60D4CD4}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Linq.Queryable.dll"/>
-    <ROW Component="System.Linq.dll" ComponentId="{207A6DDC-B1DB-4101-B1E8-FD193D97EECB}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Linq.dll"/>
-    <ROW Component="System.Memory.dll" ComponentId="{3DDB66B0-A32B-490C-82DF-1F96F2EA29AB}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Memory.dll"/>
-    <ROW Component="System.Net.Http.Json.dll" ComponentId="{5FED6634-8163-4B8D-918A-F15D02809565}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.Http.Json.dll"/>
-    <ROW Component="System.Net.Http.dll" ComponentId="{4652E627-3EE2-4A6F-BC9F-DAD2C96208E7}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.Http.dll"/>
-    <ROW Component="System.Net.HttpListener.dll" ComponentId="{54A744D3-1B35-45FD-B1B8-D815A7586D41}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.HttpListener.dll"/>
-    <ROW Component="System.Net.Mail.dll" ComponentId="{F83D5FC0-1F61-460C-A8C2-40F71398A5EC}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.Mail.dll"/>
-    <ROW Component="System.Net.NameResolution.dll" ComponentId="{4DE1F99D-47CD-4083-9BCA-1A07070F4070}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.NameResolution.dll"/>
-    <ROW Component="System.Net.NetworkInformation.dll" ComponentId="{EA3FFA3C-0BAD-48F4-9268-0ED74BCFD187}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.NetworkInformation.dll"/>
-    <ROW Component="System.Net.Ping.dll" ComponentId="{0AE9EE76-30AE-4EEA-A819-5C4EC1AE1B02}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.Ping.dll"/>
-    <ROW Component="System.Net.Primitives.dll" ComponentId="{3061752D-BC80-4E1E-B25C-BB347AF608AF}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.Primitives.dll"/>
-    <ROW Component="System.Net.Quic.dll" ComponentId="{96D1C226-85ED-4D11-8864-B05807373C6D}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.Quic.dll"/>
-    <ROW Component="System.Net.Requests.dll" ComponentId="{C20C3220-DF7B-43C7-9488-BC61159D97B3}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.Requests.dll"/>
-    <ROW Component="System.Net.Security.dll" ComponentId="{74DBEDB5-ABB9-42A8-8CB3-3843C7649360}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.Security.dll"/>
-    <ROW Component="System.Net.ServicePoint.dll" ComponentId="{C7FD6CB7-646B-4A84-B054-E48D708A32E4}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.ServicePoint.dll"/>
-    <ROW Component="System.Net.Sockets.dll" ComponentId="{24578CAD-B760-4B10-895F-B74A895FCCFA}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.Sockets.dll"/>
-    <ROW Component="System.Net.WebClient.dll" ComponentId="{FD617089-04DE-464E-8340-BB7E51441B43}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.WebClient.dll"/>
-    <ROW Component="System.Net.WebHeaderCollection.dll" ComponentId="{E9A7ABFA-7A5B-497E-A1DF-86E3545AFDA5}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.WebHeaderCollection.dll"/>
-    <ROW Component="System.Net.WebProxy.dll" ComponentId="{ACCFEFB1-F5E9-45E5-9C7E-619E1C157474}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.WebProxy.dll"/>
-    <ROW Component="System.Net.WebSockets.Client.dll" ComponentId="{CE05183A-7EA3-4F8C-99AF-484114E92D15}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.WebSockets.Client.dll"/>
-    <ROW Component="System.Net.WebSockets.dll" ComponentId="{6C9864CB-094A-4DBC-AB64-AA7491640712}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.WebSockets.dll"/>
-    <ROW Component="System.Net.dll" ComponentId="{591C6907-E05A-470E-AF0C-57989EB4BBE6}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Net.dll"/>
-    <ROW Component="System.Numerics.Vectors.dll" ComponentId="{A23C7B8A-E10D-4894-97DF-28888FE52500}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Numerics.Vectors.dll"/>
-    <ROW Component="System.Numerics.dll" ComponentId="{C23E9813-81E1-4019-BBA6-FD898814AFDB}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Numerics.dll"/>
-    <ROW Component="System.ObjectModel.dll" ComponentId="{23031483-6C78-4E39-A8B8-6911DD12BB2E}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.ObjectModel.dll"/>
-    <ROW Component="System.Private.CoreLib.dll" ComponentId="{16A8D227-F058-49CB-9E32-4AD540E0E227}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Private.CoreLib.dll"/>
-    <ROW Component="System.Private.DataContractSerialization.dll" ComponentId="{85C66AC5-1DAA-4FC0-A0A0-3A5677F7C614}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Private.DataContractSerialization.dll"/>
-    <ROW Component="System.Private.Uri.dll" ComponentId="{52C0B164-18AD-4E5E-AC6A-7581BAC9AE5F}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Private.Uri.dll"/>
-    <ROW Component="System.Private.Xml.Linq.dll" ComponentId="{678E22AC-25AE-4407-B08A-ED72A0723FD7}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Private.Xml.Linq.dll"/>
-    <ROW Component="System.Private.Xml.dll" ComponentId="{7678FB3C-0735-4BAD-833D-72171967AA02}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Private.Xml.dll"/>
-    <ROW Component="System.Reflection.DispatchProxy.dll" ComponentId="{32BF550D-C4E3-4808-8ABC-DD9F7AE1F831}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Reflection.DispatchProxy.dll"/>
-    <ROW Component="System.Reflection.Emit.ILGeneration.dll" ComponentId="{9FB2927D-59E2-4B06-98BB-17F5E04EFF87}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Reflection.Emit.ILGeneration.dll"/>
-    <ROW Component="System.Reflection.Emit.Lightweight.dll" ComponentId="{D9A06AAE-7539-4A0E-AD0E-B0080326808B}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Reflection.Emit.Lightweight.dll"/>
-    <ROW Component="System.Reflection.Emit.dll" ComponentId="{27ED7BF5-FD76-43AB-84FF-407623EF538E}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Reflection.Emit.dll"/>
-    <ROW Component="System.Reflection.Extensions.dll" ComponentId="{B48AA351-4FD5-4282-B5B2-A9ACDD3D0184}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Reflection.Extensions.dll"/>
-    <ROW Component="System.Reflection.Metadata.dll" ComponentId="{74D00074-097B-416D-A3EC-E7717879F567}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Reflection.Metadata.dll"/>
-    <ROW Component="System.Reflection.Primitives.dll" ComponentId="{5ED6FD4A-4607-48C7-8943-F75B42418F7E}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Reflection.Primitives.dll"/>
-    <ROW Component="System.Reflection.TypeExtensions.dll" ComponentId="{A1B14132-6848-4A53-853B-A7CE4A0DB834}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Reflection.TypeExtensions.dll"/>
-    <ROW Component="System.Reflection.dll" ComponentId="{608B796C-5533-4254-AC0C-BAFCBC9A809D}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Reflection.dll"/>
-    <ROW Component="System.Resources.Reader.dll" ComponentId="{C43F8DBB-325F-4A08-93B3-2F582551DBB7}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Resources.Reader.dll"/>
-    <ROW Component="System.Resources.ResourceManager.dll" ComponentId="{D55A50E2-1D32-4648-8957-4F79A4B321D7}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Resources.ResourceManager.dll"/>
-    <ROW Component="System.Resources.Writer.dll" ComponentId="{B6BC95D5-A73A-4AC8-A052-8175664A1587}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Resources.Writer.dll"/>
-    <ROW Component="System.Runtime.CompilerServices.Unsafe.dll" ComponentId="{8D4D5918-0E0C-4E52-A376-8B5605674316}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Runtime.CompilerServices.Unsafe.dll"/>
-    <ROW Component="System.Runtime.CompilerServices.VisualC.dll" ComponentId="{0B80CA3C-0931-4345-9B8B-EE5AEA1D9260}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Runtime.CompilerServices.VisualC.dll"/>
-    <ROW Component="System.Runtime.Extensions.dll" ComponentId="{1536362F-367C-41E0-8D06-98996E15CB76}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Runtime.Extensions.dll"/>
-    <ROW Component="System.Runtime.Handles.dll" ComponentId="{86545FE9-490F-4280-B988-AE6C72C4DA6D}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Runtime.Handles.dll"/>
-    <ROW Component="System.Runtime.InteropServices.RuntimeInformation.dll" ComponentId="{F0511DD3-0F76-42E6-989B-CE176C2CCF5C}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Runtime.InteropServices.RuntimeInformation.dll"/>
-    <ROW Component="System.Runtime.InteropServices.dll" ComponentId="{706F6F7B-22E1-4265-8CE5-13A61B0C7E2A}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Runtime.InteropServices.dll"/>
-    <ROW Component="System.Runtime.Intrinsics.dll" ComponentId="{1980F19B-C0AD-4796-BB77-EC6EE0CA14A7}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Runtime.Intrinsics.dll"/>
-    <ROW Component="System.Runtime.Loader.dll" ComponentId="{0471D828-077B-49E0-A1B0-8F6CFF21C59F}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Runtime.Loader.dll"/>
-    <ROW Component="System.Runtime.Numerics.dll" ComponentId="{05E8643F-9641-424F-A36D-598C5C0E3C40}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Runtime.Numerics.dll"/>
-    <ROW Component="System.Runtime.Serialization.Formatters.dll" ComponentId="{5873E849-DFA6-4C74-913F-135E68561804}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Runtime.Serialization.Formatters.dll"/>
-    <ROW Component="System.Runtime.Serialization.Json.dll" ComponentId="{758F8541-C8F6-485B-A7E0-84D44A4179CA}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Runtime.Serialization.Json.dll"/>
-    <ROW Component="System.Runtime.Serialization.Primitives.dll" ComponentId="{A38CC018-9FF5-4425-9251-186C90813170}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Runtime.Serialization.Primitives.dll"/>
-    <ROW Component="System.Runtime.Serialization.Xml.dll" ComponentId="{DF30AB5A-FCF0-4E56-9564-66720F8D35ED}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Runtime.Serialization.Xml.dll"/>
-    <ROW Component="System.Runtime.Serialization.dll" ComponentId="{307ACA4C-E51D-4F99-BEB6-A7891B1F41F1}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Runtime.Serialization.dll"/>
-    <ROW Component="System.Runtime.dll" ComponentId="{A792CA6B-BA24-4DDC-89B1-C7F8A87D7C6E}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Runtime.dll"/>
-    <ROW Component="System.Security.AccessControl.dll" ComponentId="{B8F01CD1-70B8-4CAB-A158-DAF57F4EAFD6}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Security.AccessControl.dll"/>
-    <ROW Component="System.Security.Claims.dll" ComponentId="{0B80623F-3A41-4A74-9203-96062F978A6A}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Security.Claims.dll"/>
-    <ROW Component="System.Security.Cryptography.Algorithms.dll" ComponentId="{E5A17793-8340-4C4E-8E53-C5F8783E7A78}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Security.Cryptography.Algorithms.dll"/>
-    <ROW Component="System.Security.Cryptography.Cng.dll" ComponentId="{8BEE4A24-4BEF-4BA6-A3D1-89D91ED3955E}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Security.Cryptography.Cng.dll"/>
-    <ROW Component="System.Security.Cryptography.Csp.dll" ComponentId="{AA8F9DB7-19F5-4858-83F8-8C06CEC46E54}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Security.Cryptography.Csp.dll"/>
-    <ROW Component="System.Security.Cryptography.Encoding.dll" ComponentId="{7D2C2C0A-A827-48B2-9F70-3C1BA2C36EAF}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Security.Cryptography.Encoding.dll"/>
-    <ROW Component="System.Security.Cryptography.OpenSsl.dll" ComponentId="{3A18CBC7-0E7C-4F2D-9A14-3EEE357D5AB9}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Security.Cryptography.OpenSsl.dll"/>
-    <ROW Component="System.Security.Cryptography.Primitives.dll" ComponentId="{859C975E-BACE-46F3-810B-4D51365DB9DF}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Security.Cryptography.Primitives.dll"/>
-    <ROW Component="System.Security.Cryptography.X509Certificates.dll" ComponentId="{8880C49A-871D-4AE2-8DDF-7D4F6E5A4F5F}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Security.Cryptography.X509Certificates.dll"/>
-    <ROW Component="System.Security.Principal.Windows.dll" ComponentId="{F4948FC5-02C7-483F-B59B-FF86A71DF557}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Security.Principal.Windows.dll"/>
-    <ROW Component="System.Security.Principal.dll" ComponentId="{205C1895-58C5-4C5D-90E8-7F02F3492EC9}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Security.Principal.dll"/>
-    <ROW Component="System.Security.SecureString.dll" ComponentId="{7DB58C83-63BE-4A21-A0E8-04AEC1833A5D}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Security.SecureString.dll"/>
-    <ROW Component="System.Security.dll" ComponentId="{B00C90B5-3ACD-4EC2-8A80-EA9428D842C4}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Security.dll"/>
-    <ROW Component="System.ServiceModel.Web.dll" ComponentId="{6771F553-1EF0-4895-AEC7-7DE61E93DABE}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.ServiceModel.Web.dll"/>
-    <ROW Component="System.ServiceProcess.dll" ComponentId="{B6121263-6A85-4579-BB5A-EB74B87EAF02}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.ServiceProcess.dll"/>
-    <ROW Component="System.Text.Encoding.CodePages.dll" ComponentId="{89DDEE25-869E-4F77-A8FB-695A8DA4E5C5}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Text.Encoding.CodePages.dll"/>
-    <ROW Component="System.Text.Encoding.Extensions.dll" ComponentId="{861E113F-520E-4C4F-A342-DCA45DB0C2C0}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Text.Encoding.Extensions.dll"/>
-    <ROW Component="System.Text.Encoding.dll" ComponentId="{45F5209D-FD61-4765-91F1-9DBF690D11B9}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Text.Encoding.dll"/>
-    <ROW Component="System.Text.Encodings.Web.dll" ComponentId="{A295E897-223F-4A00-800A-78ECFE00699B}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Text.Encodings.Web.dll"/>
-    <ROW Component="System.Text.Json.dll" ComponentId="{C76D948B-D937-4E51-A40B-421DD18D0FFF}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Text.Json.dll"/>
-    <ROW Component="System.Text.RegularExpressions.dll" ComponentId="{33BE3FD1-E504-4719-9501-B07BD2717103}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Text.RegularExpressions.dll"/>
-    <ROW Component="System.Threading.Channels.dll" ComponentId="{18919B9B-CBB7-460A-AD5B-FE78D6EC9E1D}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Threading.Channels.dll"/>
-    <ROW Component="System.Threading.Overlapped.dll" ComponentId="{0621AA62-0A7E-425B-855D-316127280AC9}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Threading.Overlapped.dll"/>
-    <ROW Component="System.Threading.Tasks.Dataflow.dll" ComponentId="{A357EFF8-F4CF-4D71-9190-E519D186485A}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Threading.Tasks.Dataflow.dll"/>
-    <ROW Component="System.Threading.Tasks.Extensions.dll" ComponentId="{1AA9F32A-2F6E-42DC-88DE-2E4A4C6F2F12}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Threading.Tasks.Extensions.dll"/>
-    <ROW Component="System.Threading.Tasks.Parallel.dll" ComponentId="{7A46A023-B315-499C-8ADD-B1F975127245}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Threading.Tasks.Parallel.dll"/>
-    <ROW Component="System.Threading.Tasks.dll" ComponentId="{2E063BAB-8337-452F-A0BF-4CE22C6F2467}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Threading.Tasks.dll"/>
-    <ROW Component="System.Threading.Thread.dll" ComponentId="{9F2B7FDD-1789-4287-9AA0-3E0723D8A746}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Threading.Thread.dll"/>
-    <ROW Component="System.Threading.ThreadPool.dll" ComponentId="{4749044F-D8DD-4337-8B23-B0E44886EEF4}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Threading.ThreadPool.dll"/>
-    <ROW Component="System.Threading.Timer.dll" ComponentId="{6EA5F854-0796-4191-91DB-40A263696C74}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Threading.Timer.dll"/>
-    <ROW Component="System.Threading.dll" ComponentId="{B4B8E1CB-F943-4EC2-A6B1-7A9B5F720EBE}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Threading.dll"/>
-    <ROW Component="System.Transactions.Local.dll" ComponentId="{2B206941-E4A0-429D-A231-07E506B163A8}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Transactions.Local.dll"/>
-    <ROW Component="System.Transactions.dll" ComponentId="{5666E2C0-7316-49E7-8751-B1EB742F673F}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Transactions.dll"/>
-    <ROW Component="System.ValueTuple.dll" ComponentId="{A5C3AE58-425B-4812-9EB0-A586F5D88414}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.ValueTuple.dll"/>
-    <ROW Component="System.Web.HttpUtility.dll" ComponentId="{C315DFD0-AABA-4B4B-8292-BD3136485625}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Web.HttpUtility.dll"/>
-    <ROW Component="System.Web.dll" ComponentId="{800DDAFA-56C6-40C5-AE5D-5B51F69BD7A2}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Web.dll"/>
-    <ROW Component="System.Windows.dll" ComponentId="{50AEDD75-105B-4F36-9E3B-966169F844F0}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Windows.dll"/>
-    <ROW Component="System.Xml.Linq.dll" ComponentId="{DEC4B42D-7E3B-47FD-916C-E39B588649B4}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Xml.Linq.dll"/>
-    <ROW Component="System.Xml.ReaderWriter.dll" ComponentId="{EB126D50-C052-4C88-AD3F-46D29805F980}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Xml.ReaderWriter.dll"/>
-    <ROW Component="System.Xml.Serialization.dll" ComponentId="{37E559B8-1957-416C-AFC1-BBC2FDE9EBE4}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Xml.Serialization.dll"/>
-    <ROW Component="System.Xml.XDocument.dll" ComponentId="{B277A7A3-4772-44D2-B33B-31A7B6AE411A}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Xml.XDocument.dll"/>
-    <ROW Component="System.Xml.XPath.XDocument.dll" ComponentId="{98200112-A679-4214-8A72-3EEAE7B7C293}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Xml.XPath.XDocument.dll"/>
-    <ROW Component="System.Xml.XPath.dll" ComponentId="{FCBF7A69-8A53-4CC2-8004-FAD727BD59F0}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Xml.XPath.dll"/>
-    <ROW Component="System.Xml.XmlDocument.dll" ComponentId="{817A45DC-1958-49DB-9611-135CAB47A200}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Xml.XmlDocument.dll"/>
-    <ROW Component="System.Xml.XmlSerializer.dll" ComponentId="{91E74F5C-7C26-4E41-8240-8BC9B00654C8}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Xml.XmlSerializer.dll"/>
-    <ROW Component="System.Xml.dll" ComponentId="{AE7B11B2-5084-4DD9-B1DA-0F4E18D55C76}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Xml.dll"/>
-    <ROW Component="System.dll" ComponentId="{AFD8BF03-8106-423C-B451-0D2C17ADDB06}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.dll"/>
+    <ROW Component="Signalling.dll" ComponentId="{4E9C6B95-F78D-4D8F-A6FF-CE35CA6D3A3B}" Directory_="bin_4_Dir" Attributes="0" KeyPath="Signalling.dll"/>
+    <ROW Component="Signalling.exe" ComponentId="{BD560795-9B95-481F-B8B0-FDA6806190D7}" Directory_="bin_4_Dir" Attributes="256" KeyPath="Signalling.exe"/>
+    <ROW Component="Squirrel.exe" ComponentId="{DF66DAA5-66DB-4CDB-9FA8-1C42468A4A44}" Directory_="bin_4_Dir" Attributes="0" KeyPath="Squirrel.exe"/>
+    <ROW Component="SshNet.Security.Cryptography.dll" ComponentId="{DEAA828B-2D8F-4439-9237-16EEA1083F95}" Directory_="bin_4_Dir" Attributes="0" KeyPath="SshNet.Security.Cryptography.dll"/>
+    <ROW Component="System.AppContext.dll" ComponentId="{BE5D6CA2-4CDD-44EC-A17C-8DE597E4083E}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.AppContext.dll"/>
+    <ROW Component="System.Buffers.dll" ComponentId="{1662F763-3844-4607-8084-630B90970449}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Buffers.dll"/>
+    <ROW Component="System.Collections.Concurrent.dll" ComponentId="{F70C352D-FCEE-4928-837C-72077B591C4F}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Collections.Concurrent.dll"/>
+    <ROW Component="System.Collections.Immutable.dll" ComponentId="{462B6E52-1ED5-4878-AD7B-35DD0D1AAB1E}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Collections.Immutable.dll"/>
+    <ROW Component="System.Collections.NonGeneric.dll" ComponentId="{A0509E7D-A352-45B2-88B5-2C3416658026}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Collections.NonGeneric.dll"/>
+    <ROW Component="System.Collections.Specialized.dll" ComponentId="{79838066-24F0-4696-98E3-B89E0EC91C2F}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Collections.Specialized.dll"/>
+    <ROW Component="System.Collections.dll" ComponentId="{370724AA-AAC3-4E91-BF1C-A5DA33DBAFCC}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Collections.dll"/>
+    <ROW Component="System.ComponentModel.Annotations.dll" ComponentId="{2DB62550-AFA8-4037-BFE2-3A3BA3D43D44}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.ComponentModel.Annotations.dll"/>
+    <ROW Component="System.ComponentModel.DataAnnotations.dll" ComponentId="{335ABFC4-EE4B-480E-8E2C-D6B9FDBCE5BD}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.ComponentModel.DataAnnotations.dll"/>
+    <ROW Component="System.ComponentModel.EventBasedAsync.dll" ComponentId="{3C194BD6-09A4-4C4A-83E0-3F2836B1D5C1}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.ComponentModel.EventBasedAsync.dll"/>
+    <ROW Component="System.ComponentModel.Primitives.dll" ComponentId="{56965882-BAC8-47FE-9633-C3861A819DDD}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.ComponentModel.Primitives.dll"/>
+    <ROW Component="System.ComponentModel.TypeConverter.dll" ComponentId="{2E8877EC-682C-4B31-8536-6F620014BA82}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.ComponentModel.TypeConverter.dll"/>
+    <ROW Component="System.ComponentModel.dll" ComponentId="{697E759E-CC04-44C7-B7D3-9BF2BA5B6CF6}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.ComponentModel.dll"/>
+    <ROW Component="System.Configuration.dll" ComponentId="{9C2DB6BE-B0D5-465B-B2DB-994C676AE9B7}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Configuration.dll"/>
+    <ROW Component="System.Console.dll" ComponentId="{5BEB773C-0CD8-4C53-AD41-E875F7737BB0}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Console.dll"/>
+    <ROW Component="System.Core.dll" ComponentId="{A4FABFBF-6CED-4E0B-9166-67A15A514067}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Core.dll"/>
+    <ROW Component="System.Data.Common.dll" ComponentId="{5AD2A9BF-52FC-48AD-AC46-8C2527C68412}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Data.Common.dll"/>
+    <ROW Component="System.Data.DataSetExtensions.dll" ComponentId="{028F77D3-DC2E-4678-AAD1-05BAB93ED684}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Data.DataSetExtensions.dll"/>
+    <ROW Component="System.Data.dll" ComponentId="{65887ADF-1BB5-493A-AA42-8D936DFC0324}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Data.dll"/>
+    <ROW Component="System.Diagnostics.Contracts.dll" ComponentId="{FA82D826-E4DD-41AE-A4D6-00AAE94C8B87}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Diagnostics.Contracts.dll"/>
+    <ROW Component="System.Diagnostics.Debug.dll" ComponentId="{61FA5B3F-5182-4A90-A307-01627E0E0F99}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Diagnostics.Debug.dll"/>
+    <ROW Component="System.Diagnostics.DiagnosticSource.dll" ComponentId="{10269527-A872-4FA2-84A0-415A99F00258}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Diagnostics.DiagnosticSource.dll"/>
+    <ROW Component="System.Diagnostics.FileVersionInfo.dll" ComponentId="{66783B90-5B58-43AF-AEF6-FE80C9820CA4}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Diagnostics.FileVersionInfo.dll"/>
+    <ROW Component="System.Diagnostics.Process.dll" ComponentId="{D945589A-8D8A-4B8B-80D5-BD4FB5874BEE}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Diagnostics.Process.dll"/>
+    <ROW Component="System.Diagnostics.StackTrace.dll" ComponentId="{9E6513D9-FCEC-4755-B07B-EEF02DB3CF6F}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Diagnostics.StackTrace.dll"/>
+    <ROW Component="System.Diagnostics.TextWriterTraceListener.dll" ComponentId="{2DFCB230-E0A9-4DE9-9D92-2A3E5BA43BE2}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Diagnostics.TextWriterTraceListener.dll"/>
+    <ROW Component="System.Diagnostics.Tools.dll" ComponentId="{E7CF0B1E-9FAE-4E13-8647-143A3F5E4E05}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Diagnostics.Tools.dll"/>
+    <ROW Component="System.Diagnostics.TraceSource.dll" ComponentId="{651176C0-C995-4B79-9F99-143AAAE26670}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Diagnostics.TraceSource.dll"/>
+    <ROW Component="System.Diagnostics.Tracing.dll" ComponentId="{5A26DF0F-ADE2-48CA-8239-7FC51B633D3D}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Diagnostics.Tracing.dll"/>
+    <ROW Component="System.Drawing.Primitives.dll" ComponentId="{BAE44408-00DB-431E-8416-C33C0492F5F0}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Drawing.Primitives.dll"/>
+    <ROW Component="System.Drawing.dll" ComponentId="{E01D14CB-C54B-4A29-AD32-BCA529E0FAB6}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Drawing.dll"/>
+    <ROW Component="System.Dynamic.Runtime.dll" ComponentId="{A1631EFA-05AE-462C-85F2-0819479B621D}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Dynamic.Runtime.dll"/>
+    <ROW Component="System.Formats.Asn1.dll" ComponentId="{38DA68A0-F3EA-4A4F-8093-C9632B3445D7}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Formats.Asn1.dll"/>
+    <ROW Component="System.Globalization.Calendars.dll" ComponentId="{1FE51BA3-C523-4CE0-822B-E70E95425C90}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Globalization.Calendars.dll"/>
+    <ROW Component="System.Globalization.Extensions.dll" ComponentId="{229FE8D6-CE3F-4D07-9A55-2027CC157FED}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Globalization.Extensions.dll"/>
+    <ROW Component="System.Globalization.dll" ComponentId="{C2F88586-9875-452F-A8C5-8AE99913B1D1}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Globalization.dll"/>
+    <ROW Component="System.IO.Compression.Brotli.dll" ComponentId="{2C73A1D0-9D1A-498C-A94D-2871F2A9B077}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.IO.Compression.Brotli.dll"/>
+    <ROW Component="System.IO.Compression.FileSystem.dll" ComponentId="{39EBA969-BA1C-46A3-A729-94988270D71F}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.IO.Compression.FileSystem.dll"/>
+    <ROW Component="System.IO.Compression.Native.dll" ComponentId="{CACD2F34-B5FA-4D1D-9454-3566A5BCEDFC}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.IO.Compression.Native.dll"/>
+    <ROW Component="System.IO.Compression.ZipFile.dll" ComponentId="{CED2FEAF-4202-4EC1-8BBB-C19A4A9AFA3F}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.IO.Compression.ZipFile.dll"/>
+    <ROW Component="System.IO.Compression.dll" ComponentId="{28324C6B-7182-46F0-8937-51E2BAD5EC49}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.IO.Compression.dll"/>
+    <ROW Component="System.IO.FileSystem.AccessControl.dll" ComponentId="{9D80B3E0-A4FA-4310-9E32-77F764356845}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.IO.FileSystem.AccessControl.dll"/>
+    <ROW Component="System.IO.FileSystem.DriveInfo.dll" ComponentId="{CBEC4377-1160-45CE-9C61-263D192F79A9}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.IO.FileSystem.DriveInfo.dll"/>
+    <ROW Component="System.IO.FileSystem.Primitives.dll" ComponentId="{AFB7ECFA-E9A0-4D63-A8DB-A5E854090F69}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.IO.FileSystem.Primitives.dll"/>
+    <ROW Component="System.IO.FileSystem.Watcher.dll" ComponentId="{10E6A084-4C1D-4278-8E74-ED704F61A722}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.IO.FileSystem.Watcher.dll"/>
+    <ROW Component="System.IO.FileSystem.dll" ComponentId="{3F97BF84-A9D1-427E-A0AE-65DDC94382E4}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.IO.FileSystem.dll"/>
+    <ROW Component="System.IO.IsolatedStorage.dll" ComponentId="{21E42780-1073-4D23-94F3-87085081C515}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.IO.IsolatedStorage.dll"/>
+    <ROW Component="System.IO.MemoryMappedFiles.dll" ComponentId="{FF7A3912-F984-46EA-8777-6C0E5EA8E6BB}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.IO.MemoryMappedFiles.dll"/>
+    <ROW Component="System.IO.Pipes.AccessControl.dll" ComponentId="{A8D5F118-AF0E-466B-9081-13380C990C3D}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.IO.Pipes.AccessControl.dll"/>
+    <ROW Component="System.IO.Pipes.dll" ComponentId="{1C177105-1087-451B-9F9A-19D5972F1BFE}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.IO.Pipes.dll"/>
+    <ROW Component="System.IO.UnmanagedMemoryStream.dll" ComponentId="{A285820D-63E5-4CB7-AE67-EE71DE0907A0}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.IO.UnmanagedMemoryStream.dll"/>
+    <ROW Component="System.IO.dll" ComponentId="{59CE4456-8E3F-4347-8F98-AF101AC696E4}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.IO.dll"/>
+    <ROW Component="System.Linq.Expressions.dll" ComponentId="{F15599B0-E9DA-4EE5-9926-1F2B37051488}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Linq.Expressions.dll"/>
+    <ROW Component="System.Linq.Parallel.dll" ComponentId="{88A2CCDB-E627-4363-AA08-F965B31CEEED}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Linq.Parallel.dll"/>
+    <ROW Component="System.Linq.Queryable.dll" ComponentId="{B2761B52-59FD-4DBC-A30E-60B78B092844}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Linq.Queryable.dll"/>
+    <ROW Component="System.Linq.dll" ComponentId="{60104A78-1C58-4B20-ADB4-EFAF1CB68FFA}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Linq.dll"/>
+    <ROW Component="System.Memory.dll" ComponentId="{6D2E60D9-9EA1-4828-AA79-0E20A90E9272}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Memory.dll"/>
+    <ROW Component="System.Net.Http.Json.dll" ComponentId="{45C7CE6F-A1D7-45F0-BFB7-2BC99D5E1081}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.Http.Json.dll"/>
+    <ROW Component="System.Net.Http.dll" ComponentId="{8057A1D2-DF5C-40C1-876E-21711260F42D}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.Http.dll"/>
+    <ROW Component="System.Net.HttpListener.dll" ComponentId="{B5E914F8-4CB5-4BD3-9309-BE4A8B951E90}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.HttpListener.dll"/>
+    <ROW Component="System.Net.Mail.dll" ComponentId="{864A1EB8-4A3B-4EA3-9A49-059016D14660}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.Mail.dll"/>
+    <ROW Component="System.Net.NameResolution.dll" ComponentId="{AE77C65A-CFB2-42EB-9364-B3834434FB9E}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.NameResolution.dll"/>
+    <ROW Component="System.Net.NetworkInformation.dll" ComponentId="{AA48A22B-498D-43FB-A51C-54EFC109EB65}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.NetworkInformation.dll"/>
+    <ROW Component="System.Net.Ping.dll" ComponentId="{524413A4-D75F-4293-98ED-883D94827DDA}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.Ping.dll"/>
+    <ROW Component="System.Net.Primitives.dll" ComponentId="{DDB9CBD0-4BEC-4AD5-8B6D-D16E68208D4C}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.Primitives.dll"/>
+    <ROW Component="System.Net.Quic.dll" ComponentId="{5278EC6B-BACB-4176-B786-D581C77B3CDE}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.Quic.dll"/>
+    <ROW Component="System.Net.Requests.dll" ComponentId="{0F11847B-C9E8-4442-9F00-571B987C497B}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.Requests.dll"/>
+    <ROW Component="System.Net.Security.dll" ComponentId="{72AF3BE3-30E9-4F34-93BE-A0567ED214F1}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.Security.dll"/>
+    <ROW Component="System.Net.ServicePoint.dll" ComponentId="{A54A73C6-7914-463F-A569-90845DAA67CD}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.ServicePoint.dll"/>
+    <ROW Component="System.Net.Sockets.dll" ComponentId="{BCACFA13-179A-4197-B5D6-E3A6051B8650}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.Sockets.dll"/>
+    <ROW Component="System.Net.WebClient.dll" ComponentId="{89771231-C690-4EE3-8C6B-F8B3B89A0967}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.WebClient.dll"/>
+    <ROW Component="System.Net.WebHeaderCollection.dll" ComponentId="{D7DF7251-2211-4D9D-8FDF-12E3E401A06A}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.WebHeaderCollection.dll"/>
+    <ROW Component="System.Net.WebProxy.dll" ComponentId="{F679F101-497F-4F9E-BAD6-AE4203183002}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.WebProxy.dll"/>
+    <ROW Component="System.Net.WebSockets.Client.dll" ComponentId="{20BDF314-FDD6-45BB-B0C1-B21CE44F4D37}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.WebSockets.Client.dll"/>
+    <ROW Component="System.Net.WebSockets.dll" ComponentId="{01418B6A-F49F-4D05-9412-92465AD3A61B}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Net.WebSockets.dll"/>
+    <ROW Component="System.Net.dll" ComponentId="{778BD782-2E35-4F9E-86B2-9A3C0E6930AB}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Net.dll"/>
+    <ROW Component="System.Numerics.Vectors.dll" ComponentId="{AE4C2BDF-F077-40D8-8972-A9DE896B2973}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Numerics.Vectors.dll"/>
+    <ROW Component="System.Numerics.dll" ComponentId="{5FC36ECB-0755-48A2-AE76-9160C16F0CB3}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Numerics.dll"/>
+    <ROW Component="System.ObjectModel.dll" ComponentId="{1E062463-BB24-4276-9B66-91100CF44596}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.ObjectModel.dll"/>
+    <ROW Component="System.Private.CoreLib.dll" ComponentId="{16335988-4862-479C-A21C-D857D07DBC40}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Private.CoreLib.dll"/>
+    <ROW Component="System.Private.DataContractSerialization.dll" ComponentId="{288163C4-2ED6-4096-9625-0C7931ACD1A2}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Private.DataContractSerialization.dll"/>
+    <ROW Component="System.Private.Uri.dll" ComponentId="{8D5523D6-8E4E-4DFA-B4C7-3FC074004905}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Private.Uri.dll"/>
+    <ROW Component="System.Private.Xml.Linq.dll" ComponentId="{1BAC0974-E067-4EEB-95FB-59FEDB4BBD4A}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Private.Xml.Linq.dll"/>
+    <ROW Component="System.Private.Xml.dll" ComponentId="{A3C381B3-61B7-4894-A564-F1025C9DCF66}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Private.Xml.dll"/>
+    <ROW Component="System.Reflection.DispatchProxy.dll" ComponentId="{6FF50056-4BCE-45FB-994D-7860BA5726A0}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Reflection.DispatchProxy.dll"/>
+    <ROW Component="System.Reflection.Emit.ILGeneration.dll" ComponentId="{F67FFBFD-92A7-464A-B56E-72F0E12A18C4}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Reflection.Emit.ILGeneration.dll"/>
+    <ROW Component="System.Reflection.Emit.Lightweight.dll" ComponentId="{687967B9-D599-44BF-B8AE-14E3DD96083B}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Reflection.Emit.Lightweight.dll"/>
+    <ROW Component="System.Reflection.Emit.dll" ComponentId="{DA040ECE-0136-4A03-A71B-0650B109D2C7}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Reflection.Emit.dll"/>
+    <ROW Component="System.Reflection.Extensions.dll" ComponentId="{246510B6-7058-46EA-A01C-D52E63ED1594}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Reflection.Extensions.dll"/>
+    <ROW Component="System.Reflection.Metadata.dll" ComponentId="{8E453E3A-CEE5-445C-95EE-18E7122AA881}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Reflection.Metadata.dll"/>
+    <ROW Component="System.Reflection.Primitives.dll" ComponentId="{7152AC4E-A7CD-48AA-8A3C-9E4956700AE7}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Reflection.Primitives.dll"/>
+    <ROW Component="System.Reflection.TypeExtensions.dll" ComponentId="{A548E912-9E95-4470-961E-75E9E57CC9F3}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Reflection.TypeExtensions.dll"/>
+    <ROW Component="System.Reflection.dll" ComponentId="{192CC014-E9F1-4CD0-B3A5-DDBF7FA00DD0}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Reflection.dll"/>
+    <ROW Component="System.Resources.Reader.dll" ComponentId="{B7AF5078-B2A6-45DE-9DE5-941AF1EA18ED}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Resources.Reader.dll"/>
+    <ROW Component="System.Resources.ResourceManager.dll" ComponentId="{C65B0367-22CD-493A-BB16-15C4AEEA3FA9}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Resources.ResourceManager.dll"/>
+    <ROW Component="System.Resources.Writer.dll" ComponentId="{0038555C-E777-492E-B1E3-3ECECF477159}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Resources.Writer.dll"/>
+    <ROW Component="System.Runtime.CompilerServices.Unsafe.dll" ComponentId="{48DF379E-860E-4AC9-B5DF-E0F302D60A18}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Runtime.CompilerServices.Unsafe.dll"/>
+    <ROW Component="System.Runtime.CompilerServices.VisualC.dll" ComponentId="{ED35513E-3A0A-44D0-AC24-1356187D1872}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Runtime.CompilerServices.VisualC.dll"/>
+    <ROW Component="System.Runtime.Extensions.dll" ComponentId="{F5769295-C3FA-49D5-AAD1-20C21B959FBD}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Runtime.Extensions.dll"/>
+    <ROW Component="System.Runtime.Handles.dll" ComponentId="{D3069355-4777-440D-A2DF-3E0C3F553D3E}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Runtime.Handles.dll"/>
+    <ROW Component="System.Runtime.InteropServices.RuntimeInformation.dll" ComponentId="{24A009B6-483D-4247-8191-C9026BE86F6A}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Runtime.InteropServices.RuntimeInformation.dll"/>
+    <ROW Component="System.Runtime.InteropServices.dll" ComponentId="{E9B55D7D-7619-48B3-B0BA-EB4C923A5A8A}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Runtime.InteropServices.dll"/>
+    <ROW Component="System.Runtime.Intrinsics.dll" ComponentId="{476D5635-AF76-4266-9050-47E1EB29D125}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Runtime.Intrinsics.dll"/>
+    <ROW Component="System.Runtime.Loader.dll" ComponentId="{288E6F03-4DC0-4D88-9A27-A46807CDBF4E}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Runtime.Loader.dll"/>
+    <ROW Component="System.Runtime.Numerics.dll" ComponentId="{14EF1F97-D2C8-4E5E-B8FD-46B22F25B844}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Runtime.Numerics.dll"/>
+    <ROW Component="System.Runtime.Serialization.Formatters.dll" ComponentId="{780983B4-0038-4BBC-AB9A-FA50C8B10FBB}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Runtime.Serialization.Formatters.dll"/>
+    <ROW Component="System.Runtime.Serialization.Json.dll" ComponentId="{BAB4FB96-5B84-4F34-A078-A7F891C32E38}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Runtime.Serialization.Json.dll"/>
+    <ROW Component="System.Runtime.Serialization.Primitives.dll" ComponentId="{CE07C8C2-016F-4C93-B5BD-513034660314}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Runtime.Serialization.Primitives.dll"/>
+    <ROW Component="System.Runtime.Serialization.Xml.dll" ComponentId="{43A06FC4-0D93-4D2D-BA96-8660D91A5C4C}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Runtime.Serialization.Xml.dll"/>
+    <ROW Component="System.Runtime.Serialization.dll" ComponentId="{EE24C95E-163B-4287-84FB-B906E36F73C0}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Runtime.Serialization.dll"/>
+    <ROW Component="System.Runtime.dll" ComponentId="{8705FEE9-3F6A-4712-95BC-D38E69C4FE15}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Runtime.dll"/>
+    <ROW Component="System.Security.AccessControl.dll" ComponentId="{7EB758F2-B67F-4B92-A739-6E09ACC228EB}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Security.AccessControl.dll"/>
+    <ROW Component="System.Security.Claims.dll" ComponentId="{6CDB7D63-BEA6-4E8F-A107-B1D53612641A}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Security.Claims.dll"/>
+    <ROW Component="System.Security.Cryptography.Algorithms.dll" ComponentId="{85C5A821-78EA-4B8F-BC14-DFA0006271BC}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Security.Cryptography.Algorithms.dll"/>
+    <ROW Component="System.Security.Cryptography.Cng.dll" ComponentId="{DABACCA5-80BC-4768-8249-17E1475BAAE5}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Security.Cryptography.Cng.dll"/>
+    <ROW Component="System.Security.Cryptography.Csp.dll" ComponentId="{0E689C8C-D993-4795-82F9-B7755A5BDD0D}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Security.Cryptography.Csp.dll"/>
+    <ROW Component="System.Security.Cryptography.Encoding.dll" ComponentId="{089DF529-0062-4E41-B543-351740B9ED7A}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Security.Cryptography.Encoding.dll"/>
+    <ROW Component="System.Security.Cryptography.OpenSsl.dll" ComponentId="{AA289418-BA28-4851-B49C-B83BB839550B}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Security.Cryptography.OpenSsl.dll"/>
+    <ROW Component="System.Security.Cryptography.Primitives.dll" ComponentId="{7C44989B-1201-40D9-A701-2DC0C47287D3}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Security.Cryptography.Primitives.dll"/>
+    <ROW Component="System.Security.Cryptography.X509Certificates.dll" ComponentId="{63C622C1-2D3B-4096-AC83-E5C98F0C4703}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Security.Cryptography.X509Certificates.dll"/>
+    <ROW Component="System.Security.Principal.Windows.dll" ComponentId="{0B7061BF-4382-405F-974D-6E65D0B15D2D}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Security.Principal.Windows.dll"/>
+    <ROW Component="System.Security.Principal.dll" ComponentId="{E33F7F53-F060-4009-A927-D8F12376E469}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Security.Principal.dll"/>
+    <ROW Component="System.Security.SecureString.dll" ComponentId="{6D2CE998-6D73-4EC0-AFE0-898B67D41318}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Security.SecureString.dll"/>
+    <ROW Component="System.Security.dll" ComponentId="{7C19B655-7BAB-4FED-B87A-CAF473419BC1}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Security.dll"/>
+    <ROW Component="System.ServiceModel.Web.dll" ComponentId="{339D71C0-0CDA-4350-98E5-4B7B04DDE819}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.ServiceModel.Web.dll"/>
+    <ROW Component="System.ServiceProcess.dll" ComponentId="{5BDC1034-8D89-400A-B227-D753CB2DA073}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.ServiceProcess.dll"/>
+    <ROW Component="System.Text.Encoding.CodePages.dll" ComponentId="{E91F5749-974B-469F-8E24-12C88D618554}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Text.Encoding.CodePages.dll"/>
+    <ROW Component="System.Text.Encoding.Extensions.dll" ComponentId="{27CBAD9C-62D6-4058-B02D-CEE367F38E44}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Text.Encoding.Extensions.dll"/>
+    <ROW Component="System.Text.Encoding.dll" ComponentId="{9091ED8D-843D-41B0-A5EE-A3DE8F09240B}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Text.Encoding.dll"/>
+    <ROW Component="System.Text.Encodings.Web.dll" ComponentId="{8D6AE69B-8E28-4093-AA70-675881B44839}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Text.Encodings.Web.dll"/>
+    <ROW Component="System.Text.Json.dll" ComponentId="{E8BF827B-3EBA-45A3-A674-5661FF162835}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Text.Json.dll"/>
+    <ROW Component="System.Text.RegularExpressions.dll" ComponentId="{7FED2D75-CF2A-4179-9754-72453294F993}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Text.RegularExpressions.dll"/>
+    <ROW Component="System.Threading.Channels.dll" ComponentId="{5EDA2A74-7F8F-4071-BA11-E46AFF25A352}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Threading.Channels.dll"/>
+    <ROW Component="System.Threading.Overlapped.dll" ComponentId="{9A745D0E-8FDB-4167-8E50-DE1DFE490AC9}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Threading.Overlapped.dll"/>
+    <ROW Component="System.Threading.Tasks.Dataflow.dll" ComponentId="{7BAC0466-4CC4-4D79-B4C4-B65530D81B85}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Threading.Tasks.Dataflow.dll"/>
+    <ROW Component="System.Threading.Tasks.Extensions.dll" ComponentId="{DE2622B0-4BE4-43BD-BE4C-EE2C4A3DE4F4}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Threading.Tasks.Extensions.dll"/>
+    <ROW Component="System.Threading.Tasks.Parallel.dll" ComponentId="{636D9B7B-0F12-4397-98DB-08E71D815F8D}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Threading.Tasks.Parallel.dll"/>
+    <ROW Component="System.Threading.Tasks.dll" ComponentId="{4B00C1A7-C423-433F-B2E6-8D335BE04C91}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Threading.Tasks.dll"/>
+    <ROW Component="System.Threading.Thread.dll" ComponentId="{6B0AA4D3-398B-457F-A2BA-95482B675442}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Threading.Thread.dll"/>
+    <ROW Component="System.Threading.ThreadPool.dll" ComponentId="{5D247FBB-B8B1-403B-878C-0E74C561CF45}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Threading.ThreadPool.dll"/>
+    <ROW Component="System.Threading.Timer.dll" ComponentId="{B92F75DA-3069-4BFC-AE7E-50BD081B9E71}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Threading.Timer.dll"/>
+    <ROW Component="System.Threading.dll" ComponentId="{C5EBDD07-FD21-4D48-916F-0C27C0E85386}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Threading.dll"/>
+    <ROW Component="System.Transactions.Local.dll" ComponentId="{A67750D2-4799-4C65-BA0B-A94B2C0AF097}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Transactions.Local.dll"/>
+    <ROW Component="System.Transactions.dll" ComponentId="{12FE9693-BAD6-48B8-8D5B-A0FC71294B0B}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Transactions.dll"/>
+    <ROW Component="System.ValueTuple.dll" ComponentId="{136C823A-57B1-432F-946F-D559D1F51DEF}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.ValueTuple.dll"/>
+    <ROW Component="System.Web.HttpUtility.dll" ComponentId="{60BF36FC-2564-4BD7-A0EE-AF80D66DC18C}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Web.HttpUtility.dll"/>
+    <ROW Component="System.Web.dll" ComponentId="{9A25DA89-EDEA-4A38-8CA9-5B4549F633E0}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Web.dll"/>
+    <ROW Component="System.Windows.dll" ComponentId="{FB2F79DB-F1E9-4C04-A669-62F517280DCB}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Windows.dll"/>
+    <ROW Component="System.Xml.Linq.dll" ComponentId="{75C35AA7-BD44-4B8D-A12C-E37EB1EC42D8}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Xml.Linq.dll"/>
+    <ROW Component="System.Xml.ReaderWriter.dll" ComponentId="{A8B27EC9-F570-47F0-AE86-E0F4B0CBCFB3}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Xml.ReaderWriter.dll"/>
+    <ROW Component="System.Xml.Serialization.dll" ComponentId="{B4C297A5-A70F-45FE-91E0-28136783B575}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Xml.Serialization.dll"/>
+    <ROW Component="System.Xml.XDocument.dll" ComponentId="{8EE89F13-944B-4BEA-8E58-8EC18F53D59A}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Xml.XDocument.dll"/>
+    <ROW Component="System.Xml.XPath.XDocument.dll" ComponentId="{B64CEF6E-D205-45F0-9580-5F652F1B68C6}" Directory_="bin_4_Dir" Attributes="256" KeyPath="System.Xml.XPath.XDocument.dll"/>
+    <ROW Component="System.Xml.XPath.dll" ComponentId="{B8C3D933-8138-447E-A1EA-61869C206C6E}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Xml.XPath.dll"/>
+    <ROW Component="System.Xml.XmlDocument.dll" ComponentId="{263BA9D6-2BED-4A28-BAAF-330EEE99BF52}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Xml.XmlDocument.dll"/>
+    <ROW Component="System.Xml.XmlSerializer.dll" ComponentId="{8B7CAE12-3602-49DA-9F93-56CDD04111B2}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Xml.XmlSerializer.dll"/>
+    <ROW Component="System.Xml.dll" ComponentId="{D17E4D8D-7CBB-4B38-A4E8-2F3439FB550F}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.Xml.dll"/>
+    <ROW Component="System.dll" ComponentId="{B076D4A6-4B13-42BC-A761-F1FC037F2FD4}" Directory_="bin_4_Dir" Attributes="0" KeyPath="System.dll"/>
     <ROW Component="ThinkMay.exe" ComponentId="{D2FF74D3-3F26-489D-9EC6-DD052D777F16}" Directory_="bin_4_Dir" Attributes="256" KeyPath="ThinkMay.exe"/>
-    <ROW Component="VBCABLE_ControlPanel.exe" ComponentId="{D63B7083-3B30-4DE7-A512-31F2F75D6985}" Directory_="virtualAudio_Dir" Attributes="0" KeyPath="VBCABLE_ControlPanel.exe"/>
-    <ROW Component="VBCABLE_Setup.exe" ComponentId="{06B5D544-1990-4F22-9C1B-196E8B365F9E}" Directory_="virtualAudio_Dir" Attributes="0" KeyPath="VBCABLE_Setup.exe"/>
-    <ROW Component="VBCABLE_Setup_x64.exe" ComponentId="{E8150F7B-8C05-4748-AF94-FE948837FC37}" Directory_="virtualAudio_Dir" Attributes="256" KeyPath="VBCABLE_Setup_x64.exe"/>
-    <ROW Component="WindowsBase.dll" ComponentId="{7AAE398A-AFF7-4277-84E9-BB1250742491}" Directory_="bin_4_Dir" Attributes="0" KeyPath="WindowsBase.dll"/>
-    <ROW Component="a.js" ComponentId="{E1B839F4-74C5-4C87-96CE-B809D2B27175}" Directory_="browser_field_Dir" Attributes="0" KeyPath="a.js" Type="0"/>
-    <ROW Component="aaa.js" ComponentId="{A205B8CE-72F2-4A67-8705-5FE7AC09EB18}" Directory_="precedence_Dir" Attributes="0" KeyPath="aaa.js" Type="0"/>
-    <ROW Component="agent.exe" ComponentId="{2DE8698D-2BD6-45F9-A964-A06B2B58EBA5}" Directory_="bin_4_Dir" Attributes="256" KeyPath="agent.exe"/>
-    <ROW Component="alternatives.js" ComponentId="{48A5C47C-BC6A-4C23-BF29-BB31D6DB895E}" Directory_="types_1_Dir" Attributes="0" KeyPath="alternatives.js" Type="0"/>
-    <ROW Component="am.pak" ComponentId="{ADD4B973-15D3-474B-B79B-806548624E16}" Directory_="locales_Dir" Attributes="0" KeyPath="am.pak" Type="0"/>
-    <ROW Component="annotate.js" ComponentId="{50FB0C54-F0CA-4F27-8FAC-1C23279AB0A1}" Directory_="lib_8_Dir" Attributes="0" KeyPath="annotate.js" Type="0"/>
-    <ROW Component="api.js" ComponentId="{EDCBEC84-EF4D-466F-ADCC-3672F4D827BD}" Directory_="lib_7_Dir" Attributes="0" KeyPath="api.js" Type="0"/>
-    <ROW Component="apimswincoreconsolel110.dll" ComponentId="{6BF64CB3-A44D-48FA-877F-67832F22D6D1}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoreconsolel110.dll"/>
-    <ROW Component="apimswincoreconsolel120.dll" ComponentId="{F1DAA1E9-D01D-4A51-BE0E-C63B2DA0D863}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoreconsolel120.dll"/>
-    <ROW Component="apimswincoredatetimel110.dll" ComponentId="{1569A190-B6E0-455A-B8D7-572B10836C93}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoredatetimel110.dll"/>
-    <ROW Component="apimswincoredebugl110.dll" ComponentId="{BDD2851A-450D-47C3-B4E5-B689BE250396}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoredebugl110.dll"/>
-    <ROW Component="apimswincoreerrorhandlingl110.dll" ComponentId="{787EC865-8CC8-48E3-9060-F3F3242B0B9F}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoreerrorhandlingl110.dll"/>
-    <ROW Component="apimswincorefilel110.dll" ComponentId="{6891A8C6-E015-437A-BC4C-E6A2DE5E4D0C}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincorefilel110.dll"/>
-    <ROW Component="apimswincorefilel120.dll" ComponentId="{863D5FF1-026B-4450-B176-B98F87C819D3}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincorefilel120.dll"/>
-    <ROW Component="apimswincorefilel210.dll" ComponentId="{DF41F869-FFC3-483A-B950-06C23B6F1B03}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincorefilel210.dll"/>
-    <ROW Component="apimswincorehandlel110.dll" ComponentId="{4E3FFD7C-8A81-45F4-BE9F-5AD48877CA59}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincorehandlel110.dll"/>
-    <ROW Component="apimswincoreheapl110.dll" ComponentId="{45D2B503-52EC-4FCC-B761-CD3DCAE5F591}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoreheapl110.dll"/>
-    <ROW Component="apimswincoreinterlockedl110.dll" ComponentId="{1480AE7F-FF50-4CAE-A0F0-E6A9BA10D331}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoreinterlockedl110.dll"/>
-    <ROW Component="apimswincorelibraryloaderl110.dll" ComponentId="{4949155F-C3F2-485B-8F68-6C1C84C597CD}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincorelibraryloaderl110.dll"/>
-    <ROW Component="apimswincorelocalizationl120.dll" ComponentId="{82828C7D-4F7E-46EE-8C3E-045F8A5DB081}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincorelocalizationl120.dll"/>
-    <ROW Component="apimswincorememoryl110.dll" ComponentId="{2C72EAC4-DA0E-409A-ABF2-D095102573F7}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincorememoryl110.dll"/>
-    <ROW Component="apimswincorenamedpipel110.dll" ComponentId="{382272F8-97C4-447E-B792-751E258B5963}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincorenamedpipel110.dll"/>
-    <ROW Component="apimswincoreprocessenvironmentl110.dll" ComponentId="{65FC6ECF-4631-430C-BC5F-8D375146E574}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoreprocessenvironmentl110.dll"/>
-    <ROW Component="apimswincoreprocessthreadsl110.dll" ComponentId="{347BBFD7-508D-42F3-8A3D-1AC226F522A6}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoreprocessthreadsl110.dll"/>
-    <ROW Component="apimswincoreprocessthreadsl111.dll" ComponentId="{997EC0A4-A4FC-4577-9E10-5E68A9C55E66}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoreprocessthreadsl111.dll"/>
-    <ROW Component="apimswincoreprofilel110.dll" ComponentId="{3DB3768C-6C59-461D-ABBE-B12D53C4AA4B}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoreprofilel110.dll"/>
-    <ROW Component="apimswincorertlsupportl110.dll" ComponentId="{F75A5F66-9F4F-418A-A703-865170C63468}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincorertlsupportl110.dll"/>
-    <ROW Component="apimswincorestringl110.dll" ComponentId="{7B2639ED-273C-460E-8C32-BE4A9123D06A}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincorestringl110.dll"/>
-    <ROW Component="apimswincoresynchl110.dll" ComponentId="{B8F570A3-5F05-4D7D-B567-B98AD7C9E764}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoresynchl110.dll"/>
-    <ROW Component="apimswincoresynchl120.dll" ComponentId="{DEC313DC-7BE2-46CF-9EC8-FA9BD2EC4081}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoresynchl120.dll"/>
-    <ROW Component="apimswincoresysinfol110.dll" ComponentId="{8F2A353F-6962-41E7-8D76-557D2DDDE4E0}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoresysinfol110.dll"/>
-    <ROW Component="apimswincoretimezonel110.dll" ComponentId="{AB46C2F7-534A-4A62-8CD8-5A1FDDDCC6F4}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoretimezonel110.dll"/>
-    <ROW Component="apimswincoreutill110.dll" ComponentId="{9FC746BA-18E8-42B4-8E86-850715F2E18F}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoreutill110.dll"/>
-    <ROW Component="apimswincrtconiol110.dll" ComponentId="{A6FCDDB0-F7FB-4EF1-A601-6176F7930896}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtconiol110.dll"/>
-    <ROW Component="apimswincrtconvertl110.dll" ComponentId="{D855357F-E0E7-4081-A2ED-1A99AFCBCD76}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtconvertl110.dll"/>
-    <ROW Component="apimswincrtenvironmentl110.dll" ComponentId="{573A63CF-7047-48DE-9CCE-143E7A4CAF58}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtenvironmentl110.dll"/>
-    <ROW Component="apimswincrtfilesysteml110.dll" ComponentId="{008C8B1E-492D-41BD-8AE1-DD64FF54F6C6}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtfilesysteml110.dll"/>
-    <ROW Component="apimswincrtheapl110.dll" ComponentId="{B6BEA779-DBE8-4EC1-93DA-FB48FEAC89EE}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtheapl110.dll"/>
-    <ROW Component="apimswincrtlocalel110.dll" ComponentId="{F9ECE3AD-405D-4403-9D82-08517C8D8CF4}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtlocalel110.dll"/>
-    <ROW Component="apimswincrtmathl110.dll" ComponentId="{E87C5519-AD0E-40CB-92DD-64EEFDAA094C}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtmathl110.dll"/>
-    <ROW Component="apimswincrtmultibytel110.dll" ComponentId="{F826825B-7505-422A-8923-728115D2EFBD}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtmultibytel110.dll"/>
-    <ROW Component="apimswincrtprivatel110.dll" ComponentId="{F268ED6F-A050-4772-B6B9-03B5B2A4879D}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtprivatel110.dll"/>
-    <ROW Component="apimswincrtprocessl110.dll" ComponentId="{530D842D-6284-469C-BBAF-0B639EE348B3}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtprocessl110.dll"/>
-    <ROW Component="apimswincrtruntimel110.dll" ComponentId="{11B65750-3F8B-4157-A5ED-31E591D83FCE}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtruntimel110.dll"/>
-    <ROW Component="apimswincrtstdiol110.dll" ComponentId="{8A32523F-109F-43F3-BCEB-FEFA94CEB28D}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtstdiol110.dll"/>
-    <ROW Component="apimswincrtstringl110.dll" ComponentId="{69D04643-6C9D-43DB-9633-BF0AB6E8D76E}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtstringl110.dll"/>
-    <ROW Component="apimswincrttimel110.dll" ComponentId="{793263BC-4132-4075-8ACB-A821E5B074D8}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrttimel110.dll"/>
-    <ROW Component="apimswincrtutilityl110.dll" ComponentId="{651302A6-5745-4E71-8604-4BCCBAE6C164}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtutilityl110.dll"/>
-    <ROW Component="app.ejs" ComponentId="{3D2E67CE-617C-448A-B2C0-A801107518BA}" Directory_="templates_1_Dir" Attributes="0" KeyPath="app.ejs" Type="0"/>
-    <ROW Component="applyToDefaults.js" ComponentId="{FF0A2309-394A-4A62-9221-8848722D96CF}" Directory_="lib_Dir" Attributes="0" KeyPath="applyToDefaults.js" Type="0"/>
-    <ROW Component="async.js" ComponentId="{E51F05B0-5B13-4A82-BF6A-AAC6B7779786}" Directory_="lib_5_Dir" Attributes="0" KeyPath="async.js" Type="0"/>
-    <ROW Component="async.js_1" ComponentId="{D692087B-3102-40D8-82F0-A3F9A9CE24F8}" Directory_="example_1_Dir" Attributes="0" KeyPath="async.js_1" Type="0"/>
-    <ROW Component="async.js_2" ComponentId="{93E052D1-E18B-4F10-A0BA-99481CD1B329}" Directory_="lib_11_Dir" Attributes="0" KeyPath="async.js_2" Type="0"/>
-    <ROW Component="async.js_3" ComponentId="{FCA41F07-A161-4A64-AF0B-54F316351A92}" Directory_="mylib_Dir" Attributes="0" KeyPath="async.js_3" Type="0"/>
-    <ROW Component="bar.js" ComponentId="{B2BED877-7908-4C33-A28D-28315007378B}" Directory_="package_Dir" Attributes="0" KeyPath="bar.js" Type="0"/>
-    <ROW Component="base64js.min.js" ComponentId="{926BF58F-7D35-410A-9D50-74689A73E4E7}" Directory_="base64js_Dir" Attributes="0" KeyPath="base64js.min.js" Type="0"/>
-    <ROW Component="bash_completion.sh" ComponentId="{0FF881C0-6F93-4C07-8F5C-95D8BBDF3236}" Directory_="bin_1_Dir" Attributes="0" KeyPath="bash_completion.sh" Type="0"/>
-    <ROW Component="browser.js" ComponentId="{BCBA1208-6D53-4917-8903-3471A8C0881C}" Directory_="src_Dir" Attributes="0" KeyPath="browser.js" Type="0"/>
-    <ROW Component="browser.js_1" ComponentId="{152B09FE-F24D-45A8-9C76-5AADB61BF935}" Directory_="supportscolor_Dir" Attributes="0" KeyPath="browser.js_1" Type="0"/>
-    <ROW Component="build.js" ComponentId="{7FE841CC-A7A1-4714-9CDD-CF78D64FAD92}" Directory_="lib_9_Dir" Attributes="0" KeyPath="build.js" Type="0"/>
-    <ROW Component="cat.js" ComponentId="{F4105EE0-2C05-43D0-8A22-38467BF5F761}" Directory_="src_3_Dir" Attributes="0" KeyPath="cat.js" Type="0"/>
-    <ROW Component="certmgr.exe" ComponentId="{054F39B1-1289-49EC-BA87-95732C3CF5B7}" Directory_="virtualDisplay_Dir" Attributes="0" KeyPath="certmgr.exe"/>
-    <ROW Component="chrome_100_percent.pak" ComponentId="{A3341A59-7FED-4AD7-9CDB-64F159E2CDED}" Directory_="bin_4_Dir" Attributes="0" KeyPath="test.bat" Type="0"/>
-    <ROW Component="cli.js" ComponentId="{41105E81-7652-44E8-B8AF-2FA7A3CA5D6B}" Directory_="bin_Dir" Attributes="0" KeyPath="cli.js" Type="0"/>
-    <ROW Component="cli.js_1" ComponentId="{934296C4-CD16-4C56-B4C7-798E49AABC82}" Directory_="isdocker_Dir" Attributes="0" KeyPath="cli.js_1" Type="0"/>
-    <ROW Component="clretwrc.dll" ComponentId="{E5C37468-C333-49E2-9696-561AA662A2D9}" Directory_="bin_4_Dir" Attributes="256" KeyPath="clretwrc.dll"/>
-    <ROW Component="clrjit.dll" ComponentId="{E4B7D626-C741-4884-8130-55804844E283}" Directory_="bin_4_Dir" Attributes="256" KeyPath="clrjit.dll"/>
-    <ROW Component="common.js" ComponentId="{B0E93BF0-EE7F-45D4-8AF8-49D235A1286D}" Directory_="glob_Dir" Attributes="0" KeyPath="common.js" Type="0"/>
-    <ROW Component="common.js_1" ComponentId="{30A0D7F9-E16D-437F-861C-348282E8F158}" Directory_="validation_Dir" Attributes="0" KeyPath="common.js_2" Type="0"/>
-    <ROW Component="concurrent.jake.js" ComponentId="{55BD52A7-F5A7-4012-AD75-64E44487D67A}" Directory_="jakelib_Dir" Attributes="0" KeyPath="concurrent.jake.js" Type="0"/>
-    <ROW Component="concurrent.js" ComponentId="{43B848F0-F59B-4704-8C84-9C704C8F1A30}" Directory_="integration_Dir" Attributes="0" KeyPath="concurrent.js" Type="0"/>
-    <ROW Component="constants.js" ComponentId="{009F1F89-9DD1-4DBA-8B81-ED70E5BEBDBF}" Directory_="config_Dir" Attributes="0" KeyPath="constants.js" Type="0"/>
-    <ROW Component="coreclr.dll" ComponentId="{A7D4EB08-CF59-454D-B515-A5EF85EA5DF8}" Directory_="bin_4_Dir" Attributes="256" KeyPath="coreclr.dll"/>
-    <ROW Component="coveralls.yml" ComponentId="{06193AF3-AAB5-4894-A5E4-927DA23E07F5}" Directory_="debug_Dir" Attributes="0" KeyPath="coveralls.yml" Type="0"/>
-    <ROW Component="createdump.exe" ComponentId="{9495426F-8837-49AA-91BA-0D4E108A089A}" Directory_="bin_4_Dir" Attributes="256" KeyPath="createdump.exe"/>
-    <ROW Component="cup.coffee" ComponentId="{8C3EB910-9382-4EC4-B361-7984AF5D4855}" Directory_="resolver_Dir" Attributes="0" KeyPath="cup.coffee" Type="0"/>
-    <ROW Component="d3dcompiler_47.dll" ComponentId="{F6FDD820-A543-4C9D-A4DE-CDF3E6253BDD}" Directory_="bin_4_Dir" Attributes="256" KeyPath="d3dcompiler_47.dll"/>
-    <ROW Component="dbgshim.dll" ComponentId="{AF653CB7-44B2-436F-8022-68C8798B7239}" Directory_="bin_4_Dir" Attributes="256" KeyPath="dbgshim.dll"/>
-    <ROW Component="decode.js" ComponentId="{530E8846-19DA-47B0-B9EC-F759E4CEE2D3}" Directory_="lib_2_Dir" Attributes="0" KeyPath="decode.js" Type="0"/>
-    <ROW Component="defaultAppExist.sh" ComponentId="{F95654EA-9E22-49FB-89BA-AC99D34B5FC4}" Directory_="macos_Dir" Attributes="0" KeyPath="defaultAppExist.sh" Type="0"/>
-    <ROW Component="desktop.ejs" ComponentId="{B8CDD82E-BEEF-4EFD-8DF9-4E988EE97167}" Directory_="templates_Dir" Attributes="0" KeyPath="desktop.ejs" Type="0"/>
-    <ROW Component="directory_task.js" ComponentId="{CA8E011C-FBE6-4CA7-B8D4-65CC3DAAD045}" Directory_="task_Dir" Attributes="0" KeyPath="directory_task.js" Type="0"/>
-    <ROW Component="domparser.js" ComponentId="{AC850B57-7B0C-4F99-BC9B-FD08E6C57D48}" Directory_="xmldom_Dir" Attributes="0" KeyPath="domparser.js" Type="0"/>
-    <ROW Component="doom.js" ComponentId="{92D19BAB-3EDA-4772-B5C0-40E5BF5D8361}" Directory_="baz_Dir" Attributes="0" KeyPath="doom.js" Type="0"/>
-    <ROW Component="editorconfig" ComponentId="{378257B3-81C0-4141-90C3-2C8C9F455455}" Directory_="functionbind_Dir" Attributes="0" KeyPath="editorconfig" Type="0"/>
-    <ROW Component="editorconfig_1" ComponentId="{B007284B-CB40-436B-8C41-C424856A2F71}" Directory_="resolve_Dir" Attributes="0" KeyPath="editorconfig_1" Type="0"/>
-    <ROW Component="ejs.js" ComponentId="{B6B33A49-02B6-40C6-A42C-ACF46C32AC7C}" Directory_="ejs_Dir" Attributes="0" KeyPath="ejs.js" Type="0"/>
-    <ROW Component="ejs.js_1" ComponentId="{E086EB42-E704-4705-8C8A-F53E478A2A46}" Directory_="lib_6_Dir" Attributes="0" KeyPath="ejs.js_1" Type="0"/>
-    <ROW Component="eslintignore" ComponentId="{CDDB258D-D7E4-451B-94D3-6B63DCB9B6AE}" Directory_="iscoremodule_Dir" Attributes="0" KeyPath="eslintignore" Type="0"/>
-    <ROW Component="eslintrc" ComponentId="{6D8CF95F-C4AA-41D8-83D0-27666B51D522}" Directory_="electronsquirrelstartup_Dir" Attributes="0" KeyPath="eslintrc" Type="0"/>
-    <ROW Component="eslintrc.json" ComponentId="{5683B419-DED0-45C7-9ADD-F608C23D9950}" Directory_="colorname_Dir" Attributes="0" KeyPath="eslintrc.json" Type="0"/>
-    <ROW Component="eslintrc_1" ComponentId="{02796FBA-C587-4B60-A2C6-BE79D3DBFDDE}" Directory_="test_2_Dir" Attributes="0" KeyPath="eslintrc_3" Type="0"/>
-    <ROW Component="eslintrc_2" ComponentId="{7A9167E3-F8CC-41AB-8336-D66280DE0900}" Directory_="test_6_Dir" Attributes="0" KeyPath="eslintrc_6" Type="0"/>
-    <ROW Component="extension.js" ComponentId="{A976E7B8-C3E8-4DA9-B88F-AA658958BDFC}" Directory_="lib_10_Dir" Attributes="0" KeyPath="extension.js" Type="0"/>
-    <ROW Component="ffmpeg.dll" ComponentId="{65303688-1537-4EE2-9DBE-3A3DDCBD0759}" Directory_="bin_4_Dir" Attributes="256" KeyPath="ffmpeg.dll"/>
-    <ROW Component="file.js" ComponentId="{FFCE0CB0-295F-4152-9533-F5B6DACC0C88}" Directory_="utils_Dir" Attributes="0" KeyPath="file.js" Type="0"/>
-    <ROW Component="foo.js" ComponentId="{FDB3109D-A9C4-4749-BD1E-9AF377E948B7}" Directory_="same_names_Dir" Attributes="0" KeyPath="foo.js_1" Type="0"/>
-    <ROW Component="foo.js_1" ComponentId="{8282471B-8EF4-4A00-BE68-A8B3A2DF0F08}" Directory_="node_modules_3_Dir" Attributes="0" KeyPath="foo.js_2" Type="0"/>
-    <ROW Component="gitattributes" ComponentId="{B0BBF08B-F5EC-4AFC-B955-CF807C88CE42}" Directory_="protocolregistry_Dir" Attributes="0" KeyPath="gitattributes" Type="0"/>
-    <ROW Component="gitkeep" ComponentId="{95033E23-247A-468E-B1A9-C0B3690420C6}" Directory_="temp_Dir" Attributes="0" KeyPath="gitkeep" Type="0"/>
-    <ROW Component="gitkeep_1" ComponentId="{4DAFE49C-7F9B-4D6E-9A98-EC3F4B64E2CA}" Directory_="symlink_target_Dir" Attributes="0" KeyPath="gitkeep_1" Type="0"/>
-    <ROW Component="hostfxr.dll" ComponentId="{29B9B2FF-80DD-4916-A6B7-07A38026FD69}" Directory_="bin_4_Dir" Attributes="256" KeyPath="hostfxr.dll"/>
-    <ROW Component="hostpolicy.dll" ComponentId="{C36EACF0-CB44-47E1-8CCD-FB5F4151B743}" Directory_="bin_4_Dir" Attributes="256" KeyPath="hostpolicy.dll"/>
-    <ROW Component="iddsampledriver.cat" ComponentId="{DC9BF828-54F7-4F8A-A788-30C7B686C49A}" Directory_="virtualDisplay_Dir" Attributes="0" KeyPath="iddsampledriver.cat" Type="0"/>
-    <ROW Component="index.d.ts" ComponentId="{EC2CCC69-6E80-412F-93A2-2A59C8ED8801}" Directory_="lib_1_Dir" Attributes="0" KeyPath="index.d.ts_1" Type="0"/>
-    <ROW Component="index.d.ts_1" ComponentId="{B4E99097-26AB-4514-9C2A-D0B795D6F7E2}" Directory_="lib_3_Dir" Attributes="0" KeyPath="index.d.ts_3" Type="0"/>
-    <ROW Component="index.d.ts_2" ComponentId="{00F3CA9C-BF8B-446F-90A6-E72FD34453BA}" Directory_="lib_4_Dir" Attributes="0" KeyPath="index.d.ts_4" Type="0"/>
-    <ROW Component="index.d.ts_3" ComponentId="{E64A195A-2267-44C6-BAEE-731CD9C347AF}" Directory_="filelist_Dir" Attributes="0" KeyPath="index.d.ts_6" Type="0"/>
-    <ROW Component="index.d.ts_4" ComponentId="{DEC472C0-679E-4EBA-98A2-99FB10C9C1F0}" Directory_="iswsl_Dir" Attributes="0" KeyPath="index.d.ts_8" Type="0"/>
-    <ROW Component="index.d.ts_5" ComponentId="{0F03A89B-6A18-4952-8F72-EA555C591E1F}" Directory_="types_Dir" Attributes="0" KeyPath="index.d.ts_9" Type="0"/>
-    <ROW Component="index.d.ts_6" ComponentId="{ECA93528-B378-45E7-A924-31D4E21CCB80}" Directory_="src_2_Dir" Attributes="0" KeyPath="index.d.ts_11" Type="0"/>
-    <ROW Component="index.html" ComponentId="{79CA0EDE-958B-464D-9908-ABC702C8D02C}" Directory_="browser_Dir" Attributes="0" KeyPath="index.html" Type="0"/>
-    <ROW Component="index.js" ComponentId="{2D9A2669-B83F-4355-924F-4ECB267C0B18}" Directory_="balancedmatch_Dir" Attributes="0" KeyPath="index.js_5" Type="0"/>
-    <ROW Component="index.js_1" ComponentId="{B244E23F-30D6-4978-ACBB-435DE8FF3BA8}" Directory_="braceexpansion_Dir" Attributes="0" KeyPath="index.js_7" Type="0"/>
-    <ROW Component="index.js_10" ComponentId="{83725FE4-40CD-4333-AD79-3AA20FCDD4D4}" Directory_="hasflag_Dir" Attributes="0" KeyPath="index.js_30" Type="0"/>
-    <ROW Component="index.js_11" ComponentId="{678AFDEB-62D2-4A32-AFBF-9F6C1CD1E072}" Directory_="pathisabsolute_Dir" Attributes="0" KeyPath="index.js_33" Type="0"/>
-    <ROW Component="index.js_12" ComponentId="{BDE1B908-2F85-4213-BCD1-2390CB7C0B35}" Directory_="pathparse_Dir" Attributes="0" KeyPath="index.js_34" Type="0"/>
-    <ROW Component="index.js_13" ComponentId="{27A141CE-331E-4FE0-BEC4-DF4979EF5015}" Directory_="linux_Dir" Attributes="0" KeyPath="index.js_37" Type="0"/>
-    <ROW Component="index.js_14" ComponentId="{28741F2E-5D15-4B71-B575-FBDE8F0704FE}" Directory_="windows_Dir" Attributes="0" KeyPath="index.js_39" Type="0"/>
-    <ROW Component="index.js_15" ComponentId="{E36607DD-1944-4896-B5FB-3B0F947408CE}" Directory_="abc_Dir" Attributes="0" KeyPath="index.js_42" Type="0"/>
-    <ROW Component="index.js_16" ComponentId="{462941A5-7DBE-42B0-8F39-7E8E32A01536}" Directory_="dotdot_Dir" Attributes="0" KeyPath="index.js_43" Type="0"/>
-    <ROW Component="index.js_17" ComponentId="{5AF3C385-0E35-4113-8D34-63F2CD3BCB89}" Directory_="aaa_Dir" Attributes="0" KeyPath="index.js_44" Type="0"/>
-    <ROW Component="index.js_18" ComponentId="{8942EE32-C5C6-4BA0-BA55-E2CCB5A581FC}" Directory_="aaa_1_Dir" Attributes="0" KeyPath="index.js_45" Type="0"/>
-    <ROW Component="index.js_19" ComponentId="{3E9784E9-8041-4BC2-8738-B2AF14FA771C}" Directory_="aaa_2_Dir" Attributes="0" KeyPath="index.js_46" Type="0"/>
-    <ROW Component="index.js_2" ComponentId="{9147C91C-2525-45C9-AD9A-2A893362708D}" Directory_="ms_Dir" Attributes="0" KeyPath="index.js_11" Type="0"/>
-    <ROW Component="index.js_20" ComponentId="{C74CFEE6-D1D2-43A3-9D46-0BB107947C1B}" Directory_="ccc_Dir" Attributes="0" KeyPath="index.js_47" Type="0"/>
-    <ROW Component="index.js_21" ComponentId="{D6BAF212-03F2-4BAA-A408-0A46FF4512BB}" Directory_="bbb_1_Dir" Attributes="0" KeyPath="index.js_48" Type="0"/>
-    <ROW Component="index.js_22" ComponentId="{EDA8EED9-8CBA-4876-ACCF-C569EA409B96}" Directory_="ccc_1_Dir" Attributes="0" KeyPath="index.js_49" Type="0"/>
-    <ROW Component="index.js_23" ComponentId="{A2B44B81-DE75-4AAE-AF8E-3E0C6B266F69}" Directory_="aaa_3_Dir" Attributes="0" KeyPath="index.js_50" Type="0"/>
-    <ROW Component="index.js_24" ComponentId="{E3E3CD66-F9FC-473A-AE93-9C7B200DE42C}" Directory_="dot_main_Dir" Attributes="0" KeyPath="index.js_51" Type="0"/>
-    <ROW Component="index.js_25" ComponentId="{191E5C5D-4F29-410B-AA4E-53D609052680}" Directory_="dot_slash_main_Dir" Attributes="0" KeyPath="index.js_52" Type="0"/>
-    <ROW Component="index.js_26" ComponentId="{0F3F20D5-02A1-4B58-A7B2-EBED3D0C73E0}" Directory_="incorrect_main_Dir" Attributes="0" KeyPath="index.js_53" Type="0"/>
-    <ROW Component="index.js_27" ComponentId="{5A96B30B-AE62-4D75-8FDD-659E4B385A1C}" Directory_="packagea_Dir" Attributes="0" KeyPath="index.js_54" Type="0"/>
-    <ROW Component="index.js_28" ComponentId="{779F7B76-B572-47C2-B17C-8946AA795835}" Directory_="packageb_Dir" Attributes="0" KeyPath="index.js_55" Type="0"/>
-    <ROW Component="index.js_29" ComponentId="{5D0D0CDF-CB37-42EE-A0D3-1FE783375372}" Directory_="foo_Dir" Attributes="0" KeyPath="index.js_56" Type="0"/>
-    <ROW Component="index.js_3" ComponentId="{7A8EF9BC-F072-4831-A6B4-8A17844362A2}" Directory_="fs.realpath_Dir" Attributes="0" KeyPath="index.js_13" Type="0"/>
-    <ROW Component="index.js_30" ComponentId="{3DA55AE4-24CC-4428-9D34-7A3744D900CE}" Directory_="foo_1_Dir" Attributes="0" KeyPath="index.js_57" Type="0"/>
-    <ROW Component="index.js_31" ComponentId="{F40D233A-9846-4E92-859C-17927753EAB8}" Directory_="util_Dir" Attributes="0" KeyPath="index.js_58" Type="0"/>
-    <ROW Component="index.js_32" ComponentId="{7E578AC2-0505-44F0-8B4B-6528BAC50B8F}" Directory_="src_4_Dir" Attributes="0" KeyPath="index.js_59" Type="0"/>
-    <ROW Component="index.js_33" ComponentId="{97119A54-FC83-4AC0-ABB3-39374DB287FB}" Directory_="lib_14_Dir" Attributes="0" KeyPath="index.js_60" Type="0"/>
-    <ROW Component="index.js_4" ComponentId="{EF92DFBE-ED97-4E83-91B0-0B4134F9983A}" Directory_="src_1_Dir" Attributes="0" KeyPath="index.js_16" Type="0"/>
-    <ROW Component="index.js_5" ComponentId="{08EFF99F-EB9F-411B-951B-FCA2258CB574}" Directory_="test_3_Dir" Attributes="0" KeyPath="index.js_17" Type="0"/>
-    <ROW Component="index.js_6" ComponentId="{1D017509-4D90-4C50-ABDD-3C978C71FC6D}" Directory_="test_4_Dir" Attributes="0" KeyPath="index.js_20" Type="0"/>
-    <ROW Component="index.js_7" ComponentId="{6194549A-F8C9-4A7C-8A28-AF2580CDEE44}" Directory_="ansistyles_Dir" Attributes="0" KeyPath="index.js_25" Type="0"/>
-    <ROW Component="index.js_8" ComponentId="{47AE2929-EA8B-48A5-BF5F-4A5F229057F6}" Directory_="chalk_Dir" Attributes="0" KeyPath="index.js_26" Type="0"/>
-    <ROW Component="index.js_9" ComponentId="{EE3C6741-5733-4005-9C53-04A969C2EF2D}" Directory_="escapestringregexp_Dir" Attributes="0" KeyPath="index.js_29" Type="0"/>
-    <ROW Component="index.test.js" ComponentId="{FE76EB5E-7004-4961-A21B-1A5023E48883}" Directory_="test_1_Dir" Attributes="0" KeyPath="index.test.js" Type="0"/>
-    <ROW Component="inflight.js" ComponentId="{68547FAD-860A-4340-89F0-401C7D15D27C}" Directory_="inflight_Dir" Attributes="0" KeyPath="inflight.js" Type="0"/>
-    <ROW Component="inherits.js" ComponentId="{72AD66A0-A18A-41EA-A37E-1B70EC3E8FBB}" Directory_="inherits_Dir" Attributes="0" KeyPath="inherits.js" Type="0"/>
-    <ROW Component="jakefile.js" ComponentId="{E634AD69-E303-4FB6-8680-3017D8AA02AE}" Directory_="jake_Dir" Attributes="0" KeyPath="jakefile.js_2" Type="0"/>
-    <ROW Component="jakefile.js_1" ComponentId="{36C8A265-FE46-4A3F-88F2-3AF29A89AF1E}" Directory_="unit_Dir" Attributes="0" KeyPath="jakefile.js_4" Type="0"/>
-    <ROW Component="joibrowser.min.js" ComponentId="{E1D45D37-9ABF-40B9-8ADB-B77109190681}" Directory_="dist_Dir" Attributes="0" KeyPath="joibrowser.min.js" Type="0"/>
-    <ROW Component="jshintrc" ComponentId="{0778923B-DDBE-4B31-ABE2-DEE74034522B}" Directory_="plist_Dir" Attributes="0" KeyPath="jshintrc" Type="0"/>
-    <ROW Component="lerna.json" ComponentId="{B3B0471E-F98D-4211-9C6D-A4C7882EEFCD}" Directory_="multirepo_Dir" Attributes="0" KeyPath="lerna.json" Type="0"/>
-    <ROW Component="libEGL.dll" ComponentId="{E15E1A8A-B7CA-479B-B7D8-EED84015F410}" Directory_="bin_4_Dir" Attributes="256" KeyPath="libEGL.dll"/>
-    <ROW Component="libEGL.dll_1" ComponentId="{A651EC38-FA14-4885-8FBC-C7354FDA4B1F}" Directory_="swiftshader_Dir" Attributes="256" KeyPath="libEGL.dll_1"/>
-    <ROW Component="libGLESv2.dll" ComponentId="{80333F7F-5223-47B2-8625-16C4AA70B5BB}" Directory_="bin_4_Dir" Attributes="256" KeyPath="libGLESv2.dll"/>
-    <ROW Component="libGLESv2.dll_1" ComponentId="{E4ED3267-7C45-4BE5-BEC8-52C085B543E7}" Directory_="swiftshader_Dir" Attributes="256" KeyPath="libGLESv2.dll_1"/>
-    <ROW Component="logo.ico" ComponentId="{B3172882-6337-450A-82D1-8C6FE3A8AD06}" Directory_="assets_Dir" Attributes="0" KeyPath="logo.ico" Type="0"/>
-    <ROW Component="main.js" ComponentId="{535E7CF9-94C6-4B21-988A-389191B27EC5}" Directory_="app_Dir" Attributes="0" KeyPath="main.js" Type="0"/>
-    <ROW Component="main.js_1" ComponentId="{D5C0E5AA-6725-4168-825E-66241CAEB60C}" Directory_="bbb_Dir" Attributes="0" KeyPath="main.js_1" Type="0"/>
-    <ROW Component="main.js_2" ComponentId="{9F40503A-00FD-479A-93FA-587BD8C0A316}" Directory_="deep_ref_Dir" Attributes="0" KeyPath="main.js_2" Type="0"/>
-    <ROW Component="main.js_3" ComponentId="{93AC703A-5087-47A0-9CCA-FE51A7C0E9AD}" Directory_="bbb_2_Dir" Attributes="0" KeyPath="main.js_4" Type="0"/>
-    <ROW Component="main.js_4" ComponentId="{D577CCC7-C602-4E2C-B668-DB4233305CEF}" Directory_="without_basedir_Dir" Attributes="0" KeyPath="main.js_5" Type="0"/>
-    <ROW Component="map.js" ComponentId="{FE93EE45-4FCB-435F-8928-817FAEDC2137}" Directory_="example_Dir" Attributes="0" KeyPath="map.js" Type="0"/>
-    <ROW Component="map.js_1" ComponentId="{A275D79D-91F3-497C-A05B-C7E41E04FD43}" Directory_="test_Dir" Attributes="0" KeyPath="map.js_1" Type="0"/>
-    <ROW Component="mocha.opts" ComponentId="{67D1554A-8BB0-4B40-97F8-5D4DEB380F06}" Directory_="test_7_Dir" Attributes="0" KeyPath="mocha.opts_1" Type="0"/>
-    <ROW Component="mscordaccore.dll" ComponentId="{813929F3-8BBE-4742-BD7F-FCC9C77D1BE7}" Directory_="bin_4_Dir" Attributes="256" KeyPath="mscordaccore.dll"/>
-    <ROW Component="mscordaccore_amd64_amd64_6.0.21.48005.dll" ComponentId="{5F219D0F-222E-4F9C-8012-57C5FD411BD5}" Directory_="bin_4_Dir" Attributes="256" KeyPath="mscordaccore_amd64_amd64_6.0.21.48005.dll"/>
-    <ROW Component="mscordbi.dll" ComponentId="{251BD7E1-D048-463E-B842-EE2CF0CA4FE6}" Directory_="bin_4_Dir" Attributes="256" KeyPath="mscordbi.dll"/>
-    <ROW Component="mscorlib.dll" ComponentId="{9C9EB61A-AB5F-49EE-9956-799DA1B0525D}" Directory_="bin_4_Dir" Attributes="0" KeyPath="mscorlib.dll"/>
-    <ROW Component="mscorrc.dll" ComponentId="{7A1AF94D-F427-4A07-B951-53BB9987BD5C}" Directory_="bin_4_Dir" Attributes="256" KeyPath="mscorrc.dll"/>
-    <ROW Component="msquic.dll" ComponentId="{7A30678E-EC25-4D03-A1E8-455AE8ACDDD3}" Directory_="bin_4_Dir" Attributes="256" KeyPath="msquic.dll"/>
-    <ROW Component="netstandard.dll" ComponentId="{5152BB48-2752-4455-A15D-423D579EF338}" Directory_="bin_4_Dir" Attributes="0" KeyPath="netstandard.dll"/>
-    <ROW Component="npmignore" ComponentId="{F2D37926-99FF-4647-BB32-92D04C71C75F}" Directory_="rechoir_Dir" Attributes="0" KeyPath="npmignore_4" Type="0"/>
-    <ROW Component="npmignore_1" ComponentId="{B44B7639-DF77-4DF0-A446-BCD01F896287}" Directory_="winreg_Dir" Attributes="0" KeyPath="npmignore_5" Type="0"/>
-    <ROW Component="npmignore_2" ComponentId="{67F84F1A-BA64-45B8-8995-2775EF3E0738}" Directory_="xmlbuilder_Dir" Attributes="0" KeyPath="npmignore_6" Type="0"/>
-    <ROW Component="otherlib.js" ComponentId="{972BBACD-1BCF-4962-B234-424BDB6B3537}" Directory_="lib_12_Dir" Attributes="0" KeyPath="otherlib.js" Type="0"/>
-    <ROW Component="package.json" ComponentId="{DDC8C23F-1F4F-45DF-AA49-563938ADB4B9}" Directory_="invalid_main_Dir" Attributes="0" KeyPath="package.json_48" Type="0"/>
-    <ROW Component="packagelock.json" ComponentId="{2C813396-3B66-4242-9027-168783C8D697}" Directory_="node_modules_Dir" Attributes="0" KeyPath="packagelock.json" Type="0"/>
-    <ROW Component="pin_in.ico" ComponentId="{84F8F641-6A17-4F09-9759-C0E7707AC535}" Directory_="virtualAudio_Dir" Attributes="0" KeyPath="pin_in.ico" Type="0"/>
-    <ROW Component="plistbuild.js" ComponentId="{AF4E59D8-C449-44DA-AF89-4429C3327253}" Directory_="dist_1_Dir" Attributes="0" KeyPath="plistbuild.js" Type="0"/>
-    <ROW Component="portforward.dll" ComponentId="{3F183E66-6F99-46A5-B385-1642624306A2}" Directory_="bin_4_Dir" Attributes="256" KeyPath="portforward.dll"/>
-    <ROW Component="portforward.dll_1" ComponentId="{A5F509D0-FDF8-4E3D-B8F2-E2B49DAF362A}" Directory_="ref_Dir" Attributes="256" KeyPath="portforward.dll_1"/>
-    <ROW Component="portforward.exe" ComponentId="{C9936C03-8A12-4E35-AB65-87485B38C169}" Directory_="bin_4_Dir" Attributes="256" KeyPath="portforward.exe"/>
-    <ROW Component="processCommand.js" ComponentId="{F80B9613-1F76-406C-AB7E-34E3E6410FA4}" Directory_="utils_1_Dir" Attributes="0" KeyPath="processCommand.js" Type="0"/>
-    <ROW Component="registry.js" ComponentId="{AB20CF78-0F46-416D-85D2-FDCB56AC5C35}" Directory_="lib_13_Dir" Attributes="0" KeyPath="registry.js" Type="0"/>
-    <ROW Component="remoteudp.exe" ComponentId="{1F0F5FC4-9D33-4B8A-A611-EF912D670197}" Directory_="bin_4_Dir" Attributes="256" KeyPath="remoteudp.exe"/>
-    <ROW Component="remotewebrtc.exe" ComponentId="{5E46C74B-338E-4736-80DC-2DFEFD8B78E8}" Directory_="bin_4_Dir" Attributes="256" KeyPath="remotewebrtc.exe"/>
-    <ROW Component="root.js" ComponentId="{5E3CD7F3-B50F-4987-A90A-7E290182F04C}" Directory_="other_path_Dir" Attributes="0" KeyPath="root.js" Type="0"/>
-    <ROW Component="sessionudp.exe" ComponentId="{73D0DA91-ADE1-4237-A55F-525B0EE6AD5F}" Directory_="bin_4_Dir" Attributes="256" KeyPath="sessionudp.exe"/>
-    <ROW Component="sessionwebrtc.exe" ComponentId="{7C5AE44F-B890-43C5-9654-E352FC5BD2A8}" Directory_="bin_4_Dir" Attributes="256" KeyPath="sessionwebrtc.exe"/>
-    <ROW Component="shjs" ComponentId="{5C03441B-5450-4666-96C5-6C067325FAF6}" Directory_="bin_2_Dir" Attributes="0" KeyPath="shjs" Type="0"/>
-    <ROW Component="syncpackagemanagers.js" ComponentId="{B6350141-134E-4353-9F37-255850BD7612}" Directory_="support_Dir" Attributes="0" KeyPath="syncpackagemanagers.js" Type="0"/>
-    <ROW Component="travis.yml" ComponentId="{5DD3EDFF-578C-4226-A435-6552AB78FE79}" Directory_="async_Dir" Attributes="0" KeyPath="travis.yml" Type="0"/>
-    <ROW Component="travis.yml_1" ComponentId="{A72B1C34-C79B-460A-B488-DF218BE70B2B}" Directory_="concatmap_Dir" Attributes="0" KeyPath="travis.yml_1" Type="0"/>
-    <ROW Component="ucrtbase.dll" ComponentId="{3B35300B-BD0C-4AA5-B8A9-53D03E67D895}" Directory_="bin_4_Dir" Attributes="256" KeyPath="ucrtbase.dll"/>
-    <ROW Component="ucrtbased.dll" ComponentId="{180716AA-D6CA-4A93-98AF-65B858613872}" Directory_="bin_4_Dir" Attributes="256" KeyPath="ucrtbased.dll"/>
-    <ROW Component="vcruntime140.dll" ComponentId="{FE8F16A3-5F44-474A-88BF-57144961BF11}" Directory_="bin_4_Dir" Attributes="256" KeyPath="vcruntime140.dll"/>
-    <ROW Component="vcruntime140d.dll" ComponentId="{BC1A86E6-27D9-47CC-BF45-9860F79F3535}" Directory_="bin_4_Dir" Attributes="256" KeyPath="vcruntime140d.dll"/>
-    <ROW Component="vk_swiftshader.dll" ComponentId="{34080665-B73E-4FD8-AADA-2AB455004E5A}" Directory_="bin_4_Dir" Attributes="256" KeyPath="vk_swiftshader.dll"/>
-    <ROW Component="vulkan1.dll" ComponentId="{A99A77C8-FE01-457C-8A9E-109362915116}" Directory_="bin_4_Dir" Attributes="256" KeyPath="vulkan1.dll"/>
-    <ROW Component="welcome.exe" ComponentId="{60ED6D78-FEF6-4BB4-A814-8F291E7A137A}" Directory_="bin_4_Dir" Attributes="256" KeyPath="welcome.exe"/>
+    <ROW Component="VBCABLE_ControlPanel.exe" ComponentId="{9ABC042B-6669-4306-BBA7-2936F821D681}" Directory_="virtualAudio_Dir" Attributes="0" KeyPath="VBCABLE_ControlPanel.exe"/>
+    <ROW Component="VBCABLE_Setup.exe" ComponentId="{B62423D6-0D03-41E2-BF10-9AE8197DE211}" Directory_="virtualAudio_Dir" Attributes="0" KeyPath="VBCABLE_Setup.exe"/>
+    <ROW Component="VBCABLE_Setup_x64.exe" ComponentId="{812FAD1C-80EC-4944-8415-C5693E8D649D}" Directory_="virtualAudio_Dir" Attributes="256" KeyPath="VBCABLE_Setup_x64.exe"/>
+    <ROW Component="WindowsBase.dll" ComponentId="{42F67606-082C-45CE-822E-2EABB9526104}" Directory_="bin_4_Dir" Attributes="0" KeyPath="WindowsBase.dll"/>
+    <ROW Component="a.js" ComponentId="{1E17BDB7-4112-4D3B-9853-A953EFCC623A}" Directory_="browser_field_Dir" Attributes="0" KeyPath="a.js" Type="0"/>
+    <ROW Component="aaa.js" ComponentId="{57CA020A-6509-4498-BC80-E5AA88482D89}" Directory_="precedence_Dir" Attributes="0" KeyPath="aaa.js" Type="0"/>
+    <ROW Component="agent.exe" ComponentId="{C131D25C-6A2D-4D8A-AAAC-2794A211F915}" Directory_="bin_4_Dir" Attributes="256" KeyPath="agent.exe"/>
+    <ROW Component="alternatives.js" ComponentId="{1FDE7A27-FEAF-4507-B4C9-8E86E39CE325}" Directory_="types_1_Dir" Attributes="0" KeyPath="alternatives.js" Type="0"/>
+    <ROW Component="am.pak" ComponentId="{75A90259-7887-4757-A5E1-FDF15AD014EE}" Directory_="locales_Dir" Attributes="0" KeyPath="am.pak" Type="0"/>
+    <ROW Component="annotate.js" ComponentId="{2BEFB57F-B1F2-4BD5-B04E-65D2081AADA8}" Directory_="lib_8_Dir" Attributes="0" KeyPath="annotate.js" Type="0"/>
+    <ROW Component="api.js" ComponentId="{8C0B37AF-49C8-4C36-9EA7-85ED79A74A1A}" Directory_="lib_7_Dir" Attributes="0" KeyPath="api.js" Type="0"/>
+    <ROW Component="apimswincoreconsolel110.dll" ComponentId="{964D26A6-350C-4E55-A8B0-2F2603C6CF01}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoreconsolel110.dll"/>
+    <ROW Component="apimswincoreconsolel120.dll" ComponentId="{576C4060-C470-447B-A687-B1D374522CF9}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoreconsolel120.dll"/>
+    <ROW Component="apimswincoredatetimel110.dll" ComponentId="{C98F4691-527B-4B54-B0D7-3144F86A14D4}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoredatetimel110.dll"/>
+    <ROW Component="apimswincoredebugl110.dll" ComponentId="{A4953417-0214-40B8-857E-0F0035E4F75F}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoredebugl110.dll"/>
+    <ROW Component="apimswincoreerrorhandlingl110.dll" ComponentId="{F6580247-E07D-4077-A847-1B0A5482B07F}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoreerrorhandlingl110.dll"/>
+    <ROW Component="apimswincorefilel110.dll" ComponentId="{B32C874E-A872-4BB6-8B2A-993132849192}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincorefilel110.dll"/>
+    <ROW Component="apimswincorefilel120.dll" ComponentId="{00820AD9-6FC3-4A8E-B72D-82560AB24434}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincorefilel120.dll"/>
+    <ROW Component="apimswincorefilel210.dll" ComponentId="{0DF1B7FE-3ECB-44FD-BFE5-71F11959A1D1}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincorefilel210.dll"/>
+    <ROW Component="apimswincorehandlel110.dll" ComponentId="{F5AD0EC0-9272-4D64-9A5B-8FE970546DD1}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincorehandlel110.dll"/>
+    <ROW Component="apimswincoreheapl110.dll" ComponentId="{E18D974C-083A-4E39-8289-3C976C14F08A}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoreheapl110.dll"/>
+    <ROW Component="apimswincoreinterlockedl110.dll" ComponentId="{1E74FA4A-EEC0-43A1-80A0-EC6B8E69A53B}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoreinterlockedl110.dll"/>
+    <ROW Component="apimswincorelibraryloaderl110.dll" ComponentId="{1BBFFC09-4982-4FD3-A763-6DCC2017BE38}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincorelibraryloaderl110.dll"/>
+    <ROW Component="apimswincorelocalizationl120.dll" ComponentId="{9805198C-FC13-469D-AA3B-0E1A6E44C918}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincorelocalizationl120.dll"/>
+    <ROW Component="apimswincorememoryl110.dll" ComponentId="{7863E5F2-E59D-4492-B603-0E78C125857B}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincorememoryl110.dll"/>
+    <ROW Component="apimswincorenamedpipel110.dll" ComponentId="{5BD3D7A1-76C6-4BB9-9E47-AD01D2BB5185}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincorenamedpipel110.dll"/>
+    <ROW Component="apimswincoreprocessenvironmentl110.dll" ComponentId="{1F2D0804-B8BB-4B4F-BDE7-6DD189F1891E}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoreprocessenvironmentl110.dll"/>
+    <ROW Component="apimswincoreprocessthreadsl110.dll" ComponentId="{C429B01B-BC58-4774-A8AF-F2070564E755}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoreprocessthreadsl110.dll"/>
+    <ROW Component="apimswincoreprocessthreadsl111.dll" ComponentId="{C3434C50-BFB7-4D55-BCA2-983DAF23ABC3}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoreprocessthreadsl111.dll"/>
+    <ROW Component="apimswincoreprofilel110.dll" ComponentId="{DB7555D0-DD77-473A-B17E-EC44EB41B154}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoreprofilel110.dll"/>
+    <ROW Component="apimswincorertlsupportl110.dll" ComponentId="{911B0B52-4780-4207-9D1A-7B219AD8E950}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincorertlsupportl110.dll"/>
+    <ROW Component="apimswincorestringl110.dll" ComponentId="{3A8EDB67-12D0-4713-A656-6FCDA3C55D40}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincorestringl110.dll"/>
+    <ROW Component="apimswincoresynchl110.dll" ComponentId="{96AB43A5-09DB-4860-9BF8-1F31498B3074}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoresynchl110.dll"/>
+    <ROW Component="apimswincoresynchl120.dll" ComponentId="{4F859515-C958-4DEA-AEB5-3750A8FE81B4}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoresynchl120.dll"/>
+    <ROW Component="apimswincoresysinfol110.dll" ComponentId="{5B073B5D-4113-437E-BEDE-D6B571F976E7}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoresysinfol110.dll"/>
+    <ROW Component="apimswincoretimezonel110.dll" ComponentId="{09BDAE52-125F-406E-A309-054FECB8A5F1}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoretimezonel110.dll"/>
+    <ROW Component="apimswincoreutill110.dll" ComponentId="{D3A18BCC-30A9-476F-8B12-DABB0FC6EF08}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincoreutill110.dll"/>
+    <ROW Component="apimswincrtconiol110.dll" ComponentId="{2C784DA7-D376-41FE-95AE-2117DF9D3690}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtconiol110.dll"/>
+    <ROW Component="apimswincrtconvertl110.dll" ComponentId="{C8C20E05-BE6F-4AD0-953A-3422899AB451}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtconvertl110.dll"/>
+    <ROW Component="apimswincrtenvironmentl110.dll" ComponentId="{A9A8BABE-EB10-4BE3-9179-FB25C30F2690}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtenvironmentl110.dll"/>
+    <ROW Component="apimswincrtfilesysteml110.dll" ComponentId="{4DF7D946-C7E7-4F78-9AEA-933A7397F3F5}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtfilesysteml110.dll"/>
+    <ROW Component="apimswincrtheapl110.dll" ComponentId="{7E3A0AA5-AE91-48CB-AB97-76688FE4BAFE}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtheapl110.dll"/>
+    <ROW Component="apimswincrtlocalel110.dll" ComponentId="{BCC8B85D-1088-491F-897C-2F3E30F140B2}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtlocalel110.dll"/>
+    <ROW Component="apimswincrtmathl110.dll" ComponentId="{BCA6DA68-B43F-4667-A9FC-89DA6A137E26}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtmathl110.dll"/>
+    <ROW Component="apimswincrtmultibytel110.dll" ComponentId="{55F92735-7EB3-47C5-8D2C-7D1F3FB6B21A}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtmultibytel110.dll"/>
+    <ROW Component="apimswincrtprivatel110.dll" ComponentId="{AA512A1A-AD20-4416-B9F1-EEF225FD4EE6}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtprivatel110.dll"/>
+    <ROW Component="apimswincrtprocessl110.dll" ComponentId="{9AD448CC-D91E-4D07-BFDB-BD758258C64A}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtprocessl110.dll"/>
+    <ROW Component="apimswincrtruntimel110.dll" ComponentId="{CB3F14F1-A637-4B13-979C-06F436472616}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtruntimel110.dll"/>
+    <ROW Component="apimswincrtstdiol110.dll" ComponentId="{7B23D067-A203-4513-BFC9-5F37AC233A5B}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtstdiol110.dll"/>
+    <ROW Component="apimswincrtstringl110.dll" ComponentId="{616DEE81-9691-477F-B6B1-9506745AC863}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtstringl110.dll"/>
+    <ROW Component="apimswincrttimel110.dll" ComponentId="{EBBB7912-9204-4D24-B7DC-7B335A57BE94}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrttimel110.dll"/>
+    <ROW Component="apimswincrtutilityl110.dll" ComponentId="{1E4930A7-ECA5-4873-9095-91D62A788FAE}" Directory_="bin_4_Dir" Attributes="256" KeyPath="apimswincrtutilityl110.dll"/>
+    <ROW Component="app.ejs" ComponentId="{607981AE-779C-4640-9EDA-BB4F233951E9}" Directory_="templates_1_Dir" Attributes="0" KeyPath="app.ejs" Type="0"/>
+    <ROW Component="applyToDefaults.js" ComponentId="{1DCBE268-A017-43A6-AB61-4C804D627A11}" Directory_="lib_Dir" Attributes="0" KeyPath="applyToDefaults.js" Type="0"/>
+    <ROW Component="async.js" ComponentId="{95A462DF-7E4E-4148-9EAB-E39545A5CEF6}" Directory_="lib_5_Dir" Attributes="0" KeyPath="async.js" Type="0"/>
+    <ROW Component="async.js_1" ComponentId="{E45CCCA6-7BFA-4B4B-82C1-E9BB89295438}" Directory_="example_1_Dir" Attributes="0" KeyPath="async.js_1" Type="0"/>
+    <ROW Component="async.js_2" ComponentId="{603A2FE2-EA99-4342-BCA8-915C22C0A95F}" Directory_="lib_11_Dir" Attributes="0" KeyPath="async.js_2" Type="0"/>
+    <ROW Component="async.js_3" ComponentId="{E1EC55DE-DD75-4A85-B0A7-D6AFF3341D6B}" Directory_="mylib_Dir" Attributes="0" KeyPath="async.js_3" Type="0"/>
+    <ROW Component="bar.js" ComponentId="{39741365-532A-497A-A5D5-8EE46F88C11D}" Directory_="package_Dir" Attributes="0" KeyPath="bar.js" Type="0"/>
+    <ROW Component="base64js.min.js" ComponentId="{FF871264-E800-4F4A-8AE1-2BBD4DA76E90}" Directory_="base64js_Dir" Attributes="0" KeyPath="base64js.min.js" Type="0"/>
+    <ROW Component="bash_completion.sh" ComponentId="{4683E93B-18FE-4297-9F9C-629DB8CA55D3}" Directory_="bin_1_Dir" Attributes="0" KeyPath="bash_completion.sh" Type="0"/>
+    <ROW Component="browser.js" ComponentId="{CF45C0EF-8754-4DAB-BC77-0ABFB2B0ABAA}" Directory_="src_Dir" Attributes="0" KeyPath="browser.js" Type="0"/>
+    <ROW Component="browser.js_1" ComponentId="{2BDB4227-96A6-4EA6-BF6D-5A08F10B066F}" Directory_="supportscolor_Dir" Attributes="0" KeyPath="browser.js_1" Type="0"/>
+    <ROW Component="build.js" ComponentId="{C87F34FD-C072-4529-8ECA-644ABC077FAA}" Directory_="lib_9_Dir" Attributes="0" KeyPath="build.js" Type="0"/>
+    <ROW Component="cat.js" ComponentId="{F62AA9ED-FDC8-45B5-9756-262F8A532A2A}" Directory_="src_3_Dir" Attributes="0" KeyPath="cat.js" Type="0"/>
+    <ROW Component="certmgr.exe" ComponentId="{0689B3D7-2058-43AC-93F4-6A856272866F}" Directory_="virtualDisplay_Dir" Attributes="0" KeyPath="certmgr.exe"/>
+    <ROW Component="chrome_100_percent.pak" ComponentId="{A3341A59-7FED-4AD7-9CDB-64F159E2CDED}" Directory_="bin_4_Dir" Attributes="0" KeyPath="chrome_100_percent.pak" Type="0"/>
+    <ROW Component="cli.js" ComponentId="{A227074B-2FFF-4671-8666-9A0FA4FC48A9}" Directory_="bin_Dir" Attributes="0" KeyPath="cli.js" Type="0"/>
+    <ROW Component="cli.js_1" ComponentId="{5855C047-6A7A-493C-8D1F-1DB98F33A01B}" Directory_="isdocker_Dir" Attributes="0" KeyPath="cli.js_1" Type="0"/>
+    <ROW Component="clretwrc.dll" ComponentId="{153AA056-23E4-4C27-B5A4-9FA12699E295}" Directory_="bin_4_Dir" Attributes="256" KeyPath="clretwrc.dll"/>
+    <ROW Component="clrjit.dll" ComponentId="{269FDE5F-D394-47C6-9558-74027E766B98}" Directory_="bin_4_Dir" Attributes="256" KeyPath="clrjit.dll"/>
+    <ROW Component="common.js" ComponentId="{686ABE98-62CF-45FF-8934-223BDB524FFC}" Directory_="glob_Dir" Attributes="0" KeyPath="common.js" Type="0"/>
+    <ROW Component="common.js_1" ComponentId="{468F9E67-D86B-452A-9C02-10BC14186173}" Directory_="validation_Dir" Attributes="0" KeyPath="common.js_2" Type="0"/>
+    <ROW Component="concurrent.jake.js" ComponentId="{256B15B8-80B8-4504-8534-5AC218930CB4}" Directory_="jakelib_Dir" Attributes="0" KeyPath="concurrent.jake.js" Type="0"/>
+    <ROW Component="concurrent.js" ComponentId="{FA6B701B-59BC-4683-AE84-D8D392BC5949}" Directory_="integration_Dir" Attributes="0" KeyPath="concurrent.js" Type="0"/>
+    <ROW Component="constants.js" ComponentId="{14D7B1BC-2FA8-43C3-A123-311D67F837F2}" Directory_="config_Dir" Attributes="0" KeyPath="constants.js" Type="0"/>
+    <ROW Component="coreclr.dll" ComponentId="{8652094F-1E80-4AEF-98BD-BBECEAF24031}" Directory_="bin_4_Dir" Attributes="256" KeyPath="coreclr.dll"/>
+    <ROW Component="coveralls.yml" ComponentId="{C484A972-78DF-4296-BAF1-B05A3075F89C}" Directory_="debug_Dir" Attributes="0" KeyPath="coveralls.yml" Type="0"/>
+    <ROW Component="createdump.exe" ComponentId="{DA77B561-2EFC-4974-9D8F-D379D580026A}" Directory_="bin_4_Dir" Attributes="256" KeyPath="createdump.exe"/>
+    <ROW Component="cup.coffee" ComponentId="{64EC4BB3-F6EB-4CF3-8B5A-1EEF12658161}" Directory_="resolver_Dir" Attributes="0" KeyPath="cup.coffee" Type="0"/>
+    <ROW Component="d3dcompiler_47.dll" ComponentId="{648DDD1F-B091-4736-B38E-647A190735F5}" Directory_="bin_4_Dir" Attributes="256" KeyPath="d3dcompiler_47.dll"/>
+    <ROW Component="dbgshim.dll" ComponentId="{0D072B79-AE7E-4CF6-9D76-ADCEB6F715C0}" Directory_="bin_4_Dir" Attributes="256" KeyPath="dbgshim.dll"/>
+    <ROW Component="decode.js" ComponentId="{BD9B7B23-900E-40F0-ACE2-098B7386AEBF}" Directory_="lib_2_Dir" Attributes="0" KeyPath="decode.js" Type="0"/>
+    <ROW Component="defaultAppExist.sh" ComponentId="{18A5DA5A-DEE4-4187-9F80-50F3277C39D2}" Directory_="macos_Dir" Attributes="0" KeyPath="defaultAppExist.sh" Type="0"/>
+    <ROW Component="desktop.ejs" ComponentId="{A60F1123-A6A2-40D4-B0CD-018704C5C6B7}" Directory_="templates_Dir" Attributes="0" KeyPath="desktop.ejs" Type="0"/>
+    <ROW Component="directory_task.js" ComponentId="{C06C6AD2-2332-487E-9CB0-A3A802FB24B0}" Directory_="task_Dir" Attributes="0" KeyPath="directory_task.js" Type="0"/>
+    <ROW Component="domparser.js" ComponentId="{55CE1172-86EE-428E-B4FD-81D72B7AE89B}" Directory_="xmldom_Dir" Attributes="0" KeyPath="domparser.js" Type="0"/>
+    <ROW Component="doom.js" ComponentId="{76A700A8-8ADF-47F8-858E-6A7C34CDB215}" Directory_="baz_Dir" Attributes="0" KeyPath="doom.js" Type="0"/>
+    <ROW Component="editorconfig" ComponentId="{9DD1B8EE-26FD-4639-BF94-A77C47487A8B}" Directory_="functionbind_Dir" Attributes="0" KeyPath="editorconfig" Type="0"/>
+    <ROW Component="editorconfig_1" ComponentId="{2BE128E0-AFCD-4A8B-B43B-5EBDB8A836BF}" Directory_="resolve_Dir" Attributes="0" KeyPath="editorconfig_1" Type="0"/>
+    <ROW Component="ejs.js" ComponentId="{ABF284D1-A181-4596-821E-17418BBDE1E6}" Directory_="ejs_Dir" Attributes="0" KeyPath="ejs.js" Type="0"/>
+    <ROW Component="ejs.js_1" ComponentId="{48FBA432-3B49-423C-A9DF-25C36CC995E0}" Directory_="lib_6_Dir" Attributes="0" KeyPath="ejs.js_1" Type="0"/>
+    <ROW Component="enableDriver.ps1" ComponentId="{3BAC33C5-B68E-4446-B5C2-F1E19669B2AE}" Directory_="script_Dir" Attributes="0" KeyPath="enableDriver.ps1" Type="0"/>
+    <ROW Component="eslintignore" ComponentId="{474621E3-4C26-463F-9A77-9FF51363E47D}" Directory_="iscoremodule_Dir" Attributes="0" KeyPath="eslintignore" Type="0"/>
+    <ROW Component="eslintrc" ComponentId="{98427D78-C56D-4CA3-B9B9-72937BF3A3D3}" Directory_="electronsquirrelstartup_Dir" Attributes="0" KeyPath="eslintrc" Type="0"/>
+    <ROW Component="eslintrc.json" ComponentId="{B2BC45F1-FB22-4D26-A583-0904A9FED227}" Directory_="colorname_Dir" Attributes="0" KeyPath="eslintrc.json" Type="0"/>
+    <ROW Component="eslintrc_1" ComponentId="{7E75C86F-B9DB-4705-B46C-B863765F5036}" Directory_="test_2_Dir" Attributes="0" KeyPath="eslintrc_3" Type="0"/>
+    <ROW Component="eslintrc_2" ComponentId="{6B0AD0D1-ECE6-4DF2-93C6-91C28A230B5C}" Directory_="test_6_Dir" Attributes="0" KeyPath="eslintrc_6" Type="0"/>
+    <ROW Component="extension.js" ComponentId="{3CC00269-48EA-4096-82DC-E697D4BA2ADF}" Directory_="lib_10_Dir" Attributes="0" KeyPath="extension.js" Type="0"/>
+    <ROW Component="ffmpeg.dll" ComponentId="{8929839E-39E0-4240-BA2A-C7BC1D648640}" Directory_="bin_4_Dir" Attributes="256" KeyPath="ffmpeg.dll"/>
+    <ROW Component="file.js" ComponentId="{CCCC9572-5346-49DF-B870-BD85BB18ED49}" Directory_="utils_Dir" Attributes="0" KeyPath="file.js" Type="0"/>
+    <ROW Component="foo.js" ComponentId="{A2F22580-C5FF-4DFC-9B33-0CFD655CCB80}" Directory_="same_names_Dir" Attributes="0" KeyPath="foo.js_1" Type="0"/>
+    <ROW Component="foo.js_1" ComponentId="{229F91E3-E678-43B3-9588-F4F3B3B78B54}" Directory_="node_modules_3_Dir" Attributes="0" KeyPath="foo.js_2" Type="0"/>
+    <ROW Component="gitattributes" ComponentId="{BC7EDD33-B2AF-48C4-8810-73A2862743AF}" Directory_="protocolregistry_Dir" Attributes="0" KeyPath="gitattributes" Type="0"/>
+    <ROW Component="gitkeep" ComponentId="{00808C98-DCCC-491F-997C-5EF43AC356A7}" Directory_="temp_Dir" Attributes="0" KeyPath="gitkeep" Type="0"/>
+    <ROW Component="gitkeep_1" ComponentId="{9F9F17C9-8B74-4596-9290-E02722789EDC}" Directory_="symlink_target_Dir" Attributes="0" KeyPath="gitkeep_1" Type="0"/>
+    <ROW Component="hostfxr.dll" ComponentId="{663C8304-ABDE-48E0-AC6D-6DCA0C859530}" Directory_="bin_4_Dir" Attributes="256" KeyPath="hostfxr.dll"/>
+    <ROW Component="hostpolicy.dll" ComponentId="{3D8C6F24-1A3C-4E7B-890E-53A4DA27567A}" Directory_="bin_4_Dir" Attributes="256" KeyPath="hostpolicy.dll"/>
+    <ROW Component="iddsampledriver.cat" ComponentId="{BC0E5C62-11A9-460D-B35D-2A5D1804EFE3}" Directory_="virtualDisplay_Dir" Attributes="0" KeyPath="iddsampledriver.cat" Type="0"/>
+    <ROW Component="index.d.ts" ComponentId="{045313CD-8647-4EE8-A066-F69145740B04}" Directory_="lib_1_Dir" Attributes="0" KeyPath="index.d.ts_1" Type="0"/>
+    <ROW Component="index.d.ts_1" ComponentId="{0AE2F9A7-6D85-4913-B46D-FB69C2D34F8B}" Directory_="lib_3_Dir" Attributes="0" KeyPath="index.d.ts_3" Type="0"/>
+    <ROW Component="index.d.ts_2" ComponentId="{2B18658F-AEB6-4C0A-BE9C-149B50463191}" Directory_="lib_4_Dir" Attributes="0" KeyPath="index.d.ts_4" Type="0"/>
+    <ROW Component="index.d.ts_3" ComponentId="{6CE6A8C4-DD83-48DE-843D-E69CD443ADF0}" Directory_="filelist_Dir" Attributes="0" KeyPath="index.d.ts_6" Type="0"/>
+    <ROW Component="index.d.ts_4" ComponentId="{B5239757-74F3-4A0B-A6BC-0AF6660E4F96}" Directory_="iswsl_Dir" Attributes="0" KeyPath="index.d.ts_8" Type="0"/>
+    <ROW Component="index.d.ts_5" ComponentId="{524E8EC5-F56C-4D26-A8F6-5380E3391852}" Directory_="types_Dir" Attributes="0" KeyPath="index.d.ts_9" Type="0"/>
+    <ROW Component="index.d.ts_6" ComponentId="{6F915AEC-B0B8-4F6F-AD9F-8FDBBC8137D9}" Directory_="src_2_Dir" Attributes="0" KeyPath="index.d.ts_11" Type="0"/>
+    <ROW Component="index.html" ComponentId="{D2453093-9045-470A-9CF4-8E4CD91DBF45}" Directory_="browser_Dir" Attributes="0" KeyPath="index.html" Type="0"/>
+    <ROW Component="index.js" ComponentId="{FA0C2A38-EA6B-414D-96B8-D644C0D36469}" Directory_="balancedmatch_Dir" Attributes="0" KeyPath="index.js_5" Type="0"/>
+    <ROW Component="index.js_1" ComponentId="{40690EA9-3FB8-4BEC-A02C-B59AA3224544}" Directory_="braceexpansion_Dir" Attributes="0" KeyPath="index.js_7" Type="0"/>
+    <ROW Component="index.js_10" ComponentId="{DD3BE720-D732-40FF-879A-D5811CD0ABE3}" Directory_="hasflag_Dir" Attributes="0" KeyPath="index.js_30" Type="0"/>
+    <ROW Component="index.js_11" ComponentId="{39F72B8F-93D4-4071-84D3-F2B82D646149}" Directory_="pathisabsolute_Dir" Attributes="0" KeyPath="index.js_33" Type="0"/>
+    <ROW Component="index.js_12" ComponentId="{8E3B1310-C8EF-4199-AA70-203F3D51D222}" Directory_="pathparse_Dir" Attributes="0" KeyPath="index.js_34" Type="0"/>
+    <ROW Component="index.js_13" ComponentId="{9E379236-2A4D-4149-B5D5-039385D33473}" Directory_="linux_Dir" Attributes="0" KeyPath="index.js_37" Type="0"/>
+    <ROW Component="index.js_14" ComponentId="{22BE4628-5CAD-4577-9E5C-9A0594022CDB}" Directory_="windows_Dir" Attributes="0" KeyPath="index.js_39" Type="0"/>
+    <ROW Component="index.js_15" ComponentId="{9A46A499-1FF6-4D52-A30F-238C029393C8}" Directory_="abc_Dir" Attributes="0" KeyPath="index.js_42" Type="0"/>
+    <ROW Component="index.js_16" ComponentId="{31EF9A56-6B7A-4AA8-9467-B5A2386C7729}" Directory_="dotdot_Dir" Attributes="0" KeyPath="index.js_43" Type="0"/>
+    <ROW Component="index.js_17" ComponentId="{F5DAF2A1-306D-459C-A171-913FBAAF9093}" Directory_="aaa_Dir" Attributes="0" KeyPath="index.js_44" Type="0"/>
+    <ROW Component="index.js_18" ComponentId="{35809F44-02F5-4DED-BE31-0980BAB249C7}" Directory_="aaa_1_Dir" Attributes="0" KeyPath="index.js_45" Type="0"/>
+    <ROW Component="index.js_19" ComponentId="{C17B5E95-6F05-48C5-8280-021DEBD63905}" Directory_="aaa_2_Dir" Attributes="0" KeyPath="index.js_46" Type="0"/>
+    <ROW Component="index.js_2" ComponentId="{6175A6F5-5B2C-4E38-A994-5B493EAADC92}" Directory_="ms_Dir" Attributes="0" KeyPath="index.js_11" Type="0"/>
+    <ROW Component="index.js_20" ComponentId="{5689CF05-3924-4AAC-8204-623796497012}" Directory_="ccc_Dir" Attributes="0" KeyPath="index.js_47" Type="0"/>
+    <ROW Component="index.js_21" ComponentId="{91317CEC-D8A1-45D7-9B9F-FB607BC7662D}" Directory_="bbb_1_Dir" Attributes="0" KeyPath="index.js_48" Type="0"/>
+    <ROW Component="index.js_22" ComponentId="{89C528A5-4D3E-4D9F-9C8B-EBB64A194360}" Directory_="ccc_1_Dir" Attributes="0" KeyPath="index.js_49" Type="0"/>
+    <ROW Component="index.js_23" ComponentId="{F12AD9D0-2D88-4803-A6F2-2E47BFC6D1F4}" Directory_="aaa_3_Dir" Attributes="0" KeyPath="index.js_50" Type="0"/>
+    <ROW Component="index.js_24" ComponentId="{143C7FBC-8C70-4DB1-8F6B-029CC2149664}" Directory_="dot_main_Dir" Attributes="0" KeyPath="index.js_51" Type="0"/>
+    <ROW Component="index.js_25" ComponentId="{5585B2A3-77F3-4025-81D8-933EBE385755}" Directory_="dot_slash_main_Dir" Attributes="0" KeyPath="index.js_52" Type="0"/>
+    <ROW Component="index.js_26" ComponentId="{3BC11AF2-465C-47FA-8F1E-040FA23A50D9}" Directory_="incorrect_main_Dir" Attributes="0" KeyPath="index.js_53" Type="0"/>
+    <ROW Component="index.js_27" ComponentId="{7EA9C4D4-ABC6-46FE-93FE-74DDC704A00F}" Directory_="packagea_Dir" Attributes="0" KeyPath="index.js_54" Type="0"/>
+    <ROW Component="index.js_28" ComponentId="{CB4F322A-0FC8-48CA-9338-997773F60140}" Directory_="packageb_Dir" Attributes="0" KeyPath="index.js_55" Type="0"/>
+    <ROW Component="index.js_29" ComponentId="{37C33A0B-BD7A-4DCC-AB81-00945C3501F3}" Directory_="foo_Dir" Attributes="0" KeyPath="index.js_56" Type="0"/>
+    <ROW Component="index.js_3" ComponentId="{71406605-EAAA-462C-9988-9214DDBF3846}" Directory_="fs.realpath_Dir" Attributes="0" KeyPath="index.js_13" Type="0"/>
+    <ROW Component="index.js_30" ComponentId="{5D6160C9-23D3-4433-A4CF-88068F4C4E6F}" Directory_="foo_1_Dir" Attributes="0" KeyPath="index.js_57" Type="0"/>
+    <ROW Component="index.js_31" ComponentId="{9390608B-E4D3-4A00-AA6A-2C53A7FD3E2B}" Directory_="util_Dir" Attributes="0" KeyPath="index.js_58" Type="0"/>
+    <ROW Component="index.js_32" ComponentId="{62D9E798-FBC2-4220-ADF8-16FCC1FDF32A}" Directory_="src_4_Dir" Attributes="0" KeyPath="index.js_59" Type="0"/>
+    <ROW Component="index.js_33" ComponentId="{B9311EF7-8588-47F0-A2EA-7DC7B58FF5AE}" Directory_="lib_14_Dir" Attributes="0" KeyPath="index.js_60" Type="0"/>
+    <ROW Component="index.js_4" ComponentId="{E50FE486-A6AC-4162-9318-D90C52FFD575}" Directory_="src_1_Dir" Attributes="0" KeyPath="index.js_16" Type="0"/>
+    <ROW Component="index.js_5" ComponentId="{9269CD77-1F83-44D6-8366-DEEC2319BF18}" Directory_="test_3_Dir" Attributes="0" KeyPath="index.js_17" Type="0"/>
+    <ROW Component="index.js_6" ComponentId="{8004F1F1-BA81-4933-9CE8-72BB6E58CD3D}" Directory_="test_4_Dir" Attributes="0" KeyPath="index.js_20" Type="0"/>
+    <ROW Component="index.js_7" ComponentId="{5CDBE338-5899-4EC8-9F02-F12AA5C116EE}" Directory_="ansistyles_Dir" Attributes="0" KeyPath="index.js_25" Type="0"/>
+    <ROW Component="index.js_8" ComponentId="{37D0139B-4327-402D-806E-A3AA254A050F}" Directory_="chalk_Dir" Attributes="0" KeyPath="index.js_26" Type="0"/>
+    <ROW Component="index.js_9" ComponentId="{ABDA8E2E-08FD-439E-9AA1-8C7ADA426FDE}" Directory_="escapestringregexp_Dir" Attributes="0" KeyPath="index.js_29" Type="0"/>
+    <ROW Component="index.test.js" ComponentId="{BD87DC89-FBFF-4614-9F82-CAF95D4DC075}" Directory_="test_1_Dir" Attributes="0" KeyPath="index.test.js" Type="0"/>
+    <ROW Component="inflight.js" ComponentId="{6A219C09-F7F1-4A6E-8AF2-218F7515E6FE}" Directory_="inflight_Dir" Attributes="0" KeyPath="inflight.js" Type="0"/>
+    <ROW Component="inherits.js" ComponentId="{A90DB36A-01D3-41BD-87A8-933E937E0726}" Directory_="inherits_Dir" Attributes="0" KeyPath="inherits.js" Type="0"/>
+    <ROW Component="jakefile.js" ComponentId="{A37EC7A0-9500-4EF1-8F72-65717CE54050}" Directory_="jake_Dir" Attributes="0" KeyPath="jakefile.js_2" Type="0"/>
+    <ROW Component="jakefile.js_1" ComponentId="{A41FE90B-8300-450B-88A1-BD97F5FEA42F}" Directory_="unit_Dir" Attributes="0" KeyPath="jakefile.js_4" Type="0"/>
+    <ROW Component="joibrowser.min.js" ComponentId="{D9580163-0155-4DC5-8802-913219B6F839}" Directory_="dist_Dir" Attributes="0" KeyPath="joibrowser.min.js" Type="0"/>
+    <ROW Component="jshintrc" ComponentId="{F4734488-B516-476E-86A8-3D9C3695974F}" Directory_="plist_Dir" Attributes="0" KeyPath="jshintrc" Type="0"/>
+    <ROW Component="lerna.json" ComponentId="{2536C4BC-964F-4B94-81B4-F1C076503B9F}" Directory_="multirepo_Dir" Attributes="0" KeyPath="lerna.json" Type="0"/>
+    <ROW Component="libEGL.dll" ComponentId="{D0EE4C19-D87D-4747-893E-748AF0B8178A}" Directory_="bin_4_Dir" Attributes="256" KeyPath="libEGL.dll"/>
+    <ROW Component="libEGL.dll_1" ComponentId="{95573648-1FE2-4DC5-84C2-62D57FF749CC}" Directory_="swiftshader_Dir" Attributes="256" KeyPath="libEGL.dll_1"/>
+    <ROW Component="libGLESv2.dll" ComponentId="{1EA6B6A1-07FD-4240-808F-0F24CF5D777F}" Directory_="bin_4_Dir" Attributes="256" KeyPath="libGLESv2.dll"/>
+    <ROW Component="libGLESv2.dll_1" ComponentId="{99D86101-FA7A-4A20-AAF4-0C8FD9F5200E}" Directory_="swiftshader_Dir" Attributes="256" KeyPath="libGLESv2.dll_1"/>
+    <ROW Component="logo.ico" ComponentId="{73895DE8-BC9F-44D0-8FF8-FA3ECB93CDB5}" Directory_="assets_Dir" Attributes="0" KeyPath="logo.ico" Type="0"/>
+    <ROW Component="main.js" ComponentId="{130A16A5-9C13-4F99-B63B-8447945E2594}" Directory_="app_Dir" Attributes="0" KeyPath="main.js" Type="0"/>
+    <ROW Component="main.js_1" ComponentId="{151B60C6-E2CC-4E8C-A650-B34A21E7A3B4}" Directory_="bbb_Dir" Attributes="0" KeyPath="main.js_1" Type="0"/>
+    <ROW Component="main.js_2" ComponentId="{9C038C18-907F-4026-9370-9D866DA4854E}" Directory_="deep_ref_Dir" Attributes="0" KeyPath="main.js_2" Type="0"/>
+    <ROW Component="main.js_3" ComponentId="{2AB5D068-CAC9-4969-B534-F469406592D6}" Directory_="bbb_2_Dir" Attributes="0" KeyPath="main.js_4" Type="0"/>
+    <ROW Component="main.js_4" ComponentId="{41F1507B-480D-467E-A9D3-D563C733D41D}" Directory_="without_basedir_Dir" Attributes="0" KeyPath="main.js_5" Type="0"/>
+    <ROW Component="map.js" ComponentId="{F162CE0B-0196-4DF4-ABE9-666F1F2397A4}" Directory_="example_Dir" Attributes="0" KeyPath="map.js" Type="0"/>
+    <ROW Component="map.js_1" ComponentId="{2FF42200-0E32-477E-9059-0D5BD6BAE759}" Directory_="test_Dir" Attributes="0" KeyPath="map.js_1" Type="0"/>
+    <ROW Component="mocha.opts" ComponentId="{89FE2F80-9828-4457-B077-8218F2F9607D}" Directory_="test_7_Dir" Attributes="0" KeyPath="mocha.opts_1" Type="0"/>
+    <ROW Component="mscordaccore.dll" ComponentId="{7B61EA46-9919-4388-9956-75A459E984FB}" Directory_="bin_4_Dir" Attributes="256" KeyPath="mscordaccore.dll"/>
+    <ROW Component="mscordaccore_amd64_amd64_6.0.222.6406.dll" ComponentId="{12D59582-A54C-4F5D-AA02-2504F73CFF41}" Directory_="bin_4_Dir" Attributes="256" KeyPath="mscordaccore_amd64_amd64_6.0.222.6406.dll"/>
+    <ROW Component="mscordbi.dll" ComponentId="{C9116EED-D2FE-4E14-B9D1-D5089B486FA6}" Directory_="bin_4_Dir" Attributes="256" KeyPath="mscordbi.dll"/>
+    <ROW Component="mscorlib.dll" ComponentId="{2106D0E8-67B3-4E17-B91E-DE923901AB52}" Directory_="bin_4_Dir" Attributes="0" KeyPath="mscorlib.dll"/>
+    <ROW Component="mscorrc.dll" ComponentId="{02CC8BFB-49A5-4A6B-9378-95A79A36D109}" Directory_="bin_4_Dir" Attributes="256" KeyPath="mscorrc.dll"/>
+    <ROW Component="msquic.dll" ComponentId="{7465E859-2CA3-4995-AD78-1FB20DA444E2}" Directory_="bin_4_Dir" Attributes="256" KeyPath="msquic.dll"/>
+    <ROW Component="netstandard.dll" ComponentId="{AFDEF0FC-8331-4275-A4A9-70B17B5F253C}" Directory_="bin_4_Dir" Attributes="0" KeyPath="netstandard.dll"/>
+    <ROW Component="npmignore" ComponentId="{3E4429DC-09A4-4EF4-8C80-0772C18540AC}" Directory_="rechoir_Dir" Attributes="0" KeyPath="npmignore_4" Type="0"/>
+    <ROW Component="npmignore_1" ComponentId="{BC89EF19-97BB-47D0-8C09-B1281F3BFC9A}" Directory_="winreg_Dir" Attributes="0" KeyPath="npmignore_5" Type="0"/>
+    <ROW Component="npmignore_2" ComponentId="{65636E98-4225-43FC-8F7A-2C4915231393}" Directory_="xmlbuilder_Dir" Attributes="0" KeyPath="npmignore_6" Type="0"/>
+    <ROW Component="otherlib.js" ComponentId="{B5AA3F74-D79A-445F-A183-0FC715D619E4}" Directory_="lib_12_Dir" Attributes="0" KeyPath="otherlib.js" Type="0"/>
+    <ROW Component="package.json" ComponentId="{3118A507-25D7-410A-96D0-D1AD1959F6F3}" Directory_="invalid_main_Dir" Attributes="0" KeyPath="package.json_48" Type="0"/>
+    <ROW Component="packagelock.json" ComponentId="{390C7155-F119-467B-A548-770E27624488}" Directory_="node_modules_Dir" Attributes="0" KeyPath="packagelock.json" Type="0"/>
+    <ROW Component="pin_in.ico" ComponentId="{E52DF93B-A524-4598-AF26-3D84EC5840F3}" Directory_="virtualAudio_Dir" Attributes="0" KeyPath="pin_in.ico" Type="0"/>
+    <ROW Component="plistbuild.js" ComponentId="{B8849D08-33A9-41DE-8143-B5F417D7C52A}" Directory_="dist_1_Dir" Attributes="0" KeyPath="plistbuild.js" Type="0"/>
+    <ROW Component="portforward.dll" ComponentId="{CF2280B4-4B7D-4C72-B5AF-D42F6BAF4C97}" Directory_="bin_4_Dir" Attributes="256" KeyPath="portforward.dll"/>
+    <ROW Component="portforward.exe" ComponentId="{722FB82E-2E7B-4554-8DDA-D5B28622C8FB}" Directory_="bin_4_Dir" Attributes="256" KeyPath="portforward.exe"/>
+    <ROW Component="processCommand.js" ComponentId="{8BEB780F-1044-45F6-90F5-42FE0E8EFC59}" Directory_="utils_1_Dir" Attributes="0" KeyPath="processCommand.js" Type="0"/>
+    <ROW Component="registry.js" ComponentId="{46C16684-2CF8-4217-BBEC-223C652DD797}" Directory_="lib_13_Dir" Attributes="0" KeyPath="registry.js" Type="0"/>
+    <ROW Component="remoteudp.exe" ComponentId="{D8CEB8D1-F8FC-4F5A-A535-54A9FBC0CF3D}" Directory_="bin_4_Dir" Attributes="256" KeyPath="remoteudp.exe"/>
+    <ROW Component="remotewebrtc.exe" ComponentId="{7176A86E-6F8C-4D03-B00D-7FF0F06321DA}" Directory_="bin_4_Dir" Attributes="256" KeyPath="remotewebrtc.exe"/>
+    <ROW Component="root.js" ComponentId="{6D23BBC0-B2DE-4F21-A430-B166930FE6BE}" Directory_="other_path_Dir" Attributes="0" KeyPath="root.js" Type="0"/>
+    <ROW Component="sessionudp.exe" ComponentId="{DC950020-C5D3-408C-8809-29684825FDF5}" Directory_="bin_4_Dir" Attributes="256" KeyPath="sessionudp.exe"/>
+    <ROW Component="sessionwebrtc.exe" ComponentId="{36F5A6C6-E42F-42CD-9186-7CE3B3C65677}" Directory_="bin_4_Dir" Attributes="256" KeyPath="sessionwebrtc.exe"/>
+    <ROW Component="shjs" ComponentId="{C9489CAA-588B-4475-86D5-EDF84C41D951}" Directory_="bin_2_Dir" Attributes="0" KeyPath="shjs" Type="0"/>
+    <ROW Component="syncpackagemanagers.js" ComponentId="{4CD248B7-EB35-4EE8-A93C-1F0F281C7CEA}" Directory_="support_Dir" Attributes="0" KeyPath="syncpackagemanagers.js" Type="0"/>
+    <ROW Component="travis.yml" ComponentId="{2A54AA18-2688-4416-9D61-A7C71A51036D}" Directory_="async_Dir" Attributes="0" KeyPath="travis.yml" Type="0"/>
+    <ROW Component="travis.yml_1" ComponentId="{0791B758-85A9-4984-860D-7F5399FA7B54}" Directory_="concatmap_Dir" Attributes="0" KeyPath="travis.yml_1" Type="0"/>
+    <ROW Component="ucrtbase.dll" ComponentId="{73C946D5-ADDB-432A-AE07-E8E859CBB5BB}" Directory_="bin_4_Dir" Attributes="256" KeyPath="ucrtbase.dll"/>
+    <ROW Component="ucrtbased.dll" ComponentId="{20FAFCE9-6AD2-4E1E-97C1-D1633191A2A6}" Directory_="bin_4_Dir" Attributes="256" KeyPath="ucrtbased.dll"/>
+    <ROW Component="vcruntime140.dll" ComponentId="{F81C6093-5EBD-49B0-AE5D-BA1F44F45C8D}" Directory_="bin_4_Dir" Attributes="256" KeyPath="vcruntime140.dll"/>
+    <ROW Component="vcruntime140d.dll" ComponentId="{64BA66A2-C578-4E7E-BE51-CA35B34EFFBF}" Directory_="bin_4_Dir" Attributes="256" KeyPath="vcruntime140d.dll"/>
+    <ROW Component="vk_swiftshader.dll" ComponentId="{544DC0F3-82C4-4E5E-AD12-CAF3870010F5}" Directory_="bin_4_Dir" Attributes="256" KeyPath="vk_swiftshader.dll"/>
+    <ROW Component="vulkan1.dll" ComponentId="{2A5AB352-613B-4ABF-A14C-0FF898444102}" Directory_="bin_4_Dir" Attributes="256" KeyPath="vulkan1.dll"/>
+    <ROW Component="welcome.exe" ComponentId="{0C10A87D-7686-476A-BC78-38D6E55299EF}" Directory_="bin_4_Dir" Attributes="256" KeyPath="welcome.exe"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
     <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0"/>
@@ -608,7 +607,6 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
     <ROW File="ThinkMay.exe" Component_="ThinkMay.exe" FileName="ThinkMay.exe" Attributes="0" SourcePath="..\bin\ThinkMay.exe" SelfReg="false" DigSign="true"/>
-    <ROW File="test.bat" Component_="chrome_100_percent.pak" FileName="test.bat" Attributes="0" SourcePath="..\bin\test.bat" SelfReg="false"/>
     <ROW File="agent.exe" Component_="agent.exe" FileName="agent.exe" Attributes="0" SourcePath="..\bin\agent.exe" SelfReg="false" DigSign="true"/>
     <ROW File="agent.pdb" Component_="agent.exe" FileName="agent.pdb" Attributes="0" SourcePath="..\bin\agent.pdb" SelfReg="false"/>
     <ROW File="apimswincoreconsolel110.dll" Component_="apimswincoreconsolel110.dll" FileName="API-MS~1.DLL|api-ms-win-core-console-l1-1-0.dll" Attributes="0" SourcePath="..\bin\api-ms-win-core-console-l1-1-0.dll" SelfReg="false"/>
@@ -652,7 +650,6 @@
     <ROW File="apimswincrtstringl110.dll" Component_="apimswincrtstringl110.dll" FileName="API-M~39.DLL|api-ms-win-crt-string-l1-1-0.dll" Attributes="0" SourcePath="..\bin\api-ms-win-crt-string-l1-1-0.dll" SelfReg="false"/>
     <ROW File="apimswincrttimel110.dll" Component_="apimswincrttimel110.dll" FileName="API-M~40.DLL|api-ms-win-crt-time-l1-1-0.dll" Attributes="0" SourcePath="..\bin\api-ms-win-crt-time-l1-1-0.dll" SelfReg="false"/>
     <ROW File="apimswincrtutilityl110.dll" Component_="apimswincrtutilityl110.dll" FileName="API-M~41.DLL|api-ms-win-crt-utility-l1-1-0.dll" Attributes="0" SourcePath="..\bin\api-ms-win-crt-utility-l1-1-0.dll" SelfReg="false"/>
-    <ROW File="build.bat" Component_="chrome_100_percent.pak" FileName="build.bat" Attributes="0" SourcePath="..\bin\build.bat" SelfReg="false"/>
     <ROW File="chrome_100_percent.pak" Component_="chrome_100_percent.pak" FileName="CHROME~1.PAK|chrome_100_percent.pak" Attributes="0" SourcePath="..\bin\chrome_100_percent.pak" SelfReg="false"/>
     <ROW File="chrome_200_percent.pak" Component_="chrome_100_percent.pak" FileName="CHROME~2.PAK|chrome_200_percent.pak" Attributes="0" SourcePath="..\bin\chrome_200_percent.pak" SelfReg="false"/>
     <ROW File="clretwrc.dll" Component_="clretwrc.dll" FileName="clretwrc.dll" Attributes="0" SourcePath="..\bin\clretwrc.dll" SelfReg="false"/>
@@ -661,7 +658,6 @@
     <ROW File="createdump.exe" Component_="createdump.exe" FileName="CREATE~1.EXE|createdump.exe" Attributes="0" SourcePath="..\bin\createdump.exe" SelfReg="false"/>
     <ROW File="d3dcompiler_47.dll" Component_="d3dcompiler_47.dll" FileName="D3DCOM~1.DLL|d3dcompiler_47.dll" Attributes="0" SourcePath="..\bin\d3dcompiler_47.dll" SelfReg="false"/>
     <ROW File="dbgshim.dll" Component_="dbgshim.dll" FileName="dbgshim.dll" Attributes="0" SourcePath="..\bin\dbgshim.dll" SelfReg="false"/>
-    <ROW File="download.bat" Component_="chrome_100_percent.pak" FileName="download.bat" Attributes="0" SourcePath="..\bin\download.bat" SelfReg="false"/>
     <ROW File="ffmpeg.dll" Component_="ffmpeg.dll" FileName="ffmpeg.dll" Attributes="0" SourcePath="..\bin\ffmpeg.dll" SelfReg="false"/>
     <ROW File="hostfxr.dll" Component_="hostfxr.dll" FileName="hostfxr.dll" Attributes="0" SourcePath="..\bin\hostfxr.dll" SelfReg="false"/>
     <ROW File="hostpolicy.dll" Component_="hostpolicy.dll" FileName="HOSTPO~1.DLL|hostpolicy.dll" Attributes="0" SourcePath="..\bin\hostpolicy.dll" SelfReg="false"/>
@@ -730,21 +726,18 @@
     <ROW File="Microsoft.Win32.Primitives.dll" Component_="Microsoft.Win32.Primitives.dll" FileName="MICROS~5.DLL|Microsoft.Win32.Primitives.dll" Attributes="0" SourcePath="..\bin\Microsoft.Win32.Primitives.dll" SelfReg="false"/>
     <ROW File="Microsoft.Win32.Registry.dll" Component_="Microsoft.Win32.Registry.dll" FileName="MICROS~6.DLL|Microsoft.Win32.Registry.dll" Attributes="0" SourcePath="..\bin\Microsoft.Win32.Registry.dll" SelfReg="false"/>
     <ROW File="mscordaccore.dll" Component_="mscordaccore.dll" FileName="MSCORD~1.DLL|mscordaccore.dll" Attributes="0" SourcePath="..\bin\mscordaccore.dll" SelfReg="false"/>
-    <ROW File="mscordaccore_amd64_amd64_6.0.21.48005.dll" Component_="mscordaccore_amd64_amd64_6.0.21.48005.dll" FileName="MSCORD~2.DLL|mscordaccore_amd64_amd64_6.0.21.48005.dll" Attributes="0" SourcePath="..\bin\mscordaccore_amd64_amd64_6.0.21.48005.dll" SelfReg="false"/>
+    <ROW File="mscordaccore_amd64_amd64_6.0.222.6406.dll" Component_="mscordaccore_amd64_amd64_6.0.222.6406.dll" FileName="MSCORD~2.DLL|mscordaccore_amd64_amd64_6.0.222.6406.dll" Attributes="0" SourcePath="..\bin\mscordaccore_amd64_amd64_6.0.222.6406.dll" SelfReg="false"/>
     <ROW File="mscordbi.dll" Component_="mscordbi.dll" FileName="mscordbi.dll" Attributes="0" SourcePath="..\bin\mscordbi.dll" SelfReg="false"/>
     <ROW File="mscorlib.dll" Component_="mscorlib.dll" FileName="mscorlib.dll" Attributes="0" SourcePath="..\bin\mscorlib.dll" SelfReg="false"/>
     <ROW File="mscorrc.dll" Component_="mscorrc.dll" FileName="mscorrc.dll" Attributes="0" SourcePath="..\bin\mscorrc.dll" SelfReg="false"/>
     <ROW File="msquic.dll" Component_="msquic.dll" FileName="msquic.dll" Attributes="0" SourcePath="..\bin\msquic.dll" SelfReg="false"/>
     <ROW File="netstandard.dll" Component_="netstandard.dll" FileName="NETSTA~1.DLL|netstandard.dll" Attributes="0" SourcePath="..\bin\netstandard.dll" SelfReg="false"/>
     <ROW File="Newtonsoft.Json.dll" Component_="Newtonsoft.Json.dll" FileName="NEWTON~1.DLL|Newtonsoft.Json.dll" Attributes="0" SourcePath="..\bin\Newtonsoft.Json.dll" SelfReg="false"/>
-    <ROW File="package.bat" Component_="chrome_100_percent.pak" FileName="package.bat" Attributes="0" SourcePath="..\bin\package.bat" SelfReg="false"/>
     <ROW File="portforward.deps.json" Component_="chrome_100_percent.pak" FileName="PORT-F~1.JSO|port-forward.deps.json" Attributes="0" SourcePath="..\bin\port-forward.deps.json" SelfReg="false"/>
     <ROW File="portforward.dll" Component_="portforward.dll" FileName="PORT-F~1.DLL|port-forward.dll" Attributes="0" SourcePath="..\bin\port-forward.dll" SelfReg="false"/>
     <ROW File="portforward.exe" Component_="portforward.exe" FileName="PORT-F~1.EXE|port-forward.exe" Attributes="0" SourcePath="..\bin\port-forward.exe" SelfReg="false" DigSign="true"/>
     <ROW File="portforward.pdb" Component_="portforward.exe" FileName="PORT-F~1.PDB|port-forward.pdb" Attributes="0" SourcePath="..\bin\port-forward.pdb" SelfReg="false"/>
     <ROW File="portforward.runtimeconfig.json" Component_="chrome_100_percent.pak" FileName="PORT-F~2.JSO|port-forward.runtimeconfig.json" Attributes="0" SourcePath="..\bin\port-forward.runtimeconfig.json" SelfReg="false"/>
-    <ROW File="portforward.dll_1" Component_="portforward.dll_1" FileName="PORT-F~1.DLL|port-forward.dll" Attributes="0" SourcePath="..\bin\ref\port-forward.dll" SelfReg="false"/>
-    <ROW File="Signalling.dll" Component_="Signalling.dll" FileName="SIGNAL~1.DLL|Signalling.dll" Attributes="0" SourcePath="..\bin\ref\Signalling.dll" SelfReg="false"/>
     <ROW File="remoteudp.exe" Component_="remoteudp.exe" FileName="REMOTE~1.EXE|remote-udp.exe" Attributes="0" SourcePath="..\bin\remote-udp.exe" SelfReg="false" DigSign="true"/>
     <ROW File="remoteudp.pdb" Component_="remoteudp.exe" FileName="REMOTE~1.PDB|remote-udp.pdb" Attributes="0" SourcePath="..\bin\remote-udp.pdb" SelfReg="false"/>
     <ROW File="remotewebrtc.exe" Component_="remotewebrtc.exe" FileName="REMOTE~2.EXE|remote-webrtc.exe" Attributes="0" SourcePath="..\bin\remote-webrtc.exe" SelfReg="false" DigSign="true"/>
@@ -1310,12 +1303,15 @@
     <ROW File="package.json_58" Component_="main.js" FileName="PACKAG~1.JSO|package.json" Attributes="0" SourcePath="..\bin\resources\app\package.json" SelfReg="false"/>
     <ROW File="resources.pak" Component_="chrome_100_percent.pak" FileName="RESOUR~1.PAK|resources.pak" Attributes="0" SourcePath="..\bin\resources.pak" SelfReg="false"/>
     <ROW File="RestSharp.dll" Component_="RestSharp.dll" FileName="RESTSH~1.DLL|RestSharp.dll" Attributes="0" SourcePath="..\bin\RestSharp.dll" SelfReg="false"/>
+    <ROW File="enableDriver.ps1" Component_="enableDriver.ps1" FileName="ENABLE~1.PS1|enableDriver.ps1" Attributes="0" SourcePath="..\bin\script\enableDriver.ps1" SelfReg="false"/>
+    <ROW File="setupDevice.bat" Component_="enableDriver.ps1" FileName="SETUPD~1.BAT|setupDevice.bat" Attributes="0" SourcePath="..\bin\script\setupDevice.bat" SelfReg="false"/>
+    <ROW File="test.bat_1" Component_="enableDriver.ps1" FileName="test.bat" Attributes="0" SourcePath="..\bin\script\test.bat" SelfReg="false"/>
     <ROW File="sessionudp.exe" Component_="sessionudp.exe" FileName="SESSIO~1.EXE|session-udp.exe" Attributes="0" SourcePath="..\bin\session-udp.exe" SelfReg="false" DigSign="true"/>
     <ROW File="sessionudp.pdb" Component_="sessionudp.exe" FileName="SESSIO~1.PDB|session-udp.pdb" Attributes="0" SourcePath="..\bin\session-udp.pdb" SelfReg="false"/>
     <ROW File="sessionwebrtc.exe" Component_="sessionwebrtc.exe" FileName="SESSIO~2.EXE|session-webrtc.exe" Attributes="0" SourcePath="..\bin\session-webrtc.exe" SelfReg="false" DigSign="true"/>
     <ROW File="sessionwebrtc.pdb" Component_="sessionwebrtc.exe" FileName="SESSIO~2.PDB|session-webrtc.pdb" Attributes="0" SourcePath="..\bin\session-webrtc.pdb" SelfReg="false"/>
     <ROW File="Signalling.deps.json" Component_="chrome_100_percent.pak" FileName="SIGNAL~1.JSO|Signalling.deps.json" Attributes="0" SourcePath="..\bin\Signalling.deps.json" SelfReg="false"/>
-    <ROW File="Signalling.dll_1" Component_="Signalling.dll_1" FileName="SIGNAL~1.DLL|Signalling.dll" Attributes="0" SourcePath="..\bin\Signalling.dll" SelfReg="false"/>
+    <ROW File="Signalling.dll" Component_="Signalling.dll" FileName="SIGNAL~1.DLL|Signalling.dll" Attributes="0" SourcePath="..\bin\Signalling.dll" SelfReg="false"/>
     <ROW File="Signalling.exe" Component_="Signalling.exe" FileName="SIGNAL~1.EXE|Signalling.exe" Attributes="0" SourcePath="..\bin\Signalling.exe" SelfReg="false" DigSign="true"/>
     <ROW File="Signalling.pdb" Component_="Signalling.exe" FileName="SIGNAL~1.PDB|Signalling.pdb" Attributes="0" SourcePath="..\bin\Signalling.pdb" SelfReg="false"/>
     <ROW File="Signalling.runtimeconfig.json" Component_="chrome_100_percent.pak" FileName="SIGNAL~2.JSO|Signalling.runtimeconfig.json" Attributes="0" SourcePath="..\bin\Signalling.runtimeconfig.json" SelfReg="false"/>
@@ -1604,7 +1600,7 @@
     <ROW Action="AI_DpiContentScale" Type="1" Source="aicustact.dll" Target="DpiContentScale"/>
     <ROW Action="AI_EnableDebugLog" Type="321" Source="aicustact.dll" Target="EnableDebugLog"/>
     <ROW Action="AI_InstallModeCheck" Type="1" Source="aicustact.dll" Target="UpdateInstallMode" WithoutSeq="true"/>
-    <ROW Action="AI_LaunchApp" Type="1" Source="aicustact.dll" Target="[#ThinkMay.exe][#test.bat]"/>
+    <ROW Action="AI_LaunchApp" Type="1" Source="aicustact.dll" Target="[#ThinkMay.exe]"/>
     <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
     <ROW Action="AI_RESTORE_LOCATION" Type="65" Source="aicustact.dll" Target="RestoreLocation"/>
     <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
@@ -1655,9 +1651,9 @@
     <ROW Feature_="MainFeature" Component_="apimswincrtmultibytel110.dll"/>
     <ROW Feature_="MainFeature" Component_="apimswincrtprivatel110.dll"/>
     <ROW Feature_="MainFeature" Component_="apimswincrtprocessl110.dll"/>
+    <ROW Feature_="MainFeature" Component_="chrome_100_percent.pak"/>
     <ROW Feature_="MainFeature" Component_="apimswincrtruntimel110.dll"/>
     <ROW Feature_="MainFeature" Component_="apimswincrtstdiol110.dll"/>
-    <ROW Feature_="MainFeature" Component_="chrome_100_percent.pak"/>
     <ROW Feature_="MainFeature" Component_="apimswincrtstringl110.dll"/>
     <ROW Feature_="MainFeature" Component_="apimswincrttimel110.dll"/>
     <ROW Feature_="MainFeature" Component_="apimswincrtutilityl110.dll"/>
@@ -1680,7 +1676,7 @@
     <ROW Feature_="MainFeature" Component_="Microsoft.Win32.Primitives.dll"/>
     <ROW Feature_="MainFeature" Component_="Microsoft.Win32.Registry.dll"/>
     <ROW Feature_="MainFeature" Component_="mscordaccore.dll"/>
-    <ROW Feature_="MainFeature" Component_="mscordaccore_amd64_amd64_6.0.21.48005.dll"/>
+    <ROW Feature_="MainFeature" Component_="mscordaccore_amd64_amd64_6.0.222.6406.dll"/>
     <ROW Feature_="MainFeature" Component_="mscordbi.dll"/>
     <ROW Feature_="MainFeature" Component_="mscorlib.dll"/>
     <ROW Feature_="MainFeature" Component_="mscorrc.dll"/>
@@ -1689,8 +1685,6 @@
     <ROW Feature_="MainFeature" Component_="Newtonsoft.Json.dll"/>
     <ROW Feature_="MainFeature" Component_="portforward.dll"/>
     <ROW Feature_="MainFeature" Component_="portforward.exe"/>
-    <ROW Feature_="MainFeature" Component_="portforward.dll_1"/>
-    <ROW Feature_="MainFeature" Component_="Signalling.dll"/>
     <ROW Feature_="MainFeature" Component_="remoteudp.exe"/>
     <ROW Feature_="MainFeature" Component_="remotewebrtc.exe"/>
     <ROW Feature_="MainFeature" Component_="Renci.SshNet.dll"/>
@@ -1831,9 +1825,10 @@
     <ROW Feature_="MainFeature" Component_="npmignore_2"/>
     <ROW Feature_="MainFeature" Component_="index.js_33"/>
     <ROW Feature_="MainFeature" Component_="RestSharp.dll"/>
+    <ROW Feature_="MainFeature" Component_="enableDriver.ps1"/>
     <ROW Feature_="MainFeature" Component_="sessionudp.exe"/>
     <ROW Feature_="MainFeature" Component_="sessionwebrtc.exe"/>
-    <ROW Feature_="MainFeature" Component_="Signalling.dll_1"/>
+    <ROW Feature_="MainFeature" Component_="Signalling.dll"/>
     <ROW Feature_="MainFeature" Component_="Signalling.exe"/>
     <ROW Feature_="MainFeature" Component_="Squirrel.exe"/>
     <ROW Feature_="MainFeature" Component_="SshNet.Security.Cryptography.dll"/>
@@ -1851,8 +1846,8 @@
     <ROW Feature_="MainFeature" Component_="System.ComponentModel.dll"/>
     <ROW Feature_="MainFeature" Component_="System.ComponentModel.EventBasedAsync.dll"/>
     <ROW Feature_="MainFeature" Component_="System.ComponentModel.Primitives.dll"/>
-    <ROW Feature_="MainFeature" Component_="System.ComponentModel.TypeConverter.dll"/>
     <ROW Feature_="MainFeature" Component_="ThinkMay.exe"/>
+    <ROW Feature_="MainFeature" Component_="System.ComponentModel.TypeConverter.dll"/>
     <ROW Feature_="MainFeature" Component_="System.Configuration.dll"/>
     <ROW Feature_="MainFeature" Component_="System.Console.dll"/>
     <ROW Feature_="MainFeature" Component_="System.Core.dll"/>
