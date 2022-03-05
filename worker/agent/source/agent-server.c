@@ -118,10 +118,7 @@ development_agent(AgentServer* agent)
 	g_string_append(string,":5000");
 	gchar* signalling_url = g_string_free(string,FALSE);
 
-	string = g_string_new("remote.exe --urls=http://");
-	g_string_append(string,ip);
-	g_string_append(string,":8080");
-	gchar* remote_url = g_string_free(string,FALSE);
+	gchar* remote_url = "remote.exe --urls=http://localhost:5000/";
 
 	SetEnvironmentVariable("SIGNALLING",TEXT(handshake));
 	create_new_child_process(signalling_url, 										do_nothing, do_nothing, restore_child_process, agent, NULL);
