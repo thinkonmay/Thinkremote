@@ -163,8 +163,17 @@ add_gui_shortcuts(Shortcut* shortcuts)
     key_list[2] = VK_CONTROL;
     key_list[3] = VK_MENU;
 
+    gint toggle_pointer_key_list[10] = {0};
+    key_list[0] = P_KEY;
+    key_list[1] = VK_SHIFT;
+    key_list[2] = VK_CONTROL;
+    key_list[3] = VK_MENU;
+
 	add_new_shortcut_to_list(shortcuts,key_list,
         FULLSCREEN,handle_fullscreen_hotkey,&_gui);
+
+	add_new_shortcut_to_list(shortcuts,key_list,
+        WORKER_POINTER_ON,handle_fullscreen_hotkey,&_gui);
 }
 
 GUI*
@@ -592,8 +601,7 @@ void
 toggle_client_cursor(GUI* gui)
 {
     ShowCursor(gui->client_pointer);
-    trigger_hotkey_by_opcode(gui->client_pointer ? WORKER_POINTER_ON : WORKER_POINTER_OFF);
-}
+cli}
 
 
 

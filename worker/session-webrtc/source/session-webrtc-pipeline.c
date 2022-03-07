@@ -125,19 +125,13 @@ struct _Pipeline
 static void
 toggle_pointer_on(GstElement* capture)
 {
-    g_object_set(capture, "show-cursor", TRUE, NULL); 
+    gboolean state;
+    g_object_get(capture, "show-cursor", &state, NULL); 
+    state = ! state;
+    g_object_get(capture, "show-cursor", state, NULL); 
+    
 }
 
-/**
- * @brief 
- * get and set the visibility of pointer
- * @param capture 
- */
-static void
-toggle_pointer_off(GstElement* capture)
-{
-    g_object_set(capture, "show-cursor", FALSE, NULL); 
-}
 
 Pipeline*
 pipeline_initialize()
