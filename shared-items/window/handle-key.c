@@ -268,11 +268,11 @@ handle_input_javascript(gchar* message)
     }
     else if (opcode == KEYUP)
     {
-        window_input.ki.dwFlags = KEYEVENTF_KEYUP;
+        window_input.ki.dwFlags = KEYEVENTF_KEYUP | KEYEVENTF_EXTENDEDKEY;
     }
     else if (opcode == KEYDOWN)
     {
-        //do nothing
+        window_input.ki.dwFlags = KEYEVENTF_EXTENDEDKEY;
     }
 
     SendInput(1, &window_input, sizeof(window_input));
@@ -364,6 +364,7 @@ handle_input_win32(gchar* message,
             window_input.type =  INPUT_KEYBOARD;
             window_input.ki.wVk =     json_object_get_int_member(object, "wVk");
             window_input.ki.dwFlags = json_object_get_boolean_member(object, "IsUp") ? KEYEVENTF_KEYUP : 0;
+            window_input.ki.dwFlags |= KEYEVENTF_EXTENDEDKEY;
             break;
         case MOUSERAW:
             window_input.type = INPUT_MOUSE;

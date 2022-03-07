@@ -197,3 +197,12 @@ start_portforward(AgentServer* agent)
 
 
 
+void
+restart_portforward(PortForward* portforward)
+{
+    childprocess_force_exit(portforward->process);
+    clean_childprocess(portforward->process);
+    while(!start_portforward(portforward)) { }
+    return;
+}
+

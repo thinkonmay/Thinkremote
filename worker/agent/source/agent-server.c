@@ -45,7 +45,11 @@ struct _AgentServer
 
 	GMainLoop* loop;
 
+#ifndef G_OS_WIN32
 	SoupServer* server;
+#else
+	Win32Server* server;
+#endif
 
 	RemoteSession* remote_session;
 
@@ -57,6 +61,31 @@ struct _AgentServer
 
 
 
+static void
+handle_ping_thread(gpointer data)
+{
+	AgentServer* agent = (AgentServer*) data;
+	static gboolean ping = TRUE;
+	if(!ping)
+	{
+		ping = TRUE;
+		return;
+	}
+
+
+	ping = FALSE;
+	Sleep(30000);
+	if(!ping)
+	{
+		restart_portforward(agent->portforward);
+		ping = FALSE;
+	}
+	else
+	{
+		ping = TRUE:
+	}
+}
+
 
 gboolean    
 handle_message_server(gchar* path,
@@ -66,9 +95,12 @@ handle_message_server(gchar* path,
                       gpointer data)
 {
 	AgentServer* agent = (AgentServer*) data;
-
+	
 	if(!g_strcmp0(path,"/ping"))
+	{
+		g_thread_new("ping-thread",handle_ping_thread,data);
 		return TRUE;
+	}
 	
 
 
@@ -145,6 +177,12 @@ agent_new(gchar* token)
 	agent->remote_session = intialize_remote_session_service();
 	agent->socket = initialize_socket();
 
+	if(!start_portforward(agent))
+	{
+		worker_log_output("Fail to start port-forward to cluster");
+		goto fail;
+	}
+
 	// Always use window http server for window 
 	// (libsoup server yield a bad performance)
 #ifndef G_OS_WIN32
@@ -155,22 +193,20 @@ agent_new(gchar* token)
 #endif
 
 	if(!agent->server)
-		return NULL;
-
-	gboolean success = start_portforward(agent);
-	if(!success)
 	{
-		worker_log_output("Fail to start port-forward to cluster");
-		return NULL;
+		worker_log_output("Fail to create agent server");
+		goto fail;
 	}
+
 
 	
 	register_with_managed_cluster(agent, agent->portforward, token);
-
 run:
 	agent->loop = g_main_loop_new(NULL, FALSE);
 	g_main_loop_run(agent->loop);
 	return agent;
+fail:
+	return NULL;
 }
 
 
@@ -203,21 +239,6 @@ void
 agent_set_socket(AgentServer* self, Socket* socket)
 {
 	self->socket = socket;
-}
-
-
-
-void
-agent_set_main_loop(AgentServer* self,
-	GMainLoop* loop)
-{
-	self->loop = loop;
-}
-
-GMainLoop*
-agent_get_main_loop(AgentServer* self)
-{
-	return self->loop;
 }
 
 

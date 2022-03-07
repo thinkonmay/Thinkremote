@@ -48,8 +48,12 @@ void                    describe_portforward                    (PortForward* po
  */
 gchar*                  portforward_get_agent_instance_port     (PortForward *port);
 
-
-
+/**
+ * @brief 
+ * 
+ * @param portforward 
+ */
+void                    restart_portforward                     (PortForward* portforward);
 
 
 
