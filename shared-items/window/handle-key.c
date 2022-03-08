@@ -73,6 +73,13 @@ static HIDHandler HID_handler = {0};
  */
 void            set_relative_mouse              (gboolean isTrue);
 
+/**
+ * @brief 
+ * 
+ * @param data 
+ */
+void            reset_session_key               (gpointer data);
+
 HIDHandler*
 activate_hid_handler(GstElement* capture, 
                      Shortcut* shortcuts)
@@ -362,9 +369,10 @@ handle_input_win32(gchar* message,
     {
         case KEYRAW:
             window_input.type =  INPUT_KEYBOARD;
-            window_input.ki.wVk =     json_object_get_int_member(object, "wVk");
-            window_input.ki.dwFlags = json_object_get_boolean_member(object, "IsUp") ? KEYEVENTF_KEYUP : 0;
-            window_input.ki.dwFlags |= KEYEVENTF_EXTENDEDKEY;
+            window_input.ki.wVk =       json_object_get_int_member(object, "wVk");
+            gint flag =                 json_object_get_int_member(object, "keyFlags");
+            window_input.ki.dwFlags |= (flag & 1) ? KEYEVENTF_KEYUP : 0;
+            window_input.ki.dwFlags |= (flag & 2) ? KEYEVENTF_EXTENDEDKEY : 0;
             break;
         case MOUSERAW:
             window_input.type = INPUT_MOUSE;
