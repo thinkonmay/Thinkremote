@@ -279,34 +279,13 @@ setup_element_property(SessionUdp* core)
     SignallingHub* hub = session_core_get_signalling_hub(core);
     StreamConfig* qoe = session_core_get_qoe(core);
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#ifndef G_OS_WIN32
-    g_object_set(pipe->audio_element[SOUND_SOURCE], "provide-clock", TRUE, NULL);
-
-    g_object_set(pipe->audio_element[SOUND_SOURCE], "do-timestamp", TRUE, NULL);
-#else
+#ifdef G_OS_WIN32
     g_object_set(pipe->audio_element[SOUND_SOURCE], "low-latency", TRUE, NULL);
 
     g_object_set(pipe->audio_element[SOUND_SOURCE], "loopback", TRUE, NULL);
-#endif
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#ifdef G_OS_WIN32
     g_object_set(pipe->video_element[SCREEN_CAPTURE], "show-cursor", FALSE, NULL);
-#else
-    g_object_set(pipe->video_element[SCREEN_CAPTURE], "show-pointer", TRUE, NULL);
 
-    g_object_set(pipe->video_element[SCREEN_CAPTURE], "remote", TRUE, NULL);
-
-    g_object_set(pipe->video_element[SCREEN_CAPTURE], "blocksize", 16384, NULL);
-    
-    g_object_set(pipe->video_element[SCREEN_CAPTURE], "use-damage", FALSE, NULL);
-#endif
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-#ifdef G_OS_WIN32
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     g_object_set(pipe->video_element[VIDEO_ENCODER], "rc-mode", 0, NULL); 
 
     g_object_set(pipe->video_element[VIDEO_ENCODER], "quality-vs-speed", 100, NULL); 
@@ -314,7 +293,20 @@ setup_element_property(SessionUdp* core)
     g_object_set(pipe->video_element[VIDEO_ENCODER], "bitrate", qoe_get_video_bitrate(qoe), NULL); 
 
     g_object_set(pipe->video_element[VIDEO_ENCODER], "low-latency", TRUE, NULL); 
+
 #else
+    g_object_set(pipe->audio_element[SOUND_SOURCE], "provide-clock", TRUE, NULL);
+
+    g_object_set(pipe->audio_element[SOUND_SOURCE], "do-timestamp", TRUE, NULL);
+
+    g_object_set(pipe->video_element[SCREEN_CAPTURE], "show-pointer", TRUE, NULL);
+
+    g_object_set(pipe->video_element[SCREEN_CAPTURE], "remote", TRUE, NULL);
+
+    g_object_set(pipe->video_element[SCREEN_CAPTURE], "blocksize", 16384, NULL);
+    
+    g_object_set(pipe->video_element[SCREEN_CAPTURE], "use-damage", FALSE, NULL);
+
     g_object_set(pipe->video_element[VIDEO_ENCODER], "threads", 4, NULL);
 
     g_object_set(pipe->video_element[VIDEO_ENCODER], "bframes", 0, NULL);
@@ -331,11 +323,12 @@ setup_element_property(SessionUdp* core)
 
     g_object_set(pipe->video_element[VIDEO_ENCODER], "bitrate", qoe_get_video_bitrate(qoe), NULL); 
 #endif
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if (pipe->video_element[RTP_VIDEO_PAYLOAD]) { g_object_set(pipe->video_element[RTP_VIDEO_PAYLOAD], "aggregate-mode", 1, NULL);}
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
 
     if (pipe->audio_element[SOUND_SOURCE]) { g_object_set(pipe->audio_element[SOUND_SOURCE], "device", get_audio_source(pipe->device), NULL); }
 
