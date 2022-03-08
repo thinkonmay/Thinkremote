@@ -123,13 +123,15 @@ struct _Pipeline
  * @param capture 
  */
 static void
+toggle_pointer_off(GstElement* capture)
+{
+    g_object_set(capture, "show-cursor", FALSE, NULL); 
+}
+
+static void
 toggle_pointer_on(GstElement* capture)
 {
-    gboolean state;
-    g_object_get(capture, "show-cursor", &state, NULL); 
-    state = ! state;
-    g_object_get(capture, "show-cursor", state, NULL); 
-    
+    g_object_set(capture, "show-cursor", TRUE, NULL); 
 }
 
 
@@ -170,22 +172,11 @@ static void
 increase_stream_bitrate(gpointer data)
 {
     Pipeline* pipeline = (Pipeline*) data;
-    GstElement* audio_encoder = pipeline->audio_element[SOUND_ENCODER];
     GstElement* video_encoder = pipeline->video_element[VIDEO_ENCODER];
 
-    gint audio_bitrate; 
     gint video_bitrate;
-    g_object_get(audio_encoder,"bitrate",&audio_bitrate,NULL);
     g_object_get(video_encoder,"bitrate",&video_bitrate,NULL);
-
-    audio_bitrate = audio_bitrate + AUDIO_BITRATE_STEP;
     video_bitrate = video_bitrate + VIDEO_BITRATE_STEP;
-
-    if((audio_bitrate < MINIMUM_AUDIO_BITRATE) || 
-       (video_bitrate < MINIMUM_VIDEO_BITRATE))
-       return;
-
-    g_object_set(audio_encoder,"bitrate",audio_bitrate,NULL);
     g_object_set(video_encoder,"bitrate",video_bitrate,NULL);
 }
 
@@ -193,24 +184,15 @@ static void
 decrease_stream_bitrate(gpointer data)
 {
     Pipeline* pipeline = (Pipeline*) data;
-    GstElement* audio_encoder = pipeline->audio_element[SOUND_ENCODER];
     GstElement* video_encoder = pipeline->video_element[VIDEO_ENCODER];
 
-    gint audio_bitrate;
     gint video_bitrate;
-    g_object_get(audio_encoder,"bitrate",&audio_bitrate,NULL);
     g_object_get(video_encoder,"bitrate",&video_bitrate,NULL);
-
-    audio_bitrate = audio_bitrate - AUDIO_BITRATE_STEP;
     video_bitrate = video_bitrate - VIDEO_BITRATE_STEP;
-
-    if((audio_bitrate < MINIMUM_AUDIO_BITRATE) || 
-       (video_bitrate < MINIMUM_VIDEO_BITRATE))
+    if(video_bitrate < MINIMUM_VIDEO_BITRATE)
        return;
 
-    g_object_set(audio_encoder,"bitrate",audio_bitrate,NULL);
     g_object_set(video_encoder,"bitrate",video_bitrate,NULL);
-
 }
 
 static gboolean
@@ -231,11 +213,11 @@ start_pipeline(SessionCore* core)
     Shortcut* shortcuts = shortcut_list_initialize(10);
 
     add_new_shortcut_to_list(shortcuts,NULL,
-            WORKER_POINTER_ON,(ShortcutHandleFunction)toggle_pointer_on,
+            TOGGLE_WORKER_POINTER_ON,(ShortcutHandleFunction)toggle_pointer_on,
             pipe->video_element[SCREEN_CAPTURE]);
 
     add_new_shortcut_to_list(shortcuts,NULL,
-            WORKER_POINTER_OFF,(ShortcutHandleFunction)toggle_pointer_off,
+            TOGGLE_WORKER_POINTER_OFF,(ShortcutHandleFunction)toggle_pointer_off,
             pipe->video_element[SCREEN_CAPTURE]);
 
     add_new_shortcut_to_list(shortcuts,NULL,
@@ -430,9 +412,11 @@ setup_element_property(SessionCore* core)
      */
     if (pipe->video_element[SCREEN_CAPTURE])       g_object_set(pipe->video_element[SCREEN_CAPTURE], "blocksize", 8192, NULL);
 
-    if (pipe->video_element[SCREEN_CAPTURE])       g_object_set(pipe->video_element[SCREEN_CAPTURE], "show-cursor", FALSE, NULL);
+    if (pipe->video_element[SCREEN_CAPTURE])       g_object_set(pipe->video_element[SCREEN_CAPTURE], "show-cursor", TRUE, NULL);
 
     if (pipe->video_element[VIDEO_ENCODER])        g_object_set(pipe->video_element[VIDEO_ENCODER], "bitrate", qoe_get_video_bitrate(pipe->qoe), NULL); 
+
+    if (pipe->audio_element[SOUND_ENCODER])        g_object_set(pipe->audio_element[SOUND_ENCODER], "bitrate", 192000, NULL); 
 
     /**
      * @brief 

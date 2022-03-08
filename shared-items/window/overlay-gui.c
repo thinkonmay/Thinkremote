@@ -163,17 +163,24 @@ add_gui_shortcuts(Shortcut* shortcuts)
     key_list[2] = VK_CONTROL;
     key_list[3] = VK_MENU;
 
-    gint toggle_pointer_key_list[10] = {0};
-    key_list[0] = P_KEY;
-    key_list[1] = VK_SHIFT;
-    key_list[2] = VK_CONTROL;
-    key_list[3] = VK_MENU;
+    gint key_list_pointer_on[10] = {0};
+    key_list_pointer_on[0] = L_KEY;
+    key_list_pointer_on[1] = VK_SHIFT;
+    key_list_pointer_on[3] = VK_MENU;
+
+    gint key_list_pointer_off[10] = {0};
+    key_list_pointer_off[0] = K_KEY;
+    key_list_pointer_off[1] = VK_SHIFT;
+    key_list_pointer_off[3] = VK_MENU;
 
 	add_new_shortcut_to_list(shortcuts,key_list,
         FULLSCREEN,handle_fullscreen_hotkey,&_gui);
 
-	add_new_shortcut_to_list(shortcuts,key_list,
-        WORKER_POINTER_ON,handle_fullscreen_hotkey,&_gui);
+	add_new_shortcut_to_list(shortcuts,key_list_pointer_off,
+        TOGGLE_WORKER_POINTER_OFF,toggle_client_cursor,FALSE);
+
+	add_new_shortcut_to_list(shortcuts,key_list_pointer_on,
+        TOGGLE_WORKER_POINTER_ON,toggle_client_cursor,TRUE);
 }
 
 GUI*
@@ -598,10 +605,10 @@ gui_set_cursor_position(JsonObject* object)
 
 
 void
-toggle_client_cursor(GUI* gui)
+toggle_client_cursor(gpointer data)
 {
-    ShowCursor(gui->client_pointer);
-cli}
+    ShowCursor(data);
+}
 
 
 
