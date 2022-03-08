@@ -1,4 +1,13 @@
-
+/**
+ * @file key.c
+ * @author {Do Huy Hoang} ({huyhoangdo0205@gmail.com})
+ * @brief 
+ * @version 1.0
+ * @date 2022-03-08
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #include <glib-2.0/glib.h>
 #include <gst/gst.h>
 
@@ -19,7 +28,11 @@ print_out(gchar* message,
 int 
 main()
 {
-    GstElement* pipeline = gst_parse_launch("d3d11screencapturesrc name=source ! queue ! d3d11videosink name=sink");
+    gst_init(NULL,NULL);
+
+    GError* error = NULL;
+    GstElement* pipeline =    gst_parse_launch("videotestsrc name=source ! queue ! d3d11videosink name=sink",&error);
+
     GstElement* videosource = gst_bin_get_by_name(pipeline,"source");
     GstElement* videosink   = gst_bin_get_by_name(pipeline,"sink");
 
@@ -35,5 +48,10 @@ main()
         videosink,
         pipeline);
 
-    g_main_loop_new()
+    gint result = gst_element_change_state(pipeline,GST_STATE_PLAYING);
+    if(result == GST_STATE_CHANGE_FAILURE)
+        return;
+
+    GMainLoop* loop = g_main_loop_new(NULL,FALSE);
+    g_main_loop_run(loop);
 }

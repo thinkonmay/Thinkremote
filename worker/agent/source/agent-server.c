@@ -82,7 +82,7 @@ handle_ping_thread(gpointer data)
 	}
 	else
 	{
-		ping = TRUE:
+		ping = TRUE;
 	}
 }
 
@@ -252,11 +252,4 @@ PortForward*
 agent_get_portforward(AgentServer* self)
 {
 	return self->portforward;
-}
-
-void
-agent_set_remote_session(AgentServer* self, 
-						 RemoteSession* session)
-{
-	self->remote_session = session;
 }
