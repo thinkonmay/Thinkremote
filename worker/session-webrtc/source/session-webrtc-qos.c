@@ -36,7 +36,7 @@ webrtcbin_get_qos(GstElement* webrtcbin)
 #else
         gchar* output = gst_structure_to_string(structure);
 #endif
-        // worker_log_output(output);
+        worker_log_output(output);
     }
     gst_promise_unref(promise);
     return state;
@@ -54,6 +54,8 @@ handle_webrtc_connection_thread(gpointer data)
     {
 #ifdef G_OS_WIN32
         Sleep(500);
+#else
+        sleep(500);
 #endif
         GstElement* webrtcbin = pipeline_get_webrtc_bin(pipeline);
         GstWebRTCPeerConnectionState state = webrtcbin_get_qos(webrtcbin);

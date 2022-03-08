@@ -53,6 +53,12 @@ struct _RemoteUdp
 	 * 
 	 */
 	GUI* gui;
+
+	/**
+	 * @brief 
+	 * 
+	 */
+	SoupServer* server;
 };
 
 

@@ -473,8 +473,7 @@ setup_pipeline(RemoteApp* core)
     GError* error = NULL;
 
     pipe->pipeline = gst_parse_launch(
-        "webrtcbin name=webrtcbin bundle-policy=max-bundle audiotestsrc ! "
-        "audioconvert ! opusenc ! rtpopuspay ! "RTP_CAPS_AUDIO" ! webrtcbin",&error);
+        "webrtcbin name=webrtcbin bundle-policy=max-bundle webrtcbin",&error);
     pipe->webrtcbin =  gst_bin_get_by_name(GST_BIN(pipe->pipeline),"webrtcbin");
     g_object_set(pipe->webrtcbin, "latency", 0, NULL);
 

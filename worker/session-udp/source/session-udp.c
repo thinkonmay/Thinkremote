@@ -24,6 +24,7 @@
 
 
 #include <glib.h>
+#include <libsoup/soup.h>
 
 #ifdef G_OS_WIN32
 #include <Windows.h>
@@ -89,9 +90,6 @@ struct _SessionUdp
 	DeviceType device;
 
 	CoreEngine engine;
-#ifndef G_OS_WIN32
-	Display* x_display
-#endif
 };
 
 
@@ -140,6 +138,35 @@ session_core_setup_session(SessionUdp* self)
 }
 
 
+SoupServer*
+init_agent_server(AgentServer* agent,
+				  gboolean self_host)
+{
+	GError* error = NULL;
+	SoupServer* server = soup_server_new(NULL);
+
+	soup_server_add_handler(server,"/Initialize",
+		(SoupServerCallback)server_callback,agent,NULL);
+
+	soup_server_add_handler(server,"/Terminate",
+		(SoupServerCallback)server_callback,agent,NULL);
+
+	soup_server_add_handler(server,"/PortDescribe",
+		(SoupServerCallback)server_callback,agent,NULL);
+
+
+
+	gint port = atoi(portforward_get_agent_instance_port(agent_get_portforward(agent)));
+	if(self_host) {
+		soup_server_listen_all(server,port,0,&error);
+	} else {
+		soup_server_listen_local(server,port,0,&error);
+	}
+	
+	if(error){g_printerr(error->message); return NULL;}
+    return server;
+}
+
 /**
  * @brief 
  * handle message from hid datachannel and send to window
@@ -177,26 +204,45 @@ free:
 }
 
 
-#ifdef G_OS_WIN32
-gboolean    
-handle_message_server(gchar* path,
-					  gchar* token,
-                      GBytes* request_body,
-                      gchar* response_body,
-                      gpointer data)
-{
-	SessionUdp* agent = (SessionUdp*) data;
-	gchar* text = g_bytes_get_data(request_body,NULL);
 
-	if(!g_strcmp0(path,"/hid")) 
-		on_hid_input(text,agent);
-	else if(!g_strcmp0(path,"/setup")) 
-		on_setup_message(text,agent);
-	return TRUE;
+void
+session_initialize(gchar* data)
+{
+	JsonParser* parser = json_parser_new();
+	JsonObject* object = get_json_object_from_string(data,NULL,parser);
+	gchar* 
+
 }
 
 
-#endif
+static void
+server_callback (SoupServer        *server,
+                 SoupMessage	   *msg,
+		 		 const char        *path,
+                 GHashTable        *query,
+				 SoupClientContext *ctx,
+		 		 gpointer           user_data)
+{
+	SessionUdp* udp= (SessionUdp*)user_data;
+
+	char *file_path;
+	SoupMessageHeadersIter iter;
+	SoupMessageBody *request_body;
+	const char *name, *value;
+	SoupURI* uri = soup_message_get_uri(msg);
+	gchar* request_token;
+
+	
+
+
+	soup_message_headers_iter_init (&iter, msg->request_headers)
+
+	if(!g_strcmp0(uri->path,"/Initialize")) 
+		session_initalize(msg->request_body->data);
+	
+	msg->status_code = SOUP_STATUS_OK;
+	
+}
 
 /**
  * @brief 

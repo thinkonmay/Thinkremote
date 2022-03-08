@@ -539,10 +539,10 @@ setup_media_device_and_stream(Pipeline* pipe,
     if(!object)
     {
         qoe_setup(pipe->qoe,pipe->device,
-                  1920,1080,
+                  1440,2160,
                   OPUS_ENC,
-                  CODEC_H265,
-                  ULTRA_HIGH_CONST);
+                  CODEC_H264,
+                  ULTRA_LOW_CONST);
         return;
     }
 
