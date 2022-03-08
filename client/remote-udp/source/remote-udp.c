@@ -10,7 +10,6 @@
  */
 #include <remote-udp-pipeline.h>
 #include <remote-udp.h>
-#include <overlay-gui.h>
 #include <remote-udp-type.h>
 
 #include <constant.h>
@@ -24,7 +23,10 @@
 #include <gst/base/gstbasesink.h>
 #include <json-handler.h>
 #include <libsoup/soup.h>
+
+#ifdef G_OS_WIN32
 #include <overlay-gui.h>
+#endif
 
 
 
@@ -48,11 +50,13 @@ struct _RemoteUdp
 	 */
 	StreamConfig* qoe;
 
+#ifdef G_OS_WIN32
 	/**
 	 * @brief 
 	 * 
 	 */
 	GUI* gui;
+#endif
 };
 
 
@@ -108,10 +112,12 @@ get_default_shortcut(gpointer data)
 	Shortcut* shortcuts = shortcut_list_initialize(10);
 
 	gint key_list[10] = {0};
+#ifdef G_OS_WIN32
     key_list[0] = W_KEY;
     key_list[1] = VK_SHIFT;
     key_list[2] = VK_CONTROL;
     key_list[3] = VK_MENU;
+#endif
 
 	add_new_shortcut_to_list(shortcuts,key_list,
 			RELOAD_STREAM,remote_app_reset,data);
@@ -140,7 +146,9 @@ remote_app_initialize(gchar* remote_token)
 	app->loop =				g_main_loop_new(NULL, FALSE);
 
 	Shortcut* shortcuts = 	get_default_shortcut(app);
+#ifdef G_OS_WIN32
 	app->gui =				init_remote_app_gui(app,shortcuts,send_hid_message);
+#endif
 	shortcut_list_free(shortcuts);
 
 	free(shortcuts);
@@ -211,9 +219,11 @@ remote_app_get_qoe(RemoteUdp* self)
 	return self->qoe;
 }
 
+#ifdef G_OS_WIN32
 GUI*
 remote_app_get_gui(RemoteUdp* core)
 {
 	return core->gui;
 }
+#endif
 

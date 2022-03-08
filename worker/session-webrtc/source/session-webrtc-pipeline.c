@@ -18,7 +18,6 @@
 #include <logging.h>
 #include <remote-config.h>
 #include <shortcut.h>
-#include <handle-key.h>
 #include <enum.h>
 #include <device.h>
 
@@ -28,6 +27,9 @@
 
 
 
+#ifdef G_OS_WIN32
+#include <handle-key.h>
+#endif
 
 
 
@@ -98,7 +100,9 @@ struct _Pipeline
      * @brief 
      * 
      */
+#ifdef G_OS_WIN32
     HIDHandler* handler;
+#endif
 
     /**
      * @brief 
@@ -152,7 +156,9 @@ pipeline_initialize()
 void
 free_pipeline(Pipeline* pipeline)
 {
+#ifdef G_OS_WIN32
     deactivate_hid_handler(pipeline->handler);
+#endif
     gst_element_set_state (pipeline->pipeline, GST_STATE_NULL);
     gst_object_unref (pipeline->pipeline);
 
@@ -252,7 +258,10 @@ start_pipeline(SessionCore* core)
             INCREASE_STREAM_BITRATE,(ShortcutHandleFunction)increase_stream_bitrate,
             pipe);
 
+#ifdef G_OS_WIN32
     pipe->handler = activate_hid_handler(pipe->video_element[SCREEN_CAPTURE],shortcuts);
+#endif
+
 	shortcut_list_free(shortcuts);
 
 	start_qos_thread(core);
@@ -494,7 +503,7 @@ setup_element_property(SessionCore* core)
 
     if (pipe->video_element[VIDEO_ENCODER])        g_object_set(pipe->video_element[VIDEO_ENCODER], "pass", "pass1", NULL);
 
-    if (pipe->video_element[VIDEO_ENCODER])        g_object_set(pipe->video_element[VIDEO_ENCODER], "bitrate", qoe_get_video_bitrate(pipeline->qoe), NULL); 
+    if (pipe->video_element[VIDEO_ENCODER])        g_object_set(pipe->video_element[VIDEO_ENCODER], "bitrate", qoe_get_video_bitrate(pipe->qoe), NULL); 
 
     if (pipe->audio_element[SOUND_SOURCE])         g_object_set(pipe->audio_element[SOUND_SOURCE], "provide-clock", TRUE, NULL);
 

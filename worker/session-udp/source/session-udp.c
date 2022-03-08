@@ -18,14 +18,14 @@
 #include <token-validate.h>
 #include <constant.h>
 #include <enum.h>
-#include <win32-server.h>
 #include <remote-config.h>
-#include <handle-key.h>
 
 
 #include <glib.h>
 
 #ifdef G_OS_WIN32
+#include <handle-key.h>
+#include <win32-server.h>
 #include <Windows.h>
 
 #else
@@ -128,7 +128,7 @@ server_callback (SoupServer        *server,
 static void
 session_core_setup_session(SessionUdp* self)
 {
-	
+#ifdef G_OS_WIN32	
 	gchar* audio_port = GetEnvironmentVariableWithKey("AUDIO_PORT");
 	gchar* audio_host = GetEnvironmentVariableWithKey("AUDIO_HOST");
 	gchar* video_port = GetEnvironmentVariableWithKey("VIDEO_PORT");
@@ -136,6 +136,7 @@ session_core_setup_session(SessionUdp* self)
 
 	self->audio = udp_endpoint_new(audio_port,audio_host);
 	self->video = udp_endpoint_new(video_port,video_host);
+#endif
 	worker_log_output("session core setup done");
 }
 
@@ -155,11 +156,12 @@ on_hid_input(gchar* message,
     if(DEVELOPMENT_ENVIRONMENT)
         g_print("%s\n",message);
 
-
+#ifdef G_OS_WIN32
     if(udp->device == WEB_APP && udp->engine == CHROME)
         handle_input_javascript(message);
     else if(udp->device == WINDOW_APP && udp->engine == GSTREAMER)
         handle_input_win32(message,(MousePositionFeedbackFunc)NULL,udp);
+#endif
 }
 
 void

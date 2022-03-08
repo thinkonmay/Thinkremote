@@ -13,7 +13,10 @@
 #define GST_USE_UNSTABLE_API
 
 #include <glib.h>
+
+#ifdef G_OS_WIN32
 #include <environment.h>
+#endif
 
 
 
@@ -102,7 +105,11 @@
  * @brief 
  * 
  */
+#ifdef G_OS_WIN32
 #define DEVELOPMENT_SIGNALLING_URL           GetEnvironmentVariableWithKey("SIGNALLING")
+#else
+#define DEVELOPMENT_SIGNALLING_URL           getenv("SIGNALLING")
+#endif
 
 
 /**

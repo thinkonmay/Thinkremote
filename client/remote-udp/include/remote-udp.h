@@ -13,12 +13,14 @@
 
 #include <remote-udp-type.h>
 #include <json-handler.h>
-#include <overlay-gui.h>
 
 
 #include <remote-config.h>
 
 
+#ifdef G_OS_WIN32
+#include <overlay-gui.h>
+#endif
 
 
 	
@@ -76,7 +78,7 @@ StreamConfig*	remote_app_get_qoe					(RemoteUdp* self);
 void			report_remote_app_error				(RemoteUdp* self,
 													gchar* error);
 
-
+#ifdef G_OS_WIN32
 /**
  * @brief 
  * get gui from remote app
@@ -84,4 +86,5 @@ void			report_remote_app_error				(RemoteUdp* self,
  * @return GUI* 
  */
 GUI* 			remote_app_get_gui					(RemoteUdp* core);
+#endif
 #endif 

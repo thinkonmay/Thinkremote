@@ -90,6 +90,7 @@ static GOptionEntry entries[] = {
   {NULL},
 };
 
+#ifdef G_OS_WIN32
 void clear() {
     COORD topLeft  = { 0, 0 };
     HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -106,6 +107,7 @@ void clear() {
     );
     SetConsoleCursorPosition(console, topLeft);
 }
+#endif
 
 int
 main(int argc, char* argv[])
@@ -170,8 +172,9 @@ main(int argc, char* argv[])
         g_print("thinkmay cluster manager NAME:\n[NAME]: ");
         scanf("%s", cluster_name);
     }
-
+#ifdef G_OS_WIN32
     clear();    
+#endif
 
     {
         JsonObject* login = json_object_new();

@@ -16,7 +16,6 @@
 #include <agent-shell-session.h>
 #include <agent-device.h>
 #include <agent-child-process.h>
-#include <win32-server.h>
 #include <agent-port-forward.h>
 
 
@@ -27,6 +26,7 @@
 #include <libsoup/soup.h>
 
 #ifdef G_OS_WIN32
+#include <win32-server.h>
 #include <Windows.h>
 #endif
 
@@ -118,7 +118,9 @@ development_agent(AgentServer* agent)
 	g_string_append(string,":5000");
 	gchar* signalling_url = g_string_free(string,FALSE);
 
+#ifdef G_OS_WIN32
 	SetEnvironmentVariable("SIGNALLING",TEXT(handshake));
+#endif
 	create_new_child_process(signalling_url, 										do_nothing, do_nothing, restore_child_process, agent, NULL);
 	create_new_child_process("session-webrtc.exe 	--environment=development", 	do_nothing, do_nothing, restore_child_process, agent, NULL);
 	create_new_child_process("remote-webrtc.exe 	--environment=development", 	do_nothing, do_nothing, do_nothing, agent, NULL);

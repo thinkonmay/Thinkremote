@@ -17,7 +17,6 @@
 #include <global-var.h>
 #include <string-manipulate.h>
 
-#include <Windows.h>
 
 
 const gchar* connection_string;
