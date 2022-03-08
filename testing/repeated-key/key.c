@@ -30,6 +30,13 @@ static gint testlist[100] =
     VK_RIGHT,
 
     VK_DELETE,
+    VK_MENU,
+    VK_LWIN,
+    VK_VOLUME_UP,
+    VK_VOLUME_DOWN,
+    VK_VOLUME_MUTE,
+    VK_BROWSER_HOME,
+
     0
 
 };
@@ -54,6 +61,8 @@ create_key_thread(gpointer data)
         json_object_set_int_member(object,"keyFlags",RI_KEY_BREAK | RI_KEY_E0);
         gchar* up = get_string_from_json_object(object);
 
+
+        g_print("%s \n %s \n",down,up);
         handle_input_win32(down,do_nothing,NULL);
         Sleep(100);
         handle_input_win32(up,do_nothing,NULL);
