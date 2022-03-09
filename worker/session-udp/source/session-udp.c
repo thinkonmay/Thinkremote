@@ -138,34 +138,6 @@ session_core_setup_session(SessionUdp* self)
 }
 
 
-SoupServer*
-init_agent_server(AgentServer* agent,
-				  gboolean self_host)
-{
-	GError* error = NULL;
-	SoupServer* server = soup_server_new(NULL);
-
-	soup_server_add_handler(server,"/Initialize",
-		(SoupServerCallback)server_callback,agent,NULL);
-
-	soup_server_add_handler(server,"/Terminate",
-		(SoupServerCallback)server_callback,agent,NULL);
-
-	soup_server_add_handler(server,"/PortDescribe",
-		(SoupServerCallback)server_callback,agent,NULL);
-
-
-
-	gint port = atoi(portforward_get_agent_instance_port(agent_get_portforward(agent)));
-	if(self_host) {
-		soup_server_listen_all(server,port,0,&error);
-	} else {
-		soup_server_listen_local(server,port,0,&error);
-	}
-	
-	if(error){g_printerr(error->message); return NULL;}
-    return server;
-}
 
 /**
  * @brief 
@@ -210,7 +182,6 @@ session_initialize(gchar* data)
 {
 	JsonParser* parser = json_parser_new();
 	JsonObject* object = get_json_object_from_string(data,NULL,parser);
-	gchar* 
 
 }
 
@@ -235,10 +206,7 @@ server_callback (SoupServer        *server,
 	
 
 
-	soup_message_headers_iter_init (&iter, msg->request_headers)
 
-	if(!g_strcmp0(uri->path,"/Initialize")) 
-		session_initalize(msg->request_body->data);
 	
 	msg->status_code = SOUP_STATUS_OK;
 	
@@ -301,30 +269,6 @@ session_core_sync_state_with_cluster(gpointer user_data)
 }
 
 
-void
-server_callback (SoupServer        *server,
-                 SoupMessage	   *msg,
-		 		 const char        *path,
-                 GHashTable        *query,
-				 SoupClientContext *ctx,
-		 		 gpointer           user_data)
-{
-	char *file_path;
-	SoupMessageHeadersIter iter;
-	SoupMessageBody *request_body;
-	const char *name, *value;
-	SoupURI* uri = soup_message_get_uri(msg);
-	if(!g_strcmp0(uri->path,"/ping"))
-	{
-		soup_message_set_response(msg, "application/json",SOUP_MEMORY_STATIC,"null",4);
-		msg->status_code = SOUP_STATUS_OK;
-		return;
-	} else if(!g_strcmp0(uri->path,"/hid"))
-	{
-		on_hid_input(msg->request_body->data,user_data);
-		msg->status_code = SOUP_STATUS_OK;
-	}
-}
 
 SessionUdp*
 session_core_initialize()
@@ -336,7 +280,7 @@ session_core_initialize()
 	core->loop =				g_main_loop_new(NULL, FALSE);
 
 #ifdef G_OS_WIN32
-	core->server = 				init_window_server((ServerMessageHandle)handle_message_server,"6003",core);
+	core->server = 				init_session_core_server(core);
 #endif
 
 	session_core_setup_session(core);
