@@ -147,11 +147,13 @@ clean_childprocess(ChildProcess* proc)
 }
 
 void
-wait_for_childproces(ChildProcess* process)
+wait_for_childproces(ChildProcess* proc)
 {
-    if(!process)
+    if(!proc)
         return;
-    g_thread_join(process->statehdl);
+
+    if(proc->statehdl)
+        g_thread_join(proc->statehdl);
 }
 
 
@@ -162,11 +164,12 @@ childprocess_force_exit(ChildProcess* proc)
         return;
 #ifdef G_OS_WIN32
     TerminateProcess(proc->process, 1);
-    g_thread_join(proc->statehdl);
 #else
     g_subprocess_force_exit(proc->process);
-
 #endif
+
+    if(proc->statehdl)
+        g_thread_join(proc->statehdl);
 }
 
 ChildProcess*

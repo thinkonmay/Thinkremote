@@ -61,30 +61,24 @@ struct _AgentServer
 
 
 
+static gboolean ping;
 
 static void
 handle_ping_thread(gpointer data)
 {
 	AgentServer* agent = (AgentServer*) data;
-	static gboolean ping = TRUE;
-	if(!ping)
+	while (TRUE)
 	{
-		ping = TRUE;
-		return;
-	}
-
-
-	ping = FALSE;
-	Sleep(30000);
-	if(!ping)
-	{
-		restart_portforward(agent->portforward);
 		ping = FALSE;
+#ifdef G_OS_WIN32
+		Sleep(10000);
+#else
+		sleep(10000);
+#endif
+		if(!ping)
+			restart_portforward(agent->portforward);
 	}
-	else
-	{
-		ping = TRUE;
-	}
+	
 }
 
 
@@ -96,10 +90,18 @@ handle_message_server(gchar* path,
                       gpointer data)
 {
 	AgentServer* agent = (AgentServer*) data;
+
+	static gboolean init = FALSE;
+	if(!init)
+	{
+		g_thread_new("ping-thread",handle_ping_thread,data);
+		init = TRUE;
+	}
+
 	
 	if(!g_strcmp0(path,"/ping"))
 	{
-		g_thread_new("ping-thread",handle_ping_thread,data);
+		ping = TRUE;
 		return TRUE;
 	}
 	

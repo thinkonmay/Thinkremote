@@ -114,7 +114,6 @@ handle_portforward_disconnected(ChildProcess* proc,
                                 AgentServer* agent)
 {
     PortForward* port = agent_get_portforward(agent);
-    memset(port->port,0,20);  
     gint exit_code = childprocess_get_exit_code(proc);
 
     switch (exit_code)
@@ -143,8 +142,6 @@ handle_portforward_disconnected(ChildProcess* proc,
         case ERROR_DOTNET_ENVIRONMENT :
             worker_log_output("Dotnet environment is missing");
             break;
-        default:
-            return;
     }
 
 
@@ -206,8 +203,5 @@ void
 restart_portforward(PortForward* portforward)
 {
     childprocess_force_exit(portforward->process);
-    clean_childprocess(portforward->process);
-    while(!start_portforward(portforward)) { }
-    return;
 }
 

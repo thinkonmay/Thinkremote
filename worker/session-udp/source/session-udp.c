@@ -138,12 +138,6 @@ session_core_setup_session(SessionUdp* self,
 	audio_host = json_object_get_string_member(json,"AUDIO_HOST");
 	video_port = json_object_get_string_member(json,"VIDEO_PORT");
 	video_host = json_object_get_string_member(json,"VIDEO_HOST");
-=======
-#ifdef G_OS_WIN32	
-	gchar* audio_port = GetEnvironmentVariableWithKey("AUDIO_PORT");
-	gchar* audio_host = GetEnvironmentVariableWithKey("AUDIO_HOST");
-	gchar* video_port = GetEnvironmentVariableWithKey("VIDEO_PORT");
-	gchar* video_host = GetEnvironmentVariableWithKey("VIDEO_HOST");
 
     self->device =  json_object_get_int_member(json,"Device");
     self->engine =  json_object_get_int_member(json,"Engine");
@@ -223,6 +217,7 @@ init_session_core_server(SessionUdp* core)
 {
 	GError* error = NULL;
 	SoupServer* server = soup_server_new(NULL);
+
 
 	soup_server_add_handler(server,
 		"/",server_callback,core,NULL);
