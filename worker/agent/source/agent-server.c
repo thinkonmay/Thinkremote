@@ -24,6 +24,7 @@
 #include <libsoup/soup.h>
 #include <glib-2.0/glib/gstdio.h>
 #include <libsoup/soup.h>
+#include <device.h>
 
 #ifdef G_OS_WIN32
 #include <win32-server.h>

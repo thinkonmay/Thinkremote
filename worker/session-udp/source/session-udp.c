@@ -145,7 +145,7 @@ done:
 	self->video = udp_endpoint_new(video_port,video_host);
 
 	worker_log_output("session core setup done");
-	setup_pipeline(self);
+	setup_pipeline(self,json);
 }
 
 
@@ -288,8 +288,6 @@ session_core_get_pipeline(SessionUdp* self)
 {
 	return self->pipe;
 }
-
-
 
 
 UdpEndpoint*

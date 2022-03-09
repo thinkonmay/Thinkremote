@@ -351,34 +351,11 @@ setup_udp_endpoint(Pipeline* pipeline,
 }
 
 
-void
-setup_media_device_and_stream(Pipeline* pipe,
-                              JsonObject* object)
-{
-    set_media_device(pipe->device);
-
-    if(!object)
-    {
-        qoe_setup(pipe->qoe,pipe->device,
-                  1920,1080,
-                  OPUS_ENC,
-                  CODEC_H265,
-                  ULTRA_HIGH_CONST);
-        return;
-    }
-
-
-    qoe_setup(pipe->qoe,pipe->device,
-            json_object_get_int_member(object,"screenwidth"),
-            json_object_get_int_member(object,"screenheight"),
-            json_object_get_int_member(object,"audiocodec"),
-            json_object_get_int_member(object,"videocodec"),
-            json_object_get_int_member(object,"mode"));
-}
 
 
 void
-setup_pipeline(SessionUdp* core)
+setup_pipeline(SessionUdp* core,
+               JsonObject* object)
 {
     Pipeline* pipe = session_core_get_pipeline(core);
     StreamConfig* qoe = pipe->qoe;
@@ -386,7 +363,14 @@ setup_pipeline(SessionUdp* core)
     if(pipe->audio_pipeline || pipe->video_pipeline)
         free_pipeline(pipe);
     
-	setup_media_device_and_stream(pipe, NULL);
+    set_media_device(pipe->device);
+    qoe_setup(pipe->qoe,pipe->device,
+            json_object_get_int_member(object,"screenwidth"),
+            json_object_get_int_member(object,"screenheight"),
+            json_object_get_int_member(object,"audiocodec"),
+            json_object_get_int_member(object,"videocodec"),
+            json_object_get_int_member(object,"mode"));
+
     setup_element_factory(core, 
         qoe_get_video_codec(qoe),
         qoe_get_audio_codec(qoe));

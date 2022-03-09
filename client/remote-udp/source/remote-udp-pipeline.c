@@ -14,6 +14,7 @@
 
 #include <enum.h>
 #include <remote-config.h>
+#include <constant.h>
 
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>
@@ -113,18 +114,6 @@ struct _Pipeline
 
     GstElement* video_element[VIDEO_ELEMENT_LAST];
     GstElement* audio_element[AUDIO_ELEMENT_LAST];
-
-    /**
-     * @brief 
-     * 
-     */
-    gint audio_port;
-
-    /**
-     * @brief 
-     * 
-     */
-    gint video_port;
 };
 
 
@@ -142,14 +131,6 @@ pipeline_initialize()
 }
 
 
-void
-setup_pipeline_startpoint(Pipeline* pipeline,
-                          gint audio_port,
-                          gint video_port)
-{
-    pipeline->audio_port = audio_port;
-    pipeline->video_port = video_port;
-}
 
 void
 free_pipeline(Pipeline* pipeline)
@@ -270,26 +251,26 @@ setup_element_factory(RemoteUdp* core,
     {
         pipe->video_pipeline =
             gst_parse_launch(
-                "udpsrc port=6002 name=udp ! "RTP_CAPS_VIDEO"H264 ! "                QUEUE
-                "rtph264depay ! "                                          QUEUE
+                "udpsrc port="VIDEO_PORT" name=udp ! "RTP_CAPS_VIDEO"H264 ! "                QUEUE
+                "rtph264depay ! "                                                            QUEUE
                 "decodebin name=decoder",&error);
         pipe->audio_pipeline = 
             gst_parse_launch(
-                "udpsrc port=6001 name=udp ! "RTP_CAPS_AUDIO"OPUS ! "                QUEUE
-                "rtpopusdepay ! "                                          QUEUE
+                "udpsrc port="AUDIO_PORT" name=udp ! "RTP_CAPS_AUDIO"OPUS ! "                QUEUE
+                "rtpopusdepay ! "                                                            QUEUE
                 "decodebin name=decoder",&error);
     }
     else if (video == CODEC_H265)
     {
         pipe->video_pipeline =
             gst_parse_launch(
-                "udpsrc port=6002 name=udp ! "RTP_CAPS_VIDEO"H265 ! "                QUEUE
-                "rtph265depay ! "                                          QUEUE
+                "udpsrc port="VIDEO_PORT" name=udp ! "RTP_CAPS_VIDEO"H265 ! "                QUEUE
+                "rtph265depay ! "                                                            QUEUE
                 "decodebin name=decoder",&error);
         pipe->audio_pipeline = 
             gst_parse_launch(
-                "udpsrc port=6001 name=udp ! "RTP_CAPS_AUDIO"OPUS ! "                QUEUE
-                "rtpopusdepay ! "                                          QUEUE
+                "udpsrc port="AUDIO_PORT" name=udp ! "RTP_CAPS_AUDIO"OPUS ! "                QUEUE
+                "rtpopusdepay ! "                                                            QUEUE
                 "decodebin name=decoder",&error);
     }
 
@@ -306,23 +287,6 @@ setup_element_factory(RemoteUdp* core,
         gst_bin_get_by_name(GST_BIN(pipe->video_pipeline), "udp");
     pipe->video_element[VIDEO_DECODER] = 
         gst_bin_get_by_name(GST_BIN(pipe->video_pipeline), "decoder");
-}
-
-/**
- * @brief Set the up element property object
- * setup proerty of gst element,
- * this function should be called after pipeline factory has been done,
- * each element are assigned to an element in pipeline
- * @param core 
- */
-static void
-setup_element_property(RemoteUdp* core)
-{
-    Pipeline* pipe = remote_app_get_pipeline(core);
-
-    // g_object_set(pipe->video_element[UDP_VIDEO_SOURCE], "port", pipe->video_port, NULL);
-
-    // g_object_set(pipe->audio_element[UDP_AUDIO_SOURCE], "port", pipe->audio_port, NULL);
 }
 
 static gint
@@ -434,7 +398,6 @@ setup_pipeline(RemoteUdp* core)
         qoe_get_video_codec(config),
         qoe_get_audio_codec(config));
     setup_pipeline_queue(pipe);
-    setup_element_property(core);
 
     g_signal_connect (pipe->video_element[VIDEO_DECODER], "pad-added",
         G_CALLBACK (handle_video_stream), core);

@@ -82,21 +82,23 @@ struct _RemoteUdp
  * @param video_codec 
  */
 static void
-remote_app_setup_session(RemoteUdp* self, 
-						 gchar* remote_token)
+remote_app_setup_session(RemoteUdp* self)
 {    
-	if(!DEVELOPMENT_ENVIRONMENT)
-		setup_pipeline_startpoint(self->pipe, 6001, 6002);
-
 	gchar* ip = malloc(20);
 	g_print("Enter target ip:");
 	scanf("%s",ip);
 	
 	JsonObject* json = json_object_new();
-	json_object_set_string_member(json,"AUDIO_PORT","6001");
+	json_object_set_string_member(json,"AUDIO_PORT",AUDIO_PORT);
 	json_object_set_string_member(json,"AUDIO_HOST",get_local_ip());
-	json_object_set_string_member(json,"VIDEO_PORT","6002");
+	json_object_set_string_member(json,"VIDEO_PORT",VIDEO_PORT);
 	json_object_set_string_member(json,"VIDEO_HOST",get_local_ip());
+
+	json_object_set_int_member(json,"screenwidth",qoe_get_screen_width(self->qoe));
+	json_object_set_int_member(json,"screenheight",qoe_get_screen_height(self->qoe));
+	json_object_set_int_member(json,"audiocodec",qoe_get_audio_codec(self->qoe));
+	json_object_set_int_member(json,"videocodec",qoe_get_video_codec(self->qoe));
+	json_object_set_int_member(json,"mode",ULTRA_LOW_CONST);
 
 #ifdef G_OS_WIN32
 	json_object_set_int_member(json,"Device",WINDOW_APP);
@@ -123,8 +125,6 @@ remote_app_setup_session(RemoteUdp* self,
 	SoupMessage* infor_message = soup_message_new(SOUP_METHOD_POST,g_string_free(string,FALSE));
 	soup_message_set_request(infor_message,"application/json",SOUP_MEMORY_COPY,body,strlen(body));
 	soup_session_send_message(https_session,infor_message);
-
-	setup_pipeline(self);
 }
 
 
@@ -176,7 +176,11 @@ remote_app_initialize(gchar* remote_token)
 	app->qoe =				qoe_initialize();
 	app->pipe =				pipeline_initialize();
 	 
-	remote_app_setup_session(app, remote_token);
+	qoe_setup(app->qoe,NULL,2560,1440,OPUS_ENC,CODEC_H264,ULTRA_LOW_CONST);
+
+	remote_app_setup_session(app);
+
+	setup_pipeline(app);
 	g_main_loop_run(app->loop);
 	return app;	
 }
