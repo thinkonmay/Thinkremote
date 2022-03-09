@@ -8,7 +8,7 @@
             "name": "(gdb) Attach",
             "type": "cppdbg",
             "request": "attach",
-            "program": "${workspaceFolder}/bin/remote-udp",
+            "program": "${workspaceFolder}/bin/remote-webrtc",
             "processId": "${command:pickProcess}",
             "MIMode": "gdb",
             "setupCommands": [
