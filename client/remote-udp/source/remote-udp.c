@@ -23,9 +23,20 @@
 #include <gst/base/gstbasesink.h>
 #include <json-handler.h>
 #include <libsoup/soup.h>
+#include <device.h>
+#include <stdio.h>
 
 #ifdef G_OS_WIN32
 #include <overlay-gui.h>
+#else
+#include <unistd.h>
+
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <sys/ioctl.h>
+#include <netinet/in.h>
+#include <net/if.h>
+#include <arpa/inet.h>
 #endif
 
 
@@ -77,32 +88,42 @@ remote_app_setup_session(RemoteUdp* self,
 	if(!DEVELOPMENT_ENVIRONMENT)
 		setup_pipeline_startpoint(self->pipe, 6001, 6002);
 
-	const char* https_aliases[] = { "https", NULL };
+	JsonObject* json = json_object_new();
+	json_object_set_string_member(json,"AUDIO_PORT","6001");
+	json_object_set_string_member(json,"AUDIO_HOST",get_local_ip());
+	json_object_set_string_member(json,"VIDEO_PORT","6002");
+	json_object_set_string_member(json,"VIDEO_HOST",get_local_ip());
+
+#ifdef G_OS_WIN32
+	json_object_set_int_member(json,"Device",WINDOW_APP);
+	json_object_set_int_member(json,"Engine",GSTREAMER);
+#else
+	json_object_set_int_member(json,"Device",LINUX_APP);
+	json_object_set_int_member(json,"Engine",GSTREAMER);
+#endif
+
+	gchar* body = get_string_from_json_object(json);
+
+	const char* https_aliases[] = { "http", NULL };
 	SoupSession* https_session = soup_session_new_with_options(
 			SOUP_SESSION_SSL_STRICT, FALSE,
 			SOUP_SESSION_SSL_USE_SYSTEM_CA_FILE, TRUE,
 			SOUP_SESSION_HTTPS_ALIASES, https_aliases, NULL);
 		
-	GString* infor_url = g_string_new(SESSION_URL);
-	g_string_append(infor_url,	"?token=");
-	g_string_append(infor_url,	remote_token);
-	gchar* infor_str = g_string_free(infor_url,FALSE);
 
+	gchar* ip = malloc(20);
+	g_print("Enter target ip:");
+	scanf("%s",ip);
 
-	SoupMessage* infor_message = soup_message_new(SOUP_METHOD_GET,infor_str);
+	GString* string = g_string_new("http://");
+	g_string_append(string,ip);
+	g_string_append(string,":3567/Initialize");
+	
+	SoupMessage* infor_message = soup_message_new(SOUP_METHOD_POST,g_string_free(string,FALSE));
+	soup_message_set_request(infor_message,"application/json",SOUP_MEMORY_COPY,body,strlen(body));
 	soup_session_send_message(https_session,infor_message);
 
-
-	if(infor_message->status_code != SOUP_STATUS_OK)
-		remote_app_finalize(self,NULL);
-
-	GError* error = NULL;
-	JsonParser* parser = json_parser_new();
-	JsonObject* json_infor = get_json_object_from_string(infor_message->response_body->data,error,parser);
-
-
-
-	g_object_unref(parser);
+	setup_pipeline(self);
 }
 
 
@@ -151,14 +172,10 @@ remote_app_initialize(gchar* remote_token)
 #endif
 	shortcut_list_free(shortcuts);
 
-	free(shortcuts);
-
 	app->qoe =				qoe_initialize();
 	app->pipe =				pipeline_initialize();
 	 
 	remote_app_setup_session(app, remote_token);
-
-	setup_pipeline(app);
 	g_main_loop_run(app->loop);
 	return app;	
 }

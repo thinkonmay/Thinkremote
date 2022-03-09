@@ -138,6 +138,7 @@ udp_endpoint_new(gchar* port,
 				 gchar* ip)
 {
 	UdpEndpoint* udp = malloc(sizeof(UdpEndpoint));
+	memset(udp,0,sizeof(UdpEndpoint));
 	memcpy(udp->target_ip,ip,strlen(ip));
 	udp->target_port = atoi(port);
 	return udp;

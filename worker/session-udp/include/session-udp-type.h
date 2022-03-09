@@ -33,12 +33,6 @@ typedef struct 			_Pipeline 				                Pipeline;
 typedef struct 			_SessionUdp 			                SessionUdp;
 
 
-/**
- * @brief 
- * signalling hub is a datastructure that wrap around communication module with signalling module
- * signalling procedure is needed to establish webrtc connection with client module
- */
-typedef struct 			_SignallingHub			                SignallingHub;
 
 
 

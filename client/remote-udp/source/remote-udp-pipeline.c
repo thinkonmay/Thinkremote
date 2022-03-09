@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2021
  * 
  */
-#include <remote-udp-pipeline.h>
+#include <remote-udp.h>
 #include <remote-udp-type.h>
 #include <remote-udp-pipeline.h>
 
@@ -268,36 +268,29 @@ setup_element_factory(RemoteUdp* core,
     
     if (video == CODEC_H264)
     {
-        if (audio == OPUS_ENC) 
-        {
-            pipe->video_pipeline =
-                gst_parse_launch(
-                    "udpsrc name=udp ! "RTP_CAPS_VIDEO"H264 ! "                QUEUE
-                    "rtph264depay ! "                                          QUEUE
-                    "decodebin name=decoder",&error);
-            pipe->audio_pipeline = 
-                gst_parse_launch(
-                    "udpsrc name=udp ! "RTP_CAPS_AUDIO"OPUS ! "                QUEUE
-                    "rtpopusdepay ! "                                          QUEUE
-                    "decodebin name=decoder",&error);
-        }
+        pipe->video_pipeline =
+            gst_parse_launch(
+                "udpsrc name=udp ! "RTP_CAPS_VIDEO"H264 ! "                QUEUE
+                "rtph264depay ! "                                          QUEUE
+                "decodebin name=decoder",&error);
+        pipe->audio_pipeline = 
+            gst_parse_launch(
+                "udpsrc name=udp ! "RTP_CAPS_AUDIO"OPUS ! "                QUEUE
+                "rtpopusdepay ! "                                          QUEUE
+                "decodebin name=decoder",&error);
     }
     else if (video == CODEC_H265)
     {
-        if (audio == OPUS_ENC)
-        {
-            pipe->video_pipeline =
-                gst_parse_launch(
-                    "udpsrc name=udp ! "RTP_CAPS_VIDEO"H265 ! "                QUEUE
-                    "rtph265depay ! "                                          QUEUE
-                    "decodebin name=decoder",&error);
-            pipe->audio_pipeline = 
-                gst_parse_launch(
-                    "udpsrc name=udp ! "RTP_CAPS_AUDIO"OPUS ! "                QUEUE
-                    "rtpopusdepay ! "                                          QUEUE
-                    "decodebin name=decoder",&error);
-
-        }
+        pipe->video_pipeline =
+            gst_parse_launch(
+                "udpsrc name=udp ! "RTP_CAPS_VIDEO"H265 ! "                QUEUE
+                "rtph265depay ! "                                          QUEUE
+                "decodebin name=decoder",&error);
+        pipe->audio_pipeline = 
+            gst_parse_launch(
+                "udpsrc name=udp ! "RTP_CAPS_AUDIO"OPUS ! "                QUEUE
+                "rtpopusdepay ! "                                          QUEUE
+                "decodebin name=decoder",&error);
     }
 
 

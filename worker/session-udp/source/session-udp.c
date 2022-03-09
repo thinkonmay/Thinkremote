@@ -64,18 +64,6 @@ struct _SessionUdp
 
 	/**
 	 * @brief 
-	 * signalling hub for connection with signalling server
-	 */
-	SignallingHub* signalling;
-
-	/**
-	 * @brief 
-	 * StreamConfig of the stream
-	 */
-	StreamConfig* qoe;
-
-	/**
-	 * @brief 
 	 * StreamConfig of the stream
 	 */
 	UdpEndpoint* audio;
@@ -129,11 +117,9 @@ static void
 session_core_setup_session(SessionUdp* self,
 							gchar* data)
 {
+	g_print("%s\n",data);
 
-	gchar* audio_port;
-	gchar* audio_host;
-	gchar* video_port;
-	gchar* video_host;
+	gchar* audio_port, *audio_host, *video_port, *video_host;
 #ifdef G_OS_WIN32	
 	audio_port = GetEnvironmentVariableWithKey("AUDIO_PORT");
 	audio_host = GetEnvironmentVariableWithKey("AUDIO_HOST");
@@ -142,8 +128,8 @@ session_core_setup_session(SessionUdp* self,
 
 	if(audio_port && audio_host && video_port && video_host) 
 		goto done;
-
 #endif
+
 	JsonParser* parser = json_parser_new();
 	JsonObject* json = get_json_object_from_string(data,NULL,parser);
 
@@ -152,8 +138,8 @@ session_core_setup_session(SessionUdp* self,
 	video_port = json_object_get_string_member(json,"VIDEO_PORT");
 	video_host = json_object_get_string_member(json,"VIDEO_HOST");
 
-    agent->device =  json_object_get_int_member(object,"Device");
-    agent->engine =  json_object_get_int_member(object,"Engine");
+    self->device =  json_object_get_int_member(json,"Device");
+    self->engine =  json_object_get_int_member(json,"Engine");
 done:
 	self->audio = udp_endpoint_new(audio_port,audio_host);
 	self->video = udp_endpoint_new(video_port,video_host);
@@ -233,7 +219,7 @@ init_session_core_server(SessionUdp* core)
 	soup_server_add_handler(server,
 		"/",server_callback,core,NULL);
 
-	soup_server_listen_all(server,2250,0,&error);
+	soup_server_listen_all(server,3567,0,&error);
 	if(error){g_printerr(error->message); return;}
 	return server;
 }
@@ -249,7 +235,6 @@ session_core_initialize()
 {
 	SessionUdp* core = malloc(sizeof(SessionUdp));
 
-	core->qoe =					qoe_initialize();
 	core->pipe =				pipeline_initialize();
 	core->loop =				g_main_loop_new(NULL, FALSE);
 
@@ -306,11 +291,6 @@ session_core_get_pipeline(SessionUdp* self)
 
 
 
-StreamConfig*
-session_core_get_qoe(SessionUdp* self)
-{
-	return self->qoe;
-}
 
 UdpEndpoint*
 session_core_get_audio_endpoint(SessionUdp* self)
@@ -324,17 +304,3 @@ session_core_get_video_endpoint(SessionUdp* self)
 	return self->video;
 }
 
-
-SignallingHub*
-session_core_get_signalling_hub(SessionUdp* core)
-{
-	return core->signalling;
-}
-#ifndef G_OS_WIN32
-Display*
-session_core_display_interface(SessionUdp* self)
-{
-	return self->x_display;
-
-}
-#endif
