@@ -40,7 +40,11 @@ namespace remote
                 app.UseHsts();
             }
             app.UseDefaultFiles();
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                ServeUnknownFileTypes = true,
+                DefaultContentType = "wwwroot"
+            });
 
             app.UseRouting();
 

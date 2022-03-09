@@ -29,7 +29,7 @@ typedef struct _HidInput
     gint keyboard_code;
 
     Win32Opcode opcode;
-    gboolean key_is_up;
+    gint keyFlags;
 }HidInput;
 
 
@@ -142,7 +142,7 @@ send_key_event(HidInput* input)
     JsonObject* object = json_object_new();
     json_object_set_int_member(object,"Opcode",(gint)input->opcode);
     json_object_set_int_member(object,"wVk",input->keyboard_code);
-    json_object_set_boolean_member(object,"IsUp",input->key_is_up);
+    json_object_set_int_member(object,"keyFlags",input->keyFlags);
 
     if(HID_handler.handler && !LOCALHOST)
         HID_handler.handler(get_string_from_json_object(object),HID_handler.data);
@@ -210,7 +210,7 @@ handle_window_keyboard(RAWKEYBOARD input,
         return;
 
     navigation->opcode = KEYRAW;
-    navigation->key_is_up = input.Flags;
+    navigation->keyFlags = input.Flags;
     navigation->keyboard_code = input.VKey;
 }
 

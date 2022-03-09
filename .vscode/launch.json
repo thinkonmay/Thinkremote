@@ -21,6 +21,29 @@
         },
 
     {
+        "name": "Key repeat",
+        "type": "cppvsdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/bin/repeated-key.exe",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${fileDirname}",
+        "environment": [],
+        "console": "externalTerminal"
+    },
+    {
+        "name": "Key testing",
+        "type": "cppvsdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/bin/key-test.exe",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${fileDirname}",
+        "environment": [],
+        "console": "externalTerminal"
+    },
+
+    {
         "name": "remote udp linux",
         "type": "cppdbg",
         "request": "launch",

@@ -39,7 +39,8 @@
         "handle-key.h": "c",
         "*.rh": "c",
         "overlay-gui.h": "c",
-        "device.h": "c"
+        "device.h": "c",
+        "windows.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
