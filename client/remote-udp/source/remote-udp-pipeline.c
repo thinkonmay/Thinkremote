@@ -189,7 +189,7 @@ handle_video_stream (GstElement* decodebin,
 #ifdef G_OS_WIN32
     pipeline->video_element[VIDEO_SINK] = gst_element_factory_make ("d3d11videosink", NULL);
 #else
-    pipeline->video_element[VIDEO_SINK] = gst_element_factory_make ("ximagesink", NULL);
+    pipeline->video_element[VIDEO_SINK] = gst_element_factory_make ("autovideosink", NULL);
 #endif
 
     gst_bin_add_many (GST_BIN (pipeline->video_pipeline), pipeline->video_element[VIDEO_SINK], NULL);
@@ -200,11 +200,11 @@ handle_video_stream (GstElement* decodebin,
     GstPadLinkReturn ret = gst_pad_link (pad, queue_pad);
     g_assert_cmphex (ret, ==, GST_PAD_LINK_OK);
 
+
+#ifdef G_OS_WIN32
     GstCaps* caps = gst_pad_get_current_caps (pad);
     if (!caps)
         caps = gst_pad_query_caps (pad, NULL);
-
-#ifdef G_OS_WIN32
     GUI* gui = remote_app_get_gui(core);
     setup_video_overlay(gui,
         caps,
@@ -270,12 +270,12 @@ setup_element_factory(RemoteUdp* core,
     {
         pipe->video_pipeline =
             gst_parse_launch(
-                "udpsrc name=udp ! "RTP_CAPS_VIDEO"H264 ! "                QUEUE
+                "udpsrc port=6002 name=udp ! "RTP_CAPS_VIDEO"H264 ! "                QUEUE
                 "rtph264depay ! "                                          QUEUE
                 "decodebin name=decoder",&error);
         pipe->audio_pipeline = 
             gst_parse_launch(
-                "udpsrc name=udp ! "RTP_CAPS_AUDIO"OPUS ! "                QUEUE
+                "udpsrc port=6001 name=udp ! "RTP_CAPS_AUDIO"OPUS ! "                QUEUE
                 "rtpopusdepay ! "                                          QUEUE
                 "decodebin name=decoder",&error);
     }
@@ -283,12 +283,12 @@ setup_element_factory(RemoteUdp* core,
     {
         pipe->video_pipeline =
             gst_parse_launch(
-                "udpsrc name=udp ! "RTP_CAPS_VIDEO"H265 ! "                QUEUE
+                "udpsrc port=6002 name=udp ! "RTP_CAPS_VIDEO"H265 ! "                QUEUE
                 "rtph265depay ! "                                          QUEUE
                 "decodebin name=decoder",&error);
         pipe->audio_pipeline = 
             gst_parse_launch(
-                "udpsrc name=udp ! "RTP_CAPS_AUDIO"OPUS ! "                QUEUE
+                "udpsrc port=6001 name=udp ! "RTP_CAPS_AUDIO"OPUS ! "                QUEUE
                 "rtpopusdepay ! "                                          QUEUE
                 "decodebin name=decoder",&error);
     }
@@ -319,30 +319,10 @@ static void
 setup_element_property(RemoteUdp* core)
 {
     Pipeline* pipe = remote_app_get_pipeline(core);
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#ifndef G_OS_WIN32
-#else
-#endif
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#ifdef G_OS_WIN32
-#else
-#endif
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // g_object_set(pipe->video_element[UDP_VIDEO_SOURCE], "port", pipe->video_port, NULL);
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#ifdef G_OS_WIN32
-#else
-#endif
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
-
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    g_object_set(pipe->video_element[UDP_VIDEO_SOURCE], "port", pipe->video_port, NULL);
-
-    g_object_set(pipe->audio_element[UDP_AUDIO_SOURCE], "port", pipe->audio_port, NULL);
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // g_object_set(pipe->audio_element[UDP_AUDIO_SOURCE], "port", pipe->audio_port, NULL);
 }
 
 static gint

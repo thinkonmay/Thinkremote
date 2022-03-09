@@ -174,7 +174,7 @@ on_hid_input(gchar* message,
 
 
 
-static void
+void
 server_callback (SoupServer        *server,
                  SoupMessage	   *msg,
 		 		 const char        *path,

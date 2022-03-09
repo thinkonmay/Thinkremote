@@ -88,6 +88,10 @@ remote_app_setup_session(RemoteUdp* self,
 	if(!DEVELOPMENT_ENVIRONMENT)
 		setup_pipeline_startpoint(self->pipe, 6001, 6002);
 
+	gchar* ip = malloc(20);
+	g_print("Enter target ip:");
+	scanf("%s",ip);
+	
 	JsonObject* json = json_object_new();
 	json_object_set_string_member(json,"AUDIO_PORT","6001");
 	json_object_set_string_member(json,"AUDIO_HOST",get_local_ip());
@@ -111,9 +115,6 @@ remote_app_setup_session(RemoteUdp* self,
 			SOUP_SESSION_HTTPS_ALIASES, https_aliases, NULL);
 		
 
-	gchar* ip = malloc(20);
-	g_print("Enter target ip:");
-	scanf("%s",ip);
 
 	GString* string = g_string_new("http://");
 	g_string_append(string,ip);

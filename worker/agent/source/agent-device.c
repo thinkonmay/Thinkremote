@@ -32,6 +32,8 @@ typedef struct _DeviceInformation
 	gchar User[100];
 }DeviceInformation;
 
+
+
 #ifdef G_OS_WIN32
 #include <winsock2.h>
 #include <Windows.h>	
@@ -150,6 +152,13 @@ get_device_information()
 }
 #else
 
+DeviceInformation* 			
+get_device_information()
+{
+	DeviceInformation* device_info = malloc(sizeof(DeviceInformation));
+	memset(device_info,0, sizeof(DeviceInformation));
+	return device_info;
+}
 
 
 #endif 

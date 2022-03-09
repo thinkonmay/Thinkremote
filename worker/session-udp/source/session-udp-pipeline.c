@@ -325,8 +325,6 @@ setup_element_property(SessionUdp* core)
     g_object_set(pipe->video_element[VIDEO_ENCODER], "speed-preset", "veryfast", NULL);
 
     g_object_set(pipe->video_element[VIDEO_ENCODER], "pass", "pass1", NULL);
-
-    g_object_set(pipe->video_element[VIDEO_ENCODER], "bitrate", qoe_get_video_bitrate(qoe), NULL); 
 #endif
 
     if (pipe->video_element[RTP_VIDEO_PAYLOAD]) { g_object_set(pipe->video_element[RTP_VIDEO_PAYLOAD], "aggregate-mode", 1, NULL);}
