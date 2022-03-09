@@ -23,10 +23,6 @@ elseif(MSVC)
         set( CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/bin )
     endforeach( OUTPUTCONFIG CMAKE_CONFIGURATION_TYPES )
 
-
-endif()
-
-
     set(SHARED_HEADER 
     ${CMAKE_SOURCE_DIR}/shared-items/window
     ${CMAKE_SOURCE_DIR}/shared-items/include)
@@ -34,6 +30,15 @@ endif()
     file(GLOB SHARED_SOURCE 
     ${CMAKE_SOURCE_DIR}/shared-items/window/*.c
     ${CMAKE_SOURCE_DIR}/shared-items/source/*.c)
+else()
+    set(SHARED_HEADER 
+    ${CMAKE_SOURCE_DIR}/shared-items/include)
+
+    file(GLOB SHARED_SOURCE ${CMAKE_SOURCE_DIR}/shared-items/source/*.c)
+endif()
+
+
+
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${CMAKE_SOURCE_DIR}/bin) 
 

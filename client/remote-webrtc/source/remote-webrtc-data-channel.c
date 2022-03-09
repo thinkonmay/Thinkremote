@@ -157,10 +157,12 @@ hid_channel_on_message_string(GObject* dc,
     JsonParser* parser = json_parser_new();
     JsonObject* object = get_json_object_from_string(message,NULL,parser);
 
-    ShortcutOpcode opcode = json_object_get_int_member(object,"Opcode");
 
+#ifdef G_OS_WIN32
+    ShortcutOpcode opcode = json_object_get_int_member(object,"Opcode");
     if(opcode == MOUSE_POSITION_FEEDBACK)
         gui_set_cursor_position(object);
+#endif
     
     g_object_unref(parser);
 }

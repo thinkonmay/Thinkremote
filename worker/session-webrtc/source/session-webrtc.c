@@ -22,7 +22,6 @@
 #include <token-validate.h>
 
 #include <constant.h>
-#include <environment.h>
 #include <enum.h>
 
 
@@ -30,6 +29,7 @@
 #include <stdio.h>
 
 #ifdef G_OS_WIN32
+#include <environment.h>
 #include <Windows.h>
 
 #else
@@ -138,7 +138,6 @@ session_core_setup_session(SessionCore* self)
 
 		if(message->status_code != SOUP_STATUS_OK )
 		{
-			worker_log_output("got response code %d when fetch remote token\n",message->status_code);
 			session_core_finalize(self,NULL);
 		}
 
@@ -169,7 +168,7 @@ session_core_setup_session(SessionCore* self)
 
 		if(message->status_code != SOUP_STATUS_OK)
 		{
-			worker_log_output("got response code %d when fetch session information\n",message->status_code);
+			worker_log_output("got response code when fetch session information\n");
 			session_core_finalize(self,NULL);
 		}
 
@@ -321,10 +320,4 @@ session_core_get_signalling_hub(SessionCore* core)
 	return core->signalling;
 }
 #ifndef G_OS_WIN32
-Display*
-session_core_display_interface(SessionCore* self)
-{
-	return self->x_display;
-
-}
 #endif

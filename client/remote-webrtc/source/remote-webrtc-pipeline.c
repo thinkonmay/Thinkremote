@@ -13,7 +13,6 @@
 #include <remote-webrtc-data-channel.h>
 #include <remote-webrtc-signalling.h>
 #include <remote-webrtc-pipeline.h>
-#include <overlay-gui.h>
 
 #include <enum.h>
 #include <global-var.h>
@@ -190,7 +189,6 @@ handle_video_stream (GstPad * pad,
                      RemoteApp* core)
 {
     Pipeline* pipeline = remote_app_get_pipeline(core);
-    GUI* gui = remote_app_get_gui(core);
 
     pipeline->video_element[VIDEO_SINK] = gst_element_factory_make ("d3d11videosink", NULL);
 
@@ -216,10 +214,13 @@ handle_video_stream (GstPad * pad,
     if (!caps)
         caps = gst_pad_query_caps (pad, NULL);
 
+#ifdef G_OS_WIN32
+    GUI* gui = remote_app_get_gui(core);
     setup_video_overlay(gui,
         caps,
         pipeline->video_element[VIDEO_SINK],
         pipeline->pipeline);
+#endif
 }
 
 

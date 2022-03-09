@@ -16,7 +16,6 @@
 #include <gst/gst.h>
 
 #include <enum.h>
-#include <capture-key.h>
 
 
 

@@ -13,14 +13,15 @@
 #include <remote-udp-pipeline.h>
 
 #include <enum.h>
-#include <overlay-gui.h>
 #include <remote-config.h>
 
 #include <gst/gst.h>
 #include <glib-2.0/glib.h>
 #include <gst/webrtc/webrtc.h>
 
-
+#ifdef G_OS_WIN32
+#include <overlay-gui.h>
+#endif
 
 
 /**
@@ -184,7 +185,6 @@ handle_video_stream (GstElement* decodebin,
 {
     RemoteUdp* core = (RemoteUdp*) data; 
     Pipeline* pipeline = remote_app_get_pipeline(core);
-    GUI* gui = remote_app_get_gui(core);
 
 #ifdef G_OS_WIN32
     pipeline->video_element[VIDEO_SINK] = gst_element_factory_make ("d3d11videosink", NULL);
@@ -204,10 +204,13 @@ handle_video_stream (GstElement* decodebin,
     if (!caps)
         caps = gst_pad_query_caps (pad, NULL);
 
+#ifdef G_OS_WIN32
+    GUI* gui = remote_app_get_gui(core);
     setup_video_overlay(gui,
         caps,
         pipeline->video_element[VIDEO_SINK],
         pipeline->video_pipeline,core);
+#endif
 }
 
 static void

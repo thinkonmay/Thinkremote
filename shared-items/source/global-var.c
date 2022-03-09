@@ -9,12 +9,12 @@
  * 
  */
 #include <global-var.h>
-#include <environment.h>
 #include <constant.h>
 #include <glib.h>
 
 #ifdef G_OS_WIN32
 #include <Windows.h>
+#include <environment.h>
 #endif
 
 
@@ -44,7 +44,11 @@ thinkremote_application_init(gchar* environment,
     if(!g_strcmp0(environment,"localhost") ||
        !g_strcmp0(localhost,"TRUE"))
     {
+#ifdef G_OS_WIN32
         SetEnvironmentVariable("LOCALHOST", TEXT("TRUE"));
+#else
+        putenv("LOCALHOST=TRUE");
+#endif
         is_localhost = TRUE;
     }
 

@@ -15,11 +15,8 @@
 #include <remote-webrtc-type.h>
 
 #include <constant.h>
-#include <environment.h>
 #include <remote-config.h>
 #include <global-var.h>
-#include <overlay-gui.h>
-#include <capture-key.h>
 #include <key-convert.h>
 #include <shortcut.h>
 
@@ -30,6 +27,11 @@
 #include <libsoup/soup.h>
 #include <stdio.h>
 
+#ifdef G_OS_WIN32
+#include <capture-key.h>
+#include <environment.h>
+#include <overlay-gui.h>
+#endif
 
 struct _RemoteApp
 {
@@ -57,11 +59,13 @@ struct _RemoteApp
 	 */
 	SignallingHub* signalling;
 
+#ifdef G_OS_WIN32
 	/**
 	 * @brief 
 	 * 
 	 */
 	GUI* gui;
+#endif
 };
 
 
@@ -163,6 +167,7 @@ get_default_shortcut(gpointer data)
 	gint key_list_bitrate_increase[10] = {0};
 	gint key_list_bitrate_decrease[10] = {0};
 
+#ifdef G_OS_WIN32
     key_list_reset[0] = W_KEY;
     key_list_reset[1] = VK_SHIFT;
     key_list_reset[2] = VK_CONTROL;
@@ -181,6 +186,7 @@ get_default_shortcut(gpointer data)
     key_list_bitrate_increase[0] = VK_OEM_PLUS;
     key_list_bitrate_increase[1] = VK_SHIFT;
     key_list_bitrate_increase[2] = VK_CONTROL;
+#endif
 
 	add_new_shortcut_to_list(shortcuts,key_list_finalize,EXIT,g_main_loop_quit,app->loop);
 	add_new_shortcut_to_list(shortcuts,key_list_reset,RELOAD_STREAM,remote_app_reset,app);
@@ -205,7 +211,9 @@ remote_app_initialize(gchar* remote_token)
 	app->loop =				g_main_loop_new(NULL, FALSE);
 
 	Shortcut* shortcuts = 	get_default_shortcut(app);
+#ifdef G_OS_WIN32
 	app->gui =				init_remote_app_gui(app,shortcuts,hid_data_channel_send);
+#endif
 	shortcut_list_free(shortcuts);
 
 	app->hub =				webrtchub_initialize();
@@ -279,11 +287,13 @@ remote_app_get_rtc_hub(RemoteApp* self)
 
 
 
+#ifdef G_OS_WIN32
 GUI*
 remote_app_get_gui(RemoteApp* core)
 {
 	return core->gui;
 }
+#endif
 
 SignallingHub*
 remote_app_get_signalling_hub(RemoteApp* core)

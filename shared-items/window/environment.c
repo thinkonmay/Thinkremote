@@ -60,4 +60,9 @@ GetEnvironmentVariableWithKey(gchar* key)
         return NULL;
     }
 }
+#else
+
+
+
+
 #endif
