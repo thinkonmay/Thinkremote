@@ -10,7 +10,6 @@
  */
 #include <remote-udp-pipeline.h>
 #include <remote-udp.h>
-#include <overlay-gui.h>
 #include <remote-udp-type.h>
 
 #include <constant.h>
@@ -24,7 +23,21 @@
 #include <gst/base/gstbasesink.h>
 #include <json-handler.h>
 #include <libsoup/soup.h>
+#include <device.h>
+#include <stdio.h>
+
+#ifdef G_OS_WIN32
 #include <overlay-gui.h>
+#else
+#include <unistd.h>
+
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <sys/ioctl.h>
+#include <netinet/in.h>
+#include <net/if.h>
+#include <arpa/inet.h>
+#endif
 
 
 
@@ -48,11 +61,13 @@ struct _RemoteUdp
 	 */
 	StreamConfig* qoe;
 
+#ifdef G_OS_WIN32
 	/**
 	 * @brief 
 	 * 
 	 */
 	GUI* gui;
+#endif
 };
 
 
@@ -67,38 +82,49 @@ struct _RemoteUdp
  * @param video_codec 
  */
 static void
-remote_app_setup_session(RemoteUdp* self, 
-						 gchar* remote_token)
+remote_app_setup_session(RemoteUdp* self)
 {    
-	if(!DEVELOPMENT_ENVIRONMENT)
-		setup_pipeline_startpoint(self->pipe, 6001, 6002);
+	gchar* ip = malloc(20);
+	g_print("Enter target ip:");
+	scanf("%s",ip);
+	
+	JsonObject* json = json_object_new();
+	json_object_set_string_member(json,"AUDIO_PORT",AUDIO_PORT);
+	json_object_set_string_member(json,"AUDIO_HOST",get_local_ip());
+	json_object_set_string_member(json,"VIDEO_PORT",VIDEO_PORT);
+	json_object_set_string_member(json,"VIDEO_HOST",get_local_ip());
 
-	const char* https_aliases[] = { "https", NULL };
+	json_object_set_int_member(json,"screenwidth",qoe_get_screen_width(self->qoe));
+	json_object_set_int_member(json,"screenheight",qoe_get_screen_height(self->qoe));
+	json_object_set_int_member(json,"audiocodec",qoe_get_audio_codec(self->qoe));
+	json_object_set_int_member(json,"videocodec",qoe_get_video_codec(self->qoe));
+	json_object_set_int_member(json,"mode",ULTRA_LOW_CONST);
+
+#ifdef G_OS_WIN32
+	json_object_set_int_member(json,"Device",WINDOW_APP);
+	json_object_set_int_member(json,"Engine",GSTREAMER);
+#else
+	json_object_set_int_member(json,"Device",LINUX_APP);
+	json_object_set_int_member(json,"Engine",GSTREAMER);
+#endif
+
+	gchar* body = get_string_from_json_object(json);
+
+	const char* https_aliases[] = { "http", NULL };
 	SoupSession* https_session = soup_session_new_with_options(
 			SOUP_SESSION_SSL_STRICT, FALSE,
 			SOUP_SESSION_SSL_USE_SYSTEM_CA_FILE, TRUE,
 			SOUP_SESSION_HTTPS_ALIASES, https_aliases, NULL);
 		
-	GString* infor_url = g_string_new(SESSION_URL);
-	g_string_append(infor_url,	"?token=");
-	g_string_append(infor_url,	remote_token);
-	gchar* infor_str = g_string_free(infor_url,FALSE);
 
 
-	SoupMessage* infor_message = soup_message_new(SOUP_METHOD_GET,infor_str);
+	GString* string = g_string_new("http://");
+	g_string_append(string,ip);
+	g_string_append(string,":3567/Initialize");
+	
+	SoupMessage* infor_message = soup_message_new(SOUP_METHOD_POST,g_string_free(string,FALSE));
+	soup_message_set_request(infor_message,"application/json",SOUP_MEMORY_COPY,body,strlen(body));
 	soup_session_send_message(https_session,infor_message);
-
-
-	if(infor_message->status_code != SOUP_STATUS_OK)
-		remote_app_finalize(self,NULL);
-
-	GError* error = NULL;
-	JsonParser* parser = json_parser_new();
-	JsonObject* json_infor = get_json_object_from_string(infor_message->response_body->data,error,parser);
-
-
-
-	g_object_unref(parser);
 }
 
 
@@ -108,10 +134,12 @@ get_default_shortcut(gpointer data)
 	Shortcut* shortcuts = shortcut_list_initialize(10);
 
 	gint key_list[10] = {0};
+#ifdef G_OS_WIN32
     key_list[0] = W_KEY;
     key_list[1] = VK_SHIFT;
     key_list[2] = VK_CONTROL;
     key_list[3] = VK_MENU;
+#endif
 
 	add_new_shortcut_to_list(shortcuts,key_list,
 			RELOAD_STREAM,remote_app_reset,data);
@@ -140,15 +168,17 @@ remote_app_initialize(gchar* remote_token)
 	app->loop =				g_main_loop_new(NULL, FALSE);
 
 	Shortcut* shortcuts = 	get_default_shortcut(app);
+#ifdef G_OS_WIN32
 	app->gui =				init_remote_app_gui(app,shortcuts,send_hid_message);
+#endif
 	shortcut_list_free(shortcuts);
-
-	free(shortcuts);
 
 	app->qoe =				qoe_initialize();
 	app->pipe =				pipeline_initialize();
 	 
-	remote_app_setup_session(app, remote_token);
+	qoe_setup(app->qoe,NULL,2560,1440,OPUS_ENC,CODEC_H264,ULTRA_LOW_CONST);
+
+	remote_app_setup_session(app);
 
 	setup_pipeline(app);
 	g_main_loop_run(app->loop);
@@ -211,9 +241,11 @@ remote_app_get_qoe(RemoteUdp* self)
 	return self->qoe;
 }
 
+#ifdef G_OS_WIN32
 GUI*
 remote_app_get_gui(RemoteUdp* core)
 {
 	return core->gui;
 }
+#endif
 

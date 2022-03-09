@@ -121,7 +121,8 @@ qoe_setup(StreamConfig* qoe,
 	qoe->mode = mode;
 
 #ifdef G_OS_WIN32
-	display_setting_get_and_set(qoe,device);
+	if(device)
+		display_setting_get_and_set(qoe,device);
 #endif
 }
 
@@ -138,6 +139,7 @@ udp_endpoint_new(gchar* port,
 				 gchar* ip)
 {
 	UdpEndpoint* udp = malloc(sizeof(UdpEndpoint));
+	memset(udp,0,sizeof(UdpEndpoint));
 	memcpy(udp->target_ip,ip,strlen(ip));
 	udp->target_port = atoi(port);
 	return udp;

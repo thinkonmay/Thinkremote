@@ -220,7 +220,6 @@ create_new_child_process(gchar* process_name,
         NULL,
         NULL,
         &startup_infor, &pi);
-#endif
 
     if(!result)
     {
@@ -232,6 +231,7 @@ create_new_child_process(gchar* process_name,
     worker_log_output(child_process->process_name);
     child_process->process = pi.hProcess;
     child_process->statehdl = g_thread_new("handle",handle_child_process_state,child_process);
+#endif
     return child_process;
 }
 

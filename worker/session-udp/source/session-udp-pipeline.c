@@ -92,6 +92,8 @@ struct _Pipeline
     GstElement* audio_element[AUDIO_ELEMENT_LAST];
 
     MediaDevice* device;
+
+	StreamConfig* qoe;
 };
 
 
@@ -102,6 +104,8 @@ pipeline_initialize()
 {
     Pipeline* pipeline = malloc(sizeof(Pipeline));
     memset(pipeline,0,sizeof(Pipeline));
+    pipeline->device = init_media_device_source();
+    pipeline->qoe = qoe_initialize();
     return pipeline;
 }
 
@@ -119,7 +123,12 @@ free_pipeline(Pipeline* pipeline)
         gst_element_set_state (pipeline->video_pipeline, GST_STATE_NULL);
         gst_object_unref (pipeline->video_pipeline);
     }
+
+    MediaDevice*  old_device = pipeline->device;
+    StreamConfig* old_config = pipeline->qoe;
     memset(pipeline,0,sizeof(Pipeline));
+    pipeline->device = old_device;
+    pipeline->qoe    = old_config;
 }
 
 static gboolean
@@ -148,8 +157,6 @@ setup_element_factory(SessionUdp* core,
     Pipeline* pipe = session_core_get_pipeline(core);
     GError* error = NULL;
 
-    if (audio != OPUS_ENC) 
-        return;
     
     if (video == CODEC_H264)
     {
@@ -276,25 +283,27 @@ static void
 setup_element_property(SessionUdp* core)
 {
     Pipeline* pipe = session_core_get_pipeline(core);
-    SignallingHub* hub = session_core_get_signalling_hub(core);
-    StreamConfig* qoe = session_core_get_qoe(core);
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#ifndef G_OS_WIN32
-    g_object_set(pipe->audio_element[SOUND_SOURCE], "provide-clock", TRUE, NULL);
-
-    g_object_set(pipe->audio_element[SOUND_SOURCE], "do-timestamp", TRUE, NULL);
-#else
+#ifdef G_OS_WIN32
     g_object_set(pipe->audio_element[SOUND_SOURCE], "low-latency", TRUE, NULL);
 
     g_object_set(pipe->audio_element[SOUND_SOURCE], "loopback", TRUE, NULL);
-#endif
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#ifdef G_OS_WIN32
     g_object_set(pipe->video_element[SCREEN_CAPTURE], "show-cursor", FALSE, NULL);
+
+    g_object_set(pipe->video_element[VIDEO_ENCODER], "rc-mode", 0, NULL); 
+
+    g_object_set(pipe->video_element[VIDEO_ENCODER], "quality-vs-speed", 100, NULL); 
+
+    g_object_set(pipe->video_element[VIDEO_ENCODER], "bitrate", qoe_get_video_bitrate(pipe->qoe), NULL); 
+
+    g_object_set(pipe->video_element[VIDEO_ENCODER], "low-latency", TRUE, NULL); 
+
 #else
+    g_object_set(pipe->audio_element[SOUND_SOURCE], "provide-clock", TRUE, NULL);
+
+    g_object_set(pipe->audio_element[SOUND_SOURCE], "do-timestamp", TRUE, NULL);
+
     g_object_set(pipe->video_element[SCREEN_CAPTURE], "show-pointer", TRUE, NULL);
 
     g_object_set(pipe->video_element[SCREEN_CAPTURE], "remote", TRUE, NULL);
@@ -302,19 +311,7 @@ setup_element_property(SessionUdp* core)
     g_object_set(pipe->video_element[SCREEN_CAPTURE], "blocksize", 16384, NULL);
     
     g_object_set(pipe->video_element[SCREEN_CAPTURE], "use-damage", FALSE, NULL);
-#endif
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifdef G_OS_WIN32
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    g_object_set(pipe->video_element[VIDEO_ENCODER], "rc-mode", 0, NULL); 
-
-    g_object_set(pipe->video_element[VIDEO_ENCODER], "quality-vs-speed", 100, NULL); 
-
-    g_object_set(pipe->video_element[VIDEO_ENCODER], "bitrate", qoe_get_video_bitrate(qoe), NULL); 
-
-    g_object_set(pipe->video_element[VIDEO_ENCODER], "low-latency", TRUE, NULL); 
-#else
     g_object_set(pipe->video_element[VIDEO_ENCODER], "threads", 4, NULL);
 
     g_object_set(pipe->video_element[VIDEO_ENCODER], "bframes", 0, NULL);
@@ -328,14 +325,13 @@ setup_element_property(SessionUdp* core)
     g_object_set(pipe->video_element[VIDEO_ENCODER], "speed-preset", "veryfast", NULL);
 
     g_object_set(pipe->video_element[VIDEO_ENCODER], "pass", "pass1", NULL);
-
-    g_object_set(pipe->video_element[VIDEO_ENCODER], "bitrate", qoe_get_video_bitrate(qoe), NULL); 
 #endif
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if (pipe->video_element[RTP_VIDEO_PAYLOAD]) { g_object_set(pipe->video_element[RTP_VIDEO_PAYLOAD], "aggregate-mode", 1, NULL);}
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
 
     if (pipe->audio_element[SOUND_SOURCE]) { g_object_set(pipe->audio_element[SOUND_SOURCE], "device", get_audio_source(pipe->device), NULL); }
 
@@ -350,22 +346,31 @@ setup_udp_endpoint(Pipeline* pipeline,
 {
     UdpEndpoint* audio = session_core_get_audio_endpoint(udp);
     UdpEndpoint* video = session_core_get_video_endpoint(udp);
-    setup_udp_endpoint(pipeline->audio_element[UDP_AUDIO_SINK],audio);
-    setup_udp_endpoint(pipeline->video_element[UDP_VIDEO_SINK],video);
+    set_udp_endpoint(pipeline->audio_element[UDP_AUDIO_SINK],audio);
+    set_udp_endpoint(pipeline->video_element[UDP_VIDEO_SINK],video);
 }
 
 
 
+
 void
-setup_pipeline(SessionUdp* core)
+setup_pipeline(SessionUdp* core,
+               JsonObject* object)
 {
-    SignallingHub* signalling = session_core_get_signalling_hub(core);
     Pipeline* pipe = session_core_get_pipeline(core);
-    StreamConfig* qoe = session_core_get_qoe(core);
+    StreamConfig* qoe = pipe->qoe;
 
     if(pipe->audio_pipeline || pipe->video_pipeline)
         free_pipeline(pipe);
     
+    set_media_device(pipe->device);
+    qoe_setup(pipe->qoe,pipe->device,
+            json_object_get_int_member(object,"screenwidth"),
+            json_object_get_int_member(object,"screenheight"),
+            json_object_get_int_member(object,"audiocodec"),
+            json_object_get_int_member(object,"videocodec"),
+            json_object_get_int_member(object,"mode"));
+
     setup_element_factory(core, 
         qoe_get_video_codec(qoe),
         qoe_get_audio_codec(qoe));

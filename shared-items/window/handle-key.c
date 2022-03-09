@@ -18,7 +18,6 @@
 #include <capture-key.h>
 #include <json-handler.h>
 #include <logging.h>
-#include <environment.h>
 #include <global-var.h>
 
 
@@ -26,6 +25,7 @@
 #include <gst/gst.h>
 
 #ifdef G_OS_WIN32
+#include <environment.h>
 
 
 struct _HIDHandler

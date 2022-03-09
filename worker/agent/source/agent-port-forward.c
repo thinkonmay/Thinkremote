@@ -21,7 +21,10 @@
 
 #include <gmodule.h>
 #include <stdio.h>
+
+#ifdef G_OS_WIN32
 #include <environment.h>
+#endif
 
 #define BUFFER_SIZE 10000
 
@@ -69,6 +72,7 @@ init_portforward_service()
 
     
 
+#ifdef G_OS_WIN32
     gchar *buffer = GetEnvironmentVariableWithKey("AGENT_PORT");
     if(!buffer)
     {
@@ -97,6 +101,7 @@ init_portforward_service()
         memcpy(port->port,buffer,strlen(buffer));
         free(buffer);
     }
+#endif
 
     return port;
 }

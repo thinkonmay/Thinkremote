@@ -64,15 +64,6 @@ StreamConfig*	session_core_get_qoe					(SessionUdp* self);
 
 /**
  * @brief 
- * get signalling hub from session core
- * @param self session core
- * @return SignallingHub* 
- */
-SignallingHub*	session_core_get_signalling_hub			(SessionUdp* self);
-
-
-/**
- * @brief 
  * get remote token from session core
  * @param self session core
  * @return gchar* remote token get from cluster

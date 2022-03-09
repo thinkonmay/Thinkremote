@@ -13,7 +13,9 @@
 
 #include <remote-webrtc-type.h>
 #include <json-handler.h>
+#ifdef G_OS_WIN32
 #include <overlay-gui.h>
+#endif
 
 
 
@@ -84,6 +86,7 @@ void			report_remote_app_error				(RemoteApp* self,
 
 
 
+#ifdef G_OS_WIN32
 /**
  * @brief 
  * get gui from remote app
@@ -91,4 +94,5 @@ void			report_remote_app_error				(RemoteApp* self,
  * @return GUI* 
  */
 GUI* 			remote_app_get_gui					(RemoteApp* core);
+#endif
 #endif 

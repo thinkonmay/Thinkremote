@@ -20,7 +20,6 @@
 #include <key-convert.h>
 #include <constant.h>
 #include <remote-config.h>
-#include <handle-key.h>
 
 #include <global-var.h>
 
@@ -29,6 +28,9 @@
 #include <gst/webrtc/webrtc_fwd.h>
 #include <libsoup/soup.h>
 
+#ifdef G_OS_WIN32
+#include <handle-key.h>
+#endif
 
 struct _WebRTCHub
 {
@@ -122,11 +124,12 @@ hid_channel_on_message_string(GObject* dc,
                             SessionCore* core)
 {
     WebRTCHub* hub = session_core_get_rtc_hub(core);
-
+#ifdef G_OS_WIN32
     if(hub->device == WEB_APP && hub->engine == CHROME)
         handle_input_javascript(message);
     else if(hub->engine == GSTREAMER && hub->device == WINDOW_APP)
         handle_input_win32(message,(MousePositionFeedbackFunc)send_hid_message,core);
+#endif
 }
 
 
