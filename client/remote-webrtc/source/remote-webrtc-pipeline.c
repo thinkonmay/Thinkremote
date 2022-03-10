@@ -190,7 +190,11 @@ handle_video_stream (GstPad * pad,
 {
     Pipeline* pipeline = remote_app_get_pipeline(core);
 
+#ifdef G_OS_WIN32
     pipeline->video_element[VIDEO_SINK] = gst_element_factory_make ("d3d11videosink", NULL);
+#else
+    pipeline->video_element[VIDEO_SINK] = gst_element_factory_make ("autovideosink", NULL);
+#endif
 
     gst_bin_add_many (GST_BIN (pipeline->pipeline),
         pipeline->video_element[VIDEO_SINK], NULL);

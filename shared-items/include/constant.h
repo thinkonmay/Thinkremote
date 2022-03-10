@@ -170,6 +170,8 @@
 #define CONTENT                             "Content"
 
 
+#define AUDIO_PORT                          "6001"
 
 
+#define VIDEO_PORT                          "6002"
 #endif

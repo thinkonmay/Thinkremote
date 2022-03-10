@@ -15,6 +15,8 @@
 #include <json-glib/json-glib.h>
 #include <global-var.h>
 
+#include <device.h>
+
 /**
  * @brief 
  * 
@@ -29,6 +31,8 @@ typedef struct _DeviceInformation
 	gchar Name[100];
 	gchar User[100];
 }DeviceInformation;
+
+
 
 #ifdef G_OS_WIN32
 #include <winsock2.h>
@@ -46,59 +50,9 @@ typedef struct _DeviceInformation
 #pragma comment(lib, "IPHLPAPI.lib")
 #pragma comment(lib, "d3d9.lib")
 
-#define MALLOC(x) HeapAlloc(GetProcessHeap(), 0, (x))
-#define FREE(x) HeapFree(GetProcessHeap(), 0, (x))
 
 
 
-gchar* 
-get_local_ip()
-{
-	gchar* ip_address = malloc(20);
-    PIP_ADAPTER_INFO pAdapterInfo;
-    PIP_ADAPTER_INFO current_adapter = NULL;
-    DWORD dwRetVal = 0;
-    UINT i;
-
-/* variables used to print DHCP time info */
-    struct tm newtime;
-    char buffer[32];
-    errno_t error;
-
-    ULONG ulOutBufLen = sizeof (IP_ADAPTER_INFO);
-    pAdapterInfo = (IP_ADAPTER_INFO *) MALLOC(sizeof (IP_ADAPTER_INFO));
-    if (pAdapterInfo == NULL) {
-        printf("Error allocating memory needed to call GetAdaptersinfo\n");
-        return 1;
-    }
-// Make an initial call to GetAdaptersInfo to get
-// the necessary size into the ulOutBufLen variable
-    if (GetAdaptersInfo(pAdapterInfo, &ulOutBufLen) == ERROR_BUFFER_OVERFLOW) {
-        FREE(pAdapterInfo);
-        pAdapterInfo = (IP_ADAPTER_INFO *) MALLOC(ulOutBufLen);
-        if (pAdapterInfo == NULL) {
-            printf("Error allocating memory needed to call GetAdaptersinfo\n");
-            return 1;
-        }
-    }
-
-    if ((dwRetVal = GetAdaptersInfo(pAdapterInfo, &ulOutBufLen)) == NO_ERROR) {
-        current_adapter = pAdapterInfo;
-		do {
-			memset(ip_address,0,20);
-			memcpy(ip_address, current_adapter->IpAddressList.IpAddress.String,
-				strlen(current_adapter->IpAddressList.IpAddress.String));
-			current_adapter = current_adapter->Next;
-		} while(!g_strcmp0(ip_address,"0.0.0.0")); 
-    } else {
-        printf("GetAdaptersInfo failed with error: %d\n", dwRetVal);
-
-    }
-    if (pAdapterInfo)
-        FREE(pAdapterInfo);
-
-    return ip_address;
-}
 
 
 
@@ -197,41 +151,15 @@ get_device_information()
 	return device_info;
 }
 #else
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h> /* for strncpy */
 
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <sys/ioctl.h>
-#include <netinet/in.h>
-#include <net/if.h>
-#include <arpa/inet.h>
-
-gchar*
-get_local_ip()
+DeviceInformation* 			
+get_device_information()
 {
-	int fd;
-	struct ifreq ifr;
-
-	fd = socket(AF_INET, SOCK_DGRAM, 0);
-
-	/* I want to get an IPv4 IP address */
-	ifr.ifr_addr.sa_family = AF_INET;
-
-	/* I want IP address attached to "eth0" */
-	strncpy(ifr.ifr_name, "eth0", IFNAMSIZ-1);
-	ioctl(fd, SIOCGIFADDR, &ifr);
-	close(fd);
-
-	return inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr);
+	DeviceInformation* device_info = malloc(sizeof(DeviceInformation));
+	memset(device_info,0, sizeof(DeviceInformation));
+	return device_info;
 }
 
-DeviceInformation*
-get_device_information() 
-{
-
-}
 
 #endif 
 

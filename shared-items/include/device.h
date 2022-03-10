@@ -47,4 +47,12 @@ gchar*          get_audio_source                (MediaDevice* source);
  * 
  */
 gchar*          get_video_source_name           (MediaDevice* source);
+
+/**
+ * @brief Get the local ip object
+ * 
+ * @return gchar* 
+ */
+gchar*          get_local_ip                    ();
+
 #endif

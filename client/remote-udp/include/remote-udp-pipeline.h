@@ -38,16 +38,4 @@ gpointer			setup_pipeline					(RemoteUdp* core);
 Pipeline*			pipeline_initialize				();
 
 
-/**
- * @brief Set the up pipeline startpoint object
- * 
- * @param pipeline 
- * @param audio_port 
- * @param video_port 
- */
-void                setup_pipeline_startpoint       (Pipeline* pipeline,
-                                                    gint audio_port,
-                                                    gint video_port);
-
-
 #endif

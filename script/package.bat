@@ -1,6 +1,7 @@
 RMDIR /S /Q bin
 dotnet build worker/port-forward --output "bin" --self-contained true --runtime win-x64
 dotnet build signalling --output "bin" --self-contained false 
+dotnet build client/webapp --output "bin" --self-contained true --runtime win-x64
 
 call "C:\Program Files\Microsoft Visual Studio\2022\Preview\VC\Auxiliary\Build\vcvarsall.bat" amd64_x86
 
@@ -14,5 +15,6 @@ robocopy script/runtime bin/script /E
 robocopy deployment/lib bin /E
 robocopy deployment/virtualAudio bin/virtualAudio /E
 robocopy deployment/virtualDisplay bin/virtualDisplay /E
+robocopy client/webapp/wwwroot bin/wwwroot /E
 
 cd client/electron/window && npm install && npm run make && robocopy out/ThinkMay-win32-x64 ../../../bin /E && cd ../../../

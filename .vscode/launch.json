@@ -4,6 +4,44 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        {
+            "name": "(gdb) Attach",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "${workspaceFolder}/bin/remote-webrtc",
+            "processId": "${command:pickProcess}",
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+
+    {
+        "name": "Key repeat",
+        "type": "cppvsdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/bin/repeated-key.exe",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${fileDirname}",
+        "environment": [],
+        "console": "externalTerminal"
+    },
+    {
+        "name": "Key testing",
+        "type": "cppvsdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/bin/key-test.exe",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${fileDirname}",
+        "environment": [],
+        "console": "externalTerminal"
+    },
 
     {
         "name": "remote udp linux",
