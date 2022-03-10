@@ -117,6 +117,7 @@ static void
 session_core_setup_session(SessionUdp* self,
 							gchar* data)
 {
+
 	g_print("%s\n",data);
 
 	gchar* audio_port, *audio_host, *video_port, *video_host;
@@ -137,6 +138,12 @@ session_core_setup_session(SessionUdp* self,
 	audio_host = json_object_get_string_member(json,"AUDIO_HOST");
 	video_port = json_object_get_string_member(json,"VIDEO_PORT");
 	video_host = json_object_get_string_member(json,"VIDEO_HOST");
+=======
+#ifdef G_OS_WIN32	
+	gchar* audio_port = GetEnvironmentVariableWithKey("AUDIO_PORT");
+	gchar* audio_host = GetEnvironmentVariableWithKey("AUDIO_HOST");
+	gchar* video_port = GetEnvironmentVariableWithKey("VIDEO_PORT");
+	gchar* video_host = GetEnvironmentVariableWithKey("VIDEO_HOST");
 
     self->device =  json_object_get_int_member(json,"Device");
     self->engine =  json_object_get_int_member(json,"Engine");
@@ -144,6 +151,7 @@ done:
 	self->audio = udp_endpoint_new(audio_port,audio_host);
 	self->video = udp_endpoint_new(video_port,video_host);
 
+  
 	worker_log_output("session core setup done");
 	setup_pipeline(self,json);
 }
