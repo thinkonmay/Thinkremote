@@ -11,7 +11,7 @@
   <title>Thinkmay | Remote control</title>
 </head>
 
-<body style="overflow: hidden;">
+<body onbeforeunload="return myFunction()" style="overflow: hidden;">
   <div id="app">
 
     <div id="video_container" class="video-container">
@@ -37,6 +37,12 @@
     </div>
 
   </div>
+    <script>
+    function myFunction() {
+      return "Are you sure ...";
+    }
+    </script>
+
 </body>
 
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
