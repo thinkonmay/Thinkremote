@@ -42,8 +42,7 @@ namespace remote
             app.UseDefaultFiles();
             app.UseStaticFiles(new StaticFileOptions
             {
-                ServeUnknownFileTypes = true,
-                DefaultContentType = "wwwroot"
+                DefaultContentType = "wwwroot",
             });
 
             app.UseRouting();
