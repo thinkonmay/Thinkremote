@@ -1,33 +1,18 @@
-import { setDebug } from "./app.js";
-import { ondatachannel } from "./datachannel.js";
-import { onRemoteTrack } from "./GUI.js";
-import { startCollectingStat } from "./quality-track.js";
-import { SignallingSend } from "./signalling.js"
-
-var RemotePipeline = 
-{
-    RTCPeerConnection:  null,
-    VideoElement: null,
-    
-    State: 'Disconnected',
-}
-
-
-
 /**
  * 
  * @param {*} ice 
  */
-export function 
-onIncomingICE(ice) {
-    setDebug("ICE RECEIVED : "+JSON.stringify(ice));
+function onIncomingICE(ice) {
     var candidate = new RTCIceCandidate(ice);
-    RemotePipeline.RTCPeerConnection.addIceCandidate(candidate)
-    .catch((error) =>
-    {
-        setDebug(error);
-    });
+    app.Webrtc.addIceCandidate(candidate).catch(app.setError);
 }
+
+
+
+
+
+
+
 
 
 /**
@@ -37,23 +22,16 @@ onIncomingICE(ice) {
  *
  * @param {RTCSessionDescription} sdp
  */
-export function 
-onIncomingSDP(sdp) 
-{
-    setDebug("SDP RECEIVED : "+JSON.stringify(sdp));
-    if (sdp.type != "offer")
-        return;
-
-    RemotePipeline.State = "Got SDP offer";        
-
-    RemotePipeline.RTCPeerConnection.setRemoteDescription(sdp).then(() => {
-        RemotePipeline.RTCPeerConnection.createAnswer()
-            .then(onLocalDescription).catch((error =>{
-                setDebug(error);
-            }));
-        }).catch(error => {
-        setDebug(error)
-    });
+function onIncomingSDP(sdp) {
+    app.Webrtc.setRemoteDescription(sdp).then(() => {
+        app.setStatus("Remote SDP set");
+        if (sdp.type != "offer")
+            return;
+        app.setStatus("Got SDP offer");        
+        app.Webrtc.createAnswer()
+            .then(onLocalDescription).catch(app.setError);
+        
+    }).catch(app.setError);
 }
 
 
@@ -62,51 +40,99 @@ onIncomingSDP(sdp)
  *
  * @param {RTCSessionDescription} local_sdp
  */
-function 
-onLocalDescription(desc) {
-    RemotePipeline.RTCPeerConnection.setLocalDescription(desc).then(function() {
-        var sdp = {'sdp': RemotePipeline.RTCPeerConnection.localDescription}
-        SignallingSend("OFFER_SDP",JSON.stringify(sdp));
+function onLocalDescription(desc) {
+    app.Webrtc.setLocalDescription(desc).then(function() {
+        app.setStatus("Sending SDP " + desc.type);
+        sdp = {'sdp': app.Webrtc.localDescription}
+    
+    console.log("[Send SDP]: " + JSON.stringify(desc));
+    SignallingSend("OFFER_SDP",JSON.stringify(sdp));
     });
 }
 
 
 
+
+/**
+ * Handles incoming track event from peer connection.
+ *
+ * @param {Event} event - Track event: https://developer.mozilla.org/en-US/docs/Web/API/RTCTrackEvent
+ */
+ function onRemoteTrack(event) {
+    if (app.VideoElement.srcObject !== event.streams[0]) {
+        console.log('Incoming stream');
+        app.VideoElement.srcObject = event.streams[0];
+    }
+}
+
+
+    
+
+
+/**
+ * Control data channel has been estalished, 
+ * start report stream stats to slave
+ * @param {Event} event 
+ */
+function 
+onControlDataChannel(event)
+{
+    app.ControlDC = event.channel;
+    app.ControlDC.send(JSON.stringify({
+        Device: DeviceType.WEBAPP,
+        Engine: CoreEngine.CHROME,
+    }))
+    app.ControlDC.onmessage = (event =>{
+        if(event.data == "ping") {
+            app.ControlDC.send("ping");
+        }
+    });
+}
+
+function
+onHidDataChannel(event)
+{
+    app.HidDC = event.channel;
+    connectionDone();
+}
+
+function
+ondatachannel(event)
+{
+    if(event.channel.label === "HID"){
+        onHidDataChannel(event);
+    }else if(event.channel.label === "Control"){
+        onControlDataChannel(event);
+    }
+}
+
+
 function
 onICECandidates(event)
 {
-    if (event.candidate == null) 
-    {
+    // We have a candidate, send it to the remote party with the
+    // same uuid
+    if (event.candidate == null) {
         console.log("ICE Candidate was null, done");
+        document.getElementById("loading").innerHTML = " ";
         return;
     }
-
-    SignallingSend("OFFER_ICE",JSON.stringify({
-        'ice': event.candidate
-    }));
+    app.setDebug("OFFER_ICE" + JSON.stringify({'ice': event.candidate}));
+    SignallingSend("OFFER_ICE",JSON.stringify({'ice': event.candidate}));
 }
 
 /**
  * Initiate connection to signalling server. 
  * invoke after request sdp signal has been replied
  */
-export function 
-WebrtcConnect(RTCconfig) 
+function 
+WebrtcConnect() 
 {
-    RemotePipeline.State             = null;
-    RemotePipeline.RTCPeerConnection = null;
+    console.log('Creating RTCPeerConnection');
 
-    RemotePipeline.RTCPeerConnection = new RTCPeerConnection(RTCconfig);
-
-    RemotePipeline.RTCPeerConnection.ondatachannel =  ondatachannel;    
-    RemotePipeline.RTCPeerConnection.ontrack =        onRemoteTrack;
-    RemotePipeline.RTCPeerConnection.onicecandidate = onICECandidates;
-
-    startCollectingStat();
-}
-
-export const
-getRTCConnection = () => 
-{
-    return RemotePipeline.RTCPeerConnection;
+    var config = app.RTPconfig;
+    app.Webrtc = new RTCPeerConnection(config);
+    app.Webrtc.ondatachannel = ondatachannel;    
+    app.Webrtc.ontrack = onRemoteTrack;
+    app.Webrtc.onicecandidate = onICECandidates;
 }

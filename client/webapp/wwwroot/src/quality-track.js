@@ -1,33 +1,15 @@
-import { clientLog, setDebug } from "./app.js";
-import { turnOffLoaddingScreen } from "./GUI.js";
-import { getRTCConnection } from "./webrtc.js";
-
-/*
-* Metric serve for adaptive streaming algorithm
-*/
-var StreamMetric =
-{
-    currentTime: 0,
-    AudioBitrate: 0,
-    VideoBitrate: 0,
-    Framerate: 0,
-
-
-    PacketsLost: 0,
-    AudioLatency: 0,
-    VideoLatency: 0,
-    TotalBandwidth:  0,
+var applyTimestamp = (msg) => {
+    var now = new Date();
+    var ts = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+    return "[" + ts + "]" + " " + msg;
 }
 
 
-
-
-
-
-
 function  
-getConnectionStats(WebRTC) 
+getConnectionStats() 
 {
+    var pc = app.Webrtc;
+
     var connectionDetails = {};   // the final result object.
 
     if (window.chrome) {  // checking if chrome
@@ -49,7 +31,7 @@ getConnectionStats(WebRTC)
         ];
 
         return new Promise(function (resolve, reject) {
-            WebRTC.getStats(function (stats) {
+            pc.getStats(function (stats) {
 
                 var filteredVideo = stats.result().filter(function (e) 
                 {
@@ -92,19 +74,121 @@ getConnectionStats(WebRTC)
         });
 
     } else {
-        setDebug("unable to fetch connection stats for brower, only Chrome is supported.");
+        app.setError("unable to fetch connection stats for brower, only Chrome is supported.");
+    }
+}
+
+
+/**
+ * Captures display and video dimensions required for computing mouse pointer position.
+ * app should be fired whenever the window size changes.
+ */
+function
+windowCalculate() 
+{
+    /**
+     * size of video element (included its border) on client screen
+     * (displayed video size)
+     */
+    app.Screen.clientWidth = app.VideoElement.offsetWidth;
+    app.Screen.clientHeight = app.VideoElement.offsetHeight;
+
+    /**
+     * actual video width and height of incoming stream 
+     * (registered in session initialize step)
+     */
+    app.Screen.StreamWidth =  app.VideoElement.videoWidth;
+    app.Screen.StreamHeight = app.VideoElement.videoHeight;
+
+    /**
+     * fraction between displayed video size and incoming stream framesize
+     * (both width and height fraction is acceptable)
+     */
+    app.Screen.fraction = Math.min
+        (app.Screen.clientWidth  / app.Screen.StreamWidth, 
+         app.Screen.clientHeight / app.Screen.StreamHeight);
+
+
+
+    const vpWidth =  app.Screen.StreamWidth  * app.Screen.fraction;
+    const vpHeight = app.Screen.StreamHeight * app.Screen.fraction;
+
+
+
+    /**
+     * reposition mouse after screen resolution has been changed
+     */
+    app.Mouse = {
+        /**
+         * relation between frame size and actual window size
+         */
+        "mouseMultiX": app.Screen.StreamWidth / vpWidth,
+        "mouseMultiY": app.Screen.StreamHeight / vpHeight,
+
+        /**
+         * 
+         */
+        "mouseOffsetX": Math.max((app.Screen.clientWidth  - vpWidth) / 2.0, 0),
+        "mouseOffsetY": Math.max((app.Screen.clientHeight - vpHeight) / 2.0, 0),
+
+
+        /**
+         * 
+         */
+        "centerOffsetX": (document.documentElement.clientWidth - app.VideoElement.offsetWidth) / 2.0,
+        "centerOffsetY": (document.documentElement.clientHeight - app.VideoElement.offsetHeight) / 2.0,
+
+        /**
+         * 
+         */
+        "scrollX": window.scrollX,
+        "scrollY": window.scrollY,
+
+        /**
+         * 
+         */
+        "frameW": app.Screen.StreamWidth,
+        "frameH": app.Screen.StreamHeight,
+    };
+    
+    /**
+     * resize slave window if client window has been resize
+     */
+    if(app.adaptiveScreenSize)
+    {
+        app.QoeReset();
     }
 }
 
 
 
-
-
 /**
- * 
+ * get window resolution
+ * @returns 2 element list control screen width and height
  */
-export function
-startCollectingStat()
+function 
+getWindowResolution() 
+{
+    return [ /**/
+        parseInt(app.VideoElement.offsetWidth * window.devicePixelRatio),
+        parseInt(app.VideoElement.offsetHeight * window.devicePixelRatio)
+    ];
+}
+
+
+
+
+function 
+ResizeWindow()
+{
+    app.windowResolution = getWindowResolution();
+    app.logEntries.push(`Window size changed: ${app.windowResolution[0]}x${app.windowResolution[1]}`);
+}
+
+
+
+function
+get_stats()
 {
     /**
      * statstistic control variable
@@ -113,80 +197,88 @@ startCollectingStat()
     var audiobytesReceivedStart = 0;
     var statsStart = new Date().getTime() / 1000;
     var statsLoop = () => {        
-        getConnectionStats(getRTCConnection()).then((stats) => 
+        getConnectionStats().then((stats) => 
         {
-            StreamMetric.AudioLatency = parseInt(stats.audioCurrentDelayMs);
+            if (app.audioEnabled) {
+                app.adaptive.AudioLatency = parseInt(stats.audioCurrentDelayMs);
+
+
+            } else {
+                stats.audiobytesReceived = 0;
+            }
             
             // Compute current video bitrate in mbps
             var now = new Date().getTime() / 1000;
-
             /**
              * time value of an sample
              */
-            StreamMetric.currentTime = now - statsStart;
+            app.adaptive.currentTime = now - statsStart;
 
 
+            app.connectionStatType = stats.videoLocalCandidateType;
 
             /**
              * packets lost
              */
-            StreamMetric.PacketsLost = parseInt(stats.videopacketsLost);
+            app.adaptive.PacketsLost = parseInt(stats.videopacketsLost);
 
+            /**
+             * video codec,ex HEVC
+             */
+            app.connectionVideoCodecName = stats.videoCodecName;
             /**
              * video decoder ex:ffmpeg
              */
-            var connectionVideoDecoder =            stats.videocodecImplementationName;
-            var connectionVideoCodecName =          stats.videoCodecName;
-            var connectionStatType =                stats.videoLocalCandidateType;
-            var connectionResolution =              stats.videoFrameWidthReceived + "x" + stats.videoFrameHeightReceived;
+            app.connectionVideoDecoder = stats.videocodecImplementationName;
+
+            app.connectionResolution = stats.videoFrameWidthReceived + "x" + stats.videoFrameHeightReceived;
 
             /**
              * (volatile) framerate of the stream
              */
-            StreamMetric.Framerate = parseInt(stats.videoFrameRateOutput);
+            app.adaptive.Framerate = parseInt(stats.videoFrameRateOutput);
 
             /**
              * (volatile) total bandwidth of the stream
              */
-            StreamMetric.TotalBandwidth =  parseInt(stats.videoAvailableReceiveBandwidth);
+            app.adaptive.TotalBandwidth =  parseInt(stats.videoAvailableReceiveBandwidth);
 
             
             /**
              * (volatile) video latency
              */
-            StreamMetric.VideoLatency = parseInt(stats.videoCurrentDelayMs);
+            app.adaptive.VideoLatency = parseInt(stats.videoCurrentDelayMs);
 
                 /**
                  * (volatile) video bitrate 
                  */
-            StreamMetric.VideoBitrate = Math.round(parseInt((stats.videobytesReceived) - bytesReceivedStart) / (now - statsStart));
+            app.adaptive.VideoBitrate = Math.round(parseInt((stats.videobytesReceived) - bytesReceivedStart) / (now - statsStart));
             bytesReceivedStart = parseInt(stats.videobytesReceived);
 
 
-            StreamMetric.AudioBitrate = Math.round((parseInt(stats.audiobytesReceived) - audiobytesReceivedStart) / (now - statsStart));
+            app.adaptive.AudioBitrate = Math.round((parseInt(stats.audiobytesReceived) - audiobytesReceivedStart) / (now - statsStart));
             audiobytesReceivedStart = parseInt(stats.audiobytesReceived);
-
 
 
             /**
              * prepare message to report qoe metric to slave
              */         
-            clientLog
+            sendControlDC
             (
+                JSON.stringify(
                 {
-                    FrameRate:      StreamMetric.Framerate,
+                    "FrameRate": app.adaptive.Framerate,
     
-                    AudioLatency:   StreamMetric.AudioLatency,
-                    VideoLatency:   StreamMetric.VideoLatency,
+                    "AudioLatency": app.adaptive.AudioLatency,
+                    "VideoLatency": app.adaptive.VideoLatency,
     
-                    AudioBitrate:   StreamMetric.AudioBitrate,
-                    VideoBitrate:   StreamMetric.VideoBitrate,
+                    "AudioBitrate": app.adaptive.AudioBitrate,
+                    "VideoBitrate": app.adaptive.VideoBitrate,
     
-                    TotalBandwidth: StreamMetric.TotalBandwidth,
-                    PacketsLost:    StreamMetric.PacketsLost
-                }
+                    "TotalBandwidth": app.adaptive.TotalBandwidth,
+                    "PacketsLost": app.adaptive.PacketsLost
+                })
             );            
-
             statsStart = now;
 
             // Stats refresh loop.

@@ -1,4 +1,4 @@
-@model RemoteViewModel
+@model DevelopmentViewModel 
 
 <script>
 var app = new Vue({
@@ -7,14 +7,15 @@ var app = new Vue({
     {
         return {
             loadingText: '',
-            remoteToken: "@Model.token",
+            remoteToken = "TestingClientModuleToken"; 
+
 
             connectionVideoDecoder: "unknown",
             connectionStatType: "unknown",
             connectionAudioCodecName: "unknown",
             connectionVideoCodecName: "unknown",
             connectionResolution: "",
-            
+
             /*parameter serve for session initialization */
             SignallingUrl: "@Model.session.signallingurl",
 
@@ -81,12 +82,6 @@ var app = new Vue({
                 relativeMouse:false,
             },
 
-            pressedKey:
-            {
-                mouse: [ ],
-                keyboard: [ ]
-            },
-
             /*
             * Metric serve for adaptive streaming algorithm
             */
@@ -120,7 +115,7 @@ var app = new Vue({
                         urls: ["stun:stun.l.google.com:19302"]
                     }
                 ],
-                "bundle-policy":"max-compat",
+                "bundle-policy":"max-compat"
                 "iceTransportPolicy" : "@Model.icePolicy"
             },
 

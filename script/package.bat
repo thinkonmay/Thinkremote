@@ -3,7 +3,7 @@ dotnet build worker/port-forward --output "bin" --self-contained true --runtime 
 dotnet build signalling --output "bin" --self-contained false 
 dotnet build client/webapp --output "bin" --self-contained true --runtime win-x64
 
-call "C:\Program Files\Microsoft Visual Studio\2022\Preview\VC\Auxiliary\Build\vcvarsall.bat" amd64_x86
+call "D:\TraTanTinhThan\VS\VC\Auxiliary\Build\vcvarsall.bat" amd64_x86
 
 
 RMDIR /S /Q build 

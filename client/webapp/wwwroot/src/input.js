@@ -1,68 +1,12 @@
-import { sendHIDMessage } from "./datachannel.js";
-import { JavaScriptOpcode, ShortcutOpcode } from "./enum.js";
-import { enterFullscreen, getVideoElement, windowCalculate } from "./GUI.js";
-
-var CaptureInput = 
+/**
+ * attach event handler when Hid channel is connected
+ * @param {Event} event 
+ */
+function 
+connectionDone()  
 {
-    Mouse: 
-    {
-        /**
-         * relation between frame size and actual window size
-         * (used to determine relation between client mouse and its position on slave screen)
-         */
-        mouseMultiX: 0,
-        mouseMultiY: 0,
-
-        /**
-         * 
-         */
-        mouseOffsetX: 0,
-        mouseOffsetY: 0,
-
-        /**
-        *
-        */
-        centerOffsetX: 0,
-        centerOffsetY: 0,
-
-        /*
-        *
-        */
-        scrollX: 0,
-        scrollY: 0,
-
-        /*
-        *
-        */
-        frameW:0,
-        frameH:0,
-    },
-
-    relativeMouse:false,
-
-    shortcuts: [],
-    EventListeners: [],
+    AttachEvent();
 }
-
-export const new_shortcut = (Opcode,key_list) => {
-    var shortcutTriggered = new Event('trigger');
-    CaptureInput.shortcuts.push({
-        Opcode: Opcode,
-        key_list: key_list,
-        event: shortcutTriggered
-    }); 
-}
-
-export const triggerEventByOpcode = (Opcode) => {
-    CaptureInput.shortcuts.forEach((element) =>{
-        if(element.Opcode === Opcode)
-        {
-            element.dispatchEvent(element.event);
-        }
-    })
-}
-
-
 
 
 /**
@@ -72,13 +16,39 @@ export const triggerEventByOpcode = (Opcode) => {
 function 
 mouseButtonUp(event) 
 {
-    var INPUT =
-    {
-        Opcode:   JavaScriptOpcode.MOUSE_UP,
-        button:   event.button,
-    };
+    for (let index = 0; index < app.pressedKey.mouse.length; index++) {
+        const element = app.pressedKey.mouse[index];
+        if(event.code === element)
+        {
+            app.pressedKey.mouse.splice(index,1);
+        }
+    }
 
-    sendHIDMessage(JSON.stringify(INPUT));
+    if(app.Mouse.relativeMouse)
+    {        
+        var INPUT =
+        {
+            "Opcode":   HidOpcode.MOUSE_UP,
+            "button":   event.button,
+        }
+    
+        app.HidDC.send(JSON.stringify(INPUT));
+    }
+    else
+    {
+        var mousePosition_X = clientToServerX(event.clientX);
+        var mousePosition_Y = clientToServerY(event.clientY);
+
+        var INPUT =
+        {
+            "Opcode":   HidOpcode.MOUSE_UP,
+            "button":   event.button,
+            "dX":       mousePosition_X,
+            "dY":       mousePosition_Y,
+        }
+    
+        app.HidDC.send(JSON.stringify(INPUT));
+    }
     event.preventDefault();
 }
 
@@ -89,15 +59,17 @@ mouseButtonUp(event)
 function 
 mouseButtonDown(event) 
 {
-    if(CaptureInput.relativeMouse)
+    app.pressedKey.mouse.push(event.button);
+
+    if(app.Mouse.relativeMouse)
     {        
         var INPUT =
         {
-            Opcode:   JavaScriptOpcode.MOUSE_DOWN,
-            button:   event.button,
+            "Opcode":   HidOpcode.MOUSE_DOWN,
+            "button":   event.button,
         }
     
-        sendHIDMessage(JSON.stringify(INPUT));
+        app.HidDC.send(JSON.stringify(INPUT));
     }
     else
     {
@@ -106,13 +78,13 @@ mouseButtonDown(event)
         
         var INPUT =
         {
-            Opcode:   JavaScriptOpcode.MOUSE_DOWN,
-            button:   event.button,
-            dX:       mousePosition_X,
-            dY:       mousePosition_Y
+            "Opcode":   HidOpcode.MOUSE_DOWN,
+            "button":   event.button,
+            "dX":       mousePosition_X,
+            "dY":       mousePosition_Y
         }
     
-        sendHIDMessage(JSON.stringify(INPUT));
+        app.HidDC.send(JSON.stringify(INPUT));
     }
     event.preventDefault();
 }
@@ -126,8 +98,7 @@ mouseButtonMovement(event)
 {
     var mousePosition_X; 
     var mousePosition_Y;
-
-    if(CaptureInput.relativeMouse)
+    if(app.Mouse.relativeMouse)
     {
         mousePosition_X = event.movementX;
         mousePosition_Y = event.movementY;
@@ -139,11 +110,11 @@ mouseButtonMovement(event)
 
     var INPUT =
     {
-        "Opcode":   JavaScriptOpcode.MOUSE_MOVE,
+        "Opcode":   HidOpcode.MOUSE_MOVE,
         "dX":       mousePosition_X,
         "dY":       mousePosition_Y,
     }
-    sendHIDMessage(JSON.stringify(INPUT));
+    app.HidDC.send(JSON.stringify(INPUT));
 }
 
 /**
@@ -153,12 +124,64 @@ mouseButtonMovement(event)
 function 
 mouseWheel(event)
 {
+    var mousePosition_X = clientToServerX(event.clientX);
+    var mousePosition_Y = clientToServerY(event.clientY);
+
     var INPUT =
     {
-        "Opcode":   JavaScriptOpcode.MOUSE_WHEEL,
+        "Opcode":   HidOpcode.MOUSE_WHEEL,
+        "dX":       mousePosition_X,
+        "dY":       mousePosition_Y,
         "WheeldY":  event.deltaY
     }
-    sendHIDMessage(JSON.stringify(INPUT));
+
+    app.HidDC.send(JSON.stringify(INPUT));
+}
+
+function 
+reset_mouse()
+{
+    var mousePosition_X = clientToServerX(0);
+    var mousePosition_Y = clientToServerY(0);              
+
+
+    app.pressedKey.mouse.forEach(element => {
+        var INPUT =
+        {
+            "Opcode":HidOpcode.MOUSE_UP,
+            "button":element,
+            "dX":mousePosition_X,
+            "dY":mousePosition_Y,
+        }
+        app.HidDC.send(JSON.stringify(INPUT));
+    });
+    app.pressedKey.mouse = [];
+}
+
+function 
+reset_keyboard()
+{
+    // var array = [
+    //         "ControlLeft",
+    //         "ShiftLeft",
+    //         "AltLeft",
+    //         "Home",
+    //         "MetaLeft",
+    //         "KeyF",
+    //         "KeyM",
+    //         "Escape"
+    //     ]; 
+
+
+    app.pressedKey.keyboard.forEach(element => {
+        var INPUT = 
+        {
+            "Opcode":HidOpcode.KEYUP,
+            "wVk": element,
+        }
+        app.HidDC.send(JSON.stringify(INPUT));
+    });
+    app.pressedKey.keyboard = [];
 }
 
 
@@ -171,13 +194,21 @@ contextMenu(event)
 
 function keyup(event) 
 {  
-    var Keyboard =
-    {
-        Opcode:     JavaScriptOpcode.KEYUP,
-        wVk:        event.code,
+    for (let index = 0; index < app.pressedKey.keyboard.length; index++) {
+        const element = app.pressedKey.keyboard[index];
+        if(event.code === element)
+        {
+            app.pressedKey.keyboard.splice(index,1);
+        }
     }
 
-    sendHIDMessage(JSON.stringify(Keyboard));
+    var Keyboard =
+    {
+        "Opcode":HidOpcode.KEYUP,
+        "wVk":event.code,
+    }
+
+    app.HidDC.send(JSON.stringify(Keyboard));
 
     // disable problematic browser shortcuts
     if ((event.code === 'F5' && event.ctrlKey)||
@@ -194,11 +225,17 @@ function keyup(event)
 function 
 keydown(event) 
 {
+    app.pressedKey.keyboard.push(event.code);
+
+    
+    if (event.ctrlKey && 'cvxspuazrkjlnoedfgh'.indexOf(event.key) !== -1) {
+        event.preventDefault()
+    }
+
     if (event.code === 'KeyP' && event.ctrlKey && event.shiftKey) {
         if(!document.pointerLockElement)
         {
-            var VideoElement = getVideoElement();
-            VideoElement.requestPointerLock();
+            app.VideoElement.requestPointerLock();
             event.preventDefault();
             return;
         }
@@ -211,22 +248,21 @@ keydown(event)
     }
 
     // capture menu hotkey
-    if (event.code === 'KeyF' && event.ctrlKey && event.shiftKey) 
-    {
+    if (event.code === 'KeyF' && event.ctrlKey && event.shiftKey) {
         if (document.fullscreenElement === null) 
         {
-            enterFullscreen();
+            app.enterFullscreen();
             event.preventDefault();
             return;
         }
     }
     var Keyboard =
     {
-        Opcode   : JavaScriptOpcode.KEYDOWN,
-        wVk      : event.code,
+        "Opcode":HidOpcode.KEYDOWN,
+        "wVk":event.code,
     }
 
-    sendHIDMessage(JSON.stringify(Keyboard));
+    app.HidDC.send(JSON.stringify(Keyboard));
 
     // disable problematic browser shortcuts
     if ((event.code === 'F5' && event.ctrlKey) ||
@@ -250,11 +286,11 @@ clientToServerX(clientX)
 {
     let serverX = Math.round
     (
-        (clientX - CaptureInput.Mouse.mouseOffsetX - CaptureInput.Mouse.centerOffsetX + CaptureInput.Mouse.scrollX) * CaptureInput.Mouse.mouseMultiX
+        (clientX - app.Mouse.mouseOffsetX - app.Mouse.centerOffsetX + app.Mouse.scrollX) * app.Mouse.mouseMultiX
     );
 
-    if (serverX === CaptureInput.Mouse.frameW - 1) serverX = CaptureInput.Mouse.frameW;
-    if (serverX > CaptureInput.Mouse.frameW) serverX = CaptureInput.Mouse.frameW;
+    if (serverX === app.Mouse.frameW - 1) serverX = app.Mouse.frameW;
+    if (serverX > app.Mouse.frameW) serverX = app.Mouse.frameW;
     if (serverX < 0) serverX = 0;
 
     return Math.round(serverX);
@@ -271,71 +307,101 @@ clientToServerY(clientY)
      * mouse position on slave device is calculated by 
      */
     let serverY = Math.round(
-        (clientY - CaptureInput.Mouse.mouseOffsetY - CaptureInput.Mouse.centerOffsetY + CaptureInput.Mouse.scrollY)
-            * CaptureInput.Mouse.mouseMultiY);
+        (clientY - app.Mouse.mouseOffsetY - app.Mouse.centerOffsetY + app.Mouse.scrollY)
+            * app.Mouse.mouseMultiY);
 
-    if (serverY === CaptureInput.Mouse.frameH - 1) serverY = CaptureInput.Mouse.frameH;
-    if (serverY > CaptureInput.Mouse.frameH) serverY = CaptureInput.Mouse.frameH;
+    if (serverY === app.Mouse.frameH - 1) serverY = app.Mouse.frameH;
+    if (serverY > app.Mouse.frameH) serverY = app.Mouse.frameH;
     if (serverY < 0) serverY = 0;
 
     return  Math.round(serverY);
 }
 
 
+/**
+ * When fullscreen is entered, request keyboard and pointer lock.
+ */
+function 
+onFullscreenChange() 
+{
+    if (document.fullscreenElement !== null) 
+    {
+        // Enter fullscreen
+        //allow capture function key (ctrl, shift, tab)
+
+        // app.VideoElement.requestPointerLock();
+        // requestKeyboardLock();
+    }
+    reset_keyboard();
+}
 
 
 
 function
 mouseLeaveEvent(event)
 {
-    triggerEventByOpcode(ShortcutOpcode.RESET_KEY);
+    reset_keyboard();
+    reset_mouse();
 }
 
 
 /**
  * Attaches input event handles to docuemnt, window and element.
  */
-export function 
+function 
 AttachEvent() 
 {
+
     /**
      * determine screen parameter before connect HID event handler
      */
     windowCalculate();
-    var VideoElement = getVideoElement();
+
+    /**
+     * full screen event
+     */
+    app.EventListeners.push(addListener(app.VideoElement.parentElement, 'fullscreenchange', onFullscreenChange, null));
 
     /**
      * video event
      */
-    CaptureInput.EventListeners.push(addListener(VideoElement, 'contextmenu', contextMenu, null)); ///disable content menu key on remote control
+    app.EventListeners.push(addListener(app.VideoElement, 'contextmenu', contextMenu, null)); ///disable content menu key on remote control
 
     /**
      * mouse event
      */
-    CaptureInput.EventListeners.push(addListener(VideoElement, 'wheel', mouseWheel, null));
-    CaptureInput.EventListeners.push(addListener(VideoElement, 'mousemove', mouseButtonMovement, null));
-    CaptureInput.EventListeners.push(addListener(VideoElement, 'mousedown', mouseButtonDown, null));
-    CaptureInput.EventListeners.push(addListener(VideoElement, 'mouseup', mouseButtonUp, null));
+    app.EventListeners.push(addListener(app.VideoElement, 'wheel', mouseWheel, null));
+    app.EventListeners.push(addListener(app.VideoElement, 'mousemove', mouseButtonMovement, null));
+    app.EventListeners.push(addListener(app.VideoElement, 'mousedown', mouseButtonDown, null));
+    app.EventListeners.push(addListener(app.VideoElement, 'mouseup', mouseButtonUp, null));
+    app.EventListeners.push(addListener(app.VideoElement, 'mouseleave', mouseLeaveEvent, null));
+
 
     /**
      * mouse lock event
      */
-    CaptureInput.EventListeners.push(addListener(VideoElement, 'mouseleave', mouseLeaveEvent, null));
-    CaptureInput.EventListeners.push(addListener(document,     'pointerlockchange', pointerLock, null));
+    app.EventListeners.push(addListener(document, 'pointerlockchange', pointerLock, null));
     
     /**
      * keyboard event
      */
-    CaptureInput.EventListeners.push(addListener(window, 'keydown', keydown, null));
-    CaptureInput.EventListeners.push(addListener(window, 'keyup', keyup, null));
+    app.EventListeners.push(addListener(window, 'keydown', keydown, null));
+    app.EventListeners.push(addListener(window, 'keyup', keyup, null));
+
+    /**
+     * window resize event
+     */
+    app.EventListeners.push(addListener(app.VideoElement, 'resize', windowCalculate, null));
+    app.EventListeners.push(addListener(window, 'resize', windowCalculate, null));
 
     /**
      * scroll event
      */
-    CaptureInput.EventListeners.push(addListener(window, 'scroll', () => {
-        CaptureInput.Mouse.scrollX = window.scrollX;
-        CaptureInput.Mouse.scrollY = window.scrollY;
-    }));
+    app.EventListeners.push(addListener(window, 'scroll', () => 
+    {
+        app.Mouse.scrollX = window.scrollX;
+        app.Mouse.scrollY = window.scrollY;
+    }, app));
 
 }
 
@@ -344,25 +410,30 @@ AttachEvent()
  * Sends WebRTC app command to toggle display of the remote mouse pointer.
  */
 function pointerLock() {
-
-    if (document.pointerLockElement) 
-        CaptureInput.relativeMouse = true;
-    else 
-        CaptureInput.relativeMouse = false;
-
-    var INPUT =
-    {
-        "Opcode":JavaScriptOpcode.POINTER_LOCK,
-        "Value":false
+    if (document.pointerLockElement) {
+        app.Mouse.relativeMouse = true;
+        var INPUT =
+        {
+            "Opcode":HidOpcode.POINTER_LOCK,
+            "Value":true
+        }
+        app.HidDC.send(JSON.stringify(INPUT));
+    } else {        
+        app.Mouse.relativeMouse = false;
+        var INPUT =
+        {
+            "Opcode":HidOpcode.POINTER_LOCK,
+            "Value":false
+        }
+        app.HidDC.send(JSON.stringify(INPUT));
     }
-    sendHIDMessage(JSON.stringify(INPUT));
 }
 
 
-export function 
+function 
 DetachEvent() 
 {
-    removeListeners(CaptureInput.EventListeners);
+    removeListeners(app.EventListeners);
     document.exitPointerLock();
     reset_keyboard();
 }
@@ -370,7 +441,7 @@ DetachEvent()
 /**
  * Request keyboard lock, must be in fullscreen mode to work.
  */
-export function 
+function 
 requestKeyboardLock() 
 {
     /**
@@ -387,8 +458,7 @@ requestKeyboardLock()
     ];
     
     console.log("requesting keyboard lock");
-    Navigator.keyboard.lock(keys)
-    .then(
+    Navigator.keyboard.lock(keys).then(
         () => {
             console.log("keyboard lock success");
         }
@@ -431,9 +501,3 @@ removeListeners(listeners)
         listener[0].removeEventListener(listener[1], listener[2]);
 }
 
-
-export function
-updateMouseOffset(mouse)
-{
-    CaptureInput.Mouse = mouse;
-}
