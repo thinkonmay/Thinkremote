@@ -15,10 +15,8 @@ Features
 
 Join us
 -----------
-[Website](https://www.thinkmay.net) |
-[Chat](https://join.slack.com/t/thinkmayworkspace/shared_invite/zt-ywglslgj-fQb4Po4JagVaHbZ8wwiqpg) |
 [Architecture](https://miro.com/app/board/o9J_lTKComc=/?invite_link_id=202014558866) |
-[Document](https://thinkonmay.notion.site/5a4909c660374a4ca0286d766bf3b9f1?v=bd0da1b672c14c6fbe2f2ad4d29b99b7)
+[Document](https://thinkonmay.notion.site/thinkonmay/Features-timeline-4eaf284ba59e4355a95fa6200b8288f1)
 
 Requirement to build
 -------------------------
