@@ -16,12 +16,14 @@ list(FILTER SOURCE EXCLUDE REGEX ".capture-key.c")
 list(FILTER SOURCE EXCLUDE REGEX ".handle-key.c")
 list(FILTER SOURCE EXCLUDE REGEX ".overlay-gui.c")
 
-add_executable(agent ${SOURCE})
+add_library(agent STATIC ${SOURCE})
 
 
-set_target_properties(agent PROPERTIES 
- RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
+# set_target_properties(agent PROPERTIES 
+#         RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
+set_target_properties(agent PROPERTIES
+        LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
 
 target_include_directories(agent 

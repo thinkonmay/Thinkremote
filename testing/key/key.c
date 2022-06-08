@@ -11,11 +11,12 @@
 #include <glib-2.0/glib.h>
 #include <gst/gst.h>
 
+#ifdef G_OS_WIN32
 #include <shortcut.h>
-#include <handle-key.h>
 #include <capture-key.h>
 #include <overlay-gui.h>
-
+#include <handle-key.h>
+#endif
 
 
 void            
@@ -25,9 +26,11 @@ print_out(gchar* message,
     g_print("%s \n ",message);
 }
 
+
 int 
 main()
 {
+#ifdef G_OS_WIN32
     gst_init(NULL,NULL);
 
     GError* error = NULL;
@@ -54,4 +57,5 @@ main()
 
     GMainLoop* loop = g_main_loop_new(NULL,FALSE);
     g_main_loop_run(loop);
+#endif
 }

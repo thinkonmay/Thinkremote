@@ -25,7 +25,7 @@ typedef struct _DeviceInformation
 {
 	gchar cpu[100];
 	gchar gpu[512];
-	gint ram_capacity;
+	gint  ram_capacity;
 	gchar OS[100];
 	gchar IP[100];
 	gchar Name[100];

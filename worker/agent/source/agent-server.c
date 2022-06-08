@@ -169,6 +169,7 @@ development_agent(AgentServer* agent)
 AgentServer*
 agent_new(gchar* token)
 {
+	return NULL;
 	AgentServer* agent = malloc(sizeof(AgentServer));
 	memset(agent,0,sizeof(AgentServer));
 

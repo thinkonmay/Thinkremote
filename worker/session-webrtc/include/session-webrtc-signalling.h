@@ -53,16 +53,6 @@ void                            on_negotiation_needed                           
  */
 void                            connect_signalling_handler                              (SessionCore* core);
 
-/**
- * @brief 
- * on ice gathering state notify
- * @param webrtcbin 
- * @param pspec 
- * @param user_data 
- */
-void                            on_ice_gathering_state_notify                           (GstElement* webrtcbin,
-                                                                                        GParamSpec* pspec,
-                                                                                        gpointer user_data);
 
 /**
  * @brief 

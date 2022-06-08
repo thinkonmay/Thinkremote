@@ -1,2 +1,2 @@
-add_subdirectory(key)
-add_subdirectory(repeated-key)
+# add_subdirectory(key)
+# add_subdirectory(repeated-key)
